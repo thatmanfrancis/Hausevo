@@ -57,9 +57,52 @@ function isExternalUrl(url: string) {
   return url.startsWith("http://") || url.startsWith("https://");
 }
 
-export default function VaultClient({ items }: { items: VaultItem[] }) {
+export default function VaultClient({ items: initialItems }: { items: VaultItem[] }) {
+  const [items, setItems] = useState(initialItems);
   const [filter, setFilter] = useState<string>("ALL");
   const [search, setSearch] = useState("");
+  const [showUpload, setShowUpload] = useState(false);
+
+  // Upload form state
+  const [uploadTitle, setUploadTitle] = useState("");
+  const [uploadUrl, setUploadUrl] = useState("");
+  const [uploadCategory, setUploadCategory] = useState("IDENTITY");
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
+
+  async function handleUpload(e: React.FormEvent) {
+    e.preventDefault();
+    setUploading(true);
+    setUploadError("");
+
+    try {
+      const res = await fetch("/api/vault", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: uploadTitle,
+          fileUrl: uploadUrl,
+          category: uploadCategory,
+        }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        setUploadError(data.error ?? "Failed to add document. Please try again.");
+        return;
+      }
+
+      setItems((prev) => [{ ...data.item, property: null }, ...prev]);
+      setShowUpload(false);
+      setUploadTitle("");
+      setUploadUrl("");
+      setUploadCategory("IDENTITY");
+    } catch {
+      setUploadError("Network error. Please try again.");
+    } finally {
+      setUploading(false);
+    }
+  }
 
   const filtered = items.filter((item) => {
     const matchCat = filter === "ALL" || item.category === filter;
@@ -81,11 +124,103 @@ export default function VaultClient({ items }: { items: VaultItem[] }) {
           <h1 className="text-2xl font-extrabold text-zinc-900">Vault</h1>
           <p className="text-sm text-zinc-400 mt-0.5">Your verified documents, receipts, and identity records</p>
         </div>
-        <div className="text-right">
-          <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">Total</p>
-          <p className="text-2xl font-extrabold text-zinc-900">{items.length}</p>
+        <div className="flex items-center gap-3">
+          <div className="text-right">
+            <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">Total</p>
+            <p className="text-2xl font-extrabold text-zinc-900">{items.length}</p>
+          </div>
+          {!showUpload && (
+            <button
+              type="button"
+              onClick={() => setShowUpload(true)}
+              className="rounded-full bg-zinc-900 text-white px-5 py-2.5 text-sm font-bold hover:bg-zinc-700 transition-colors"
+            >
+              + Add document
+            </button>
+          )}
         </div>
       </div>
+
+      {/* Upload form */}
+      {showUpload && (
+        <div className="bg-white rounded-2xl border border-zinc-200 p-6">
+          <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Add Document</p>
+          <form onSubmit={handleUpload} className="flex flex-col gap-4">
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="uploadTitle" className="text-xs font-bold uppercase tracking-widest text-zinc-400">Title</label>
+              <input
+                id="uploadTitle"
+                type="text"
+                value={uploadTitle}
+                onChange={(e) => setUploadTitle(e.target.value)}
+                placeholder="e.g. NIN Slip, Tenancy Agreement"
+                required
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors"
+              />
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="uploadUrl" className="text-xs font-bold uppercase tracking-widest text-zinc-400">Document URL</label>
+              <input
+                id="uploadUrl"
+                type="url"
+                value={uploadUrl}
+                onChange={(e) => setUploadUrl(e.target.value)}
+                placeholder="https://drive.google.com/…"
+                required
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors"
+              />
+              <p className="text-xs text-zinc-400">Paste a link to your document (Google Drive, Dropbox, etc.)</p>
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">Category</label>
+              <div className="grid grid-cols-3 gap-2">
+                {(["IDENTITY", "DEED", "RECEIPT", "LEGAL", "INSPECTION", "UTILITY"] as const).map((cat) => (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => setUploadCategory(cat)}
+                    className={`rounded-xl border px-3 py-2 text-xs font-bold transition-colors ${
+                      uploadCategory === cat
+                        ? "border-zinc-900 bg-zinc-900 text-white"
+                        : "border-zinc-200 text-zinc-600 hover:border-zinc-400"
+                    }`}
+                  >
+                    {CATEGORY_STYLES[cat]?.label ?? cat}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {uploadError && (
+              <div className="flex items-start gap-2.5 rounded-xl bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5">
+                  <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                {uploadError}
+              </div>
+            )}
+
+            <div className="flex items-center gap-3">
+              <button
+                type="submit"
+                disabled={uploading}
+                className="rounded-full bg-zinc-900 text-white px-5 py-2.5 text-sm font-bold hover:bg-zinc-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {uploading ? "Saving…" : "Save document"}
+              </button>
+              <button
+                type="button"
+                onClick={() => { setShowUpload(false); setUploadError(""); }}
+                className="text-sm font-semibold text-zinc-500 hover:text-zinc-900 transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
 
       {/* Category filter tabs */}
       <div className="flex items-center gap-2 overflow-x-auto pb-1">

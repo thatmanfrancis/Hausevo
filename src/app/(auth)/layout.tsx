@@ -26,13 +26,21 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       </main>
 
       {/* Minimal footer */}
-      <footer className="py-6 text-center">
+      <footer className="py-6 text-center flex flex-col items-center gap-2">
         <p className="text-xs text-zinc-400">
           © {new Date().getFullYear()} Shack Technologies Ltd ·{" "}
           <Link href="/terms" className="hover:text-zinc-700 transition-colors">Terms</Link>
           {" · "}
           <Link href="/privacy" className="hover:text-zinc-700 transition-colors">Privacy</Link>
         </p>
+        <a
+          href="https://dev.lemonwares.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs text-zinc-400 hover:text-zinc-600 transition-colors"
+        >
+          A product of <span className="font-bold">LemonWares Technologies</span>
+        </a>
       </footer>
     </div>
   );

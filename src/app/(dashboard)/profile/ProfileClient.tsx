@@ -253,7 +253,7 @@ export default function ProfileClient({ user }: Props) {
             Bank Accounts
           </p>
           <Link
-            href="/wallet"
+            href="/wallet#bank-accounts"
             className="rounded-full border border-zinc-200 text-zinc-700 px-5 py-2.5 text-sm font-bold hover:border-zinc-400 transition-colors"
           >
             Add bank account

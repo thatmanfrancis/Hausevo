@@ -4,10 +4,11 @@ import { auth } from "@/lib/auth";
 
 /*
   PATCH /api/notifications/read-all
+  POST  /api/notifications/read-all  (alias — same behaviour)
   Mark all notifications as read for the logged-in user.
   Requires: active session
 */
-export async function PATCH() {
+async function handler() {
   const session = await auth();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
@@ -20,3 +21,6 @@ export async function PATCH() {
 
   return NextResponse.json({ message: `${count} notification(s) marked as read.` });
 }
+
+export const PATCH = handler;
+export const POST = handler;

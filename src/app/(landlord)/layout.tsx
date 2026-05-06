@@ -1,12 +1,14 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import MobileNav from "@/app/components/MobileNav";
-import SidebarNav from "@/app/components/SidebarNav";
+import prisma from "@/lib/prisma";
+import LogoutButton from "@/app/components/LogoutButton";
+import LandlordMobileNav from "@/app/components/LandlordMobileNav";
+import LandlordSidebarNav from "@/app/components/LandlordSidebarNav";
 
 const NAV_ITEMS = [
   {
-    href: "/dashboard",
+    href: "/landlord/dashboard",
     label: "Dashboard",
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -16,7 +18,50 @@ const NAV_ITEMS = [
     ),
   },
   {
-    href: "/chat",
+    href: "/landlord/properties",
+    label: "Properties",
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    ),
+  },
+  {
+    href: "/landlord/applications",
+    label: "Applications",
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+        <line x1="16" y1="17" x2="8" y2="17"/>
+      </svg>
+    ),
+  },
+  {
+    href: "/landlord/tenancies",
+    label: "Tenancies",
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+    ),
+  },
+  {
+    href: "/landlord/access-keys",
+    label: "Access Keys",
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+      </svg>
+    ),
+  },
+  {
+    href: "/landlord/chat",
     label: "Messages",
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -35,85 +80,11 @@ const NAV_ITEMS = [
     ),
   },
   {
-    href: "/tenant/applications",
-    label: "Applications",
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-        <polyline points="14 2 14 8 20 8"/>
-        <line x1="16" y1="13" x2="8" y2="13"/>
-        <line x1="16" y1="17" x2="8" y2="17"/>
-        <polyline points="10 9 9 9 8 9"/>
-      </svg>
-    ),
-  },
-  {
-    href: "/tenant/tenancy",
-    label: "Tenancy",
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-        <polyline points="9 22 9 12 15 12 15 22"/>
-      </svg>
-    ),
-  },
-  {
-    href: "/tenant/shack-score",
-    label: "ShackScore",
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-      </svg>
-    ),
-  },
-  {
-    href: "/scout",
-    label: "Scout",
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-      </svg>
-    ),
-  },
-  {
-    href: "/tenant/waitlist",
-    label: "Waitlist",
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="8" y1="6" x2="21" y2="6"/>
-        <line x1="8" y1="12" x2="21" y2="12"/>
-        <line x1="8" y1="18" x2="21" y2="18"/>
-        <line x1="3" y1="6" x2="3.01" y2="6"/>
-        <line x1="3" y1="12" x2="3.01" y2="12"/>
-        <line x1="3" y1="18" x2="3.01" y2="18"/>
-      </svg>
-    ),
-  },
-  {
-    href: "/vault",
-    label: "Vault",
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-      </svg>
-    ),
-  },
-  {
     href: "/profile",
     label: "Profile",
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-      </svg>
-    ),
-  },
-  {
-    href: "/wallet",
-    label: "Wallet",
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
       </svg>
     ),
   },
@@ -129,16 +100,24 @@ const NAV_ITEMS = [
   },
 ];
 
-export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default async function LandlordLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
   if (!session?.user?.id) redirect("/auth/login");
 
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { roles: true, onboardingCompleted: true },
+  });
+
+  if (!user?.onboardingCompleted) redirect("/onboarding");
+  if (!user.roles.includes("LANDLORD")) redirect("/dashboard");
+
   const initials = session.user.name
-    ?.split(" ").map((n) => n[0]).slice(0, 2).join("").toUpperCase() ?? "U";
+    ?.split(" ").map((n) => n[0]).slice(0, 2).join("").toUpperCase() ?? "L";
 
   return (
     <div className="min-h-screen bg-[#f5f5f5] flex flex-col">
-      {/* Top navbar — same as public but simplified */}
+      {/* Header */}
       <header className="w-full bg-white border-b border-zinc-100 sticky top-0 z-40">
         <div className="max-w-6xl mx-auto flex items-center justify-between px-6 h-14">
           <Link href="/" className="flex items-center gap-2">
@@ -148,6 +127,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
               </svg>
             </span>
             <span className="text-sm font-extrabold tracking-tight text-zinc-900">Shack</span>
+            <span className="hidden sm:block text-[10px] font-bold uppercase tracking-widest text-zinc-400 border border-zinc-200 rounded-full px-2 py-0.5 ml-1">
+              Landlord
+            </span>
           </Link>
           <div className="flex items-center gap-2">
             <Link href="/properties" className="text-xs font-semibold text-zinc-400 hover:text-zinc-900 transition-colors hidden sm:block">
@@ -166,20 +148,16 @@ export default async function DashboardLayout({ children }: { children: React.Re
       </header>
 
       <div className="flex-1 max-w-6xl mx-auto w-full px-6 py-8 flex gap-8">
-        {/* ── Sidebar ── */}
+        {/* Sidebar */}
         <aside className="hidden md:flex flex-col w-52 shrink-0">
-          <SidebarNav items={NAV_ITEMS} />
+          <LandlordSidebarNav items={NAV_ITEMS} />
         </aside>
 
-        {/* ── Main content ── */}
-        <main className="flex-1 min-w-0">
-          {children}
-        </main>
+        {/* Main */}
+        <main className="flex-1 min-w-0">{children}</main>
       </div>
 
-      {/* ── Mobile floating nav ── */}
-      <MobileNav />
+      <LandlordMobileNav items={NAV_ITEMS} />
     </div>
   );
 }
-

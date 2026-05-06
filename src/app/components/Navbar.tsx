@@ -43,6 +43,8 @@ const NAV_ITEMS: NavItem[] = [
     label: "Pages",
     dropdown: [
       { label: "About Us", href: "/about" },
+      { label: "Team", href: "/team" },
+      { label: "Careers", href: "/careers" },
       { label: "Blog", href: "/blogs" },
       { label: "Contact", href: "/contact" },
       { label: "FAQ", href: "/faq" },

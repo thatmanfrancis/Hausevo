@@ -10,7 +10,7 @@ export default async function WalletPage() {
     redirect("/auth/login");
   }
 
-  const [user, transactions] = await Promise.all([
+  const [user, transactions, bankAccounts] = await Promise.all([
     prisma.user.findUnique({
       where: { id: session.user.id },
       select: {
@@ -33,11 +33,25 @@ export default async function WalletPage() {
         createdAt: true,
       },
     }),
+    prisma.bankAccount.findMany({
+      where: { userId: session.user.id },
+      select: {
+        id: true,
+        bankName: true,
+        bankCode: true,
+        accountNumber: true,
+        accountName: true,
+        isDefault: true,
+        isVerified: true,
+        createdAt: true,
+      },
+      orderBy: { createdAt: "asc" },
+    }),
   ]);
 
   if (!user) {
     redirect("/auth/login");
   }
 
-  return <WalletClient user={user} transactions={transactions} />;
+  return <WalletClient user={user} transactions={transactions} bankAccounts={bankAccounts} />;
 }

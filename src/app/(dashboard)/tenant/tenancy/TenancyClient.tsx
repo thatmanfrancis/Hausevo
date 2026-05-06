@@ -1,8 +1,10 @@
-
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+
+// ── Types ──────────────────────────────────────────────────────────────────
 
 type RentSchedule = {
   id: string; dueDate: Date; amount: number;
@@ -34,6 +36,8 @@ type Tenancy = {
 
 type Props = { tenancy: Tenancy };
 
+// ── Helpers ────────────────────────────────────────────────────────────────
+
 function formatNaira(n: number) {
   return new Intl.NumberFormat("en-NG", { style: "currency", currency: "NGN", maximumFractionDigits: 0 }).format(n);
 }
@@ -59,7 +63,270 @@ const MOVE_STATUS: Record<string, { label: string; cls: string }> = {
   CANCELLED:  { label: "Cancelled",  cls: "bg-zinc-100 text-zinc-500" },
 };
 
+// ── Review modal ───────────────────────────────────────────────────────────
+
+function ReviewModal({
+  landlordId,
+  landlordName,
+  propertyId,
+  onClose,
+}: {
+  landlordId: string;
+  landlordName: string;
+  propertyId: string;
+  onClose: () => void;
+}) {
+  const [rating, setRating] = useState(0);
+  const [hovered, setHovered] = useState(0);
+  const [comment, setComment] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const [done, setDone] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!rating) return;
+    setSubmitting(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/reviews", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ subjectId: landlordId, rating, comment: comment.trim() || undefined, propertyId }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error ?? "Failed to submit review. Please try again.");
+        return;
+      }
+      setDone(true);
+    } catch {
+      setError("Network error. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  const LABELS = ["", "Poor", "Fair", "Good", "Very Good", "Excellent"];
+
+  return (
+    <div className="fixed inset-0 z-100 flex items-center justify-center px-4">
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
+        {done ? (
+          <div className="flex flex-col items-center text-center py-12 px-8">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 border border-emerald-200 mb-4">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-600">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <p className="text-base font-extrabold text-zinc-900 mb-1">Review submitted!</p>
+            <p className="text-sm text-zinc-500 mb-6">Thank you for your feedback.</p>
+            <button type="button" onClick={onClose} className="rounded-full bg-zinc-900 text-white px-6 py-2.5 text-sm font-bold hover:bg-zinc-700 transition-colors">
+              Close
+            </button>
+          </div>
+        ) : (
+          <>
+            <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-zinc-100">
+              <div>
+                <p className="text-base font-extrabold text-zinc-900">Review Landlord</p>
+                <p className="text-xs text-zinc-400 mt-0.5">{landlordName}</p>
+              </div>
+              <button type="button" onClick={onClose} className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-zinc-100 transition-colors text-zinc-400">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit} className="p-6 flex flex-col gap-5">
+              {/* Star rating */}
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">Rating</label>
+                <div className="flex items-center gap-2">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      key={star}
+                      type="button"
+                      onClick={() => setRating(star)}
+                      onMouseEnter={() => setHovered(star)}
+                      onMouseLeave={() => setHovered(0)}
+                      className="transition-transform hover:scale-110"
+                    >
+                      <svg
+                        width="32"
+                        height="32"
+                        viewBox="0 0 24 24"
+                        fill={(hovered || rating) >= star ? "#f59e0b" : "none"}
+                        stroke={(hovered || rating) >= star ? "#f59e0b" : "#d4d4d8"}
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                      </svg>
+                    </button>
+                  ))}
+                  {(hovered || rating) > 0 && (
+                    <span className="text-sm font-bold text-amber-600 ml-1">
+                      {LABELS[hovered || rating]}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {/* Comment */}
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="comment" className="text-xs font-bold uppercase tracking-widest text-zinc-400">
+                  Comment <span className="normal-case font-normal text-zinc-400">(optional)</span>
+                </label>
+                <textarea
+                  id="comment"
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  rows={3}
+                  maxLength={500}
+                  placeholder="How was your experience with this landlord?"
+                  className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors resize-none"
+                />
+              </div>
+
+              {error && (
+                <div className="flex items-start gap-2.5 rounded-xl bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5">
+                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                  </svg>
+                  {error}
+                </div>
+              )}
+
+              <div className="flex items-center gap-3">
+                <button
+                  type="submit"
+                  disabled={submitting || !rating}
+                  className="rounded-full bg-zinc-900 text-white px-5 py-2.5 text-sm font-bold hover:bg-zinc-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {submitting ? "Submitting…" : "Submit review"}
+                </button>
+                <button type="button" onClick={onClose} className="text-sm font-semibold text-zinc-500 hover:text-zinc-900 transition-colors">
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// function formatNaira(n: number) {
+//   return new Intl.NumberFormat("en-NG", { style: "currency", currency: "NGN", maximumFractionDigits: 0 }).format(n);
+// }
+// function formatDate(d: Date) {
+//   return new Date(d).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" });
+// }
+// function daysUntil(d: Date) {
+//   return Math.ceil((new Date(d).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+// }
+
+// const RENT_STATUS: Record<string, { label: string; cls: string }> = {
+//   PENDING:   { label: "Due",    cls: "bg-amber-50 text-amber-700" },
+//   SUCCESS:   { label: "Paid",   cls: "bg-emerald-50 text-emerald-700" },
+//   COMPLETED: { label: "Paid",   cls: "bg-emerald-50 text-emerald-700" },
+//   FAILED:    { label: "Failed", cls: "bg-red-50 text-red-700" },
+//   ESCROW:    { label: "Escrow", cls: "bg-blue-50 text-blue-700" },
+// };
+
+// const MOVE_STATUS: Record<string, { label: string; cls: string }> = {
+//   SCHEDULED:  { label: "Scheduled",  cls: "bg-blue-50 text-blue-700" },
+//   IN_TRANSIT: { label: "In Transit", cls: "bg-amber-50 text-amber-700" },
+//   COMPLETED:  { label: "Completed",  cls: "bg-emerald-50 text-emerald-700" },
+//   CANCELLED:  { label: "Cancelled",  cls: "bg-zinc-100 text-zinc-500" },
+// };
+
+
+
 export default function TenancyClient({ tenancy }: Props) {
+  const [schedules, setSchedules] = useState(tenancy?.rentSchedules ?? []);
+  const [payingId, setPayingId] = useState<string | null>(null);
+  const [payError, setPayError] = useState("");
+  const [paySuccess, setPaySuccess] = useState("");
+
+  const [agreementState, setAgreementState] = useState(tenancy?.agreement ?? null);
+  const [signing, setSigning] = useState(false);
+  const [signError, setSignError] = useState("");
+
+  const [showReview, setShowReview] = useState(false);
+
+  // ── Pay rent ──────────────────────────────────────────────────────────────
+
+  async function handlePay(scheduleId: string, amount: number) {
+    if (!tenancy) return;
+    setPayingId(scheduleId);
+    setPayError("");
+    setPaySuccess("");
+
+    try {
+      const res = await fetch(`/api/tenancy/${tenancy.id}/pay`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ scheduleId, amount }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        setPayError(data.error ?? "Payment failed. Please try again.");
+        return;
+      }
+
+      // Update the schedule entry to COMPLETED
+      setSchedules((prev) =>
+        prev.map((s) =>
+          s.id === scheduleId
+            ? { ...s, status: "COMPLETED", paidAt: new Date() }
+            : s
+        )
+      );
+      setPaySuccess(`Payment of ${formatNaira(amount)} recorded successfully.`);
+      setTimeout(() => setPaySuccess(""), 5000);
+    } catch {
+      setPayError("Network error. Please try again.");
+    } finally {
+      setPayingId(null);
+    }
+  }
+
+  // ── Sign agreement ────────────────────────────────────────────────────────
+
+  async function handleSign() {
+    if (!tenancy || !agreementState) return;
+    setSigning(true);
+    setSignError("");
+
+    try {
+      const res = await fetch(`/api/tenancy/${tenancy.id}/agreement`, {
+        method: "PATCH",
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        setSignError(data.error ?? "Failed to sign. Please try again.");
+        return;
+      }
+
+      setAgreementState(data.agreement);
+    } catch {
+      setSignError("Network error. Please try again.");
+    } finally {
+      setSigning(false);
+    }
+  }
+
+  // ── Empty state ───────────────────────────────────────────────────────────
+
   if (!tenancy) {
     return (
       <div className="flex flex-col gap-6">
@@ -88,18 +355,19 @@ export default function TenancyClient({ tenancy }: Props) {
     );
   }
 
-  const { property, rentSchedules, agreement, movingOrder } = tenancy;
+  const { property, movingOrder } = tenancy;
   const img = property.images[0]?.url;
   const totalDays = new Date(tenancy.endDate).getTime() - new Date(tenancy.startDate).getTime();
   const elapsed = Date.now() - new Date(tenancy.startDate).getTime();
   const progressPct = Math.min(100, Math.max(0, Math.round((elapsed / totalDays) * 100)));
-  const nextDue = rentSchedules.find((r) => r.status === "PENDING");
+  const nextDue = schedules.find((r) => r.status === "PENDING");
   const daysToNext = nextDue ? daysUntil(nextDue.dueDate) : null;
   const savingsPct = tenancy.savingsGoal > 0
     ? Math.min(100, Math.round((tenancy.currentSaved / tenancy.savingsGoal) * 100)) : 0;
 
   return (
     <div className="flex flex-col gap-6">
+      {/* Heading */}
       <div>
         <div className="flex items-center gap-2 mb-1">
           <Link href="/dashboard" className="text-xs font-bold uppercase tracking-widest text-zinc-400 hover:text-zinc-600 transition-colors">Dashboard</Link>
@@ -113,6 +381,16 @@ export default function TenancyClient({ tenancy }: Props) {
           </span>
         </div>
       </div>
+
+      {/* Pay success */}
+      {paySuccess && (
+        <div className="flex items-center gap-2.5 rounded-2xl bg-emerald-50 border border-emerald-100 px-5 py-3.5 text-sm text-emerald-700 font-semibold">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          {paySuccess}
+        </div>
+      )}
 
       {/* Property card */}
       <div className="bg-white rounded-2xl border border-zinc-200 overflow-hidden">
@@ -138,7 +416,7 @@ export default function TenancyClient({ tenancy }: Props) {
             <p className="text-xs font-bold text-zinc-600">{progressPct}% elapsed</p>
           </div>
           <div className="h-2 bg-zinc-100 rounded-full overflow-hidden mb-2">
-            <div className="h-full bg-zinc-900 rounded-full" style={{ width: `${progressPct}%` }} />
+            <div className="h-full bg-zinc-900 rounded-full transition-all" style={{ width: `${progressPct}%` }} />
           </div>
           <div className="flex items-center justify-between text-xs text-zinc-400">
             <span>{formatDate(tenancy.startDate)}</span>
@@ -179,28 +457,49 @@ export default function TenancyClient({ tenancy }: Props) {
       {/* Rent schedule */}
       <div className="bg-white rounded-2xl border border-zinc-200 p-6">
         <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Rent Schedule</p>
-        {rentSchedules.length === 0 ? (
+
+        {payError && (
+          <div className="flex items-start gap-2.5 rounded-xl bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700 mb-4">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            {payError}
+          </div>
+        )}
+
+        {schedules.length === 0 ? (
           <p className="text-sm text-zinc-500">No rent schedule set up yet.</p>
         ) : (
           <div className="flex flex-col divide-y divide-zinc-100">
-            {rentSchedules.map((r) => {
+            {schedules.map((r) => {
               const s = RENT_STATUS[r.status] ?? { label: r.status, cls: "bg-zinc-100 text-zinc-600" };
               const overdue = r.status === "PENDING" && daysUntil(r.dueDate) < 0;
+              const isPending = r.status === "PENDING";
+
               return (
-                <div key={r.id} className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0">
-                  <div>
+                <div key={r.id} className="flex items-center justify-between gap-3 py-3.5 first:pt-0 last:pb-0">
+                  <div className="flex-1 min-w-0">
                     <p className={`text-sm font-bold ${overdue ? "text-red-600" : "text-zinc-900"}`}>
                       {formatDate(r.dueDate)}
                       {overdue && <span className="ml-2 text-xs font-bold text-red-500">Overdue</span>}
                     </p>
                     <p className="text-xs text-zinc-400 mt-0.5">
-                      {r.frequency.charAt(0) + r.frequency.slice(1).toLowerCase()} payment
+                      {r.frequency.charAt(0) + r.frequency.slice(1).toLowerCase()} · {formatNaira(r.amount)}
                       {r.paidAt && ` · Paid ${formatDate(r.paidAt)}`}
                     </p>
                   </div>
-                  <div className="flex items-center gap-3 shrink-0">
-                    <span className="text-sm font-extrabold text-zinc-900">{formatNaira(r.amount)}</span>
+                  <div className="flex items-center gap-2.5 shrink-0">
                     <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${s.cls}`}>{s.label}</span>
+                    {isPending && (
+                      <button
+                        type="button"
+                        onClick={() => handlePay(r.id, r.amount)}
+                        disabled={payingId === r.id}
+                        className="rounded-full bg-zinc-900 text-white px-4 py-1.5 text-xs font-bold hover:bg-zinc-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {payingId === r.id ? "Paying…" : "Pay"}
+                      </button>
+                    )}
                   </div>
                 </div>
               );
@@ -210,30 +509,51 @@ export default function TenancyClient({ tenancy }: Props) {
       </div>
 
       {/* Agreement */}
-      {agreement && (
+      {agreementState && (
         <div className="bg-white rounded-2xl border border-zinc-200 p-6">
           <div className="flex items-center justify-between mb-4">
             <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">Tenancy Agreement</p>
-            <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${agreement.status === "SIGNED" ? "bg-emerald-50 text-emerald-700" : "bg-amber-50 text-amber-700"}`}>
-              {agreement.status.charAt(0) + agreement.status.slice(1).toLowerCase()}
+            <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${agreementState.status === "SIGNED" ? "bg-emerald-50 text-emerald-700" : "bg-amber-50 text-amber-700"}`}>
+              {agreementState.status.charAt(0) + agreementState.status.slice(1).toLowerCase()}
             </span>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4">
+
+          <div className="flex flex-col sm:flex-row gap-3 mb-4">
             <div className="flex-1 flex items-center gap-3 rounded-xl border border-zinc-100 bg-zinc-50 px-4 py-3">
-              <div className={`h-2 w-2 rounded-full ${agreement.tenantSigned ? "bg-emerald-500" : "bg-zinc-300"}`} />
+              <div className={`h-2 w-2 rounded-full shrink-0 ${agreementState.tenantSigned ? "bg-emerald-500" : "bg-zinc-300"}`} />
               <div>
                 <p className="text-xs font-bold text-zinc-700">Your signature</p>
-                <p className="text-[10px] text-zinc-400">{agreement.tenantSigned && agreement.tenantSignedAt ? `Signed ${formatDate(agreement.tenantSignedAt)}` : "Not yet signed"}</p>
+                <p className="text-[10px] text-zinc-400">{agreementState.tenantSigned && agreementState.tenantSignedAt ? `Signed ${formatDate(agreementState.tenantSignedAt)}` : "Not yet signed"}</p>
               </div>
             </div>
             <div className="flex-1 flex items-center gap-3 rounded-xl border border-zinc-100 bg-zinc-50 px-4 py-3">
-              <div className={`h-2 w-2 rounded-full ${agreement.ownerSigned ? "bg-emerald-500" : "bg-zinc-300"}`} />
+              <div className={`h-2 w-2 rounded-full shrink-0 ${agreementState.ownerSigned ? "bg-emerald-500" : "bg-zinc-300"}`} />
               <div>
                 <p className="text-xs font-bold text-zinc-700">Landlord signature</p>
-                <p className="text-[10px] text-zinc-400">{agreement.ownerSigned && agreement.ownerSignedAt ? `Signed ${formatDate(agreement.ownerSignedAt)}` : "Awaiting landlord"}</p>
+                <p className="text-[10px] text-zinc-400">{agreementState.ownerSigned && agreementState.ownerSignedAt ? `Signed ${formatDate(agreementState.ownerSignedAt)}` : "Awaiting landlord"}</p>
               </div>
             </div>
           </div>
+
+          {signError && (
+            <div className="flex items-start gap-2.5 rounded-xl bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700 mb-3">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5">
+                <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              {signError}
+            </div>
+          )}
+
+          {!agreementState.tenantSigned && (
+            <button
+              type="button"
+              onClick={handleSign}
+              disabled={signing}
+              className="rounded-full bg-zinc-900 text-white px-5 py-2.5 text-sm font-bold hover:bg-zinc-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {signing ? "Signing…" : "Sign agreement"}
+            </button>
+          )}
         </div>
       )}
 
@@ -269,8 +589,60 @@ export default function TenancyClient({ tenancy }: Props) {
               <p className="text-xs text-zinc-400">{property.landlord.verificationTier >= 1 ? "Verified landlord" : "Basic account"}</p>
             </div>
           </div>
-          <Link href="/chat" className="rounded-full border border-zinc-200 text-zinc-700 px-4 py-2 text-xs font-bold hover:border-zinc-400 transition-colors">Message →</Link>
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={() => setShowReview(true)}
+              className="rounded-full border border-zinc-200 text-zinc-700 px-4 py-2 text-xs font-bold hover:border-zinc-400 transition-colors"
+            >
+              Leave review
+            </button>
+            <Link href="/chat" className="rounded-full border border-zinc-200 text-zinc-700 px-4 py-2 text-xs font-bold hover:border-zinc-400 transition-colors">
+              Message →
+            </Link>
+          </div>
         </div>
+      </div>
+
+      {/* Review modal */}
+      {showReview && (
+        <ReviewModal
+          landlordId={property.landlord.id}
+          landlordName={property.landlord.fullName}
+          propertyId={property.id}
+          onClose={() => setShowReview(false)}
+        />
+      )}
+
+      {/* Quick links */}
+      <div className="grid grid-cols-2 gap-3">
+        <Link href="/tenant/disputes" className="bg-white rounded-2xl border border-zinc-200 p-4 hover:border-zinc-400 transition-colors group">
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-red-50">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-600">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <div>
+              <p className="text-sm font-bold text-zinc-900">Disputes</p>
+              <p className="text-xs text-zinc-400">Raise an issue</p>
+            </div>
+          </div>
+        </Link>
+        <Link href="/tenant/services" className="bg-white rounded-2xl border border-zinc-200 p-4 hover:border-zinc-400 transition-colors group">
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-50">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+              </svg>
+            </div>
+            <div>
+              <p className="text-sm font-bold text-zinc-900">Services</p>
+              <p className="text-xs text-zinc-400">Request help</p>
+            </div>
+          </div>
+        </Link>
       </div>
     </div>
   );
