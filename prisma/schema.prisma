@@ -1,0 +1,835 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                       String               @id @default(cuid())
+  email                    String               @unique
+  fullName                 String
+  phoneNumber              String               @unique
+  passwordHash             String?
+  googleId                 String?              @unique
+  roles                    UserRole[]           @default([TENANT])
+  isVerified               Boolean              @default(false)
+  twoFactorEnabled         Boolean              @default(false)
+  twoFactorSecret          String?
+  verificationTier         Int                  @default(0)
+  walletBalance            Float                @default(0.0)
+  fintechPartnerRef        String?
+  createdAt                DateTime             @default(now())
+  updatedAt                DateTime             @updatedAt
+  accumulatedBond          Float                @default(0.0)
+  vaultPremium             Boolean              @default(false)
+  vaultPremiumUntil        DateTime?
+  vaultStorageLimit        Int                  @default(100)
+  vaultStorageUsed         Int                  @default(0)
+  verificationBundlePaid   Boolean              @default(false)
+  verificationBundlePaidAt DateTime?
+  onboardingCompleted      Boolean              @default(false)
+  issuedKeys               AccessKey[]          @relation("KeyIssuer")
+  accounts                 Account[]
+  artisanProfile           ArtisanProfile?
+  notificationPreferences  NotificationPreferences?
+  auditLogs                AuditLog[]           @relation("AuditActor")
+  bankAccounts             BankAccount[]
+  disputesAgainst          Dispute[]            @relation("DisputesAgainst")
+  disputesRaised           Dispute[]            @relation("DisputesRaised")
+  disputesResolved         Dispute[]            @relation("DisputesResolved")
+  inspections              Inspection[]         @relation("InspectorUser")
+  maintenanceJobs          MaintenanceJob[]     @relation("ArtisanAssigned")
+  messages                 Message[]
+  notifications            Notification[]
+  ownedProperties          Property[]           @relation("LandlordOwned")
+  proxySubmissions         Property[]           @relation("ProxySubmissions")
+  managedProperties        PropertyManagement[] @relation("ManagerDelegated")
+  ownedManagement          PropertyManagement[] @relation("OwnerDelegated")
+  wishlist                 PropertyWishlist?
+  referredBy               Referral?            @relation("ReferredBy")
+  referral                 Referral?            @relation("ReferralsMade")
+  referralCodes            ReferralCode[]       @relation("ReferralsMade")
+  reviewsGiven             Review[]             @relation("ReviewsGiven")
+  reviewsReceived          Review[]             @relation("ReviewsReceived")
+  savedProperties          SavedProperty[]
+  scoutRewards             ScoutReward[]        @relation("ScoutRewards")
+  serviceRequests          ServiceRequest[]
+  sessions                 Session[]
+  shackScore               ShackScore?
+  supportMessages          SupportMessage[]
+  assignedTickets          SupportTicket[]      @relation("TicketAssignee")
+  supportTickets           SupportTicket[]      @relation("TicketOwner")
+  tenancy                  Tenancy?             @relation("CurrentTenant")
+  applications             TenancyApplication[]
+  transactions             Transaction[]
+  vaultItems               VaultItem[]
+  waitlists                Waitlist[]
+  chats                    ChatRoom[]           @relation("ChatRoomToUser")
+}
+
+model Account {
+  id                String   @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model ShackScore {
+  id                 String   @id @default(uuid())
+  userId             String   @unique
+  score              Int      @default(500)
+  onTimePayments     Int      @default(0)
+  latePayments       Int      @default(0)
+  disputesRaised     Int      @default(0)
+  disputesLost       Int      @default(0)
+  completedTenancies Int      @default(0)
+  lastCalculated     DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  user               User     @relation(fields: [userId], references: [id])
+}
+
+model AccessKey {
+  id         String       @id @default(uuid())
+  key        String       @unique
+  issuerId   String
+  expiresAt  DateTime
+  isUsed     Boolean      @default(false)
+  redeemedBy String?
+  redeemedAt DateTime?
+  createdAt  DateTime     @default(now())
+  issuer     User         @relation("KeyIssuer", fields: [issuerId], references: [id])
+  property   Property?
+  reward     ScoutReward?
+}
+
+model Property {
+  id                String               @id @default(uuid())
+  title             String
+  address           String
+  lga               String
+  state             String               @default("Lagos")
+  latitude          Float?
+  longitude         Float?
+  pricePerYear      Float
+  totalPackage      Float
+  rentFrequency     RentFrequency        @default(ANNUALLY)
+  status            PropertyStatus       @default(PENDING)
+  healthScore       Int                  @default(100)
+  landlordId        String
+  accessKeyId       String?              @unique
+  metadata          Json?
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+  boostExpiresAt    DateTime?
+  boostLGA          String?
+  companyName       String?
+  companyRC         String?
+  deedDocumentId    String?
+  deedVerified      Boolean              @default(false)
+  deedVerifiedAt    DateTime?
+  deedVerifiedBy    String?
+  inheritanceProof  String?
+  institutionName   String?
+  isBoosted         Boolean              @default(false)
+  isCorporateOwned  Boolean              @default(false)
+  isInherited       Boolean              @default(false)
+  isInstitutional   Boolean              @default(false)
+  isProxySubmission Boolean              @default(false)
+  landlordConfirmed Boolean              @default(false)
+  landlordContacted Boolean              @default(false)
+  landlordEmail     String?
+  landlordName      String?
+  landlordPhone     String?
+  priceVerified     Boolean              @default(false)
+  priceVerifiedAt   DateTime?
+  proxySubmitterId  String?
+  listingType       ListingType          @default(RENT)
+  developmentStage  DevelopmentStage     @default(FINISHED)
+  isOffPlan         Boolean              @default(false)
+  chatRooms         ChatRoom[]
+  disputes          Dispute[]
+  financingOptions  FinancingOption[]
+  inspections       Inspection[]
+  maintenanceJobs   MaintenanceJob[]
+  milestones        Milestone[]
+  accessKey         AccessKey?           @relation(fields: [accessKeyId], references: [id])
+  landlord          User                 @relation("LandlordOwned", fields: [landlordId], references: [id])
+  proxySubmitter    User?                @relation("ProxySubmissions", fields: [proxySubmitterId], references: [id])
+  images            PropertyImage[]
+  management        PropertyManagement[]
+  reviews           Review[]
+  savedBy           SavedProperty[]
+  scoutRewards      ScoutReward[]
+  serviceRequests   ServiceRequest[]
+  tenancy           Tenancy?
+  applications      TenancyApplication[]
+  transactions      Transaction[]        @relation("TransactionProperty")
+  vaultItems        VaultItem[]
+  waitlist          Waitlist[]
+}
+
+model PropertyImage {
+  id         String   @id @default(uuid())
+  propertyId String
+  url        String
+  isPrimary  Boolean  @default(false)
+  order      Int      @default(0)
+  createdAt  DateTime @default(now())
+  property   Property @relation(fields: [propertyId], references: [id])
+}
+
+model SavedProperty {
+  id         String   @id @default(uuid())
+  tenantId   String
+  propertyId String
+  createdAt  DateTime @default(now())
+  property   Property @relation(fields: [propertyId], references: [id])
+  tenant     User     @relation(fields: [tenantId], references: [id])
+
+  @@unique([tenantId, propertyId])
+}
+
+model PropertyWishlist {
+  id           String   @id @default(uuid())
+  tenantId     String   @unique
+  lga          String?
+  maxBudget    Float?
+  minBedrooms  Int?
+  requirements Json?
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  tenant       User     @relation(fields: [tenantId], references: [id])
+}
+
+model Waitlist {
+  id         String   @id @default(uuid())
+  propertyId String
+  tenantId   String
+  position   Int
+  createdAt  DateTime @default(now())
+  property   Property @relation(fields: [propertyId], references: [id])
+  tenant     User     @relation(fields: [tenantId], references: [id])
+
+  @@unique([propertyId, tenantId])
+}
+
+model VaultItem {
+  id         String        @id @default(uuid())
+  title      String
+  fileUrl    String
+  category   VaultCategory
+  ownerId    String
+  propertyId String?
+  isVerified Boolean       @default(false)
+  createdAt  DateTime      @default(now())
+  owner      User          @relation(fields: [ownerId], references: [id])
+  property   Property?     @relation(fields: [propertyId], references: [id])
+}
+
+model TenancyApplication {
+  id                      String            @id @default(uuid())
+  propertyId              String
+  tenantId                String
+  status                  ApplicationStatus @default(PENDING)
+  message                 String?
+  rejectionReason         String?
+  shackScoreAtApplication Int?
+  createdAt               DateTime          @default(now())
+  updatedAt               DateTime          @updatedAt
+  property                Property          @relation(fields: [propertyId], references: [id])
+  tenant                  User              @relation(fields: [tenantId], references: [id])
+
+  @@unique([propertyId, tenantId])
+}
+
+model Tenancy {
+  id             String            @id @default(uuid())
+  propertyId     String            @unique
+  tenantId       String            @unique
+  status         TenancyStatus     @default(ACTIVE)
+  isJoint        Boolean           @default(false)
+  savingsGoal    Float
+  currentSaved   Float             @default(0.0)
+  startDate      DateTime
+  endDate        DateTime
+  cautionDeposit Float
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  movingOrder    MovingOrder?
+  rentSchedules  RentSchedule[]
+  property       Property          @relation(fields: [propertyId], references: [id])
+  tenant         User              @relation("CurrentTenant", fields: [tenantId], references: [id])
+  agreement      TenancyAgreement?
+  transactions   Transaction[]     @relation("TransactionTenancy")
+}
+
+model RentSchedule {
+  id        String            @id @default(uuid())
+  tenancyId String
+  dueDate   DateTime
+  amount    Float
+  frequency RentFrequency     @default(ANNUALLY)
+  status    TransactionStatus @default(PENDING)
+  paidAt    DateTime?
+  createdAt DateTime          @default(now())
+  tenancy   Tenancy           @relation(fields: [tenancyId], references: [id])
+}
+
+model MovingOrder {
+  id              String     @id @default(uuid())
+  tenancyId       String     @unique
+  scheduledDate   DateTime
+  pickupAddress   String
+  deliveryAddress String
+  status          MoveStatus @default(SCHEDULED)
+  providerName    String?
+  price           Float?
+  createdAt       DateTime   @default(now())
+  tenancy         Tenancy    @relation(fields: [tenancyId], references: [id])
+}
+
+model ChatRoom {
+  id                 String    @id @default(uuid())
+  propertyId         String
+  isIdentityRevealed Boolean   @default(false)
+  createdAt          DateTime  @default(now())
+  property           Property  @relation(fields: [propertyId], references: [id])
+  messages           Message[]
+  participants       User[]    @relation("ChatRoomToUser")
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  chatId    String
+  senderId  String
+  content   String
+  createdAt DateTime @default(now())
+  chat      ChatRoom @relation(fields: [chatId], references: [id])
+  sender    User     @relation(fields: [senderId], references: [id])
+}
+
+model ArtisanProfile {
+  id                String          @id @default(uuid())
+  userId            String          @unique
+  category          ArtisanCategory
+  safetyBond        Float           @default(0.0)
+  rating            Float           @default(5.0)
+  isVetted          Boolean         @default(false)
+  bondAccumulated   Float           @default(0.0)
+  bondTarget        Float           @default(30000.0)
+  currentCommission Float           @default(20.0)
+  jobsCompleted     Int             @default(0)
+  user              User            @relation(fields: [userId], references: [id])
+}
+
+model MaintenanceJob {
+  id           String    @id @default(uuid())
+  propertyId   String
+  title        String
+  description  String
+  status       JobStatus @default(OPEN)
+  artisanId    String?
+  cost         Float?
+  beforePhotos String[]
+  afterPhotos  String[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  artisan      User?     @relation("ArtisanAssigned", fields: [artisanId], references: [id])
+  property     Property  @relation(fields: [propertyId], references: [id])
+}
+
+model ServiceRequest {
+  id         String          @id @default(uuid())
+  tenantId   String
+  propertyId String
+  category   ServiceCategory
+  notes      String?
+  status     JobStatus       @default(OPEN)
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  property   Property        @relation(fields: [propertyId], references: [id])
+  tenant     User            @relation(fields: [tenantId], references: [id])
+}
+
+model Inspection {
+  id          String   @id @default(uuid())
+  propertyId  String
+  inspectorId String
+  score       Int
+  notes       String?
+  photos      String[]
+  createdAt   DateTime @default(now())
+  inspector   User     @relation("InspectorUser", fields: [inspectorId], references: [id])
+  property    Property @relation(fields: [propertyId], references: [id])
+}
+
+model Review {
+  id         String    @id @default(uuid())
+  reviewerId String
+  subjectId  String
+  propertyId String?
+  rating     Int
+  comment    String?
+  createdAt  DateTime  @default(now())
+  property   Property? @relation(fields: [propertyId], references: [id])
+  reviewer   User      @relation("ReviewsGiven", fields: [reviewerId], references: [id])
+  subject    User      @relation("ReviewsReceived", fields: [subjectId], references: [id])
+}
+
+model Dispute {
+  id           String        @id @default(uuid())
+  raisedById   String
+  againstId    String
+  type         DisputeType
+  status       DisputeStatus @default(OPEN)
+  description  String
+  evidence     String[]
+  resolution   String?
+  resolvedById String?
+  propertyId   String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  against      User          @relation("DisputesAgainst", fields: [againstId], references: [id])
+  property     Property?     @relation(fields: [propertyId], references: [id])
+  raisedBy     User          @relation("DisputesRaised", fields: [raisedById], references: [id])
+  resolvedBy   User?         @relation("DisputesResolved", fields: [resolvedById], references: [id])
+}
+
+model ScoutReward {
+  id          String            @id @default(uuid())
+  accessKeyId String            @unique
+  redeemerId  String
+  propertyId  String
+  amount      Float
+  status      TransactionStatus @default(PENDING)
+  paidAt      DateTime?
+  createdAt   DateTime          @default(now())
+  accessKey   AccessKey         @relation(fields: [accessKeyId], references: [id])
+  property    Property          @relation(fields: [propertyId], references: [id])
+  redeemer    User              @relation("ScoutRewards", fields: [redeemerId], references: [id])
+}
+
+model ReferralCode {
+  id        String   @id @default(uuid())
+  code      String   @unique
+  ownerId   String
+  usedCount Int      @default(0)
+  createdAt DateTime @default(now())
+  owner     User     @relation("ReferralsMade", fields: [ownerId], references: [id])
+}
+
+model Referral {
+  id           String   @id @default(uuid())
+  referrerId   String   @unique
+  refereeId    String   @unique
+  referralCode String?
+  rewardPaid   Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  referee      User     @relation("ReferredBy", fields: [refereeId], references: [id])
+  referrer     User     @relation("ReferralsMade", fields: [referrerId], references: [id])
+}
+
+model BankAccount {
+  id            String   @id @default(uuid())
+  userId        String
+  bankName      String
+  bankCode      String
+  accountNumber String
+  accountName   String
+  isDefault     Boolean  @default(false)
+  isVerified    Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  user          User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, accountNumber])
+}
+
+model Transaction {
+  id          String            @id @default(uuid())
+  userId      String
+  amount      Float
+  type        TransactionType
+  status      TransactionStatus @default(PENDING)
+  reference   String            @unique
+  metadata    Json?
+  createdAt   DateTime          @default(now())
+  netAmount   Float             @default(0)
+  shackFee    Float             @default(0)
+  description String?
+  fromId      String?
+  propertyId  String?
+  tenancyId   String?
+  toId        String?
+  property    Property?         @relation("TransactionProperty", fields: [propertyId], references: [id])
+  tenancy     Tenancy?          @relation("TransactionTenancy", fields: [tenancyId], references: [id])
+  user        User              @relation(fields: [userId], references: [id])
+}
+
+model Notification {
+  id        String           @id @default(uuid())
+  userId    String
+  title     String
+  body      String
+  type      NotificationType
+  isRead    Boolean          @default(false)
+  metadata  Json?
+  createdAt DateTime         @default(now())
+  user      User             @relation(fields: [userId], references: [id])
+}
+
+model SupportTicket {
+  id              String                @id @default(uuid())
+  userId          String
+  assigneeId      String?
+  subject         String
+  status          SupportTicketStatus   @default(OPEN)
+  priority        SupportTicketPriority @default(MEDIUM)
+  relatedEntity   String?
+  relatedEntityId String?
+  createdAt       DateTime              @default(now())
+  updatedAt       DateTime              @updatedAt
+  messages        SupportMessage[]
+  assignee        User?                 @relation("TicketAssignee", fields: [assigneeId], references: [id])
+  user            User                  @relation("TicketOwner", fields: [userId], references: [id])
+}
+
+model SupportMessage {
+  id          String        @id @default(uuid())
+  ticketId    String
+  senderId    String
+  content     String
+  attachments String[]
+  createdAt   DateTime      @default(now())
+  sender      User          @relation(fields: [senderId], references: [id])
+  ticket      SupportTicket @relation(fields: [ticketId], references: [id])
+}
+
+model AuditLog {
+  id        String      @id @default(uuid())
+  actorId   String?
+  action    AuditAction
+  entity    String
+  entityId  String
+  before    Json?
+  after     Json?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime    @default(now())
+  actor     User?       @relation("AuditActor", fields: [actorId], references: [id])
+}
+
+model PropertyManagement {
+  id                   String           @id @default(uuid())
+  propertyId           String
+  ownerId              String
+  managerId            String
+  status               ManagementStatus @default(ACTIVE)
+  canChat              Boolean          @default(true)
+  canApproveTenants    Boolean          @default(false)
+  canManageArtisans    Boolean          @default(true)
+  canViewFinances      Boolean          @default(false)
+  commissionPercentage Float            @default(0.0)
+  fixedCommission      Float            @default(0.0)
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @updatedAt
+  manager              User             @relation("ManagerDelegated", fields: [managerId], references: [id])
+  owner                User             @relation("OwnerDelegated", fields: [ownerId], references: [id])
+  property             Property         @relation(fields: [propertyId], references: [id])
+
+  @@unique([propertyId, managerId])
+}
+
+model FinancingOption {
+  id             String   @id @default(uuid())
+  propertyId     String
+  bankName       String
+  interestRate   Float
+  tenureYears    Int
+  minDownPayment Float
+  isNHFEligible  Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  property       Property @relation(fields: [propertyId], references: [id])
+}
+
+model Milestone {
+  id           String          @id @default(uuid())
+  propertyId   String
+  title        String
+  description  String?
+  amount       Float
+  status       MilestoneStatus @default(PENDING)
+  order        Int             @default(0)
+  inspectionId String?
+  dueDate      DateTime?
+  completedAt  DateTime?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  property     Property        @relation(fields: [propertyId], references: [id])
+}
+
+model TenancyAgreement {
+  id             String          @id @default(uuid())
+  tenancyId      String          @unique
+  content        String
+  ownerSigned    Boolean         @default(false)
+  ownerSignedAt  DateTime?
+  tenantSigned   Boolean         @default(false)
+  tenantSignedAt DateTime?
+  status         AgreementStatus @default(PENDING)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  tenancy        Tenancy         @relation(fields: [tenancyId], references: [id])
+}
+
+enum UserRole {
+  LANDLORD
+  TENANT
+  ARTISAN
+  ADMIN
+}
+
+enum PropertyStatus {
+  PENDING
+  AVAILABLE
+  RENTED
+  MAINTENANCE
+  FLAGGED
+}
+
+enum ListingType {
+  RENT
+  SALE
+  LEASE
+  SHORTLET
+}
+
+enum TenancyStatus {
+  ACTIVE
+  EXPIRED
+  TERMINATED
+}
+
+enum RentFrequency {
+  ANNUALLY   // Standard Lagos market — 1 year upfront
+  BIANNUALLY // 6 months
+  QUARTERLY  // 3 months
+  MONTHLY    // Monthly — Lagos is pushing this
+}
+
+enum JobStatus {
+  OPEN
+  ASSIGNED
+  IN_PROGRESS
+  COMPLETED
+  VERIFIED
+  PAID
+  DISPUTED
+}
+
+enum VaultCategory {
+  IDENTITY
+  DEED
+  RECEIPT
+  LEGAL
+  INSPECTION
+  UTILITY
+}
+
+enum MoveStatus {
+  SCHEDULED
+  IN_TRANSIT
+  COMPLETED
+  CANCELLED
+}
+
+enum TransactionStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  ESCROW
+  LOCKED
+  COMPLETED
+}
+
+enum TransactionType {
+  RENT
+  MOVE
+  REWARD
+  REPAIR
+  COMMISSION
+  REFUND
+  DEPOSIT
+  SERVICE
+  VERIFICATION
+  BOND_CONTRIBUTION
+  CAUTION_DEPOSIT
+  MORTGAGE_REPAYMENT
+  MANAGEMENT_FEE
+  MILESTONE_PAYMENT
+  LEASE_PAYMENT
+}
+
+enum ArtisanCategory {
+  PLUMBER
+  ELECTRICIAN
+  AC_TECHNICIAN
+  CARPENTER
+  PAINTER
+  CLEANER
+  SECURITY
+  GENERAL
+}
+
+enum NotificationType {
+  RENT_DUE
+  RENT_PAID
+  JOB_UPDATE
+  KEY_ISSUED
+  DOC_VERIFIED
+  TENANCY_UPDATE
+  MOVE_UPDATE
+  REVIEW_RECEIVED
+  REWARD_PAID
+  DISPUTE_UPDATE
+  WISHLIST_MATCH
+  WAITLIST_AVAILABLE
+  SYSTEM
+}
+
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  LOGIN
+  LOGOUT
+  VERIFY
+  FLAG
+  APPROVE
+  REJECT
+  PAYMENT
+  ACCESS
+}
+
+enum ApplicationStatus {
+  PENDING
+  REVIEWING
+  ACCEPTED
+  REJECTED
+  WITHDRAWN
+}
+
+enum DisputeStatus {
+  OPEN
+  UNDER_REVIEW
+  RESOLVED
+  ESCALATED
+}
+
+enum DisputeType {
+  MAINTENANCE
+  RENT
+  CAUTION_DEPOSIT
+  PROPERTY_CONDITION
+}
+
+enum ServiceCategory {
+  INTERNET
+  DSTV
+  GENERATOR
+  FUMIGATION
+  CLEANING
+  SECURITY
+  OTHER
+}
+
+enum SupportTicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum SupportTicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum ManagementStatus {
+  PENDING
+  ACTIVE
+  INACTIVE
+  TERMINATED
+}
+
+enum DevelopmentStage {
+  LAND
+  FOUNDATION
+  CARCASS
+  FINISHED
+}
+
+enum MilestoneStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  VERIFIED
+  PAID
+}
+
+enum AgreementStatus {
+  PENDING
+  SIGNED
+  EXPIRED
+  TERMINATED
+}
+
+model NotificationPreferences {
+  id                     String   @id @default(uuid())
+  userId                 String   @unique
+  rentReminders          Boolean  @default(true)
+  applicationUpdates     Boolean  @default(true)
+  matchingProperties     Boolean  @default(true)
+  platformAnnouncements  Boolean  @default(true)
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+  user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

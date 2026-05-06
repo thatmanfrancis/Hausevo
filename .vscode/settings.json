@@ -1,0 +1,7 @@
+{
+    "kiroAgent.configureMCP": "Disabled",
+    "chat.fontFamily": "Fira Code",
+    "editor.fontFamily": "'JetBrains Mono', 'Fira Code', monospace",
+    "editor.fontLigatures": true,
+    "terminal.integrated.fontFamily": "'JetBrains Mono', monospace"
+}

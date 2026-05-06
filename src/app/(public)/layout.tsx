@@ -1,0 +1,21 @@
+import { auth } from "@/lib/auth";
+import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
+
+export default async function PublicLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const session = await auth();
+
+  return (
+    <div className="min-h-screen flex flex-col bg-[#f5f5f5]">
+      <Navbar session={session} />
+      <main className="flex-1 w-full max-w-6xl mx-auto px-6 md:px-10 py-8">
+        {children}
+      </main>
+      <Footer />
+    </div>
+  );
+}
