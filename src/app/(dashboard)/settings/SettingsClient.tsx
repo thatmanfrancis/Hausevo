@@ -43,13 +43,13 @@ function Toggle({
       aria-checked={enabled}
       onClick={() => !loading && onChange(!enabled)}
       disabled={loading}
-      className={`relative shrink-0 h-6 w-11 rounded-full transition-colors duration-200 focus:outline-none disabled:cursor-wait ${
+      className={`relative inline-flex shrink-0 h-6 w-11 items-center rounded-full transition-colors duration-200 focus:outline-none disabled:cursor-wait ${
         enabled ? "bg-zinc-900" : "bg-zinc-200"
       }`}
     >
       <span
-        className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow-sm border border-zinc-200 transition-transform duration-200 ${
-          enabled ? "translate-x-5" : "translate-x-0.5"
+        className={`inline-block h-4 w-4 rounded-full bg-white shadow transition-transform duration-200 ${
+          enabled ? "translate-x-6" : "translate-x-1"
         }`}
       />
     </button>

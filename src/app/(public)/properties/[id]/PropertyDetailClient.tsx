@@ -36,6 +36,7 @@ type PropertyDetail = {
     reviewer: { id: string; fullName: string };
   }[];
   _count: { savedBy: number; waitlist: number };
+  status: string;
   createdAt: string;
 };
 
@@ -683,14 +684,16 @@ export default function PropertyDetailClient({
                 Chat with Landlord
               </Link>
 
-              <Link
-                href={session?.user ? `/applications/new?property=${property.id}` : loginHref}
-                className="flex items-center justify-center gap-2 rounded-full border border-zinc-200 bg-white px-5 py-3 text-sm font-bold text-zinc-700 hover:border-zinc-400 transition-colors"
-              >
-                Apply Now
-              </Link>
-
-              <JoinWaitlistButton propertyId={property.id} session={session} />
+              {property.status === "AVAILABLE" ? (
+                <Link
+                  href={session?.user ? `/applications/new?property=${property.id}` : loginHref}
+                  className="flex items-center justify-center gap-2 rounded-full border border-zinc-200 bg-white px-5 py-3 text-sm font-bold text-zinc-700 hover:border-zinc-400 transition-colors"
+                >
+                  Apply Now
+                </Link>
+              ) : (
+                <JoinWaitlistButton propertyId={property.id} session={session} status={property.status} />
+              )}
             </div>
           </div>
         </div>
@@ -772,7 +775,7 @@ function InfoRow({ label, value }: { label: string; value: string }) {
   );
 }
 
-function JoinWaitlistButton({ propertyId, session }: { propertyId: string; session: any }) {
+function JoinWaitlistButton({ propertyId, session, status }: { propertyId: string; session: any; status: string }) {
   const router = useRouter();
   const [joined, setJoined] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -784,34 +787,48 @@ function JoinWaitlistButton({ propertyId, session }: { propertyId: string; sessi
     }
     setLoading(true);
     try {
-      await fetch(`/api/properties/${propertyId}/waitlist`, { method: "POST" });
-      setJoined(true);
+      const res = await fetch(`/api/properties/${propertyId}/waitlist`, { method: "POST" });
+      if (res.ok) setJoined(true);
     } finally {
       setLoading(false);
     }
   }
 
+  const statusLabel: Record<string, string> = {
+    RENTED: "Currently rented",
+    MAINTENANCE: "Under maintenance",
+    PENDING: "Pending approval",
+    FLAGGED: "Flagged",
+  };
+
   return (
-    <button
-      onClick={handleJoin}
-      disabled={joined || loading}
-      className={`flex items-center justify-center gap-2 rounded-full border px-5 py-3 text-sm font-bold transition-colors ${
-        joined
-          ? "border-emerald-200 bg-emerald-50 text-emerald-700 cursor-default"
-          : "border-zinc-200 bg-white text-zinc-700 hover:border-zinc-400"
-      } disabled:opacity-60`}
-    >
-      {joined ? (
-        <>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
-          On Waitlist
-        </>
-      ) : loading ? (
-        "Joining..."
-      ) : (
-        "Join Waitlist"
+    <div className="flex flex-col gap-1.5">
+      {statusLabel[status] && (
+        <p className="text-center text-xs font-semibold text-zinc-400">
+          {statusLabel[status]}
+        </p>
       )}
-    </button>
+      <button
+        onClick={handleJoin}
+        disabled={joined || loading}
+        className={`flex items-center justify-center gap-2 rounded-full border px-5 py-3 text-sm font-bold transition-colors ${
+          joined
+            ? "border-emerald-200 bg-emerald-50 text-emerald-700 cursor-default"
+            : "border-zinc-200 bg-white text-zinc-700 hover:border-zinc-400"
+        } disabled:opacity-60`}
+      >
+        {joined ? (
+          <>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+            On Waitlist
+          </>
+        ) : loading ? (
+          "Joining..."
+        ) : (
+          "Join Waitlist"
+        )}
+      </button>
+    </div>
   );
 }
 

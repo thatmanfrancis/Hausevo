@@ -51,6 +51,7 @@ export default async function PropertyDetailPage({
         take: 5,
       },
       _count: { select: { savedBy: true, waitlist: true } },
+      status: true,
       createdAt: true,
     },
   });
