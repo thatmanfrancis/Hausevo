@@ -483,6 +483,8 @@ export default function PropertyDetailClient({
 }) {
   const router = useRouter();
   const [saved, setSaved] = useState(false);
+  const [viewingRequested, setViewingRequested] = useState(false);
+  const [viewingLoading, setViewingLoading] = useState(false);
 
   const meta = property.metadata ?? {};
   const price = formatPrice(property);
@@ -497,6 +499,22 @@ export default function PropertyDetailClient({
     }
     setSaved((s) => !s);
     await fetch(`/api/properties/${property.id}/save`, { method: "POST" });
+  }
+
+  async function requestViewing() {
+    if (!session?.user) {
+      router.push("/auth/login");
+      return;
+    }
+    setViewingLoading(true);
+    try {
+      await fetch(`/api/properties/${property.id}/viewing`, { method: "POST" });
+      setViewingRequested(true);
+    } catch {
+      // Silent fail — chat still opens
+    } finally {
+      setViewingLoading(false);
+    }
   }
 
   function handleShare() {
@@ -683,6 +701,38 @@ export default function PropertyDetailClient({
                 </svg>
                 Chat with Landlord
               </Link>
+
+              {property.status === "AVAILABLE" && (
+                <button
+                  type="button"
+                  onClick={requestViewing}
+                  disabled={viewingLoading || viewingRequested}
+                  className={`flex items-center justify-center gap-2 rounded-full border px-5 py-3 text-sm font-bold transition-colors ${
+                    viewingRequested
+                      ? "border-emerald-200 bg-emerald-50 text-emerald-700 cursor-default"
+                      : "border-zinc-200 bg-white text-zinc-700 hover:border-zinc-400"
+                  } disabled:opacity-70`}
+                >
+                  {viewingRequested ? (
+                    <>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                      Viewing Requested
+                    </>
+                  ) : viewingLoading ? (
+                    "Requesting…"
+                  ) : (
+                    <>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                      </svg>
+                      Request Viewing
+                    </>
+                  )}
+                </button>
+              )}
 
               {property.status === "AVAILABLE" ? (
                 <Link

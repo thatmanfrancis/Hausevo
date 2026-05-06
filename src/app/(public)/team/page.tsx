@@ -5,16 +5,16 @@ export const metadata = {
 
 const TEAM = [
   {
-    name: "Adebayo Okonkwo",
+    name: "Jeremiah Amaukwu",
     role: "Co-founder & CEO",
-    bio: "Former property lawyer turned builder. Spent 8 years watching tenants get exploited by agents and decided to fix it.",
-    initials: "AO",
+    bio: "CEO @LemonWares Technologies. Spent 8 years watching tenants get exploited by agents and decided to fix it.",
+    initials: "JA",
   },
   {
-    name: "Chisom Eze",
+    name: "Francis Uzoigwe",
     role: "Co-founder & CTO",
     bio: "Built fintech infrastructure at two Lagos startups before joining forces to bring transparency to Nigerian real estate.",
-    initials: "CE",
+    initials: "FU",
   },
   {
     name: "Fatima Aliyu",
@@ -23,10 +23,10 @@ const TEAM = [
     initials: "FA",
   },
   {
-    name: "Emeka Nwosu",
+    name: "Austin Onwuka",
     role: "Lead Engineer",
     bio: "Full-stack engineer obsessed with performance and clean APIs. Builds the systems that keep Shack running.",
-    initials: "EN",
+    initials: "AO",
   },
   {
     name: "Ngozi Adeyemi",

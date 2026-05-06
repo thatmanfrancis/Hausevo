@@ -94,6 +94,47 @@ export async function POST(req: NextRequest) {
     },
   });
 
+  // ── Auto-generate rent schedule based on frequency ──────────────────────
+  // Determine frequency from the property's rentFrequency field
+  const propertyWithFreq = await prisma.property.findUnique({
+    where: { id: application.propertyId },
+    select: { rentFrequency: true, pricePerYear: true },
+  });
+
+  const freq = propertyWithFreq?.rentFrequency ?? "ANNUALLY";
+  const annualRent = propertyWithFreq?.pricePerYear ?? Number(savingsGoal);
+
+  // Map frequency to interval in months and payment amount
+  const freqConfig: Record<string, { months: number; amount: number }> = {
+    ANNUALLY:   { months: 12, amount: annualRent },
+    BIANNUALLY: { months: 6,  amount: annualRent / 2 },
+    QUARTERLY:  { months: 3,  amount: annualRent / 4 },
+    MONTHLY:    { months: 1,  amount: annualRent / 12 },
+  };
+
+  const { months, amount } = freqConfig[freq] ?? freqConfig.ANNUALLY;
+
+  // Generate schedule entries from startDate to endDate
+  const scheduleEntries: { tenancyId: string; dueDate: Date; amount: number; frequency: string }[] = [];
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  let current = new Date(start);
+
+  while (current <= end) {
+    scheduleEntries.push({
+      tenancyId: tenancy.id,
+      dueDate: new Date(current),
+      amount: Math.round(amount),
+      frequency: freq,
+    });
+    current = new Date(current);
+    current.setMonth(current.getMonth() + months);
+  }
+
+  if (scheduleEntries.length > 0) {
+    await prisma.rentSchedule.createMany({ data: scheduleEntries as any });
+  }
+
   await prisma.property.update({
     where: { id: application.propertyId },
     data: { status: "RENTED" },

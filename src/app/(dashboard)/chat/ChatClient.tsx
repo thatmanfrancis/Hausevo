@@ -126,6 +126,7 @@ export default function ChatClient({ rooms: initialRooms, activeRoom: initialAct
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
   const [showSidebar, setShowSidebar] = useState(!initialActive);
+  const [revealing, setRevealing] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
@@ -214,6 +215,22 @@ export default function ChatClient({ rooms: initialRooms, activeRoom: initialAct
   const other = active?.participants.find((p) => p.id !== userId);
   const displayName = active?.isIdentityRevealed ? (other?.fullName ?? "Landlord") : "Anonymous";
 
+  async function handleReveal() {
+    if (!active) return;
+    setRevealing(true);
+    try {
+      const res = await fetch(`/api/chat/${active.id}/reveal`, { method: "PATCH" });
+      if (res.ok) {
+        setActive((prev) => prev ? { ...prev, isIdentityRevealed: true } : prev);
+        setRooms((prev) => prev.map((r) => r.id === active.id ? { ...r, isIdentityRevealed: true } : r));
+      }
+    } catch {
+      // Silent fail
+    } finally {
+      setRevealing(false);
+    }
+  }
+
   return (
     <div className="flex h-[calc(100vh-8rem)] bg-white rounded-2xl border border-zinc-200 overflow-hidden">
 
@@ -290,6 +307,22 @@ export default function ChatClient({ rooms: initialRooms, activeRoom: initialAct
               <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-[10px] font-bold ${LISTING_BADGE[active.property.listingType] ?? "bg-zinc-100 text-zinc-600"}`}>
                 {active.property.listingType.charAt(0) + active.property.listingType.slice(1).toLowerCase()}
               </span>
+
+              {/* Reveal identity button */}
+              {!active.isIdentityRevealed && (
+                <button
+                  type="button"
+                  onClick={handleReveal}
+                  disabled={revealing}
+                  title="Reveal identities"
+                  className="shrink-0 flex h-8 w-8 items-center justify-center rounded-full border border-zinc-200 text-zinc-500 hover:border-zinc-400 hover:text-zinc-900 transition-colors disabled:opacity-50"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                </button>
+              )}
             </div>
 
             {/* Messages */}
