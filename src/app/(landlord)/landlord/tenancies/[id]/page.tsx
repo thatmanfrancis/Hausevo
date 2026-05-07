@@ -55,12 +55,22 @@ export default async function LandlordTenancyDetailPage({
           providerName: true, price: true,
         },
       },
+      conditionReport: {
+        select: {
+          id: true,
+          type: true,
+          isAcknowledgedByTenant: true,
+          isAcknowledgedByOwner: true,
+          beforePhotos: true,
+          afterPhotos: true,
+        },
+      },
     },
   });
 
   if (!tenancy) notFound();
   // Only the landlord of the property can view this
-  if (tenancy.property.landlordId !== session.user.id) redirect("/landlord/tenancies");
+  if ((tenancy as any).property.landlordId !== session.user.id) redirect("/landlord/tenancies");
 
   return <LandlordTenancyDetailClient tenancy={tenancy as any} />;
 }

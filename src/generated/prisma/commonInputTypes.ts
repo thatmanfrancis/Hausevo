@@ -664,6 +664,23 @@ export type EnumMilestoneStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumMilestoneStatusFilter<$PrismaModel>
 }
 
+export type EnumConditionReportTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ConditionReportType | Prisma.EnumConditionReportTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ConditionReportType[] | Prisma.ListEnumConditionReportTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ConditionReportType[] | Prisma.ListEnumConditionReportTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumConditionReportTypeFilter<$PrismaModel> | $Enums.ConditionReportType
+}
+
+export type EnumConditionReportTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ConditionReportType | Prisma.EnumConditionReportTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ConditionReportType[] | Prisma.ListEnumConditionReportTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ConditionReportType[] | Prisma.ListEnumConditionReportTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumConditionReportTypeWithAggregatesFilter<$PrismaModel> | $Enums.ConditionReportType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumConditionReportTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumConditionReportTypeFilter<$PrismaModel>
+}
+
 export type EnumAgreementStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.AgreementStatus | Prisma.EnumAgreementStatusFieldRefInput<$PrismaModel>
   in?: $Enums.AgreementStatus[] | Prisma.ListEnumAgreementStatusFieldRefInput<$PrismaModel>
@@ -1293,6 +1310,23 @@ export type NestedEnumMilestoneStatusWithAggregatesFilter<$PrismaModel = never> 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumMilestoneStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumMilestoneStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumConditionReportTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ConditionReportType | Prisma.EnumConditionReportTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ConditionReportType[] | Prisma.ListEnumConditionReportTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ConditionReportType[] | Prisma.ListEnumConditionReportTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumConditionReportTypeFilter<$PrismaModel> | $Enums.ConditionReportType
+}
+
+export type NestedEnumConditionReportTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ConditionReportType | Prisma.EnumConditionReportTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ConditionReportType[] | Prisma.ListEnumConditionReportTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ConditionReportType[] | Prisma.ListEnumConditionReportTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumConditionReportTypeWithAggregatesFilter<$PrismaModel> | $Enums.ConditionReportType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumConditionReportTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumConditionReportTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumAgreementStatusFilter<$PrismaModel = never> = {

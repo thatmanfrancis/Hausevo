@@ -9,6 +9,14 @@
 * 🟢 You can import this file directly.
 */
 
+export const ConditionReportType = {
+  MOVE_IN: 'MOVE_IN',
+  MOVE_OUT: 'MOVE_OUT'
+} as const
+
+export type ConditionReportType = (typeof ConditionReportType)[keyof typeof ConditionReportType]
+
+
 export const UserRole = {
   LANDLORD: 'LANDLORD',
   TENANT: 'TENANT',

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Nunito, Pacifico } from "next/font/google";
 import "./globals.css";
 import CookieBanner from "@/app/components/CookieBanner";
@@ -17,6 +17,13 @@ const pacifico = Pacifico({
 export const metadata: Metadata = {
   title: "Shack — Find Verified Lagos Homes",
   description: "Discover verified Lagos properties with no agents, no markups, and transparent pricing.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({

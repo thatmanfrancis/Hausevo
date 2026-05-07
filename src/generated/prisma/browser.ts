@@ -198,6 +198,11 @@ export type FinancingOption = Prisma.FinancingOptionModel
  */
 export type Milestone = Prisma.MilestoneModel
 /**
+ * Model ConditionReport
+ * 
+ */
+export type ConditionReport = Prisma.ConditionReportModel
+/**
  * Model TenancyAgreement
  * 
  */

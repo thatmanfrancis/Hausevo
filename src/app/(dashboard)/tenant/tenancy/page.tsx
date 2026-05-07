@@ -11,6 +11,7 @@ export default async function TenancyPage() {
     where: { tenantId: session.user.id },
     select: {
       id: true,
+      tenantId: true,
       status: true,
       startDate: true,
       endDate: true,
@@ -71,8 +72,27 @@ export default async function TenancyPage() {
           price: true,
         },
       },
+      coTenants: {
+        select: {
+          id: true,
+          fullName: true,
+          email: true,
+          verificationTier: true,
+        },
+      },
+      conditionReport: {
+        select: {
+          id: true,
+          type: true,
+          beforePhotos: true,
+          afterPhotos: true,
+          notes: true,
+          isAcknowledgedByTenant: true,
+          isAcknowledgedByOwner: true,
+        },
+      },
     },
   });
 
-  return <TenancyClient tenancy={tenancy} />;
+  return <TenancyClient tenancy={tenancy} userId={session.user.id} />;
 }

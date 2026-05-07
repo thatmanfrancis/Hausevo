@@ -32,7 +32,13 @@ type Props = {
   recentApplications: Application[];
   activeTenancies: Tenancy[];
   notifications: Notification[];
-  stats: { totalProperties: number; pendingApplications: number; activeTenancies: number };
+  stats: { 
+    totalProperties: number; 
+    pendingApplications: number; 
+    activeTenancies: number;
+    monthlyYield: number;
+    shackScore: number;
+  };
   landlordName: string;
 };
 
@@ -82,36 +88,95 @@ export default function LandlordDashboard({
     <div className="flex flex-col gap-5">
 
       {/* Hero */}
-      <div className="bg-zinc-900 rounded-2xl p-6 text-white">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-1">{greeting()}</p>
-            <h1 className="text-2xl font-extrabold leading-tight">{firstName}</h1>
-            <p className="text-sm text-zinc-400 mt-1">Manage your properties and tenants from here.</p>
+      <div className="bg-zinc-900 rounded-2xl p-8 text-white">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-white border border-emerald-400">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-emerald-400">Verified Owner</p>
+            </div>
+            <h1 className="text-3xl font-extrabold tracking-tight leading-tight">{firstName}’s Estate</h1>
+            <p className="text-sm text-zinc-400 mt-2 max-w-md">Manage your properties, tenants, and automated financial tracking from here.</p>
           </div>
-          <Link
-            href="/landlord/properties/new"
-            className="rounded-full bg-white text-zinc-900 px-4 py-2 text-xs font-bold hover:bg-zinc-100 transition-colors whitespace-nowrap shrink-0"
-          >
-            + New listing
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/landlord/properties/new"
+              className="rounded-full bg-white text-zinc-900 px-6 py-3 text-sm font-bold hover:bg-zinc-100 transition-all hover:scale-105 active:scale-95 border border-zinc-200"
+            >
+              + Add Property
+            </Link>
+          </div>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-3 gap-3 mt-5">
-          <div className="bg-white/5 rounded-xl p-3">
-            <p className="text-2xl font-extrabold text-white">{stats.totalProperties}</p>
-            <p className="text-xs text-zinc-400 mt-0.5">Properties</p>
+        {/* Financial Overview */}
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="md:col-span-3 bg-white/5 rounded-xl p-5 border border-white/10 flex items-center gap-8">
+            <div className="shrink-0">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mb-1">Monthly Yield</p>
+              <p className="text-3xl font-extrabold text-white">{formatNaira(stats.monthlyYield)}</p>
+              <p className="text-[10px] text-zinc-400 font-medium mt-1">Last 30 days</p>
+            </div>
+            <div className="flex-1 h-12 flex items-end gap-1.5">
+              {[40, 60, 45, 70, 55, 80, 65, 90, 75, 100].map((h, i) => (
+                <div 
+                  key={i} 
+                  className="flex-1 bg-white/10 rounded-t-sm transition-colors hover:bg-white/20"
+                  style={{ height: `${h}%` }}
+                />
+              ))}
+            </div>
           </div>
-          <div className="bg-white/5 rounded-xl p-3">
-            <p className="text-2xl font-extrabold text-white">{stats.pendingApplications}</p>
-            <p className="text-xs text-zinc-400 mt-0.5">Pending apps</p>
-          </div>
-          <div className="bg-white/5 rounded-xl p-3">
-            <p className="text-2xl font-extrabold text-white">{stats.activeTenancies}</p>
-            <p className="text-xs text-zinc-400 mt-0.5">Active tenants</p>
+          <div className="bg-white/5 rounded-xl p-5 border border-white/10 flex flex-col justify-center">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mb-1">Shack Score</p>
+            <div className="flex items-center gap-2">
+              <p className="text-3xl font-extrabold text-white">{stats.shackScore}</p>
+              <span className="text-[10px] bg-white/10 text-white px-2 py-0.5 rounded font-bold">RATING</span>
+            </div>
           </div>
         </div>
+      </div>
+
+      {/* Stats Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="bg-white rounded-2xl border border-zinc-200 p-5">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-1">Portfolio Size</p>
+          <div className="flex items-baseline gap-2">
+            <p className="text-2xl font-extrabold text-zinc-900">{stats.totalProperties}</p>
+            <p className="text-xs text-zinc-400 font-medium">units</p>
+          </div>
+        </div>
+        <div className="bg-white rounded-2xl border border-zinc-200 p-5">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-1">Occupancy</p>
+          <div className="flex items-baseline gap-2">
+            <p className="text-2xl font-extrabold text-zinc-900">
+              {stats.totalProperties > 0 ? Math.round((stats.activeTenancies / stats.totalProperties) * 100) : 0}%
+            </p>
+            <p className="text-xs text-zinc-400 font-medium">market avg</p>
+          </div>
+        </div>
+        <div className="bg-white rounded-2xl border border-zinc-200 p-5">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-1">Attention Required</p>
+          <div className="flex items-baseline gap-2">
+            <p className="text-2xl font-extrabold text-zinc-900">{stats.pendingApplications}</p>
+            <p className="text-xs text-red-500 font-bold">new apps</p>
+          </div>
+        </div>
+        <Link 
+          href="/landlord/vault"
+          className="bg-zinc-900 rounded-2xl border border-zinc-800 p-5 group hover:bg-zinc-800 transition-colors"
+        >
+          <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mb-1">Documentation</p>
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-bold text-white">Shack Vault</p>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-zinc-500 group-hover:translate-x-1 transition-transform">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </Link>
       </div>
 
       {/* Two-column grid */}

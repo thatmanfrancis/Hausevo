@@ -420,6 +420,7 @@ export const ModelName = {
   PropertyManagement: 'PropertyManagement',
   FinancingOption: 'FinancingOption',
   Milestone: 'Milestone',
+  ConditionReport: 'ConditionReport',
   TenancyAgreement: 'TenancyAgreement',
   NotificationPreferences: 'NotificationPreferences'
 } as const
@@ -437,7 +438,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verificationToken" | "shackScore" | "accessKey" | "property" | "propertyImage" | "savedProperty" | "propertyWishlist" | "waitlist" | "vaultItem" | "tenancyApplication" | "tenancy" | "rentSchedule" | "movingOrder" | "chatRoom" | "message" | "artisanProfile" | "maintenanceJob" | "serviceRequest" | "inspection" | "review" | "dispute" | "scoutReward" | "referralCode" | "referral" | "bankAccount" | "transaction" | "notification" | "supportTicket" | "supportMessage" | "auditLog" | "propertyManagement" | "financingOption" | "milestone" | "tenancyAgreement" | "notificationPreferences"
+    modelProps: "user" | "account" | "session" | "verificationToken" | "shackScore" | "accessKey" | "property" | "propertyImage" | "savedProperty" | "propertyWishlist" | "waitlist" | "vaultItem" | "tenancyApplication" | "tenancy" | "rentSchedule" | "movingOrder" | "chatRoom" | "message" | "artisanProfile" | "maintenanceJob" | "serviceRequest" | "inspection" | "review" | "dispute" | "scoutReward" | "referralCode" | "referral" | "bankAccount" | "transaction" | "notification" | "supportTicket" | "supportMessage" | "auditLog" | "propertyManagement" | "financingOption" | "milestone" | "conditionReport" | "tenancyAgreement" | "notificationPreferences"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3105,6 +3106,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ConditionReport: {
+      payload: Prisma.$ConditionReportPayload<ExtArgs>
+      fields: Prisma.ConditionReportFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ConditionReportFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConditionReportPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ConditionReportFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConditionReportPayload>
+        }
+        findFirst: {
+          args: Prisma.ConditionReportFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConditionReportPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ConditionReportFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConditionReportPayload>
+        }
+        findMany: {
+          args: Prisma.ConditionReportFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConditionReportPayload>[]
+        }
+        create: {
+          args: Prisma.ConditionReportCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConditionReportPayload>
+        }
+        createMany: {
+          args: Prisma.ConditionReportCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ConditionReportCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConditionReportPayload>[]
+        }
+        delete: {
+          args: Prisma.ConditionReportDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConditionReportPayload>
+        }
+        update: {
+          args: Prisma.ConditionReportUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConditionReportPayload>
+        }
+        deleteMany: {
+          args: Prisma.ConditionReportDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ConditionReportUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ConditionReportUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConditionReportPayload>[]
+        }
+        upsert: {
+          args: Prisma.ConditionReportUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConditionReportPayload>
+        }
+        aggregate: {
+          args: Prisma.ConditionReportAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateConditionReport>
+        }
+        groupBy: {
+          args: Prisma.ConditionReportGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConditionReportGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ConditionReportCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConditionReportCountAggregateOutputType> | number
+        }
+      }
+    }
     TenancyAgreement: {
       payload: Prisma.$TenancyAgreementPayload<ExtArgs>
       fields: Prisma.TenancyAgreementFieldRefs
@@ -3386,7 +3461,9 @@ export const AccessKeyScalarFieldEnum = {
   isUsed: 'isUsed',
   redeemedBy: 'redeemedBy',
   redeemedAt: 'redeemedAt',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  receiptUrl: 'receiptUrl',
+  notes: 'notes'
 } as const
 
 export type AccessKeyScalarFieldEnum = (typeof AccessKeyScalarFieldEnum)[keyof typeof AccessKeyScalarFieldEnum]
@@ -3861,6 +3938,23 @@ export const MilestoneScalarFieldEnum = {
 export type MilestoneScalarFieldEnum = (typeof MilestoneScalarFieldEnum)[keyof typeof MilestoneScalarFieldEnum]
 
 
+export const ConditionReportScalarFieldEnum = {
+  id: 'id',
+  tenancyId: 'tenancyId',
+  type: 'type',
+  beforePhotos: 'beforePhotos',
+  afterPhotos: 'afterPhotos',
+  notes: 'notes',
+  isAcknowledgedByTenant: 'isAcknowledgedByTenant',
+  isAcknowledgedByOwner: 'isAcknowledgedByOwner',
+  claimedAmount: 'claimedAmount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ConditionReportScalarFieldEnum = (typeof ConditionReportScalarFieldEnum)[keyof typeof ConditionReportScalarFieldEnum]
+
+
 export const TenancyAgreementScalarFieldEnum = {
   id: 'id',
   tenancyId: 'tenancyId',
@@ -4324,6 +4418,20 @@ export type ListEnumMilestoneStatusFieldRefInput<$PrismaModel> = FieldRefInputTy
 
 
 /**
+ * Reference to a field of type 'ConditionReportType'
+ */
+export type EnumConditionReportTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConditionReportType'>
+    
+
+
+/**
+ * Reference to a field of type 'ConditionReportType[]'
+ */
+export type ListEnumConditionReportTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConditionReportType[]'>
+    
+
+
+/**
  * Reference to a field of type 'AgreementStatus'
  */
 export type EnumAgreementStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AgreementStatus'>
@@ -4482,6 +4590,7 @@ export type GlobalOmitConfig = {
   propertyManagement?: Prisma.PropertyManagementOmit
   financingOption?: Prisma.FinancingOptionOmit
   milestone?: Prisma.MilestoneOmit
+  conditionReport?: Prisma.ConditionReportOmit
   tenancyAgreement?: Prisma.TenancyAgreementOmit
   notificationPreferences?: Prisma.NotificationPreferencesOmit
 }

@@ -8,66 +8,67 @@ datasource db {
 }
 
 model User {
-  id                       String               @id @default(cuid())
-  email                    String               @unique
+  id                       String                   @id @default(cuid())
+  email                    String                   @unique
   fullName                 String
-  phoneNumber              String               @unique
+  phoneNumber              String                   @unique
   passwordHash             String?
-  googleId                 String?              @unique
-  roles                    UserRole[]           @default([TENANT])
-  isVerified               Boolean              @default(false)
-  twoFactorEnabled         Boolean              @default(false)
+  googleId                 String?                  @unique
+  roles                    UserRole[]               @default([TENANT])
+  isVerified               Boolean                  @default(false)
+  twoFactorEnabled         Boolean                  @default(false)
   twoFactorSecret          String?
-  verificationTier         Int                  @default(0)
-  walletBalance            Float                @default(0.0)
+  verificationTier         Int                      @default(0)
+  walletBalance            Float                    @default(0.0)
   fintechPartnerRef        String?
-  createdAt                DateTime             @default(now())
-  updatedAt                DateTime             @updatedAt
-  accumulatedBond          Float                @default(0.0)
-  vaultPremium             Boolean              @default(false)
+  createdAt                DateTime                 @default(now())
+  updatedAt                DateTime                 @updatedAt
+  accumulatedBond          Float                    @default(0.0)
+  vaultPremium             Boolean                  @default(false)
   vaultPremiumUntil        DateTime?
-  vaultStorageLimit        Int                  @default(100)
-  vaultStorageUsed         Int                  @default(0)
-  verificationBundlePaid   Boolean              @default(false)
+  vaultStorageLimit        Int                      @default(100)
+  vaultStorageUsed         Int                      @default(0)
+  verificationBundlePaid   Boolean                  @default(false)
   verificationBundlePaidAt DateTime?
-  onboardingCompleted      Boolean              @default(false)
-  issuedKeys               AccessKey[]          @relation("KeyIssuer")
+  onboardingCompleted      Boolean                  @default(false)
+  issuedKeys               AccessKey[]              @relation("KeyIssuer")
   accounts                 Account[]
   artisanProfile           ArtisanProfile?
   notificationPreferences  NotificationPreferences?
-  auditLogs                AuditLog[]           @relation("AuditActor")
+  auditLogs                AuditLog[]               @relation("AuditActor")
   bankAccounts             BankAccount[]
-  disputesAgainst          Dispute[]            @relation("DisputesAgainst")
-  disputesRaised           Dispute[]            @relation("DisputesRaised")
-  disputesResolved         Dispute[]            @relation("DisputesResolved")
-  inspections              Inspection[]         @relation("InspectorUser")
-  maintenanceJobs          MaintenanceJob[]     @relation("ArtisanAssigned")
+  disputesAgainst          Dispute[]                @relation("DisputesAgainst")
+  disputesRaised           Dispute[]                @relation("DisputesRaised")
+  disputesResolved         Dispute[]                @relation("DisputesResolved")
+  inspections              Inspection[]             @relation("InspectorUser")
+  maintenanceJobs          MaintenanceJob[]         @relation("ArtisanAssigned")
   messages                 Message[]
   notifications            Notification[]
-  ownedProperties          Property[]           @relation("LandlordOwned")
-  proxySubmissions         Property[]           @relation("ProxySubmissions")
-  managedProperties        PropertyManagement[] @relation("ManagerDelegated")
-  ownedManagement          PropertyManagement[] @relation("OwnerDelegated")
+  ownedProperties          Property[]               @relation("LandlordOwned")
+  proxySubmissions         Property[]               @relation("ProxySubmissions")
+  managedProperties        PropertyManagement[]     @relation("ManagerDelegated")
+  ownedManagement          PropertyManagement[]     @relation("OwnerDelegated")
   wishlist                 PropertyWishlist?
-  referredBy               Referral?            @relation("ReferredBy")
-  referral                 Referral?            @relation("ReferralsMade")
-  referralCodes            ReferralCode[]       @relation("ReferralsMade")
-  reviewsGiven             Review[]             @relation("ReviewsGiven")
-  reviewsReceived          Review[]             @relation("ReviewsReceived")
+  referredBy               Referral?                @relation("ReferredBy")
+  referral                 Referral?                @relation("ReferralsMade")
+  referralCodes            ReferralCode[]           @relation("ReferralsMade")
+  reviewsGiven             Review[]                 @relation("ReviewsGiven")
+  reviewsReceived          Review[]                 @relation("ReviewsReceived")
   savedProperties          SavedProperty[]
-  scoutRewards             ScoutReward[]        @relation("ScoutRewards")
+  scoutRewards             ScoutReward[]            @relation("ScoutRewards")
   serviceRequests          ServiceRequest[]
   sessions                 Session[]
   shackScore               ShackScore?
   supportMessages          SupportMessage[]
-  assignedTickets          SupportTicket[]      @relation("TicketAssignee")
-  supportTickets           SupportTicket[]      @relation("TicketOwner")
-  tenancy                  Tenancy?             @relation("CurrentTenant")
+  assignedTickets          SupportTicket[]          @relation("TicketAssignee")
+  supportTickets           SupportTicket[]          @relation("TicketOwner")
+  tenancy                  Tenancy?                 @relation("CurrentTenant")
   applications             TenancyApplication[]
   transactions             Transaction[]
   vaultItems               VaultItem[]
   waitlists                Waitlist[]
-  chats                    ChatRoom[]           @relation("ChatRoomToUser")
+  chats                    ChatRoom[]               @relation("ChatRoomToUser")
+  coTenancies              Tenancy[]                @relation("CoTenants")
 }
 
 model Account {
@@ -131,6 +132,8 @@ model AccessKey {
   redeemedBy String?
   redeemedAt DateTime?
   createdAt  DateTime     @default(now())
+  receiptUrl String?
+  notes      String?
   issuer     User         @relation("KeyIssuer", fields: [issuerId], references: [id])
   property   Property?
   reward     ScoutReward?
@@ -278,24 +281,26 @@ model TenancyApplication {
 }
 
 model Tenancy {
-  id             String            @id @default(uuid())
-  propertyId     String            @unique
-  tenantId       String            @unique
-  status         TenancyStatus     @default(ACTIVE)
-  isJoint        Boolean           @default(false)
-  savingsGoal    Float
-  currentSaved   Float             @default(0.0)
-  startDate      DateTime
-  endDate        DateTime
-  cautionDeposit Float
-  createdAt      DateTime          @default(now())
-  updatedAt      DateTime          @updatedAt
-  movingOrder    MovingOrder?
-  rentSchedules  RentSchedule[]
-  property       Property          @relation(fields: [propertyId], references: [id])
-  tenant         User              @relation("CurrentTenant", fields: [tenantId], references: [id])
-  agreement      TenancyAgreement?
-  transactions   Transaction[]     @relation("TransactionTenancy")
+  id              String            @id @default(uuid())
+  propertyId      String            @unique
+  tenantId        String            @unique
+  status          TenancyStatus     @default(ACTIVE)
+  isJoint         Boolean           @default(false)
+  savingsGoal     Float
+  currentSaved    Float             @default(0.0)
+  startDate       DateTime
+  endDate         DateTime
+  cautionDeposit  Float
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  movingOrder     MovingOrder?
+  rentSchedules   RentSchedule[]
+  property        Property          @relation(fields: [propertyId], references: [id])
+  tenant          User              @relation("CurrentTenant", fields: [tenantId], references: [id])
+  agreement       TenancyAgreement?
+  transactions    Transaction[]     @relation("TransactionTenancy")
+  conditionReport ConditionReport?
+  coTenants       User[]            @relation("CoTenants")
 }
 
 model RentSchedule {
@@ -604,6 +609,26 @@ model Milestone {
   property     Property        @relation(fields: [propertyId], references: [id])
 }
 
+model ConditionReport {
+  id                     String              @id @default(uuid())
+  tenancyId              String              @unique
+  type                   ConditionReportType @default(MOVE_IN)
+  beforePhotos           String[]
+  afterPhotos            String[]
+  notes                  String?
+  isAcknowledgedByTenant Boolean             @default(false)
+  isAcknowledgedByOwner  Boolean             @default(false)
+  claimedAmount          Float               @default(0.0)
+  createdAt              DateTime            @default(now())
+  updatedAt              DateTime            @updatedAt
+  tenancy                Tenancy             @relation(fields: [tenancyId], references: [id])
+}
+
+enum ConditionReportType {
+  MOVE_IN
+  MOVE_OUT
+}
+
 model TenancyAgreement {
   id             String          @id @default(uuid())
   tenancyId      String          @unique
@@ -647,10 +672,10 @@ enum TenancyStatus {
 }
 
 enum RentFrequency {
-  ANNUALLY   // Standard Lagos market — 1 year upfront
+  ANNUALLY // Standard Lagos market — 1 year upfront
   BIANNUALLY // 6 months
-  QUARTERLY  // 3 months
-  MONTHLY    // Monthly — Lagos is pushing this
+  QUARTERLY // 3 months
+  MONTHLY // Monthly — Lagos is pushing this
 }
 
 enum JobStatus {
@@ -823,13 +848,13 @@ enum AgreementStatus {
 }
 
 model NotificationPreferences {
-  id                     String   @id @default(uuid())
-  userId                 String   @unique
-  rentReminders          Boolean  @default(true)
-  applicationUpdates     Boolean  @default(true)
-  matchingProperties     Boolean  @default(true)
-  platformAnnouncements  Boolean  @default(true)
-  createdAt              DateTime @default(now())
-  updatedAt              DateTime @updatedAt
-  user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                    String   @id @default(uuid())
+  userId                String   @unique
+  rentReminders         Boolean  @default(true)
+  applicationUpdates    Boolean  @default(true)
+  matchingProperties    Boolean  @default(true)
+  platformAnnouncements Boolean  @default(true)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

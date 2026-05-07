@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import ConditionReportFlow from "@/app/components/ConditionReportFlow";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -36,6 +37,9 @@ type Tenancy = {
     id: string; scheduledDate: Date; status: string;
     pickupAddress: string; deliveryAddress: string;
     providerName: string | null; price: number | null;
+  } | null;
+  conditionReport: {
+    id: string; isAcknowledged: boolean; beforePhotos: string[];
   } | null;
 };
 
@@ -101,27 +105,39 @@ export default function LandlordTenancyDetailClient({ tenancy }: { tenancy: Tena
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-8 pb-20">
       {/* Heading */}
-      <div>
-        <div className="flex items-center gap-2 mb-1">
-          <Link href="/landlord/tenancies" className="text-xs font-bold uppercase tracking-widest text-zinc-400 hover:text-zinc-600 transition-colors">
-            Tenancies
-          </Link>
-          <span className="text-xs text-zinc-300">/</span>
-          <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 truncate max-w-[200px]">
-            {tenancy.tenant.fullName}
-          </p>
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <Link href="/landlord/tenancies" className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 hover:text-zinc-900 transition-colors">
+              Portfolio
+            </Link>
+            <span className="text-zinc-300">/</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-900">Current Tenancy</span>
+          </div>
+          <h1 className="text-4xl font-extrabold tracking-tight text-zinc-900">{tenancy.tenant.fullName}</h1>
+          <p className="text-sm text-zinc-500 mt-1">{tenancy.property.title}</p>
         </div>
-        <div className="flex items-center justify-between gap-4">
-          <h1 className="text-2xl font-extrabold text-zinc-900">{tenancy.tenant.fullName}</h1>
-          <span className={`rounded-full px-3 py-1 text-xs font-bold ${
-            tenancy.status === "ACTIVE" ? "bg-emerald-50 border border-emerald-200 text-emerald-700" : "bg-zinc-100 text-zinc-500"
+        <div className="flex items-center gap-3">
+          <span className={`rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest ${
+            tenancy.status === "ACTIVE" ? "bg-emerald-500 text-white" : "bg-zinc-100 text-zinc-500"
           }`}>
-            {tenancy.status.charAt(0) + tenancy.status.slice(1).toLowerCase()}
+            {tenancy.status}
           </span>
         </div>
       </div>
+
+      {/* Critical Action: Condition Report */}
+      {!tenancy.conditionReport && (
+        <div className="animate-in fade-in slide-in-from-top-4 duration-700">
+          <ConditionReportFlow 
+            tenancyId={tenancy.id} 
+            tenantName={tenancy.tenant.fullName} 
+            propertyName={tenancy.property.title} 
+          />
+        </div>
+      )}
 
       {/* Property card */}
       <div className="bg-white rounded-2xl border border-zinc-200 overflow-hidden">

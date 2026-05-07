@@ -87,6 +87,7 @@ export const ModelName = {
   PropertyManagement: 'PropertyManagement',
   FinancingOption: 'FinancingOption',
   Milestone: 'Milestone',
+  ConditionReport: 'ConditionReport',
   TenancyAgreement: 'TenancyAgreement',
   NotificationPreferences: 'NotificationPreferences'
 } as const
@@ -201,7 +202,9 @@ export const AccessKeyScalarFieldEnum = {
   isUsed: 'isUsed',
   redeemedBy: 'redeemedBy',
   redeemedAt: 'redeemedAt',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  receiptUrl: 'receiptUrl',
+  notes: 'notes'
 } as const
 
 export type AccessKeyScalarFieldEnum = (typeof AccessKeyScalarFieldEnum)[keyof typeof AccessKeyScalarFieldEnum]
@@ -674,6 +677,23 @@ export const MilestoneScalarFieldEnum = {
 } as const
 
 export type MilestoneScalarFieldEnum = (typeof MilestoneScalarFieldEnum)[keyof typeof MilestoneScalarFieldEnum]
+
+
+export const ConditionReportScalarFieldEnum = {
+  id: 'id',
+  tenancyId: 'tenancyId',
+  type: 'type',
+  beforePhotos: 'beforePhotos',
+  afterPhotos: 'afterPhotos',
+  notes: 'notes',
+  isAcknowledgedByTenant: 'isAcknowledgedByTenant',
+  isAcknowledgedByOwner: 'isAcknowledgedByOwner',
+  claimedAmount: 'claimedAmount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ConditionReportScalarFieldEnum = (typeof ConditionReportScalarFieldEnum)[keyof typeof ConditionReportScalarFieldEnum]
 
 
 export const TenancyAgreementScalarFieldEnum = {

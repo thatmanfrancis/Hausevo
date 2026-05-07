@@ -13,6 +13,7 @@ type RentSchedule = {
 
 type Tenancy = {
   id: string; status: string; startDate: Date; endDate: Date;
+  tenantId: string;
   cautionDeposit: number; savingsGoal: number; currentSaved: number;
   isJoint: boolean; createdAt: Date;
   property: {
@@ -32,9 +33,15 @@ type Tenancy = {
     deliveryAddress: string; status: string;
     providerName: string | null; price: number | null;
   } | null;
+  coTenants: { id: string; fullName: string; email: string; verificationTier: number }[];
+  conditionReport: {
+    id: string; type: any; beforePhotos: string[];
+    afterPhotos: string[]; notes: string | null;
+    isAcknowledgedByTenant: boolean; isAcknowledgedByOwner: boolean;
+  } | null;
 } | null;
 
-type Props = { tenancy: Tenancy };
+type Props = { tenancy: Tenancy; userId: string };
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -249,7 +256,9 @@ function ReviewModal({
 
 
 
-export default function TenancyClient({ tenancy }: Props) {
+export default function TenancyClient({ tenancy, userId }: Props) {
+  const isPrimary = tenancy?.tenantId === userId;
+  const isCoTenant = tenancy?.coTenants.some(ct => ct.id === userId);
   const [schedules, setSchedules] = useState(tenancy?.rentSchedules ?? []);
   const [payingId, setPayingId] = useState<string | null>(null);
   const [payError, setPayError] = useState("");
@@ -260,6 +269,64 @@ export default function TenancyClient({ tenancy }: Props) {
   const [signError, setSignError] = useState("");
 
   const [showReview, setShowReview] = useState(false);
+
+  // ── Condition Report ───────────────────────────────────────────────────
+  const [report, setReport] = useState(tenancy?.conditionReport ?? null);
+  const [acknowledging, setAcknowledging] = useState(false);
+
+  async function handleAcknowledgeReport() {
+    if (!tenancy || !report) return;
+    setAcknowledging(true);
+    try {
+      const res = await fetch(`/api/tenancy/${tenancy.id}/condition-report/acknowledge`, {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setReport(data.report);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setAcknowledging(false);
+    }
+  }
+
+  // ── Co-tenancy ──────────────────────────────────────────────────────────
+  const [coTenants, setCoTenants] = useState(tenancy?.coTenants ?? []);
+  const [addingCoTenant, setAddingCoTenant] = useState(false);
+  const [coTenantIdentifier, setCoTenantIdentifier] = useState("");
+  const [coTenantError, setCoTenantError] = useState("");
+  const [coTenantSuccess, setCoTenantSuccess] = useState("");
+
+  async function handleAddCoTenant(e: React.FormEvent) {
+    e.preventDefault();
+    if (!tenancy || !coTenantIdentifier) return;
+    setAddingCoTenant(true);
+    setCoTenantError("");
+    setCoTenantSuccess("");
+
+    try {
+      const res = await fetch(`/api/tenancy/${tenancy.id}/co-tenants`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ identifier: coTenantIdentifier }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setCoTenantError(data.error ?? "Failed to add co-tenant.");
+        return;
+      }
+      setCoTenants([...coTenants, data.coTenant]);
+      setCoTenantSuccess(`${data.coTenant.fullName} added successfully.`);
+      setCoTenantIdentifier("");
+      setTimeout(() => setCoTenantSuccess(""), 5000);
+    } catch {
+      setCoTenantError("Network error. Please try again.");
+    } finally {
+      setAddingCoTenant(false);
+    }
+  }
 
   // ── Pay rent ──────────────────────────────────────────────────────────────
 
@@ -296,6 +363,37 @@ export default function TenancyClient({ tenancy }: Props) {
       setPayError("Network error. Please try again.");
     } finally {
       setPayingId(null);
+    }
+  }
+
+  // ── Contribute to rent (Co-tenants) ──────────────────────────────────────
+  const [contributing, setContributing] = useState(false);
+  const [contribError, setContribError] = useState("");
+  const [contribSuccess, setContribSuccess] = useState("");
+
+  async function handleContribute(amount: number) {
+    if (!tenancy) return;
+    setContributing(true);
+    setContribError("");
+    setContribSuccess("");
+
+    try {
+      const res = await fetch(`/api/tenancy/${tenancy.id}/contribute`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setContribError(data.error ?? "Contribution failed.");
+        return;
+      }
+      setContribSuccess(`Contributed ${formatNaira(amount)} to primary tenant.`);
+      setTimeout(() => setContribSuccess(""), 5000);
+    } catch {
+      setContribError("Network error. Please try again.");
+    } finally {
+      setContributing(false);
     }
   }
 
@@ -355,7 +453,7 @@ export default function TenancyClient({ tenancy }: Props) {
     );
   }
 
-  const { property, movingOrder } = tenancy;
+  const { property, movingOrder, isJoint } = tenancy;
   const img = property.images[0]?.url;
   const totalDays = new Date(tenancy.endDate).getTime() - new Date(tenancy.startDate).getTime();
   const elapsed = Date.now() - new Date(tenancy.startDate).getTime();
@@ -389,6 +487,16 @@ export default function TenancyClient({ tenancy }: Props) {
             <polyline points="20 6 9 17 4 12"/>
           </svg>
           {paySuccess}
+        </div>
+      )}
+
+      {/* Contribution success */}
+      {contribSuccess && (
+        <div className="flex items-center gap-2.5 rounded-2xl bg-emerald-50 border border-emerald-100 px-5 py-3.5 text-sm text-emerald-700 font-semibold">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          {contribSuccess}
         </div>
       )}
 
@@ -432,11 +540,16 @@ export default function TenancyClient({ tenancy }: Props) {
           <p className="text-lg font-extrabold text-zinc-900">{formatNaira(tenancy.cautionDeposit)}</p>
         </div>
         <div className="bg-white rounded-2xl border border-zinc-200 p-4">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-1">Next Rent Due</p>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-1">
+            {isCoTenant ? "Your Share" : "Next Rent Due"}
+          </p>
           {nextDue ? (
             <>
-              <p className="text-lg font-extrabold text-zinc-900">{formatNaira(nextDue.amount)}</p>
+              <p className="text-lg font-extrabold text-zinc-900">
+                {formatNaira(isJoint ? nextDue.amount / (1 + coTenants.length) : nextDue.amount)}
+              </p>
               <p className={`text-[10px] font-bold mt-0.5 ${daysToNext !== null && daysToNext <= 7 ? "text-red-600" : "text-zinc-400"}`}>
+                {isJoint && <span className="mr-1 text-zinc-400 font-normal">(Split {1 + coTenants.length} ways)</span>}
                 {daysToNext !== null ? (daysToNext <= 0 ? "Overdue" : `In ${daysToNext}d`) : formatDate(nextDue.dueDate)}
               </p>
             </>
@@ -467,6 +580,15 @@ export default function TenancyClient({ tenancy }: Props) {
           </div>
         )}
 
+        {contribError && (
+          <div className="flex items-start gap-2.5 rounded-xl bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700 mb-4">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            {contribError}
+          </div>
+        )}
+
         {schedules.length === 0 ? (
           <p className="text-sm text-zinc-500">No rent schedule set up yet.</p>
         ) : (
@@ -490,14 +612,24 @@ export default function TenancyClient({ tenancy }: Props) {
                   </div>
                   <div className="flex items-center gap-2.5 shrink-0">
                     <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${s.cls}`}>{s.label}</span>
-                    {isPending && (
+                    {isPending && isPrimary && (
                       <button
                         type="button"
                         onClick={() => handlePay(r.id, r.amount)}
                         disabled={payingId === r.id}
                         className="rounded-full bg-zinc-900 text-white px-4 py-1.5 text-xs font-bold hover:bg-zinc-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        {payingId === r.id ? "Paying…" : "Pay"}
+                        {payingId === r.id ? "Paying…" : "Pay landlord"}
+                      </button>
+                    )}
+                    {isPending && isCoTenant && (
+                      <button
+                        type="button"
+                        onClick={() => handleContribute(isJoint ? r.amount / (1 + coTenants.length) : r.amount)}
+                        disabled={contributing}
+                        className="rounded-full bg-zinc-900 text-white px-4 py-1.5 text-xs font-bold hover:bg-zinc-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {contributing ? "Contributing…" : "Pay share"}
                       </button>
                     )}
                   </div>
@@ -576,6 +708,124 @@ export default function TenancyClient({ tenancy }: Props) {
         </div>
       )}
 
+      {/* Co-Tenants */}
+      <div className="bg-white rounded-2xl border border-zinc-200 p-6">
+        <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Co-Tenants (Roommates)</p>
+        
+        {coTenants.length === 0 ? (
+          <p className="text-sm text-zinc-400 mb-4 italic">No co-tenants added yet. You can share your space and rent with others.</p>
+        ) : (
+          <div className="flex flex-col gap-3 mb-6">
+            {coTenants.map((ct) => (
+              <div key={ct.id} className="flex items-center justify-between gap-3 p-3 rounded-xl border border-zinc-100 bg-zinc-50">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-white text-[10px] font-bold">
+                    {ct.fullName.split(" ").slice(0, 2).map((n) => n[0]).join("").toUpperCase()}
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-zinc-900">{ct.fullName}</p>
+                    <p className="text-[10px] text-zinc-400">{ct.email}</p>
+                  </div>
+                </div>
+                <span className="rounded-full bg-zinc-200 text-zinc-600 px-2 py-0.5 text-[9px] font-bold uppercase">Active</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <form onSubmit={handleAddCoTenant} className="flex flex-col gap-3">
+          <div className="flex flex-col gap-1.5">
+            <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">Add Roommate</label>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={coTenantIdentifier}
+                onChange={(e) => setCoTenantIdentifier(e.target.value)}
+                placeholder="Email or phone number"
+                className="flex-1 rounded-full border border-zinc-200 bg-white px-4 py-2 text-xs text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors"
+              />
+              <button
+                type="submit"
+                disabled={addingCoTenant || !coTenantIdentifier}
+                className="rounded-full bg-zinc-900 text-white px-4 py-2 text-xs font-bold hover:bg-zinc-700 transition-colors disabled:opacity-50"
+              >
+                {addingCoTenant ? "Adding…" : "Add"}
+              </button>
+            </div>
+          </div>
+          {coTenantError && <p className="text-[10px] font-bold text-red-600">{coTenantError}</p>}
+          {coTenantSuccess && <p className="text-[10px] font-bold text-emerald-600">{coTenantSuccess}</p>}
+        </form>
+      </div>
+
+      {/* Escrow & Condition Report */}
+      <div className="bg-white rounded-2xl border border-zinc-200 p-6">
+        <div className="flex items-center justify-between mb-4">
+          <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">Escrow Security</p>
+          <div className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-700 uppercase">
+            <span className="h-1 w-1 rounded-full bg-emerald-500 animate-pulse" />
+            Active
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <div className="flex items-start gap-3 p-4 rounded-xl border border-zinc-100 bg-zinc-50">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white border border-zinc-200 text-zinc-400">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <div className="flex-1">
+              <p className="text-xs font-bold text-zinc-900 mb-0.5">Caution Deposit Secured</p>
+              <p className="text-[10px] text-zinc-400 leading-relaxed">
+                Your deposit of {formatNaira(tenancy.cautionDeposit)} is held in Shack Escrow. It is protected and cannot be released without a mutual move-out audit.
+              </p>
+            </div>
+          </div>
+
+          <div className="p-4 rounded-xl border border-zinc-100 bg-white">
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Condition Report</p>
+              <span className={`text-[10px] font-bold ${report?.isAcknowledgedByTenant ? "text-emerald-600" : "text-amber-600"}`}>
+                {report?.isAcknowledgedByTenant ? "Acknowledged ✓" : "Pending your review"}
+              </span>
+            </div>
+            
+            {!report ? (
+              <p className="text-[10px] text-zinc-400 italic">Landlord has not uploaded the move-in report yet.</p>
+            ) : (
+              <div className="flex flex-col gap-3">
+                <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+                  {report.beforePhotos.map((url, i) => (
+                    <div key={i} className="h-16 w-16 shrink-0 rounded-lg bg-zinc-100 border border-zinc-200 overflow-hidden">
+                      <img src={url} alt="State" className="h-full w-full object-cover" />
+                    </div>
+                  ))}
+                </div>
+                {!report.isAcknowledgedByTenant && (
+                  <button
+                    onClick={handleAcknowledgeReport}
+                    disabled={acknowledging}
+                    className="w-full rounded-full bg-zinc-900 text-white py-2 text-xs font-bold hover:bg-zinc-700 transition-colors disabled:opacity-50"
+                  >
+                    {acknowledging ? "Acknowledging…" : "Acknowledge Property State"}
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+
+          <div className="rounded-xl border border-blue-100 bg-blue-50/50 p-4">
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="text-blue-600">✨</span>
+              <p className="text-[10px] font-extrabold uppercase tracking-widest text-blue-700">Shack Loyalty Reward</p>
+            </div>
+            <p className="text-[10px] text-blue-600 leading-relaxed">
+              Moving to another house on Shack? Get <span className="font-bold">80% of your deposit back</span> as a Shack Bond, with only a 20% processing fee. Loyalty pays.
+            </p>
+          </div>
+        </div>
+      </div>
       {/* Landlord */}
       <div className="bg-white rounded-2xl border border-zinc-200 p-6">
         <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Landlord</p>

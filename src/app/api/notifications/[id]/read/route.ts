@@ -7,7 +7,7 @@ import { auth } from "@/lib/auth";
   Mark a single notification as read.
   Requires: active session + must own the notification
 */
-export async function PATCH(
+export async function POST(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {

@@ -33,6 +33,8 @@ export type AccessKeyMinAggregateOutputType = {
   redeemedBy: string | null
   redeemedAt: Date | null
   createdAt: Date | null
+  receiptUrl: string | null
+  notes: string | null
 }
 
 export type AccessKeyMaxAggregateOutputType = {
@@ -44,6 +46,8 @@ export type AccessKeyMaxAggregateOutputType = {
   redeemedBy: string | null
   redeemedAt: Date | null
   createdAt: Date | null
+  receiptUrl: string | null
+  notes: string | null
 }
 
 export type AccessKeyCountAggregateOutputType = {
@@ -55,6 +59,8 @@ export type AccessKeyCountAggregateOutputType = {
   redeemedBy: number
   redeemedAt: number
   createdAt: number
+  receiptUrl: number
+  notes: number
   _all: number
 }
 
@@ -68,6 +74,8 @@ export type AccessKeyMinAggregateInputType = {
   redeemedBy?: true
   redeemedAt?: true
   createdAt?: true
+  receiptUrl?: true
+  notes?: true
 }
 
 export type AccessKeyMaxAggregateInputType = {
@@ -79,6 +87,8 @@ export type AccessKeyMaxAggregateInputType = {
   redeemedBy?: true
   redeemedAt?: true
   createdAt?: true
+  receiptUrl?: true
+  notes?: true
 }
 
 export type AccessKeyCountAggregateInputType = {
@@ -90,6 +100,8 @@ export type AccessKeyCountAggregateInputType = {
   redeemedBy?: true
   redeemedAt?: true
   createdAt?: true
+  receiptUrl?: true
+  notes?: true
   _all?: true
 }
 
@@ -174,6 +186,8 @@ export type AccessKeyGroupByOutputType = {
   redeemedBy: string | null
   redeemedAt: Date | null
   createdAt: Date
+  receiptUrl: string | null
+  notes: string | null
   _count: AccessKeyCountAggregateOutputType | null
   _min: AccessKeyMinAggregateOutputType | null
   _max: AccessKeyMaxAggregateOutputType | null
@@ -206,6 +220,8 @@ export type AccessKeyWhereInput = {
   redeemedBy?: Prisma.StringNullableFilter<"AccessKey"> | string | null
   redeemedAt?: Prisma.DateTimeNullableFilter<"AccessKey"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"AccessKey"> | Date | string
+  receiptUrl?: Prisma.StringNullableFilter<"AccessKey"> | string | null
+  notes?: Prisma.StringNullableFilter<"AccessKey"> | string | null
   issuer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   property?: Prisma.XOR<Prisma.PropertyNullableScalarRelationFilter, Prisma.PropertyWhereInput> | null
   reward?: Prisma.XOR<Prisma.ScoutRewardNullableScalarRelationFilter, Prisma.ScoutRewardWhereInput> | null
@@ -220,6 +236,8 @@ export type AccessKeyOrderByWithRelationInput = {
   redeemedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   redeemedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  receiptUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
   issuer?: Prisma.UserOrderByWithRelationInput
   property?: Prisma.PropertyOrderByWithRelationInput
   reward?: Prisma.ScoutRewardOrderByWithRelationInput
@@ -237,6 +255,8 @@ export type AccessKeyWhereUniqueInput = Prisma.AtLeast<{
   redeemedBy?: Prisma.StringNullableFilter<"AccessKey"> | string | null
   redeemedAt?: Prisma.DateTimeNullableFilter<"AccessKey"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"AccessKey"> | Date | string
+  receiptUrl?: Prisma.StringNullableFilter<"AccessKey"> | string | null
+  notes?: Prisma.StringNullableFilter<"AccessKey"> | string | null
   issuer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   property?: Prisma.XOR<Prisma.PropertyNullableScalarRelationFilter, Prisma.PropertyWhereInput> | null
   reward?: Prisma.XOR<Prisma.ScoutRewardNullableScalarRelationFilter, Prisma.ScoutRewardWhereInput> | null
@@ -251,6 +271,8 @@ export type AccessKeyOrderByWithAggregationInput = {
   redeemedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   redeemedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  receiptUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AccessKeyCountOrderByAggregateInput
   _max?: Prisma.AccessKeyMaxOrderByAggregateInput
   _min?: Prisma.AccessKeyMinOrderByAggregateInput
@@ -268,6 +290,8 @@ export type AccessKeyScalarWhereWithAggregatesInput = {
   redeemedBy?: Prisma.StringNullableWithAggregatesFilter<"AccessKey"> | string | null
   redeemedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"AccessKey"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"AccessKey"> | Date | string
+  receiptUrl?: Prisma.StringNullableWithAggregatesFilter<"AccessKey"> | string | null
+  notes?: Prisma.StringNullableWithAggregatesFilter<"AccessKey"> | string | null
 }
 
 export type AccessKeyCreateInput = {
@@ -278,6 +302,8 @@ export type AccessKeyCreateInput = {
   redeemedBy?: string | null
   redeemedAt?: Date | string | null
   createdAt?: Date | string
+  receiptUrl?: string | null
+  notes?: string | null
   issuer: Prisma.UserCreateNestedOneWithoutIssuedKeysInput
   property?: Prisma.PropertyCreateNestedOneWithoutAccessKeyInput
   reward?: Prisma.ScoutRewardCreateNestedOneWithoutAccessKeyInput
@@ -292,6 +318,8 @@ export type AccessKeyUncheckedCreateInput = {
   redeemedBy?: string | null
   redeemedAt?: Date | string | null
   createdAt?: Date | string
+  receiptUrl?: string | null
+  notes?: string | null
   property?: Prisma.PropertyUncheckedCreateNestedOneWithoutAccessKeyInput
   reward?: Prisma.ScoutRewardUncheckedCreateNestedOneWithoutAccessKeyInput
 }
@@ -304,6 +332,8 @@ export type AccessKeyUpdateInput = {
   redeemedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   redeemedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuer?: Prisma.UserUpdateOneRequiredWithoutIssuedKeysNestedInput
   property?: Prisma.PropertyUpdateOneWithoutAccessKeyNestedInput
   reward?: Prisma.ScoutRewardUpdateOneWithoutAccessKeyNestedInput
@@ -318,6 +348,8 @@ export type AccessKeyUncheckedUpdateInput = {
   redeemedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   redeemedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   property?: Prisma.PropertyUncheckedUpdateOneWithoutAccessKeyNestedInput
   reward?: Prisma.ScoutRewardUncheckedUpdateOneWithoutAccessKeyNestedInput
 }
@@ -331,6 +363,8 @@ export type AccessKeyCreateManyInput = {
   redeemedBy?: string | null
   redeemedAt?: Date | string | null
   createdAt?: Date | string
+  receiptUrl?: string | null
+  notes?: string | null
 }
 
 export type AccessKeyUpdateManyMutationInput = {
@@ -341,6 +375,8 @@ export type AccessKeyUpdateManyMutationInput = {
   redeemedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   redeemedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AccessKeyUncheckedUpdateManyInput = {
@@ -352,6 +388,8 @@ export type AccessKeyUncheckedUpdateManyInput = {
   redeemedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   redeemedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AccessKeyListRelationFilter = {
@@ -373,6 +411,8 @@ export type AccessKeyCountOrderByAggregateInput = {
   redeemedBy?: Prisma.SortOrder
   redeemedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  receiptUrl?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
 }
 
 export type AccessKeyMaxOrderByAggregateInput = {
@@ -384,6 +424,8 @@ export type AccessKeyMaxOrderByAggregateInput = {
   redeemedBy?: Prisma.SortOrder
   redeemedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  receiptUrl?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
 }
 
 export type AccessKeyMinOrderByAggregateInput = {
@@ -395,6 +437,8 @@ export type AccessKeyMinOrderByAggregateInput = {
   redeemedBy?: Prisma.SortOrder
   redeemedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  receiptUrl?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
 }
 
 export type AccessKeyNullableScalarRelationFilter = {
@@ -487,6 +531,8 @@ export type AccessKeyCreateWithoutIssuerInput = {
   redeemedBy?: string | null
   redeemedAt?: Date | string | null
   createdAt?: Date | string
+  receiptUrl?: string | null
+  notes?: string | null
   property?: Prisma.PropertyCreateNestedOneWithoutAccessKeyInput
   reward?: Prisma.ScoutRewardCreateNestedOneWithoutAccessKeyInput
 }
@@ -499,6 +545,8 @@ export type AccessKeyUncheckedCreateWithoutIssuerInput = {
   redeemedBy?: string | null
   redeemedAt?: Date | string | null
   createdAt?: Date | string
+  receiptUrl?: string | null
+  notes?: string | null
   property?: Prisma.PropertyUncheckedCreateNestedOneWithoutAccessKeyInput
   reward?: Prisma.ScoutRewardUncheckedCreateNestedOneWithoutAccessKeyInput
 }
@@ -541,6 +589,8 @@ export type AccessKeyScalarWhereInput = {
   redeemedBy?: Prisma.StringNullableFilter<"AccessKey"> | string | null
   redeemedAt?: Prisma.DateTimeNullableFilter<"AccessKey"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"AccessKey"> | Date | string
+  receiptUrl?: Prisma.StringNullableFilter<"AccessKey"> | string | null
+  notes?: Prisma.StringNullableFilter<"AccessKey"> | string | null
 }
 
 export type AccessKeyCreateWithoutPropertyInput = {
@@ -551,6 +601,8 @@ export type AccessKeyCreateWithoutPropertyInput = {
   redeemedBy?: string | null
   redeemedAt?: Date | string | null
   createdAt?: Date | string
+  receiptUrl?: string | null
+  notes?: string | null
   issuer: Prisma.UserCreateNestedOneWithoutIssuedKeysInput
   reward?: Prisma.ScoutRewardCreateNestedOneWithoutAccessKeyInput
 }
@@ -564,6 +616,8 @@ export type AccessKeyUncheckedCreateWithoutPropertyInput = {
   redeemedBy?: string | null
   redeemedAt?: Date | string | null
   createdAt?: Date | string
+  receiptUrl?: string | null
+  notes?: string | null
   reward?: Prisma.ScoutRewardUncheckedCreateNestedOneWithoutAccessKeyInput
 }
 
@@ -591,6 +645,8 @@ export type AccessKeyUpdateWithoutPropertyInput = {
   redeemedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   redeemedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuer?: Prisma.UserUpdateOneRequiredWithoutIssuedKeysNestedInput
   reward?: Prisma.ScoutRewardUpdateOneWithoutAccessKeyNestedInput
 }
@@ -604,6 +660,8 @@ export type AccessKeyUncheckedUpdateWithoutPropertyInput = {
   redeemedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   redeemedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reward?: Prisma.ScoutRewardUncheckedUpdateOneWithoutAccessKeyNestedInput
 }
 
@@ -615,6 +673,8 @@ export type AccessKeyCreateWithoutRewardInput = {
   redeemedBy?: string | null
   redeemedAt?: Date | string | null
   createdAt?: Date | string
+  receiptUrl?: string | null
+  notes?: string | null
   issuer: Prisma.UserCreateNestedOneWithoutIssuedKeysInput
   property?: Prisma.PropertyCreateNestedOneWithoutAccessKeyInput
 }
@@ -628,6 +688,8 @@ export type AccessKeyUncheckedCreateWithoutRewardInput = {
   redeemedBy?: string | null
   redeemedAt?: Date | string | null
   createdAt?: Date | string
+  receiptUrl?: string | null
+  notes?: string | null
   property?: Prisma.PropertyUncheckedCreateNestedOneWithoutAccessKeyInput
 }
 
@@ -655,6 +717,8 @@ export type AccessKeyUpdateWithoutRewardInput = {
   redeemedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   redeemedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuer?: Prisma.UserUpdateOneRequiredWithoutIssuedKeysNestedInput
   property?: Prisma.PropertyUpdateOneWithoutAccessKeyNestedInput
 }
@@ -668,6 +732,8 @@ export type AccessKeyUncheckedUpdateWithoutRewardInput = {
   redeemedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   redeemedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   property?: Prisma.PropertyUncheckedUpdateOneWithoutAccessKeyNestedInput
 }
 
@@ -679,6 +745,8 @@ export type AccessKeyCreateManyIssuerInput = {
   redeemedBy?: string | null
   redeemedAt?: Date | string | null
   createdAt?: Date | string
+  receiptUrl?: string | null
+  notes?: string | null
 }
 
 export type AccessKeyUpdateWithoutIssuerInput = {
@@ -689,6 +757,8 @@ export type AccessKeyUpdateWithoutIssuerInput = {
   redeemedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   redeemedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   property?: Prisma.PropertyUpdateOneWithoutAccessKeyNestedInput
   reward?: Prisma.ScoutRewardUpdateOneWithoutAccessKeyNestedInput
 }
@@ -701,6 +771,8 @@ export type AccessKeyUncheckedUpdateWithoutIssuerInput = {
   redeemedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   redeemedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   property?: Prisma.PropertyUncheckedUpdateOneWithoutAccessKeyNestedInput
   reward?: Prisma.ScoutRewardUncheckedUpdateOneWithoutAccessKeyNestedInput
 }
@@ -713,6 +785,8 @@ export type AccessKeyUncheckedUpdateManyWithoutIssuerInput = {
   redeemedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   redeemedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receiptUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -726,6 +800,8 @@ export type AccessKeySelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   redeemedBy?: boolean
   redeemedAt?: boolean
   createdAt?: boolean
+  receiptUrl?: boolean
+  notes?: boolean
   issuer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   property?: boolean | Prisma.AccessKey$propertyArgs<ExtArgs>
   reward?: boolean | Prisma.AccessKey$rewardArgs<ExtArgs>
@@ -740,6 +816,8 @@ export type AccessKeySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   redeemedBy?: boolean
   redeemedAt?: boolean
   createdAt?: boolean
+  receiptUrl?: boolean
+  notes?: boolean
   issuer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["accessKey"]>
 
@@ -752,6 +830,8 @@ export type AccessKeySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   redeemedBy?: boolean
   redeemedAt?: boolean
   createdAt?: boolean
+  receiptUrl?: boolean
+  notes?: boolean
   issuer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["accessKey"]>
 
@@ -764,9 +844,11 @@ export type AccessKeySelectScalar = {
   redeemedBy?: boolean
   redeemedAt?: boolean
   createdAt?: boolean
+  receiptUrl?: boolean
+  notes?: boolean
 }
 
-export type AccessKeyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "key" | "issuerId" | "expiresAt" | "isUsed" | "redeemedBy" | "redeemedAt" | "createdAt", ExtArgs["result"]["accessKey"]>
+export type AccessKeyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "key" | "issuerId" | "expiresAt" | "isUsed" | "redeemedBy" | "redeemedAt" | "createdAt" | "receiptUrl" | "notes", ExtArgs["result"]["accessKey"]>
 export type AccessKeyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   issuer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   property?: boolean | Prisma.AccessKey$propertyArgs<ExtArgs>
@@ -795,6 +877,8 @@ export type $AccessKeyPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     redeemedBy: string | null
     redeemedAt: Date | null
     createdAt: Date
+    receiptUrl: string | null
+    notes: string | null
   }, ExtArgs["result"]["accessKey"]>
   composites: {}
 }
@@ -1229,6 +1313,8 @@ export interface AccessKeyFieldRefs {
   readonly redeemedBy: Prisma.FieldRef<"AccessKey", 'String'>
   readonly redeemedAt: Prisma.FieldRef<"AccessKey", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"AccessKey", 'DateTime'>
+  readonly receiptUrl: Prisma.FieldRef<"AccessKey", 'String'>
+  readonly notes: Prisma.FieldRef<"AccessKey", 'String'>
 }
     
 

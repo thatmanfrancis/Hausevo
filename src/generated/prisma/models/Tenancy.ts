@@ -286,6 +286,8 @@ export type TenancyWhereInput = {
   tenant?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   agreement?: Prisma.XOR<Prisma.TenancyAgreementNullableScalarRelationFilter, Prisma.TenancyAgreementWhereInput> | null
   transactions?: Prisma.TransactionListRelationFilter
+  conditionReport?: Prisma.XOR<Prisma.ConditionReportNullableScalarRelationFilter, Prisma.ConditionReportWhereInput> | null
+  coTenants?: Prisma.UserListRelationFilter
 }
 
 export type TenancyOrderByWithRelationInput = {
@@ -307,6 +309,8 @@ export type TenancyOrderByWithRelationInput = {
   tenant?: Prisma.UserOrderByWithRelationInput
   agreement?: Prisma.TenancyAgreementOrderByWithRelationInput
   transactions?: Prisma.TransactionOrderByRelationAggregateInput
+  conditionReport?: Prisma.ConditionReportOrderByWithRelationInput
+  coTenants?: Prisma.UserOrderByRelationAggregateInput
 }
 
 export type TenancyWhereUniqueInput = Prisma.AtLeast<{
@@ -331,6 +335,8 @@ export type TenancyWhereUniqueInput = Prisma.AtLeast<{
   tenant?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   agreement?: Prisma.XOR<Prisma.TenancyAgreementNullableScalarRelationFilter, Prisma.TenancyAgreementWhereInput> | null
   transactions?: Prisma.TransactionListRelationFilter
+  conditionReport?: Prisma.XOR<Prisma.ConditionReportNullableScalarRelationFilter, Prisma.ConditionReportWhereInput> | null
+  coTenants?: Prisma.UserListRelationFilter
 }, "id" | "propertyId" | "tenantId">
 
 export type TenancyOrderByWithAggregationInput = {
@@ -388,6 +394,8 @@ export type TenancyCreateInput = {
   tenant: Prisma.UserCreateNestedOneWithoutTenancyInput
   agreement?: Prisma.TenancyAgreementCreateNestedOneWithoutTenancyInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutTenancyInput
+  conditionReport?: Prisma.ConditionReportCreateNestedOneWithoutTenancyInput
+  coTenants?: Prisma.UserCreateNestedManyWithoutCoTenanciesInput
 }
 
 export type TenancyUncheckedCreateInput = {
@@ -407,6 +415,8 @@ export type TenancyUncheckedCreateInput = {
   rentSchedules?: Prisma.RentScheduleUncheckedCreateNestedManyWithoutTenancyInput
   agreement?: Prisma.TenancyAgreementUncheckedCreateNestedOneWithoutTenancyInput
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenancyInput
+  conditionReport?: Prisma.ConditionReportUncheckedCreateNestedOneWithoutTenancyInput
+  coTenants?: Prisma.UserUncheckedCreateNestedManyWithoutCoTenanciesInput
 }
 
 export type TenancyUpdateInput = {
@@ -426,6 +436,8 @@ export type TenancyUpdateInput = {
   tenant?: Prisma.UserUpdateOneRequiredWithoutTenancyNestedInput
   agreement?: Prisma.TenancyAgreementUpdateOneWithoutTenancyNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutTenancyNestedInput
+  conditionReport?: Prisma.ConditionReportUpdateOneWithoutTenancyNestedInput
+  coTenants?: Prisma.UserUpdateManyWithoutCoTenanciesNestedInput
 }
 
 export type TenancyUncheckedUpdateInput = {
@@ -445,6 +457,8 @@ export type TenancyUncheckedUpdateInput = {
   rentSchedules?: Prisma.RentScheduleUncheckedUpdateManyWithoutTenancyNestedInput
   agreement?: Prisma.TenancyAgreementUncheckedUpdateOneWithoutTenancyNestedInput
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenancyNestedInput
+  conditionReport?: Prisma.ConditionReportUncheckedUpdateOneWithoutTenancyNestedInput
+  coTenants?: Prisma.UserUncheckedUpdateManyWithoutCoTenanciesNestedInput
 }
 
 export type TenancyCreateManyInput = {
@@ -493,6 +507,16 @@ export type TenancyUncheckedUpdateManyInput = {
 export type TenancyNullableScalarRelationFilter = {
   is?: Prisma.TenancyWhereInput | null
   isNot?: Prisma.TenancyWhereInput | null
+}
+
+export type TenancyListRelationFilter = {
+  every?: Prisma.TenancyWhereInput
+  some?: Prisma.TenancyWhereInput
+  none?: Prisma.TenancyWhereInput
+}
+
+export type TenancyOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type TenancyCountOrderByAggregateInput = {
@@ -563,10 +587,22 @@ export type TenancyCreateNestedOneWithoutTenantInput = {
   connect?: Prisma.TenancyWhereUniqueInput
 }
 
+export type TenancyCreateNestedManyWithoutCoTenantsInput = {
+  create?: Prisma.XOR<Prisma.TenancyCreateWithoutCoTenantsInput, Prisma.TenancyUncheckedCreateWithoutCoTenantsInput> | Prisma.TenancyCreateWithoutCoTenantsInput[] | Prisma.TenancyUncheckedCreateWithoutCoTenantsInput[]
+  connectOrCreate?: Prisma.TenancyCreateOrConnectWithoutCoTenantsInput | Prisma.TenancyCreateOrConnectWithoutCoTenantsInput[]
+  connect?: Prisma.TenancyWhereUniqueInput | Prisma.TenancyWhereUniqueInput[]
+}
+
 export type TenancyUncheckedCreateNestedOneWithoutTenantInput = {
   create?: Prisma.XOR<Prisma.TenancyCreateWithoutTenantInput, Prisma.TenancyUncheckedCreateWithoutTenantInput>
   connectOrCreate?: Prisma.TenancyCreateOrConnectWithoutTenantInput
   connect?: Prisma.TenancyWhereUniqueInput
+}
+
+export type TenancyUncheckedCreateNestedManyWithoutCoTenantsInput = {
+  create?: Prisma.XOR<Prisma.TenancyCreateWithoutCoTenantsInput, Prisma.TenancyUncheckedCreateWithoutCoTenantsInput> | Prisma.TenancyCreateWithoutCoTenantsInput[] | Prisma.TenancyUncheckedCreateWithoutCoTenantsInput[]
+  connectOrCreate?: Prisma.TenancyCreateOrConnectWithoutCoTenantsInput | Prisma.TenancyCreateOrConnectWithoutCoTenantsInput[]
+  connect?: Prisma.TenancyWhereUniqueInput | Prisma.TenancyWhereUniqueInput[]
 }
 
 export type TenancyUpdateOneWithoutTenantNestedInput = {
@@ -579,6 +615,19 @@ export type TenancyUpdateOneWithoutTenantNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenancyUpdateToOneWithWhereWithoutTenantInput, Prisma.TenancyUpdateWithoutTenantInput>, Prisma.TenancyUncheckedUpdateWithoutTenantInput>
 }
 
+export type TenancyUpdateManyWithoutCoTenantsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenancyCreateWithoutCoTenantsInput, Prisma.TenancyUncheckedCreateWithoutCoTenantsInput> | Prisma.TenancyCreateWithoutCoTenantsInput[] | Prisma.TenancyUncheckedCreateWithoutCoTenantsInput[]
+  connectOrCreate?: Prisma.TenancyCreateOrConnectWithoutCoTenantsInput | Prisma.TenancyCreateOrConnectWithoutCoTenantsInput[]
+  upsert?: Prisma.TenancyUpsertWithWhereUniqueWithoutCoTenantsInput | Prisma.TenancyUpsertWithWhereUniqueWithoutCoTenantsInput[]
+  set?: Prisma.TenancyWhereUniqueInput | Prisma.TenancyWhereUniqueInput[]
+  disconnect?: Prisma.TenancyWhereUniqueInput | Prisma.TenancyWhereUniqueInput[]
+  delete?: Prisma.TenancyWhereUniqueInput | Prisma.TenancyWhereUniqueInput[]
+  connect?: Prisma.TenancyWhereUniqueInput | Prisma.TenancyWhereUniqueInput[]
+  update?: Prisma.TenancyUpdateWithWhereUniqueWithoutCoTenantsInput | Prisma.TenancyUpdateWithWhereUniqueWithoutCoTenantsInput[]
+  updateMany?: Prisma.TenancyUpdateManyWithWhereWithoutCoTenantsInput | Prisma.TenancyUpdateManyWithWhereWithoutCoTenantsInput[]
+  deleteMany?: Prisma.TenancyScalarWhereInput | Prisma.TenancyScalarWhereInput[]
+}
+
 export type TenancyUncheckedUpdateOneWithoutTenantNestedInput = {
   create?: Prisma.XOR<Prisma.TenancyCreateWithoutTenantInput, Prisma.TenancyUncheckedCreateWithoutTenantInput>
   connectOrCreate?: Prisma.TenancyCreateOrConnectWithoutTenantInput
@@ -587,6 +636,19 @@ export type TenancyUncheckedUpdateOneWithoutTenantNestedInput = {
   delete?: Prisma.TenancyWhereInput | boolean
   connect?: Prisma.TenancyWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenancyUpdateToOneWithWhereWithoutTenantInput, Prisma.TenancyUpdateWithoutTenantInput>, Prisma.TenancyUncheckedUpdateWithoutTenantInput>
+}
+
+export type TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenancyCreateWithoutCoTenantsInput, Prisma.TenancyUncheckedCreateWithoutCoTenantsInput> | Prisma.TenancyCreateWithoutCoTenantsInput[] | Prisma.TenancyUncheckedCreateWithoutCoTenantsInput[]
+  connectOrCreate?: Prisma.TenancyCreateOrConnectWithoutCoTenantsInput | Prisma.TenancyCreateOrConnectWithoutCoTenantsInput[]
+  upsert?: Prisma.TenancyUpsertWithWhereUniqueWithoutCoTenantsInput | Prisma.TenancyUpsertWithWhereUniqueWithoutCoTenantsInput[]
+  set?: Prisma.TenancyWhereUniqueInput | Prisma.TenancyWhereUniqueInput[]
+  disconnect?: Prisma.TenancyWhereUniqueInput | Prisma.TenancyWhereUniqueInput[]
+  delete?: Prisma.TenancyWhereUniqueInput | Prisma.TenancyWhereUniqueInput[]
+  connect?: Prisma.TenancyWhereUniqueInput | Prisma.TenancyWhereUniqueInput[]
+  update?: Prisma.TenancyUpdateWithWhereUniqueWithoutCoTenantsInput | Prisma.TenancyUpdateWithWhereUniqueWithoutCoTenantsInput[]
+  updateMany?: Prisma.TenancyUpdateManyWithWhereWithoutCoTenantsInput | Prisma.TenancyUpdateManyWithWhereWithoutCoTenantsInput[]
+  deleteMany?: Prisma.TenancyScalarWhereInput | Prisma.TenancyScalarWhereInput[]
 }
 
 export type TenancyCreateNestedOneWithoutPropertyInput = {
@@ -669,6 +731,20 @@ export type TenancyUpdateOneWithoutTransactionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenancyUpdateToOneWithWhereWithoutTransactionsInput, Prisma.TenancyUpdateWithoutTransactionsInput>, Prisma.TenancyUncheckedUpdateWithoutTransactionsInput>
 }
 
+export type TenancyCreateNestedOneWithoutConditionReportInput = {
+  create?: Prisma.XOR<Prisma.TenancyCreateWithoutConditionReportInput, Prisma.TenancyUncheckedCreateWithoutConditionReportInput>
+  connectOrCreate?: Prisma.TenancyCreateOrConnectWithoutConditionReportInput
+  connect?: Prisma.TenancyWhereUniqueInput
+}
+
+export type TenancyUpdateOneRequiredWithoutConditionReportNestedInput = {
+  create?: Prisma.XOR<Prisma.TenancyCreateWithoutConditionReportInput, Prisma.TenancyUncheckedCreateWithoutConditionReportInput>
+  connectOrCreate?: Prisma.TenancyCreateOrConnectWithoutConditionReportInput
+  upsert?: Prisma.TenancyUpsertWithoutConditionReportInput
+  connect?: Prisma.TenancyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenancyUpdateToOneWithWhereWithoutConditionReportInput, Prisma.TenancyUpdateWithoutConditionReportInput>, Prisma.TenancyUncheckedUpdateWithoutConditionReportInput>
+}
+
 export type TenancyCreateNestedOneWithoutAgreementInput = {
   create?: Prisma.XOR<Prisma.TenancyCreateWithoutAgreementInput, Prisma.TenancyUncheckedCreateWithoutAgreementInput>
   connectOrCreate?: Prisma.TenancyCreateOrConnectWithoutAgreementInput
@@ -699,6 +775,8 @@ export type TenancyCreateWithoutTenantInput = {
   property: Prisma.PropertyCreateNestedOneWithoutTenancyInput
   agreement?: Prisma.TenancyAgreementCreateNestedOneWithoutTenancyInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutTenancyInput
+  conditionReport?: Prisma.ConditionReportCreateNestedOneWithoutTenancyInput
+  coTenants?: Prisma.UserCreateNestedManyWithoutCoTenanciesInput
 }
 
 export type TenancyUncheckedCreateWithoutTenantInput = {
@@ -717,11 +795,58 @@ export type TenancyUncheckedCreateWithoutTenantInput = {
   rentSchedules?: Prisma.RentScheduleUncheckedCreateNestedManyWithoutTenancyInput
   agreement?: Prisma.TenancyAgreementUncheckedCreateNestedOneWithoutTenancyInput
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenancyInput
+  conditionReport?: Prisma.ConditionReportUncheckedCreateNestedOneWithoutTenancyInput
+  coTenants?: Prisma.UserUncheckedCreateNestedManyWithoutCoTenanciesInput
 }
 
 export type TenancyCreateOrConnectWithoutTenantInput = {
   where: Prisma.TenancyWhereUniqueInput
   create: Prisma.XOR<Prisma.TenancyCreateWithoutTenantInput, Prisma.TenancyUncheckedCreateWithoutTenantInput>
+}
+
+export type TenancyCreateWithoutCoTenantsInput = {
+  id?: string
+  status?: $Enums.TenancyStatus
+  isJoint?: boolean
+  savingsGoal: number
+  currentSaved?: number
+  startDate: Date | string
+  endDate: Date | string
+  cautionDeposit: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  movingOrder?: Prisma.MovingOrderCreateNestedOneWithoutTenancyInput
+  rentSchedules?: Prisma.RentScheduleCreateNestedManyWithoutTenancyInput
+  property: Prisma.PropertyCreateNestedOneWithoutTenancyInput
+  tenant: Prisma.UserCreateNestedOneWithoutTenancyInput
+  agreement?: Prisma.TenancyAgreementCreateNestedOneWithoutTenancyInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutTenancyInput
+  conditionReport?: Prisma.ConditionReportCreateNestedOneWithoutTenancyInput
+}
+
+export type TenancyUncheckedCreateWithoutCoTenantsInput = {
+  id?: string
+  propertyId: string
+  tenantId: string
+  status?: $Enums.TenancyStatus
+  isJoint?: boolean
+  savingsGoal: number
+  currentSaved?: number
+  startDate: Date | string
+  endDate: Date | string
+  cautionDeposit: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  movingOrder?: Prisma.MovingOrderUncheckedCreateNestedOneWithoutTenancyInput
+  rentSchedules?: Prisma.RentScheduleUncheckedCreateNestedManyWithoutTenancyInput
+  agreement?: Prisma.TenancyAgreementUncheckedCreateNestedOneWithoutTenancyInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenancyInput
+  conditionReport?: Prisma.ConditionReportUncheckedCreateNestedOneWithoutTenancyInput
+}
+
+export type TenancyCreateOrConnectWithoutCoTenantsInput = {
+  where: Prisma.TenancyWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenancyCreateWithoutCoTenantsInput, Prisma.TenancyUncheckedCreateWithoutCoTenantsInput>
 }
 
 export type TenancyUpsertWithoutTenantInput = {
@@ -751,6 +876,8 @@ export type TenancyUpdateWithoutTenantInput = {
   property?: Prisma.PropertyUpdateOneRequiredWithoutTenancyNestedInput
   agreement?: Prisma.TenancyAgreementUpdateOneWithoutTenancyNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutTenancyNestedInput
+  conditionReport?: Prisma.ConditionReportUpdateOneWithoutTenancyNestedInput
+  coTenants?: Prisma.UserUpdateManyWithoutCoTenanciesNestedInput
 }
 
 export type TenancyUncheckedUpdateWithoutTenantInput = {
@@ -769,6 +896,42 @@ export type TenancyUncheckedUpdateWithoutTenantInput = {
   rentSchedules?: Prisma.RentScheduleUncheckedUpdateManyWithoutTenancyNestedInput
   agreement?: Prisma.TenancyAgreementUncheckedUpdateOneWithoutTenancyNestedInput
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenancyNestedInput
+  conditionReport?: Prisma.ConditionReportUncheckedUpdateOneWithoutTenancyNestedInput
+  coTenants?: Prisma.UserUncheckedUpdateManyWithoutCoTenanciesNestedInput
+}
+
+export type TenancyUpsertWithWhereUniqueWithoutCoTenantsInput = {
+  where: Prisma.TenancyWhereUniqueInput
+  update: Prisma.XOR<Prisma.TenancyUpdateWithoutCoTenantsInput, Prisma.TenancyUncheckedUpdateWithoutCoTenantsInput>
+  create: Prisma.XOR<Prisma.TenancyCreateWithoutCoTenantsInput, Prisma.TenancyUncheckedCreateWithoutCoTenantsInput>
+}
+
+export type TenancyUpdateWithWhereUniqueWithoutCoTenantsInput = {
+  where: Prisma.TenancyWhereUniqueInput
+  data: Prisma.XOR<Prisma.TenancyUpdateWithoutCoTenantsInput, Prisma.TenancyUncheckedUpdateWithoutCoTenantsInput>
+}
+
+export type TenancyUpdateManyWithWhereWithoutCoTenantsInput = {
+  where: Prisma.TenancyScalarWhereInput
+  data: Prisma.XOR<Prisma.TenancyUpdateManyMutationInput, Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsInput>
+}
+
+export type TenancyScalarWhereInput = {
+  AND?: Prisma.TenancyScalarWhereInput | Prisma.TenancyScalarWhereInput[]
+  OR?: Prisma.TenancyScalarWhereInput[]
+  NOT?: Prisma.TenancyScalarWhereInput | Prisma.TenancyScalarWhereInput[]
+  id?: Prisma.StringFilter<"Tenancy"> | string
+  propertyId?: Prisma.StringFilter<"Tenancy"> | string
+  tenantId?: Prisma.StringFilter<"Tenancy"> | string
+  status?: Prisma.EnumTenancyStatusFilter<"Tenancy"> | $Enums.TenancyStatus
+  isJoint?: Prisma.BoolFilter<"Tenancy"> | boolean
+  savingsGoal?: Prisma.FloatFilter<"Tenancy"> | number
+  currentSaved?: Prisma.FloatFilter<"Tenancy"> | number
+  startDate?: Prisma.DateTimeFilter<"Tenancy"> | Date | string
+  endDate?: Prisma.DateTimeFilter<"Tenancy"> | Date | string
+  cautionDeposit?: Prisma.FloatFilter<"Tenancy"> | number
+  createdAt?: Prisma.DateTimeFilter<"Tenancy"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Tenancy"> | Date | string
 }
 
 export type TenancyCreateWithoutPropertyInput = {
@@ -787,6 +950,8 @@ export type TenancyCreateWithoutPropertyInput = {
   tenant: Prisma.UserCreateNestedOneWithoutTenancyInput
   agreement?: Prisma.TenancyAgreementCreateNestedOneWithoutTenancyInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutTenancyInput
+  conditionReport?: Prisma.ConditionReportCreateNestedOneWithoutTenancyInput
+  coTenants?: Prisma.UserCreateNestedManyWithoutCoTenanciesInput
 }
 
 export type TenancyUncheckedCreateWithoutPropertyInput = {
@@ -805,6 +970,8 @@ export type TenancyUncheckedCreateWithoutPropertyInput = {
   rentSchedules?: Prisma.RentScheduleUncheckedCreateNestedManyWithoutTenancyInput
   agreement?: Prisma.TenancyAgreementUncheckedCreateNestedOneWithoutTenancyInput
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenancyInput
+  conditionReport?: Prisma.ConditionReportUncheckedCreateNestedOneWithoutTenancyInput
+  coTenants?: Prisma.UserUncheckedCreateNestedManyWithoutCoTenanciesInput
 }
 
 export type TenancyCreateOrConnectWithoutPropertyInput = {
@@ -839,6 +1006,8 @@ export type TenancyUpdateWithoutPropertyInput = {
   tenant?: Prisma.UserUpdateOneRequiredWithoutTenancyNestedInput
   agreement?: Prisma.TenancyAgreementUpdateOneWithoutTenancyNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutTenancyNestedInput
+  conditionReport?: Prisma.ConditionReportUpdateOneWithoutTenancyNestedInput
+  coTenants?: Prisma.UserUpdateManyWithoutCoTenanciesNestedInput
 }
 
 export type TenancyUncheckedUpdateWithoutPropertyInput = {
@@ -857,6 +1026,8 @@ export type TenancyUncheckedUpdateWithoutPropertyInput = {
   rentSchedules?: Prisma.RentScheduleUncheckedUpdateManyWithoutTenancyNestedInput
   agreement?: Prisma.TenancyAgreementUncheckedUpdateOneWithoutTenancyNestedInput
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenancyNestedInput
+  conditionReport?: Prisma.ConditionReportUncheckedUpdateOneWithoutTenancyNestedInput
+  coTenants?: Prisma.UserUncheckedUpdateManyWithoutCoTenanciesNestedInput
 }
 
 export type TenancyCreateWithoutRentSchedulesInput = {
@@ -875,6 +1046,8 @@ export type TenancyCreateWithoutRentSchedulesInput = {
   tenant: Prisma.UserCreateNestedOneWithoutTenancyInput
   agreement?: Prisma.TenancyAgreementCreateNestedOneWithoutTenancyInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutTenancyInput
+  conditionReport?: Prisma.ConditionReportCreateNestedOneWithoutTenancyInput
+  coTenants?: Prisma.UserCreateNestedManyWithoutCoTenanciesInput
 }
 
 export type TenancyUncheckedCreateWithoutRentSchedulesInput = {
@@ -893,6 +1066,8 @@ export type TenancyUncheckedCreateWithoutRentSchedulesInput = {
   movingOrder?: Prisma.MovingOrderUncheckedCreateNestedOneWithoutTenancyInput
   agreement?: Prisma.TenancyAgreementUncheckedCreateNestedOneWithoutTenancyInput
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenancyInput
+  conditionReport?: Prisma.ConditionReportUncheckedCreateNestedOneWithoutTenancyInput
+  coTenants?: Prisma.UserUncheckedCreateNestedManyWithoutCoTenanciesInput
 }
 
 export type TenancyCreateOrConnectWithoutRentSchedulesInput = {
@@ -927,6 +1102,8 @@ export type TenancyUpdateWithoutRentSchedulesInput = {
   tenant?: Prisma.UserUpdateOneRequiredWithoutTenancyNestedInput
   agreement?: Prisma.TenancyAgreementUpdateOneWithoutTenancyNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutTenancyNestedInput
+  conditionReport?: Prisma.ConditionReportUpdateOneWithoutTenancyNestedInput
+  coTenants?: Prisma.UserUpdateManyWithoutCoTenanciesNestedInput
 }
 
 export type TenancyUncheckedUpdateWithoutRentSchedulesInput = {
@@ -945,6 +1122,8 @@ export type TenancyUncheckedUpdateWithoutRentSchedulesInput = {
   movingOrder?: Prisma.MovingOrderUncheckedUpdateOneWithoutTenancyNestedInput
   agreement?: Prisma.TenancyAgreementUncheckedUpdateOneWithoutTenancyNestedInput
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenancyNestedInput
+  conditionReport?: Prisma.ConditionReportUncheckedUpdateOneWithoutTenancyNestedInput
+  coTenants?: Prisma.UserUncheckedUpdateManyWithoutCoTenanciesNestedInput
 }
 
 export type TenancyCreateWithoutMovingOrderInput = {
@@ -963,6 +1142,8 @@ export type TenancyCreateWithoutMovingOrderInput = {
   tenant: Prisma.UserCreateNestedOneWithoutTenancyInput
   agreement?: Prisma.TenancyAgreementCreateNestedOneWithoutTenancyInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutTenancyInput
+  conditionReport?: Prisma.ConditionReportCreateNestedOneWithoutTenancyInput
+  coTenants?: Prisma.UserCreateNestedManyWithoutCoTenanciesInput
 }
 
 export type TenancyUncheckedCreateWithoutMovingOrderInput = {
@@ -981,6 +1162,8 @@ export type TenancyUncheckedCreateWithoutMovingOrderInput = {
   rentSchedules?: Prisma.RentScheduleUncheckedCreateNestedManyWithoutTenancyInput
   agreement?: Prisma.TenancyAgreementUncheckedCreateNestedOneWithoutTenancyInput
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenancyInput
+  conditionReport?: Prisma.ConditionReportUncheckedCreateNestedOneWithoutTenancyInput
+  coTenants?: Prisma.UserUncheckedCreateNestedManyWithoutCoTenanciesInput
 }
 
 export type TenancyCreateOrConnectWithoutMovingOrderInput = {
@@ -1015,6 +1198,8 @@ export type TenancyUpdateWithoutMovingOrderInput = {
   tenant?: Prisma.UserUpdateOneRequiredWithoutTenancyNestedInput
   agreement?: Prisma.TenancyAgreementUpdateOneWithoutTenancyNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutTenancyNestedInput
+  conditionReport?: Prisma.ConditionReportUpdateOneWithoutTenancyNestedInput
+  coTenants?: Prisma.UserUpdateManyWithoutCoTenanciesNestedInput
 }
 
 export type TenancyUncheckedUpdateWithoutMovingOrderInput = {
@@ -1033,6 +1218,8 @@ export type TenancyUncheckedUpdateWithoutMovingOrderInput = {
   rentSchedules?: Prisma.RentScheduleUncheckedUpdateManyWithoutTenancyNestedInput
   agreement?: Prisma.TenancyAgreementUncheckedUpdateOneWithoutTenancyNestedInput
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenancyNestedInput
+  conditionReport?: Prisma.ConditionReportUncheckedUpdateOneWithoutTenancyNestedInput
+  coTenants?: Prisma.UserUncheckedUpdateManyWithoutCoTenanciesNestedInput
 }
 
 export type TenancyCreateWithoutTransactionsInput = {
@@ -1051,6 +1238,8 @@ export type TenancyCreateWithoutTransactionsInput = {
   property: Prisma.PropertyCreateNestedOneWithoutTenancyInput
   tenant: Prisma.UserCreateNestedOneWithoutTenancyInput
   agreement?: Prisma.TenancyAgreementCreateNestedOneWithoutTenancyInput
+  conditionReport?: Prisma.ConditionReportCreateNestedOneWithoutTenancyInput
+  coTenants?: Prisma.UserCreateNestedManyWithoutCoTenanciesInput
 }
 
 export type TenancyUncheckedCreateWithoutTransactionsInput = {
@@ -1069,6 +1258,8 @@ export type TenancyUncheckedCreateWithoutTransactionsInput = {
   movingOrder?: Prisma.MovingOrderUncheckedCreateNestedOneWithoutTenancyInput
   rentSchedules?: Prisma.RentScheduleUncheckedCreateNestedManyWithoutTenancyInput
   agreement?: Prisma.TenancyAgreementUncheckedCreateNestedOneWithoutTenancyInput
+  conditionReport?: Prisma.ConditionReportUncheckedCreateNestedOneWithoutTenancyInput
+  coTenants?: Prisma.UserUncheckedCreateNestedManyWithoutCoTenanciesInput
 }
 
 export type TenancyCreateOrConnectWithoutTransactionsInput = {
@@ -1103,6 +1294,8 @@ export type TenancyUpdateWithoutTransactionsInput = {
   property?: Prisma.PropertyUpdateOneRequiredWithoutTenancyNestedInput
   tenant?: Prisma.UserUpdateOneRequiredWithoutTenancyNestedInput
   agreement?: Prisma.TenancyAgreementUpdateOneWithoutTenancyNestedInput
+  conditionReport?: Prisma.ConditionReportUpdateOneWithoutTenancyNestedInput
+  coTenants?: Prisma.UserUpdateManyWithoutCoTenanciesNestedInput
 }
 
 export type TenancyUncheckedUpdateWithoutTransactionsInput = {
@@ -1121,6 +1314,104 @@ export type TenancyUncheckedUpdateWithoutTransactionsInput = {
   movingOrder?: Prisma.MovingOrderUncheckedUpdateOneWithoutTenancyNestedInput
   rentSchedules?: Prisma.RentScheduleUncheckedUpdateManyWithoutTenancyNestedInput
   agreement?: Prisma.TenancyAgreementUncheckedUpdateOneWithoutTenancyNestedInput
+  conditionReport?: Prisma.ConditionReportUncheckedUpdateOneWithoutTenancyNestedInput
+  coTenants?: Prisma.UserUncheckedUpdateManyWithoutCoTenanciesNestedInput
+}
+
+export type TenancyCreateWithoutConditionReportInput = {
+  id?: string
+  status?: $Enums.TenancyStatus
+  isJoint?: boolean
+  savingsGoal: number
+  currentSaved?: number
+  startDate: Date | string
+  endDate: Date | string
+  cautionDeposit: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  movingOrder?: Prisma.MovingOrderCreateNestedOneWithoutTenancyInput
+  rentSchedules?: Prisma.RentScheduleCreateNestedManyWithoutTenancyInput
+  property: Prisma.PropertyCreateNestedOneWithoutTenancyInput
+  tenant: Prisma.UserCreateNestedOneWithoutTenancyInput
+  agreement?: Prisma.TenancyAgreementCreateNestedOneWithoutTenancyInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutTenancyInput
+  coTenants?: Prisma.UserCreateNestedManyWithoutCoTenanciesInput
+}
+
+export type TenancyUncheckedCreateWithoutConditionReportInput = {
+  id?: string
+  propertyId: string
+  tenantId: string
+  status?: $Enums.TenancyStatus
+  isJoint?: boolean
+  savingsGoal: number
+  currentSaved?: number
+  startDate: Date | string
+  endDate: Date | string
+  cautionDeposit: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  movingOrder?: Prisma.MovingOrderUncheckedCreateNestedOneWithoutTenancyInput
+  rentSchedules?: Prisma.RentScheduleUncheckedCreateNestedManyWithoutTenancyInput
+  agreement?: Prisma.TenancyAgreementUncheckedCreateNestedOneWithoutTenancyInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenancyInput
+  coTenants?: Prisma.UserUncheckedCreateNestedManyWithoutCoTenanciesInput
+}
+
+export type TenancyCreateOrConnectWithoutConditionReportInput = {
+  where: Prisma.TenancyWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenancyCreateWithoutConditionReportInput, Prisma.TenancyUncheckedCreateWithoutConditionReportInput>
+}
+
+export type TenancyUpsertWithoutConditionReportInput = {
+  update: Prisma.XOR<Prisma.TenancyUpdateWithoutConditionReportInput, Prisma.TenancyUncheckedUpdateWithoutConditionReportInput>
+  create: Prisma.XOR<Prisma.TenancyCreateWithoutConditionReportInput, Prisma.TenancyUncheckedCreateWithoutConditionReportInput>
+  where?: Prisma.TenancyWhereInput
+}
+
+export type TenancyUpdateToOneWithWhereWithoutConditionReportInput = {
+  where?: Prisma.TenancyWhereInput
+  data: Prisma.XOR<Prisma.TenancyUpdateWithoutConditionReportInput, Prisma.TenancyUncheckedUpdateWithoutConditionReportInput>
+}
+
+export type TenancyUpdateWithoutConditionReportInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenancyStatusFieldUpdateOperationsInput | $Enums.TenancyStatus
+  isJoint?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  savingsGoal?: Prisma.FloatFieldUpdateOperationsInput | number
+  currentSaved?: Prisma.FloatFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cautionDeposit?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  movingOrder?: Prisma.MovingOrderUpdateOneWithoutTenancyNestedInput
+  rentSchedules?: Prisma.RentScheduleUpdateManyWithoutTenancyNestedInput
+  property?: Prisma.PropertyUpdateOneRequiredWithoutTenancyNestedInput
+  tenant?: Prisma.UserUpdateOneRequiredWithoutTenancyNestedInput
+  agreement?: Prisma.TenancyAgreementUpdateOneWithoutTenancyNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutTenancyNestedInput
+  coTenants?: Prisma.UserUpdateManyWithoutCoTenanciesNestedInput
+}
+
+export type TenancyUncheckedUpdateWithoutConditionReportInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  propertyId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenancyStatusFieldUpdateOperationsInput | $Enums.TenancyStatus
+  isJoint?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  savingsGoal?: Prisma.FloatFieldUpdateOperationsInput | number
+  currentSaved?: Prisma.FloatFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cautionDeposit?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  movingOrder?: Prisma.MovingOrderUncheckedUpdateOneWithoutTenancyNestedInput
+  rentSchedules?: Prisma.RentScheduleUncheckedUpdateManyWithoutTenancyNestedInput
+  agreement?: Prisma.TenancyAgreementUncheckedUpdateOneWithoutTenancyNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenancyNestedInput
+  coTenants?: Prisma.UserUncheckedUpdateManyWithoutCoTenanciesNestedInput
 }
 
 export type TenancyCreateWithoutAgreementInput = {
@@ -1139,6 +1430,8 @@ export type TenancyCreateWithoutAgreementInput = {
   property: Prisma.PropertyCreateNestedOneWithoutTenancyInput
   tenant: Prisma.UserCreateNestedOneWithoutTenancyInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutTenancyInput
+  conditionReport?: Prisma.ConditionReportCreateNestedOneWithoutTenancyInput
+  coTenants?: Prisma.UserCreateNestedManyWithoutCoTenanciesInput
 }
 
 export type TenancyUncheckedCreateWithoutAgreementInput = {
@@ -1157,6 +1450,8 @@ export type TenancyUncheckedCreateWithoutAgreementInput = {
   movingOrder?: Prisma.MovingOrderUncheckedCreateNestedOneWithoutTenancyInput
   rentSchedules?: Prisma.RentScheduleUncheckedCreateNestedManyWithoutTenancyInput
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenancyInput
+  conditionReport?: Prisma.ConditionReportUncheckedCreateNestedOneWithoutTenancyInput
+  coTenants?: Prisma.UserUncheckedCreateNestedManyWithoutCoTenanciesInput
 }
 
 export type TenancyCreateOrConnectWithoutAgreementInput = {
@@ -1191,6 +1486,8 @@ export type TenancyUpdateWithoutAgreementInput = {
   property?: Prisma.PropertyUpdateOneRequiredWithoutTenancyNestedInput
   tenant?: Prisma.UserUpdateOneRequiredWithoutTenancyNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutTenancyNestedInput
+  conditionReport?: Prisma.ConditionReportUpdateOneWithoutTenancyNestedInput
+  coTenants?: Prisma.UserUpdateManyWithoutCoTenanciesNestedInput
 }
 
 export type TenancyUncheckedUpdateWithoutAgreementInput = {
@@ -1209,6 +1506,63 @@ export type TenancyUncheckedUpdateWithoutAgreementInput = {
   movingOrder?: Prisma.MovingOrderUncheckedUpdateOneWithoutTenancyNestedInput
   rentSchedules?: Prisma.RentScheduleUncheckedUpdateManyWithoutTenancyNestedInput
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenancyNestedInput
+  conditionReport?: Prisma.ConditionReportUncheckedUpdateOneWithoutTenancyNestedInput
+  coTenants?: Prisma.UserUncheckedUpdateManyWithoutCoTenanciesNestedInput
+}
+
+export type TenancyUpdateWithoutCoTenantsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenancyStatusFieldUpdateOperationsInput | $Enums.TenancyStatus
+  isJoint?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  savingsGoal?: Prisma.FloatFieldUpdateOperationsInput | number
+  currentSaved?: Prisma.FloatFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cautionDeposit?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  movingOrder?: Prisma.MovingOrderUpdateOneWithoutTenancyNestedInput
+  rentSchedules?: Prisma.RentScheduleUpdateManyWithoutTenancyNestedInput
+  property?: Prisma.PropertyUpdateOneRequiredWithoutTenancyNestedInput
+  tenant?: Prisma.UserUpdateOneRequiredWithoutTenancyNestedInput
+  agreement?: Prisma.TenancyAgreementUpdateOneWithoutTenancyNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutTenancyNestedInput
+  conditionReport?: Prisma.ConditionReportUpdateOneWithoutTenancyNestedInput
+}
+
+export type TenancyUncheckedUpdateWithoutCoTenantsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  propertyId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenancyStatusFieldUpdateOperationsInput | $Enums.TenancyStatus
+  isJoint?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  savingsGoal?: Prisma.FloatFieldUpdateOperationsInput | number
+  currentSaved?: Prisma.FloatFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cautionDeposit?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  movingOrder?: Prisma.MovingOrderUncheckedUpdateOneWithoutTenancyNestedInput
+  rentSchedules?: Prisma.RentScheduleUncheckedUpdateManyWithoutTenancyNestedInput
+  agreement?: Prisma.TenancyAgreementUncheckedUpdateOneWithoutTenancyNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenancyNestedInput
+  conditionReport?: Prisma.ConditionReportUncheckedUpdateOneWithoutTenancyNestedInput
+}
+
+export type TenancyUncheckedUpdateManyWithoutCoTenantsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  propertyId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTenancyStatusFieldUpdateOperationsInput | $Enums.TenancyStatus
+  isJoint?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  savingsGoal?: Prisma.FloatFieldUpdateOperationsInput | number
+  currentSaved?: Prisma.FloatFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cautionDeposit?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -1219,11 +1573,13 @@ export type TenancyUncheckedUpdateWithoutAgreementInput = {
 export type TenancyCountOutputType = {
   rentSchedules: number
   transactions: number
+  coTenants: number
 }
 
 export type TenancyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   rentSchedules?: boolean | TenancyCountOutputTypeCountRentSchedulesArgs
   transactions?: boolean | TenancyCountOutputTypeCountTransactionsArgs
+  coTenants?: boolean | TenancyCountOutputTypeCountCoTenantsArgs
 }
 
 /**
@@ -1250,6 +1606,13 @@ export type TenancyCountOutputTypeCountTransactionsArgs<ExtArgs extends runtime.
   where?: Prisma.TransactionWhereInput
 }
 
+/**
+ * TenancyCountOutputType without action
+ */
+export type TenancyCountOutputTypeCountCoTenantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserWhereInput
+}
+
 
 export type TenancySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1270,6 +1633,8 @@ export type TenancySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   tenant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   agreement?: boolean | Prisma.Tenancy$agreementArgs<ExtArgs>
   transactions?: boolean | Prisma.Tenancy$transactionsArgs<ExtArgs>
+  conditionReport?: boolean | Prisma.Tenancy$conditionReportArgs<ExtArgs>
+  coTenants?: boolean | Prisma.Tenancy$coTenantsArgs<ExtArgs>
   _count?: boolean | Prisma.TenancyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tenancy"]>
 
@@ -1330,6 +1695,8 @@ export type TenancyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   tenant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   agreement?: boolean | Prisma.Tenancy$agreementArgs<ExtArgs>
   transactions?: boolean | Prisma.Tenancy$transactionsArgs<ExtArgs>
+  conditionReport?: boolean | Prisma.Tenancy$conditionReportArgs<ExtArgs>
+  coTenants?: boolean | Prisma.Tenancy$coTenantsArgs<ExtArgs>
   _count?: boolean | Prisma.TenancyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TenancyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1350,6 +1717,8 @@ export type $TenancyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     tenant: Prisma.$UserPayload<ExtArgs>
     agreement: Prisma.$TenancyAgreementPayload<ExtArgs> | null
     transactions: Prisma.$TransactionPayload<ExtArgs>[]
+    conditionReport: Prisma.$ConditionReportPayload<ExtArgs> | null
+    coTenants: Prisma.$UserPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1764,6 +2133,8 @@ export interface Prisma__TenancyClient<T, Null = never, ExtArgs extends runtime.
   tenant<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   agreement<T extends Prisma.Tenancy$agreementArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenancy$agreementArgs<ExtArgs>>): Prisma.Prisma__TenancyAgreementClient<runtime.Types.Result.GetResult<Prisma.$TenancyAgreementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   transactions<T extends Prisma.Tenancy$transactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenancy$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conditionReport<T extends Prisma.Tenancy$conditionReportArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenancy$conditionReportArgs<ExtArgs>>): Prisma.Prisma__ConditionReportClient<runtime.Types.Result.GetResult<Prisma.$ConditionReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  coTenants<T extends Prisma.Tenancy$coTenantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenancy$coTenantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2289,6 +2660,49 @@ export type Tenancy$transactionsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.TransactionScalarFieldEnum | Prisma.TransactionScalarFieldEnum[]
+}
+
+/**
+ * Tenancy.conditionReport
+ */
+export type Tenancy$conditionReportArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ConditionReport
+   */
+  select?: Prisma.ConditionReportSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ConditionReport
+   */
+  omit?: Prisma.ConditionReportOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConditionReportInclude<ExtArgs> | null
+  where?: Prisma.ConditionReportWhereInput
+}
+
+/**
+ * Tenancy.coTenants
+ */
+export type Tenancy$coTenantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+  orderBy?: Prisma.UserOrderByWithRelationInput | Prisma.UserOrderByWithRelationInput[]
+  cursor?: Prisma.UserWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[]
 }
 
 /**

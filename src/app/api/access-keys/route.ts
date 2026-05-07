@@ -32,6 +32,7 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json().catch(() => ({}));
   const expiresInHours = Number(body.expiresInHours ?? 72);
+  const notes = body.notes ? String(body.notes).slice(0, 500) : null;
 
   const raw = crypto.randomBytes(4).toString("hex").toUpperCase();
   const key = `LAG-${raw.slice(0, 3)}-${raw.slice(3, 6)}`;
@@ -41,8 +42,9 @@ export async function POST(req: NextRequest) {
       key,
       issuerId: session.user.id,
       expiresAt: new Date(Date.now() + expiresInHours * 60 * 60 * 1000),
+      notes,
     },
-    select: { id: true, key: true, expiresAt: true, isUsed: true, createdAt: true },
+    select: { id: true, key: true, expiresAt: true, isUsed: true, createdAt: true, notes: true },
   });
 
   await Promise.all([
@@ -51,7 +53,7 @@ export async function POST(req: NextRequest) {
       action: "CREATE",
       entity: "AccessKey",
       entityId: accessKey.id,
-      after: { key, expiresInHours },
+      after: { key, expiresInHours, notes },
       req,
     }),
     notify(
@@ -81,7 +83,7 @@ export async function GET() {
     where: { issuerId: session.user.id },
     select: {
       id: true, key: true, expiresAt: true, isUsed: true,
-      redeemedBy: true, redeemedAt: true,
+      redeemedBy: true, redeemedAt: true, receiptUrl: true, notes: true,
       property: { select: { id: true, title: true, status: true } },
       createdAt: true,
     },

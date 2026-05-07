@@ -16,7 +16,7 @@ import { notify } from "@/lib/notifications";
 */
 export async function POST(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const session = await auth();
   if (!session?.user?.id) {
@@ -45,14 +45,14 @@ export async function POST(
   if (tenancy.tenantId !== userId) {
     return NextResponse.json(
       { error: "Only the tenant can lock the caution deposit." },
-      { status: 403 }
+      { status: 403 },
     );
   }
 
   if (tenancy.cautionDeposit === null || tenancy.cautionDeposit <= 0) {
     return NextResponse.json(
       { error: "No caution deposit was set for this tenancy." },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -64,7 +64,7 @@ export async function POST(
   if (existing) {
     return NextResponse.json(
       { error: "Caution deposit is already held in escrow." },
-      { status: 409 }
+      { status: 409 },
     );
   }
 
@@ -85,7 +85,12 @@ export async function POST(
       status: "ESCROW",
     },
     select: {
-      id: true, amount: true, type: true, status: true, reference: true, createdAt: true,
+      id: true,
+      amount: true,
+      type: true,
+      status: true,
+      reference: true,
+      createdAt: true,
     },
   });
 
@@ -95,7 +100,12 @@ export async function POST(
       action: "CREATE",
       entity: "Transaction",
       entityId: escrow.id,
-      after: { type: "CAUTION_DEPOSIT", status: "ESCROW", amount: Number(amount), tenancyId },
+      after: {
+        type: "CAUTION_DEPOSIT",
+        status: "ESCROW",
+        amount: Number(amount),
+        tenancyId,
+      },
       req,
     }),
     notify(
@@ -103,21 +113,24 @@ export async function POST(
       "Caution deposit secured 🔒",
       `₦${Number(amount).toLocaleString()} caution deposit for "${tenancy.property.title}" is held in Shack Escrow. It will be released after exit inspection.`,
       "SYSTEM",
-      { tenancyId, escrowId: escrow.id }
+      { tenancyId, escrowId: escrow.id },
     ),
     notify(
       userId,
       "Deposit locked in escrow ✅",
       `Your ₦${Number(amount).toLocaleString()} caution deposit is safely held by Shack. You will get it back after your exit inspection is completed.`,
       "SYSTEM",
-      { tenancyId, escrowId: escrow.id }
+      { tenancyId, escrowId: escrow.id },
     ),
   ]);
 
-  return NextResponse.json({
-    message: "Caution deposit locked in Shack Escrow.",
-    escrow,
-  }, { status: 201 });
+  return NextResponse.json(
+    {
+      message: "Caution deposit locked in Shack Escrow.",
+      escrow,
+    },
+    { status: 201 },
+  );
 }
 
 /*
@@ -132,7 +145,7 @@ export async function POST(
 */
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const session = await auth();
   if (!session?.user?.id) {
@@ -145,17 +158,25 @@ export async function PATCH(
   });
 
   if (!user?.roles.includes("ADMIN")) {
-    return NextResponse.json({ error: "Admin access required." }, { status: 403 });
+    return NextResponse.json(
+      { error: "Admin access required." },
+      { status: 403 },
+    );
   }
 
   const { id: tenancyId } = await params;
   const body = await req.json();
-  const { decision, reason, deductionAmount = 0 } = body;
+  const {
+    decision,
+    reason,
+    deductionAmount = 0,
+    moveWithinShack = false,
+  } = body;
 
   if (!["RELEASE", "FORFEIT"].includes(decision)) {
     return NextResponse.json(
       { error: "decision must be RELEASE or FORFEIT." },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -174,7 +195,7 @@ export async function PATCH(
   if (!escrow) {
     return NextResponse.json(
       { error: "No active escrow found for this tenancy." },
-      { status: 404 }
+      { status: 404 },
     );
   }
 
@@ -184,53 +205,89 @@ export async function PATCH(
   const propertyId = escrow.tenancy!.property.id;
   const totalDeposit = escrow.amount;
   const deduction = Number(deductionAmount);
-  const refundAmount = Math.max(0, totalDeposit - deduction);
+  let refundAmount = Math.max(0, totalDeposit - deduction);
 
-  await prisma.$transaction([
-    // Mark escrow as settled
-    prisma.transaction.update({
+  let bondAmount = 0;
+  let shackFee = 0;
+
+  if (moveWithinShack && refundAmount > 0) {
+    // 80/20 split as requested by USER
+    bondAmount = refundAmount * 0.8;
+    shackFee = refundAmount * 0.2;
+    refundAmount = 0; // The money goes to the bond/next house instead of direct cash refund
+  }
+
+  await prisma.$transaction(async (tx: any) => {
+    // 1. Mark escrow as settled
+    await tx.transaction.update({
       where: { id: escrow.id },
       data: { status: decision === "RELEASE" ? "COMPLETED" : "FAILED" },
-    }),
-    // If there's a deduction, create a separate forfeiture record for the landlord
-    ...(deduction > 0
-      ? [
-          prisma.transaction.create({
-            data: {
-              userId: landlordId,
-              amount: deduction,
-              type: "CAUTION_DEPOSIT",
-              fromId: tenantId,
-              toId: landlordId,
-              propertyId,
-              tenancyId,
-              reference: `FORFEIT-${Date.now()}`,
-              description: `Deposit deduction for damages: ${reason ?? "No reason given"}`,
-              status: "COMPLETED",
-            },
-          }),
-        ]
-      : []),
-    // If there's a refund amount, create a refund record for the tenant
-    ...(refundAmount > 0
-      ? [
-          prisma.transaction.create({
-            data: {
-              userId: tenantId,
-              amount: refundAmount,
-              type: "CAUTION_DEPOSIT",
-              fromId: landlordId,
-              toId: tenantId,
-              propertyId,
-              tenancyId,
-              reference: `REFUND-${Date.now()}`,
-              description: `Caution deposit refund for "${propertyTitle}"`,
-              status: "COMPLETED",
-            },
-          }),
-        ]
-      : []),
-  ]);
+    });
+
+    // 2. If there's a deduction, credit the landlord
+    if (deduction > 0) {
+      await tx.transaction.create({
+        data: {
+          userId: landlordId,
+          amount: deduction,
+          type: "CAUTION_DEPOSIT",
+          fromId: tenantId,
+          toId: landlordId,
+          propertyId,
+          tenancyId,
+          reference: `FORFEIT-${Date.now()}`,
+          description: `Deposit deduction for damages: ${reason ?? "No reason given"}`,
+          status: "COMPLETED",
+        },
+      });
+      // Credit landlord wallet
+      await tx.user.update({
+        where: { id: landlordId },
+        data: { walletBalance: { increment: deduction } },
+      });
+    }
+
+    // 3. Handle Rolling Deposit vs Cash Refund
+    if (bondAmount > 0) {
+      // Add to tenant's accumulated bond for next property
+      await tx.user.update({
+        where: { id: tenantId },
+        data: { accumulatedBond: { increment: bondAmount } },
+      });
+      // Create record for the bond
+      await tx.transaction.create({
+        data: {
+          userId: tenantId,
+          amount: bondAmount,
+          type: "BOND_CONTRIBUTION",
+          status: "SUCCESS",
+          reference: `BOND-${Date.now()}`,
+          description: `Rolling deposit from "${propertyTitle}" (80% carried forward)`,
+          tenancyId,
+        },
+      });
+    } else if (refundAmount > 0) {
+      // Direct cash refund to tenant wallet
+      await tx.user.update({
+        where: { id: tenantId },
+        data: { walletBalance: { increment: refundAmount } },
+      });
+      await tx.transaction.create({
+        data: {
+          userId: tenantId,
+          amount: refundAmount,
+          type: "CAUTION_DEPOSIT",
+          fromId: landlordId,
+          toId: tenantId,
+          propertyId,
+          tenancyId,
+          reference: `REFUND-${Date.now()}`,
+          description: `Caution deposit refund for "${propertyTitle}"`,
+          status: "COMPLETED",
+        },
+      });
+    }
+  });
 
   await Promise.all([
     audit({
@@ -239,24 +296,37 @@ export async function PATCH(
       entity: "Transaction",
       entityId: escrow.id,
       before: { status: "ESCROW" },
-      after: { decision, deductionAmount: deduction, refundAmount, reason },
+      after: {
+        decision,
+        deductionAmount: deduction,
+        refundAmount,
+        bondAmount,
+        shackFee,
+        moveWithinShack,
+      },
       req,
     }),
     notify(
       tenantId,
-      decision === "RELEASE" ? "Deposit refunded 🎉" : "Deposit partially kept",
-      refundAmount > 0
-        ? `₦${refundAmount.toLocaleString()} of your caution deposit for "${propertyTitle}" is being refunded.${deduction > 0 ? ` ₦${deduction.toLocaleString()} was deducted for damages.` : ""}`
-        : `Your caution deposit for "${propertyTitle}" has been forfeited due to damages. Reason: ${reason}`,
+      moveWithinShack
+        ? "Bond Carried Forward! 🏠"
+        : decision === "RELEASE"
+          ? "Deposit refunded 🎉"
+          : "Deposit partially kept",
+      moveWithinShack
+        ? `₦${bondAmount.toLocaleString()} has been added to your Shack Bond for your next home! (20% platform fee applied).`
+        : refundAmount > 0
+          ? `₦${refundAmount.toLocaleString()} of your caution deposit for "${propertyTitle}" is being refunded.${deduction > 0 ? ` ₦${deduction.toLocaleString()} was deducted for damages.` : ""}`
+          : `Your caution deposit for "${propertyTitle}" has been forfeited due to damages. Reason: ${reason}`,
       "SYSTEM",
-      { tenancyId }
+      { tenancyId },
     ),
     notify(
       landlordId,
       "Escrow settled",
       `The caution deposit for "${propertyTitle}" has been settled. ${deduction > 0 ? `₦${deduction.toLocaleString()} was credited to you for damages.` : "Full refund was issued to the tenant."}`,
       "SYSTEM",
-      { tenancyId }
+      { tenancyId },
     ),
   ]);
 
@@ -266,6 +336,8 @@ export async function PATCH(
       totalDeposit,
       refundToTenant: refundAmount,
       forfeitedToLandlord: deduction,
+      carriedAsBond: bondAmount,
+      processingFee: shackFee,
     },
   });
 }

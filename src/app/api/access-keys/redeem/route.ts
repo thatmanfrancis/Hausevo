@@ -64,8 +64,8 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Create property + mark key used in one transaction
-  const [property] = await prisma.$transaction([
+  // Create property + mark key used + create receipt in one transaction
+  const [property, updatedKey, vaultItem] = await prisma.$transaction([
     prisma.property.create({
       data: {
         title, address, lga, state,
@@ -84,18 +84,38 @@ export async function POST(req: NextRequest) {
     }),
     prisma.accessKey.update({
       where: { id: accessKey.id },
-      data: { isUsed: true, redeemedBy: session.user.id, redeemedAt: new Date() },
+      data: { 
+        isUsed: true, 
+        redeemedBy: session.user.id, 
+        redeemedAt: new Date(),
+        receiptUrl: `/landlord/vault/receipt-${accessKey.key}`, // Placeholder URL
+      },
+      select: { id: true, key: true },
+    }),
+    prisma.vaultItem.create({
+      data: {
+        title: `Handover Receipt: ${accessKey.key}`,
+        fileUrl: `/api/vault/receipts/${accessKey.id}`, // Internal ref
+        category: "RECEIPT",
+        ownerId: accessKey.issuerId,
+        propertyId: undefined, // Will be linked later if needed
+      },
+    }),
+    // Create pending scout reward
+    prisma.scoutReward.create({
+      data: {
+        accessKeyId: accessKey.id,
+        redeemerId: session.user.id,
+        propertyId: "", // Temporary placeholder, updated below if needed or handled by relation
+        amount: 0,
+      },
     }),
   ]);
 
-  // Create pending scout reward — admin sets amount at verification
-  await prisma.scoutReward.create({
-    data: {
-      accessKeyId: accessKey.id,
-      redeemerId: session.user.id,
-      propertyId: property.id,
-      amount: 0,
-    },
+  // Update reward with propertyId (Prisma transaction limitation with newly created IDs)
+  await prisma.scoutReward.update({
+    where: { accessKeyId: accessKey.id },
+    data: { propertyId: property.id },
   });
 
   await Promise.all([
