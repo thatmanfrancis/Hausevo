@@ -27,6 +27,8 @@ export type AggregateArtisanProfile = {
 }
 
 export type ArtisanProfileAvgAggregateOutputType = {
+  yearsOfExperience: number | null
+  startingPrice: number | null
   safetyBond: number | null
   rating: number | null
   bondAccumulated: number | null
@@ -36,6 +38,8 @@ export type ArtisanProfileAvgAggregateOutputType = {
 }
 
 export type ArtisanProfileSumAggregateOutputType = {
+  yearsOfExperience: number | null
+  startingPrice: number | null
   safetyBond: number | null
   rating: number | null
   bondAccumulated: number | null
@@ -48,6 +52,9 @@ export type ArtisanProfileMinAggregateOutputType = {
   id: string | null
   userId: string | null
   category: $Enums.ArtisanCategory | null
+  yearsOfExperience: number | null
+  startingPrice: number | null
+  bio: string | null
   safetyBond: number | null
   rating: number | null
   isVetted: boolean | null
@@ -61,6 +68,9 @@ export type ArtisanProfileMaxAggregateOutputType = {
   id: string | null
   userId: string | null
   category: $Enums.ArtisanCategory | null
+  yearsOfExperience: number | null
+  startingPrice: number | null
+  bio: string | null
   safetyBond: number | null
   rating: number | null
   isVetted: boolean | null
@@ -74,6 +84,9 @@ export type ArtisanProfileCountAggregateOutputType = {
   id: number
   userId: number
   category: number
+  yearsOfExperience: number
+  startingPrice: number
+  bio: number
   safetyBond: number
   rating: number
   isVetted: number
@@ -86,6 +99,8 @@ export type ArtisanProfileCountAggregateOutputType = {
 
 
 export type ArtisanProfileAvgAggregateInputType = {
+  yearsOfExperience?: true
+  startingPrice?: true
   safetyBond?: true
   rating?: true
   bondAccumulated?: true
@@ -95,6 +110,8 @@ export type ArtisanProfileAvgAggregateInputType = {
 }
 
 export type ArtisanProfileSumAggregateInputType = {
+  yearsOfExperience?: true
+  startingPrice?: true
   safetyBond?: true
   rating?: true
   bondAccumulated?: true
@@ -107,6 +124,9 @@ export type ArtisanProfileMinAggregateInputType = {
   id?: true
   userId?: true
   category?: true
+  yearsOfExperience?: true
+  startingPrice?: true
+  bio?: true
   safetyBond?: true
   rating?: true
   isVetted?: true
@@ -120,6 +140,9 @@ export type ArtisanProfileMaxAggregateInputType = {
   id?: true
   userId?: true
   category?: true
+  yearsOfExperience?: true
+  startingPrice?: true
+  bio?: true
   safetyBond?: true
   rating?: true
   isVetted?: true
@@ -133,6 +156,9 @@ export type ArtisanProfileCountAggregateInputType = {
   id?: true
   userId?: true
   category?: true
+  yearsOfExperience?: true
+  startingPrice?: true
+  bio?: true
   safetyBond?: true
   rating?: true
   isVetted?: true
@@ -233,6 +259,9 @@ export type ArtisanProfileGroupByOutputType = {
   id: string
   userId: string
   category: $Enums.ArtisanCategory
+  yearsOfExperience: number
+  startingPrice: number
+  bio: string | null
   safetyBond: number
   rating: number
   isVetted: boolean
@@ -269,6 +298,9 @@ export type ArtisanProfileWhereInput = {
   id?: Prisma.StringFilter<"ArtisanProfile"> | string
   userId?: Prisma.StringFilter<"ArtisanProfile"> | string
   category?: Prisma.EnumArtisanCategoryFilter<"ArtisanProfile"> | $Enums.ArtisanCategory
+  yearsOfExperience?: Prisma.IntFilter<"ArtisanProfile"> | number
+  startingPrice?: Prisma.FloatFilter<"ArtisanProfile"> | number
+  bio?: Prisma.StringNullableFilter<"ArtisanProfile"> | string | null
   safetyBond?: Prisma.FloatFilter<"ArtisanProfile"> | number
   rating?: Prisma.FloatFilter<"ArtisanProfile"> | number
   isVetted?: Prisma.BoolFilter<"ArtisanProfile"> | boolean
@@ -283,6 +315,9 @@ export type ArtisanProfileOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  yearsOfExperience?: Prisma.SortOrder
+  startingPrice?: Prisma.SortOrder
+  bio?: Prisma.SortOrderInput | Prisma.SortOrder
   safetyBond?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   isVetted?: Prisma.SortOrder
@@ -300,6 +335,9 @@ export type ArtisanProfileWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ArtisanProfileWhereInput[]
   NOT?: Prisma.ArtisanProfileWhereInput | Prisma.ArtisanProfileWhereInput[]
   category?: Prisma.EnumArtisanCategoryFilter<"ArtisanProfile"> | $Enums.ArtisanCategory
+  yearsOfExperience?: Prisma.IntFilter<"ArtisanProfile"> | number
+  startingPrice?: Prisma.FloatFilter<"ArtisanProfile"> | number
+  bio?: Prisma.StringNullableFilter<"ArtisanProfile"> | string | null
   safetyBond?: Prisma.FloatFilter<"ArtisanProfile"> | number
   rating?: Prisma.FloatFilter<"ArtisanProfile"> | number
   isVetted?: Prisma.BoolFilter<"ArtisanProfile"> | boolean
@@ -314,6 +352,9 @@ export type ArtisanProfileOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  yearsOfExperience?: Prisma.SortOrder
+  startingPrice?: Prisma.SortOrder
+  bio?: Prisma.SortOrderInput | Prisma.SortOrder
   safetyBond?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   isVetted?: Prisma.SortOrder
@@ -335,6 +376,9 @@ export type ArtisanProfileScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"ArtisanProfile"> | string
   userId?: Prisma.StringWithAggregatesFilter<"ArtisanProfile"> | string
   category?: Prisma.EnumArtisanCategoryWithAggregatesFilter<"ArtisanProfile"> | $Enums.ArtisanCategory
+  yearsOfExperience?: Prisma.IntWithAggregatesFilter<"ArtisanProfile"> | number
+  startingPrice?: Prisma.FloatWithAggregatesFilter<"ArtisanProfile"> | number
+  bio?: Prisma.StringNullableWithAggregatesFilter<"ArtisanProfile"> | string | null
   safetyBond?: Prisma.FloatWithAggregatesFilter<"ArtisanProfile"> | number
   rating?: Prisma.FloatWithAggregatesFilter<"ArtisanProfile"> | number
   isVetted?: Prisma.BoolWithAggregatesFilter<"ArtisanProfile"> | boolean
@@ -347,6 +391,9 @@ export type ArtisanProfileScalarWhereWithAggregatesInput = {
 export type ArtisanProfileCreateInput = {
   id?: string
   category: $Enums.ArtisanCategory
+  yearsOfExperience?: number
+  startingPrice?: number
+  bio?: string | null
   safetyBond?: number
   rating?: number
   isVetted?: boolean
@@ -361,6 +408,9 @@ export type ArtisanProfileUncheckedCreateInput = {
   id?: string
   userId: string
   category: $Enums.ArtisanCategory
+  yearsOfExperience?: number
+  startingPrice?: number
+  bio?: string | null
   safetyBond?: number
   rating?: number
   isVetted?: boolean
@@ -373,6 +423,9 @@ export type ArtisanProfileUncheckedCreateInput = {
 export type ArtisanProfileUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumArtisanCategoryFieldUpdateOperationsInput | $Enums.ArtisanCategory
+  yearsOfExperience?: Prisma.IntFieldUpdateOperationsInput | number
+  startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   safetyBond?: Prisma.FloatFieldUpdateOperationsInput | number
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   isVetted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -387,6 +440,9 @@ export type ArtisanProfileUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumArtisanCategoryFieldUpdateOperationsInput | $Enums.ArtisanCategory
+  yearsOfExperience?: Prisma.IntFieldUpdateOperationsInput | number
+  startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   safetyBond?: Prisma.FloatFieldUpdateOperationsInput | number
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   isVetted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -400,6 +456,9 @@ export type ArtisanProfileCreateManyInput = {
   id?: string
   userId: string
   category: $Enums.ArtisanCategory
+  yearsOfExperience?: number
+  startingPrice?: number
+  bio?: string | null
   safetyBond?: number
   rating?: number
   isVetted?: boolean
@@ -412,6 +471,9 @@ export type ArtisanProfileCreateManyInput = {
 export type ArtisanProfileUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumArtisanCategoryFieldUpdateOperationsInput | $Enums.ArtisanCategory
+  yearsOfExperience?: Prisma.IntFieldUpdateOperationsInput | number
+  startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   safetyBond?: Prisma.FloatFieldUpdateOperationsInput | number
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   isVetted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -425,6 +487,9 @@ export type ArtisanProfileUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumArtisanCategoryFieldUpdateOperationsInput | $Enums.ArtisanCategory
+  yearsOfExperience?: Prisma.IntFieldUpdateOperationsInput | number
+  startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   safetyBond?: Prisma.FloatFieldUpdateOperationsInput | number
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   isVetted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -443,6 +508,9 @@ export type ArtisanProfileCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  yearsOfExperience?: Prisma.SortOrder
+  startingPrice?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
   safetyBond?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   isVetted?: Prisma.SortOrder
@@ -453,6 +521,8 @@ export type ArtisanProfileCountOrderByAggregateInput = {
 }
 
 export type ArtisanProfileAvgOrderByAggregateInput = {
+  yearsOfExperience?: Prisma.SortOrder
+  startingPrice?: Prisma.SortOrder
   safetyBond?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   bondAccumulated?: Prisma.SortOrder
@@ -465,6 +535,9 @@ export type ArtisanProfileMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  yearsOfExperience?: Prisma.SortOrder
+  startingPrice?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
   safetyBond?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   isVetted?: Prisma.SortOrder
@@ -478,6 +551,9 @@ export type ArtisanProfileMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  yearsOfExperience?: Prisma.SortOrder
+  startingPrice?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
   safetyBond?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   isVetted?: Prisma.SortOrder
@@ -488,6 +564,8 @@ export type ArtisanProfileMinOrderByAggregateInput = {
 }
 
 export type ArtisanProfileSumOrderByAggregateInput = {
+  yearsOfExperience?: Prisma.SortOrder
+  startingPrice?: Prisma.SortOrder
   safetyBond?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   bondAccumulated?: Prisma.SortOrder
@@ -535,6 +613,9 @@ export type EnumArtisanCategoryFieldUpdateOperationsInput = {
 export type ArtisanProfileCreateWithoutUserInput = {
   id?: string
   category: $Enums.ArtisanCategory
+  yearsOfExperience?: number
+  startingPrice?: number
+  bio?: string | null
   safetyBond?: number
   rating?: number
   isVetted?: boolean
@@ -547,6 +628,9 @@ export type ArtisanProfileCreateWithoutUserInput = {
 export type ArtisanProfileUncheckedCreateWithoutUserInput = {
   id?: string
   category: $Enums.ArtisanCategory
+  yearsOfExperience?: number
+  startingPrice?: number
+  bio?: string | null
   safetyBond?: number
   rating?: number
   isVetted?: boolean
@@ -575,6 +659,9 @@ export type ArtisanProfileUpdateToOneWithWhereWithoutUserInput = {
 export type ArtisanProfileUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumArtisanCategoryFieldUpdateOperationsInput | $Enums.ArtisanCategory
+  yearsOfExperience?: Prisma.IntFieldUpdateOperationsInput | number
+  startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   safetyBond?: Prisma.FloatFieldUpdateOperationsInput | number
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   isVetted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -587,6 +674,9 @@ export type ArtisanProfileUpdateWithoutUserInput = {
 export type ArtisanProfileUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumArtisanCategoryFieldUpdateOperationsInput | $Enums.ArtisanCategory
+  yearsOfExperience?: Prisma.IntFieldUpdateOperationsInput | number
+  startingPrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   safetyBond?: Prisma.FloatFieldUpdateOperationsInput | number
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   isVetted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -602,6 +692,9 @@ export type ArtisanProfileSelect<ExtArgs extends runtime.Types.Extensions.Intern
   id?: boolean
   userId?: boolean
   category?: boolean
+  yearsOfExperience?: boolean
+  startingPrice?: boolean
+  bio?: boolean
   safetyBond?: boolean
   rating?: boolean
   isVetted?: boolean
@@ -616,6 +709,9 @@ export type ArtisanProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   id?: boolean
   userId?: boolean
   category?: boolean
+  yearsOfExperience?: boolean
+  startingPrice?: boolean
+  bio?: boolean
   safetyBond?: boolean
   rating?: boolean
   isVetted?: boolean
@@ -630,6 +726,9 @@ export type ArtisanProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   id?: boolean
   userId?: boolean
   category?: boolean
+  yearsOfExperience?: boolean
+  startingPrice?: boolean
+  bio?: boolean
   safetyBond?: boolean
   rating?: boolean
   isVetted?: boolean
@@ -644,6 +743,9 @@ export type ArtisanProfileSelectScalar = {
   id?: boolean
   userId?: boolean
   category?: boolean
+  yearsOfExperience?: boolean
+  startingPrice?: boolean
+  bio?: boolean
   safetyBond?: boolean
   rating?: boolean
   isVetted?: boolean
@@ -653,7 +755,7 @@ export type ArtisanProfileSelectScalar = {
   jobsCompleted?: boolean
 }
 
-export type ArtisanProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "category" | "safetyBond" | "rating" | "isVetted" | "bondAccumulated" | "bondTarget" | "currentCommission" | "jobsCompleted", ExtArgs["result"]["artisanProfile"]>
+export type ArtisanProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "category" | "yearsOfExperience" | "startingPrice" | "bio" | "safetyBond" | "rating" | "isVetted" | "bondAccumulated" | "bondTarget" | "currentCommission" | "jobsCompleted", ExtArgs["result"]["artisanProfile"]>
 export type ArtisanProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -673,6 +775,9 @@ export type $ArtisanProfilePayload<ExtArgs extends runtime.Types.Extensions.Inte
     id: string
     userId: string
     category: $Enums.ArtisanCategory
+    yearsOfExperience: number
+    startingPrice: number
+    bio: string | null
     safetyBond: number
     rating: number
     isVetted: boolean
@@ -1107,6 +1212,9 @@ export interface ArtisanProfileFieldRefs {
   readonly id: Prisma.FieldRef<"ArtisanProfile", 'String'>
   readonly userId: Prisma.FieldRef<"ArtisanProfile", 'String'>
   readonly category: Prisma.FieldRef<"ArtisanProfile", 'ArtisanCategory'>
+  readonly yearsOfExperience: Prisma.FieldRef<"ArtisanProfile", 'Int'>
+  readonly startingPrice: Prisma.FieldRef<"ArtisanProfile", 'Float'>
+  readonly bio: Prisma.FieldRef<"ArtisanProfile", 'String'>
   readonly safetyBond: Prisma.FieldRef<"ArtisanProfile", 'Float'>
   readonly rating: Prisma.FieldRef<"ArtisanProfile", 'Float'>
   readonly isVetted: Prisma.FieldRef<"ArtisanProfile", 'Boolean'>

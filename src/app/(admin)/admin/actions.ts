@@ -169,3 +169,91 @@ export async function closeTicket(id: string) {
     return { success: false, message: e instanceof Error ? e.message : "Failed" };
   }
 }
+
+// ── Artisans ──
+export async function vetArtisan(id: string) {
+  try {
+    const adminId = await requireAdmin();
+    const profile = await prisma.artisanProfile.update({
+      where: { id },
+      data: { isVetted: true },
+      include: { user: true }
+    });
+    
+    // Create Notification
+    await prisma.notification.create({
+      data: {
+        userId: profile.userId,
+        title: "Account Vetted! 🎉",
+        body: "Your professional artisan profile has been verified by our team. You can now start receiving maintenance jobs.",
+        type: "SYSTEM",
+        actionUrl: "/artisan/dashboard"
+      }
+    });
+
+    await logAudit(adminId, "APPROVE", "ArtisanProfile", id);
+    revalidatePath("/admin/artisans");
+    revalidatePath(`/admin/artisans/${id}`);
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed" };
+  }
+}
+
+export async function suspendArtisan(id: string) {
+  try {
+    const adminId = await requireAdmin();
+    await prisma.artisanProfile.update({
+      where: { id },
+      data: { isVetted: false }
+    });
+    await logAudit(adminId, "FLAG", "ArtisanProfile", id);
+    revalidatePath("/admin/artisans");
+    revalidatePath(`/admin/artisans/${id}`);
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed" };
+  }
+}
+
+export async function createArtisanProfile(userId: string, data: any) {
+  try {
+    const adminId = await requireAdmin();
+    const profile = await prisma.artisanProfile.create({
+      data: {
+        userId,
+        category: data.category,
+        yearsOfExperience: parseInt(data.yearsOfExperience),
+        startingPrice: parseFloat(data.startingPrice),
+        bio: data.bio,
+      }
+    });
+    await logAudit(adminId, "CREATE", "ArtisanProfile", profile.id);
+    revalidatePath("/admin/artisans");
+    return { success: true, profileId: profile.id };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed to create profile" };
+  }
+}
+
+export async function updateArtisanByAdmin(id: string, data: any) {
+  try {
+    const adminId = await requireAdmin();
+    await prisma.artisanProfile.update({
+      where: { id },
+      data: {
+        category: data.category,
+        yearsOfExperience: parseInt(data.yearsOfExperience),
+        startingPrice: parseFloat(data.startingPrice),
+        rating: parseFloat(data.rating),
+        bio: data.bio,
+      }
+    });
+    await logAudit(adminId, "UPDATE", "ArtisanProfile", id);
+    revalidatePath("/admin/artisans");
+    revalidatePath(`/admin/artisans/${id}`);
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed to update profile" };
+  }
+}

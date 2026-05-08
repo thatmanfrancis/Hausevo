@@ -81,6 +81,19 @@ export async function POST(
   const landlordId = tenancy.property.landlordId;
   const management = tenancy.property.management[0] ?? null;
 
+  // ─── Wallet Balance Check ──────────────────────────────────────
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { walletBalance: true },
+  });
+
+  if (!user || user.walletBalance < paidAmount) {
+    return NextResponse.json(
+      { error: "Insufficient wallet balance. Please top up your wallet first." },
+      { status: 402 }
+    );
+  }
+
   // ─── Payment Splitting Logic ────────────────────────────────────
   // Calculate manager's commission (% takes priority over fixed fee)
   let managerCut = 0;
@@ -96,12 +109,31 @@ export async function POST(
 
   // All DB writes in a transaction for atomicity
   const [updatedSchedule] = await prisma.$transaction([
+    // Deduct from tenant wallet
+    prisma.user.update({
+      where: { id: userId },
+      data: { walletBalance: { decrement: paidAmount } },
+    }),
+    // Credit landlord (owner) wallet
+    prisma.user.update({
+      where: { id: landlordId },
+      data: { walletBalance: { increment: ownerAmount } },
+    }),
+    // Credit manager wallet (if exists)
+    ...(management && managerCut > 0
+      ? [
+          prisma.user.update({
+            where: { id: management.managerId },
+            data: { walletBalance: { increment: managerCut } },
+          }),
+        ]
+      : []),
     // Mark the schedule as paid
     prisma.rentSchedule.update({
       where: { id: scheduleId },
       data: { status: "COMPLETED", paidAt: new Date() },
     }),
-    // Owner's portion of the rent
+    // Owner's portion of the rent transaction
     prisma.transaction.create({
       data: {
         userId,
@@ -186,6 +218,15 @@ export async function POST(
     ...notifyPromises,
   ]);
 
+  // Refetch balances to be sure
+  const [tenantUser, landlordUser, managerUser] = await Promise.all([
+    prisma.user.findUnique({ where: { id: userId }, select: { walletBalance: true } }),
+    prisma.user.findUnique({ where: { id: landlordId }, select: { walletBalance: true } }),
+    management && managerCut > 0
+      ? prisma.user.findUnique({ where: { id: management.managerId }, select: { walletBalance: true } })
+      : Promise.resolve(null),
+  ]);
+
   return NextResponse.json({
     message: "Payment recorded successfully.",
     summary: {
@@ -193,6 +234,9 @@ export async function POST(
       ownerReceives: ownerAmount,
       managerReceives: managerCut,
       schedule: updatedSchedule,
+      tenantBalance: tenantUser?.walletBalance,
+      ownerBalance: landlordUser?.walletBalance,
+      managerBalance: managerUser?.walletBalance,
     },
   }, { status: 201 });
 }

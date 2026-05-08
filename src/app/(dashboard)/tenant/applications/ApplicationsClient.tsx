@@ -22,7 +22,9 @@ type Application = {
     pricePerYear: number;
     listingType: string;
     images: { url: string }[];
+    totalPackage: number;
   };
+  tenancyId?: string | null;
 };
 
 type Props = { applications: Application[] };
@@ -77,6 +79,8 @@ function StatusBadge({ status }: { status: string }) {
 export default function ApplicationsClient({ applications }: Props) {
   const [list, setList] = useState(applications);
   const [withdrawingId, setWithdrawingId] = useState<string | null>(null);
+  const [payingId, setPayingId] = useState<string | null>(null);
+  const [payError, setPayError] = useState("");
   const [filter, setFilter] = useState("ALL");
 
   const FILTERS = ["ALL", "PENDING", "REVIEWING", "ACCEPTED", "REJECTED", "WITHDRAWN"];
@@ -105,6 +109,27 @@ export default function ApplicationsClient({ applications }: Props) {
       // Silent fail
     } finally {
       setWithdrawingId(null);
+    }
+  }
+
+  async function handlePayTotal(id: string) {
+    setPayingId(id);
+    setPayError("");
+    try {
+      const res = await fetch(`/api/applications/${id}/pay-total`, {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setPayError(data.error ?? "Payment failed. Check your wallet balance.");
+        return;
+      }
+      // Refresh or redirect
+      window.location.href = "/tenant/tenancy";
+    } catch {
+      setPayError("Network error. Please try again.");
+    } finally {
+      setPayingId(null);
     }
   }
 
@@ -256,17 +281,45 @@ export default function ApplicationsClient({ applications }: Props) {
                       </div>
                     )}
 
-                    {/* Accepted — prompt to view tenancy */}
-                    {app.status === "ACCEPTED" && (
+                    {/* Accepted — prompt to pay total package */}
+                    {app.status === "ACCEPTED" && !app.tenancyId && (
+                      <div className="mt-4 rounded-2xl bg-zinc-900 p-5 text-white">
+                        <div className="flex flex-col gap-4">
+                          <div>
+                            <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Total Package</p>
+                            <p className="text-2xl font-extrabold">{formatNaira(app.property.totalPackage)}</p>
+                          </div>
+                          
+                          {payError && payingId === app.id && (
+                            <p className="text-xs font-bold text-red-400">{payError}</p>
+                          )}
+
+                          <button
+                            type="button"
+                            onClick={() => handlePayTotal(app.id)}
+                            disabled={payingId === app.id}
+                            className="w-full rounded-full bg-white text-zinc-900 py-3 text-sm font-extrabold hover:bg-zinc-100 transition-colors disabled:opacity-50"
+                          >
+                            {payingId === app.id ? "Securing Home…" : "Pay & Secure Home"}
+                          </button>
+                          <p className="text-[10px] text-zinc-500 text-center leading-relaxed">
+                            To protect your deposit, always pay through the Shack app. <br/> Never pay landlords directly.
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Finalized Tenancy */}
+                    {app.tenancyId && (
                       <div className="mt-2 rounded-xl bg-emerald-50 border border-emerald-100 px-3 py-2 flex items-center justify-between gap-3">
                         <p className="text-xs text-emerald-700 font-semibold">
-                          Your application was accepted 🎉
+                          Tenancy is active ✅
                         </p>
                         <Link
                           href="/tenant/tenancy"
                           className="text-xs font-bold text-emerald-700 hover:underline underline-offset-2 whitespace-nowrap"
                         >
-                          View tenancy →
+                          Go to My Home →
                         </Link>
                       </div>
                     )}

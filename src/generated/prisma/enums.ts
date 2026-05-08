@@ -129,7 +129,8 @@ export const TransactionType = {
   MORTGAGE_REPAYMENT: 'MORTGAGE_REPAYMENT',
   MANAGEMENT_FEE: 'MANAGEMENT_FEE',
   MILESTONE_PAYMENT: 'MILESTONE_PAYMENT',
-  LEASE_PAYMENT: 'LEASE_PAYMENT'
+  LEASE_PAYMENT: 'LEASE_PAYMENT',
+  WITHDRAWAL: 'WITHDRAWAL'
 } as const
 
 export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType]

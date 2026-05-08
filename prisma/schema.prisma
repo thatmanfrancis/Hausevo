@@ -352,6 +352,9 @@ model ArtisanProfile {
   id                String          @id @default(uuid())
   userId            String          @unique
   category          ArtisanCategory
+  yearsOfExperience Int             @default(0)
+  startingPrice     Float           @default(0)
+  bio               String?
   safetyBond        Float           @default(0.0)
   rating            Float           @default(5.0)
   isVetted          Boolean         @default(false)
@@ -513,6 +516,7 @@ model Notification {
   body      String
   type      NotificationType
   isRead    Boolean          @default(false)
+  actionUrl String?
   metadata  Json?
   createdAt DateTime         @default(now())
   user      User             @relation(fields: [userId], references: [id])
@@ -729,6 +733,7 @@ enum TransactionType {
   MANAGEMENT_FEE
   MILESTONE_PAYMENT
   LEASE_PAYMENT
+  WITHDRAWAL
 }
 
 enum ArtisanCategory {

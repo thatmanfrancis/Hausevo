@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 
@@ -9,6 +11,7 @@ const FOOTER_LINKS = [
       { label: "Add Listing", href: "/auth/register" },
       { label: "How It Works", href: "/about" },
       { label: "Blog", href: "/blogs" },
+      { label: "Download App", href: "#download", isInstall: true },
     ],
   },
   {
@@ -109,19 +112,44 @@ export default function Footer() {
                 {col.heading}
               </p>
               <ul className="space-y-2.5">
-                {col.links.map((link) => (
+                {col.links.map((link: any) => (
                   <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors"
-                    >
-                      {link.label}
-                    </Link>
+                    {link.isInstall ? (
+                      <button
+                        onClick={() => window.dispatchEvent(new CustomEvent("trigger-pwa-install"))}
+                        className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors text-left"
+                      >
+                        {link.label}
+                      </button>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
             </div>
           ))}
+        </div>
+
+        {/* SEO Popular Searches */}
+        <div className="mt-12 pt-8 border-t border-zinc-100">
+          <p className="text-[10px] font-extrabold uppercase tracking-widest text-zinc-400 mb-4">Popular Searches</p>
+          <div className="flex flex-wrap gap-x-6 gap-y-3">
+            {[
+              "Houses for rent in Lagos", "Apartments near me", "Self contain in Lagos",
+              "2 Bedroom flats in Ikeja", "Mini flats in Surulere", "Luxury homes in Lekki",
+              "Rent house in Lagos no agent", "Verified properties in Nigeria", "Affordable Lagos homes"
+            ].map((tag) => (
+              <span key={tag} className="text-[10px] font-semibold text-zinc-400 hover:text-zinc-700 cursor-default transition-colors">
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
 
         {/* Bottom row */}

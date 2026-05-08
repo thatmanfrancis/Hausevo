@@ -91,6 +91,15 @@ export default async function PropertiesPage({
     page,
   });
 
+  let savedPropertyIds: string[] = [];
+  if (session?.user?.id) {
+    const saved = await prisma.savedProperty.findMany({
+      where: { tenantId: session.user.id },
+      select: { propertyId: true },
+    });
+    savedPropertyIds = saved.map((s) => s.propertyId);
+  }
+
   // If location-filtered results fill less than a full page AND it's auto-detected
   // (not a manual search), show all properties so the page isn't sparse.
   // We still keep the heading context ("near Kosofe") but show everything.
@@ -112,6 +121,7 @@ export default async function PropertiesPage({
       locationSource={locationSource}
       session={session}
       searchParams={params}
+      savedPropertyIds={savedPropertyIds}
     >
       <Suspense fallback={null}>
         <LocationDetector isLoggedIn={!!session?.user} />

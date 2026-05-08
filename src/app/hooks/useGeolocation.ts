@@ -19,16 +19,36 @@ function normaliseState(raw: string): string {
 // Known Lagos LGAs for validation — if BigDataCloud returns one of these
 // we know it's a real LGA, not the state name
 const LAGOS_LGAS = new Set([
-  "Agege", "Ajeromi-Ifelodun", "Alimosho", "Amuwo-Odofin", "Apapa",
-  "Badagry", "Epe", "Eti-Osa", "Ibeju-Lekki", "Ifako-Ijaiye",
-  "Ikeja", "Ikorodu", "Kosofe", "Lagos Island", "Lagos Mainland",
-  "Mushin", "Ojo", "Oshodi-Isolo", "Shomolu", "Somolu", "Surulere",
+  "Agege",
+  "Ajeromi-Ifelodun",
+  "Alimosho",
+  "Amuwo-Odofin",
+  "Apapa",
+  "Badagry",
+  "Epe",
+  "Eti-Osa",
+  "Ibeju-Lekki",
+  "Ifako-Ijaiye",
+  "Ikeja",
+  "Ikorodu",
+  "Kosofe",
+  "Lagos Island",
+  "Lagos Mainland",
+  "Mushin",
+  "Ojo",
+  "Oshodi-Isolo",
+  "Shomolu",
+  "Somolu",
+  "Surulere",
 ]);
 
-async function reverseGeocode(lat: number, lng: number): Promise<GeoLocation | null> {
+async function reverseGeocode(
+  lat: number,
+  lng: number,
+): Promise<GeoLocation | null> {
   try {
     const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`;
-    console.log("[Shack Geo] Fetching:", url);
+    // console.log("[Shack Geo] Fetching:", url);
 
     const res = await fetch(url, { signal: AbortSignal.timeout(5000) });
     if (!res.ok) {
@@ -42,11 +62,14 @@ async function reverseGeocode(lat: number, lng: number): Promise<GeoLocation | n
     const state = normaliseState(data.principalSubdivision ?? "");
 
     const adminLevels: any[] = data.localityInfo?.administrative ?? [];
-    console.log("[Shack Geo] Admin levels:", adminLevels.map((a: any) => ({
-      level: a.adminLevel,
-      name: a.name,
-      description: a.description,
-    })));
+    console.log(
+      "[Shack Geo] Admin levels:",
+      adminLevels.map((a: any) => ({
+        level: a.adminLevel,
+        name: a.name,
+        description: a.description,
+      })),
+    );
 
     // Strategy: try each admin level from most specific to least,
     // but SKIP any entry whose name matches the state name (e.g. "Lagos")
@@ -62,9 +85,9 @@ async function reverseGeocode(lat: number, lng: number): Promise<GeoLocation | n
       // We want the most specific one, so take the LAST match at each level.
       const entries = adminLevels.filter((a: any) => a.adminLevel === level);
       // Pick the last entry at this level that isn't the state name
-      const validEntry = [...entries].reverse().find(
-        (a: any) => a.name && a.name.toLowerCase() !== stateName
-      );
+      const validEntry = [...entries]
+        .reverse()
+        .find((a: any) => a.name && a.name.toLowerCase() !== stateName);
       if (validEntry) {
         lgaEntry = validEntry;
         break;
@@ -74,7 +97,10 @@ async function reverseGeocode(lat: number, lng: number): Promise<GeoLocation | n
     console.log("[Shack Geo] Chosen LGA entry:", lgaEntry);
     console.log("[Shack Geo] data.city:", data.city);
     console.log("[Shack Geo] data.locality:", data.locality);
-    console.log("[Shack Geo] data.principalSubdivision:", data.principalSubdivision);
+    console.log(
+      "[Shack Geo] data.principalSubdivision:",
+      data.principalSubdivision,
+    );
 
     // Build LGA candidate — prefer admin level entry, then city, then locality
     // but never use the state name as the LGA
@@ -98,7 +124,9 @@ async function reverseGeocode(lat: number, lng: number): Promise<GeoLocation | n
 
     // Final check: if what we have is a known Lagos LGA, great.
     if (state === "Lagos" && lga && !LAGOS_LGAS.has(lga)) {
-      console.warn(`[Shack Geo] "${lga}" is not a recognised Lagos LGA — using anyway`);
+      console.warn(
+        `[Shack Geo] "${lga}" is not a recognised Lagos LGA — using anyway`,
+      );
     }
 
     // Last resort: if lga still equals the state name, use locality
@@ -189,7 +217,10 @@ export function useGeolocation(): GeoLocation {
           2: "Position unavailable",
           3: "Timeout",
         };
-        console.warn("[Shack Geo] Geolocation error:", reasons[error.code] ?? error.message);
+        console.warn(
+          "[Shack Geo] Geolocation error:",
+          reasons[error.code] ?? error.message,
+        );
         setGeo((prev) => ({
           ...prev,
           status: error.code === 1 ? "denied" : "unavailable",
@@ -199,7 +230,7 @@ export function useGeolocation(): GeoLocation {
         timeout: 8000,
         maximumAge: CACHE_TTL_MS,
         enableHighAccuracy: false,
-      }
+      },
     );
   }, []);
 

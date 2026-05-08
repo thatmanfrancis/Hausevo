@@ -7,7 +7,7 @@ import MobileNav from "@/app/components/MobileNav";
 import LandlordMobileNav from "@/app/components/LandlordMobileNav";
 import SidebarNav from "@/app/components/SidebarNav";
 import LandlordSidebarNav from "@/app/components/LandlordSidebarNav";
-import { TENANT_NAV_ITEMS, LANDLORD_NAV_ITEMS } from "@/lib/nav-constants";
+import { TENANT_NAV_ITEMS, LANDLORD_NAV_ITEMS, ARTISAN_NAV_ITEMS } from "@/lib/nav-constants";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
@@ -18,11 +18,17 @@ export default async function DashboardLayout({ children }: { children: React.Re
     select: { roles: true },
   });
 
-  if (!user?.roles.includes) redirect("/auth/login");
+  if (!user?.roles) redirect("/auth/login");
   if (user?.roles.includes("ADMIN")) redirect("/admin/dashboard");
 
   const isLandlord = user?.roles.includes("LANDLORD");
-  const navItems = isLandlord ? LANDLORD_NAV_ITEMS : TENANT_NAV_ITEMS;
+  const isArtisan = user?.roles.includes("ARTISAN");
+  
+  const navItems = isLandlord 
+    ? LANDLORD_NAV_ITEMS 
+    : isArtisan 
+      ? ARTISAN_NAV_ITEMS 
+      : TENANT_NAV_ITEMS;
 
   const initials = session.user.name
     ?.split(" ").map((n) => n[0]).slice(0, 2).join("").toUpperCase() ?? "U";
@@ -42,6 +48,11 @@ export default async function DashboardLayout({ children }: { children: React.Re
             {isLandlord && (
               <span className="hidden sm:block text-[10px] font-bold uppercase tracking-widest text-zinc-400 border border-zinc-200 rounded-full px-2 py-0.5 ml-1">
                 Landlord
+              </span>
+            )}
+            {isArtisan && (
+              <span className="hidden sm:block text-[10px] font-bold uppercase tracking-widest text-zinc-400 border border-zinc-200 rounded-full px-2 py-0.5 ml-1">
+                Artisan
               </span>
             )}
           </Link>

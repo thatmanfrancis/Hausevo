@@ -8,7 +8,8 @@ import { auth } from "@/lib/auth";
   Blocked in production.
 */
 export async function POST(req: NextRequest) {
-  if (process.env.NODE_ENV === "production") {
+  const isDevBypass = process.env.ENABLE_TEST_TOOLS === "true";
+  if (process.env.NODE_ENV === "production" && !isDevBypass) {
     return NextResponse.json({ error: "Not available in production." }, { status: 403 });
   }
 

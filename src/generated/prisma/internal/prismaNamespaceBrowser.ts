@@ -408,6 +408,9 @@ export const ArtisanProfileScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   category: 'category',
+  yearsOfExperience: 'yearsOfExperience',
+  startingPrice: 'startingPrice',
+  bio: 'bio',
   safetyBond: 'safetyBond',
   rating: 'rating',
   isVetted: 'isVetted',
@@ -576,6 +579,7 @@ export const NotificationScalarFieldEnum = {
   body: 'body',
   type: 'type',
   isRead: 'isRead',
+  actionUrl: 'actionUrl',
   metadata: 'metadata',
   createdAt: 'createdAt'
 } as const

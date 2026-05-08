@@ -94,5 +94,10 @@ export default async function TenancyPage() {
     },
   });
 
-  return <TenancyClient tenancy={tenancy} userId={session.user.id} />;
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { walletBalance: true },
+  });
+
+  return <TenancyClient tenancy={tenancy} userId={session.user.id} walletBalance={user?.walletBalance ?? 0} />;
 }

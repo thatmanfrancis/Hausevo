@@ -78,11 +78,11 @@ export default function Navbar({ session }: { session: any }) {
   }, [pathname]);
 
   return (
-    <header className="w-full bg-white border-b border-zinc-100 sticky top-0 z-50">
-      <nav
-        ref={navRef}
-        className="max-w-6xl mx-auto flex items-center justify-between px-6 h-16"
-      >
+    <header 
+      ref={navRef}
+      className="w-full bg-white border-b border-zinc-100 sticky top-0 z-50"
+    >
+      <nav className="max-w-6xl mx-auto flex items-center justify-between px-6 h-16">
         <Link href="/" className="flex items-center gap-2.5 shrink-0">
           <span className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-900 text-white">
             {/* House icon */}

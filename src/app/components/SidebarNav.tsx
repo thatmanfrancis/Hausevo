@@ -34,6 +34,7 @@ export default function SidebarNav({ items }: { items: NavItem[] }) {
     if (href === "/dashboard") return pathname === "/dashboard";
     if (href === "/landlord/dashboard") return pathname === "/landlord/dashboard";
     if (href === "/admin/dashboard") return pathname === "/admin/dashboard";
+    if (href === "/artisan/dashboard") return pathname === "/artisan/dashboard";
     return pathname === href || pathname.startsWith(href + "/");
   }
 

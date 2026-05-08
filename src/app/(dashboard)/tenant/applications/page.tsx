@@ -24,7 +24,11 @@ export default async function ApplicationsPage() {
           address: true,
           lga: true,
           pricePerYear: true,
+          totalPackage: true,
           listingType: true,
+          tenancy: {
+            select: { id: true }
+          },
           images: {
             where: { isPrimary: true },
             select: { url: true },
@@ -36,5 +40,10 @@ export default async function ApplicationsPage() {
     orderBy: { createdAt: "desc" },
   });
 
-  return <ApplicationsClient applications={applications} />;
+  const mapped = applications.map(app => ({
+    ...app,
+    tenancyId: app.property.tenancy?.id || null
+  }));
+
+  return <ApplicationsClient applications={mapped} />;
 }

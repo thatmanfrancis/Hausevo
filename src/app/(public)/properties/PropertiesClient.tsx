@@ -153,6 +153,7 @@ export default function PropertiesClient({
   searchParams,
   children,
   isHomePage = false,
+  savedPropertyIds = [],
 }: {
   initialProperties: Property[];
   totalProperties?: number;
@@ -165,6 +166,7 @@ export default function PropertiesClient({
   searchParams: Record<string, string | undefined>;
   children?: React.ReactNode;
   isHomePage?: boolean;
+  savedPropertyIds?: string[];
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -173,7 +175,7 @@ export default function PropertiesClient({
   const [listingType, setListingType] = useState(searchParams.listingType ?? "");
   const [propertyType, setPropertyType] = useState(searchParams.propertyType ?? "");
   const [priceRange, setPriceRange] = useState(searchParams.priceRange ?? "");
-  const [savedIds, setSavedIds] = useState<Set<string>>(new Set());
+  const [savedIds, setSavedIds] = useState<Set<string>>(new Set(savedPropertyIds ?? []));
 
   const isFiltered = !!(lga || listingType || propertyType || priceRange);
 
@@ -214,17 +216,17 @@ export default function PropertiesClient({
 
   const headingLocation =
     locationSource === "geo" || locationSource === "wishlist"
-      ? `near ${locationLabel}`
+      ? `near you`
       : locationSource === "search" && lga
       ? `in ${lga}`
-      : "across Lagos";
+      : "in Lagos";
 
   const headingSubtitle =
     locationSource === "geo"
-      ? "Based on your current location"
+      ? "Discover verified houses for rent near your current location"
       : locationSource === "wishlist"
-      ? "Based on your preferred location from onboarding"
-      : "Verified properties — no agents, no markups";
+      ? "Houses for rent in your preferred Lagos neighborhoods"
+      : "Verified houses and apartments for rent in Lagos — no agents, no markups";
 
   return (
     <div>

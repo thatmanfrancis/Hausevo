@@ -41,7 +41,7 @@ type Tenancy = {
   } | null;
 } | null;
 
-type Props = { tenancy: Tenancy; userId: string };
+type Props = { tenancy: Tenancy; userId: string; walletBalance: number };
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -256,10 +256,11 @@ function ReviewModal({
 
 
 
-export default function TenancyClient({ tenancy, userId }: Props) {
+export default function TenancyClient({ tenancy, userId, walletBalance }: Props) {
   const isPrimary = tenancy?.tenantId === userId;
   const isCoTenant = tenancy?.coTenants.some(ct => ct.id === userId);
   const [schedules, setSchedules] = useState(tenancy?.rentSchedules ?? []);
+  const [balance, setBalance] = useState(walletBalance);
   const [payingId, setPayingId] = useState<string | null>(null);
   const [payError, setPayError] = useState("");
   const [paySuccess, setPaySuccess] = useState("");
@@ -357,7 +358,8 @@ export default function TenancyClient({ tenancy, userId }: Props) {
             : s
         )
       );
-      setPaySuccess(`Payment of ${formatNaira(amount)} recorded successfully.`);
+      setBalance(data.summary.tenantBalance ?? (balance - amount));
+      setPaySuccess(`Payment of ${formatNaira(amount)} completed successfully using your wallet.`);
       setTimeout(() => setPaySuccess(""), 5000);
     } catch {
       setPayError("Network error. Please try again.");
@@ -569,7 +571,14 @@ export default function TenancyClient({ tenancy, userId }: Props) {
 
       {/* Rent schedule */}
       <div className="bg-white rounded-2xl border border-zinc-200 p-6">
-        <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Rent Schedule</p>
+        <div className="flex items-center justify-between mb-4">
+          <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">Rent Schedule</p>
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-bold text-zinc-400 uppercase">Wallet:</span>
+            <span className="text-xs font-extrabold text-zinc-900">{formatNaira(balance)}</span>
+          </div>
+        </div>
+
 
         {payError && (
           <div className="flex items-start gap-2.5 rounded-xl bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700 mb-4">
@@ -638,6 +647,11 @@ export default function TenancyClient({ tenancy, userId }: Props) {
             })}
           </div>
         )}
+        <div className="mt-6 pt-4 border-t border-zinc-50">
+          <p className="text-[10px] text-zinc-400 text-center italic">
+            Always pay through the Shack app to maintain digital proof of payment. <br/> Never pay landlords via direct bank transfer.
+          </p>
+        </div>
       </div>
 
       {/* Agreement */}

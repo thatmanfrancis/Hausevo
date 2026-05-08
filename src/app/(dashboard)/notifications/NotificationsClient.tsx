@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { useRouter } from "next/navigation";
+
 // ── Types ──────────────────────────────────────────────────────────────────
 
 type Notification = {
@@ -10,6 +12,7 @@ type Notification = {
   body: string;
   type: string;
   isRead: boolean;
+  actionUrl?: string | null;
   metadata: unknown;
   createdAt: Date;
 };
@@ -94,9 +97,19 @@ function formatRelativeTime(date: Date) {
 // ── Main component ─────────────────────────────────────────────────────────
 
 export default function NotificationsClient({ notifications, unreadCount: initialUnreadCount }: Props) {
+  const router = useRouter();
   const [notificationList, setNotificationList] = useState(notifications);
   const [unreadCount, setUnreadCount] = useState(initialUnreadCount);
   const [markingAllRead, setMarkingAllRead] = useState(false);
+
+  async function handleNotificationClick(id: string, isRead: boolean, actionUrl?: string | null) {
+    if (!isRead) {
+      await markAsRead(id);
+    }
+    if (actionUrl) {
+      router.push(actionUrl);
+    }
+  }
 
   async function markAsRead(id: string) {
     try {
@@ -187,11 +200,10 @@ export default function NotificationsClient({ notifications, unreadCount: initia
         ) : (
           <div className="divide-y divide-zinc-100">
             {notificationList.map((notification) => (
-              <button
+              <div
                 key={notification.id}
-                type="button"
-                onClick={() => !notification.isRead && markAsRead(notification.id)}
-                className={`w-full flex items-start gap-4 p-5 text-left transition-colors ${
+                onClick={() => handleNotificationClick(notification.id, notification.isRead, notification.actionUrl)}
+                className={`w-full flex items-start gap-4 p-5 text-left transition-colors cursor-pointer ${
                   notification.isRead
                     ? "bg-white hover:bg-zinc-50"
                     : "bg-emerald-50/30 hover:bg-emerald-50/50"
@@ -222,14 +234,25 @@ export default function NotificationsClient({ notifications, unreadCount: initia
                       <span className="flex h-2 w-2 shrink-0 rounded-full bg-emerald-500 mt-1.5" />
                     )}
                   </div>
-                  <p className="text-xs text-zinc-500 mb-2 line-clamp-2">
+                  <p className="text-xs text-zinc-500 mb-2">
                     {notification.body}
                   </p>
-                  <p className="text-xs font-semibold text-zinc-400">
-                    {formatRelativeTime(notification.createdAt)}
-                  </p>
+                  
+                  <div className="flex items-center justify-between mt-3">
+                    <p className="text-[10px] font-semibold text-zinc-400">
+                      {formatRelativeTime(notification.createdAt)}
+                    </p>
+                    {notification.actionUrl && (
+                      <div className="flex items-center gap-1.5 rounded-full bg-zinc-900 px-4 py-1.5 text-[10px] font-bold text-white hover:bg-zinc-800 transition-colors">
+                        View More
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </button>
+              </div>
             ))}
           </div>
         )}
