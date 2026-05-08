@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
 */
 export async function POST(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
   const session = await auth();
@@ -23,18 +23,21 @@ export async function POST(
 
   const { amount } = await req.json();
   if (!amount || amount <= 0) {
-    return NextResponse.json({ error: "Valid amount is required." }, { status: 400 });
+    return NextResponse.json(
+      { error: "Valid amount is required." },
+      { status: 400 },
+    );
   }
 
   // Get tenancy and participants
   const tenancy = await prisma.tenancy.findUnique({
     where: { id },
-    select: { 
-      id: true, 
-      tenantId: true, 
-      isJoint: true, 
+    select: {
+      id: true,
+      tenantId: true,
+      isJoint: true,
       coTenants: { select: { id: true } },
-      property: { select: { title: true } }
+      property: { select: { title: true } },
     },
   });
 
@@ -44,14 +47,17 @@ export async function POST(
     return NextResponse.json({ error: "Tenancy not found." }, { status: 404 });
   }
 
-  const isCoTenant = tenancy.coTenants.some(ct => ct.id === userId);
+  const isCoTenant = tenancy.coTenants.some((ct: any) => ct.id === userId);
   if (!isCoTenant) {
-    return NextResponse.json({ error: "Only co-tenants can contribute to rent." }, { status: 403 });
+    return NextResponse.json(
+      { error: "Only co-tenants can contribute to rent." },
+      { status: 403 },
+    );
   }
 
   // Perform wallet transfer in a transaction
   try {
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: any) => {
       // 1. Check co-tenant balance
       const coTenant = await tx.user.findUnique({
         where: { id: userId },
@@ -85,7 +91,7 @@ export async function POST(
           description: `Rent contribution for ${tenancy.property.title}`,
           toId: tenancy.tenantId,
           tenancyId: tenancy.id,
-        }
+        },
       });
 
       await tx.transaction.create({
@@ -98,7 +104,7 @@ export async function POST(
           description: `Rent contribution from ${coTenant.fullName}`,
           fromId: userId,
           tenancyId: tenancy.id,
-        }
+        },
       });
     });
 
@@ -116,12 +122,15 @@ export async function POST(
         "Rent contribution received",
         `A co-tenant has contributed ₦${amount.toLocaleString()} towards your joint rent.`,
         "RENT_PAID",
-        { tenancyId: tenancy.id }
+        { tenancyId: tenancy.id },
       ),
     ]);
 
     return NextResponse.json({ message: "Contribution successful." });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to process contribution." }, { status: 400 });
+    return NextResponse.json(
+      { error: error.message || "Failed to process contribution." },
+      { status: 400 },
+    );
   }
 }

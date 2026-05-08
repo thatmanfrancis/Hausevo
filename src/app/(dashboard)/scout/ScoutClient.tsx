@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import ImageUpload from "@/app/components/ImageUpload";
 
 // ── Lagos LGAs ─────────────────────────────────────────────────────────────
 
@@ -48,6 +49,7 @@ export default function ScoutClient() {
   const [bedrooms, setBedrooms] = useState("");
   const [bathrooms, setBathrooms] = useState("");
   const [propertyType, setPropertyType] = useState("");
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -74,6 +76,7 @@ export default function ScoutClient() {
             bedrooms: bedrooms ? Number(bedrooms) : undefined,
             bathrooms: bathrooms ? Number(bathrooms) : undefined,
             propertyType: propertyType || undefined,
+            images: imageUrls.length > 0 ? imageUrls : undefined,
           },
         }),
       });
@@ -375,6 +378,9 @@ export default function ScoutClient() {
                 </select>
               </div>
             </div>
+
+            {/* Photos */}
+            <ImageUpload onUpload={setImageUrls} maxFiles={10} />
 
             {submitError && (
               <div className="flex items-start gap-2.5 rounded-xl bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700">

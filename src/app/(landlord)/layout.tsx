@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import prisma from "@/lib/prisma";
 import LogoutButton from "@/app/components/LogoutButton";
 import LandlordMobileNav from "@/app/components/LandlordMobileNav";

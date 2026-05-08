@@ -1,0 +1,171 @@
+"use server";
+
+import prisma from "@/lib/prisma";
+import { auth } from "@/lib/auth";
+import { revalidatePath } from "next/cache";
+
+async function requireAdmin() {
+  const session = await auth();
+  if (!session?.user?.id) throw new Error("Unauthorized");
+  
+  const user = await prisma.user.findUnique({ where: { id: session.user.id } });
+  if (!user || !user.roles.includes("ADMIN")) throw new Error("Forbidden");
+  
+  return user.id;
+}
+
+async function logAudit(actorId: string, action: string, entity: string, entityId: string) {
+  await prisma.auditLog.create({
+    data: { actorId, action: action as any, entity, entityId },
+  });
+}
+
+// ── Properties ──
+export async function approveProperty(id: string) {
+  try {
+    const adminId = await requireAdmin();
+    await prisma.property.update({ where: { id }, data: { status: "AVAILABLE" } });
+    await logAudit(adminId, "APPROVE", "Property", id);
+    revalidatePath("/admin/properties");
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed" };
+  }
+}
+
+export async function flagProperty(id: string) {
+  try {
+    const adminId = await requireAdmin();
+    await prisma.property.update({ where: { id }, data: { status: "FLAGGED" } });
+    await logAudit(adminId, "FLAG", "Property", id);
+    revalidatePath("/admin/properties");
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed" };
+  }
+}
+
+export async function updatePropertyDetails(id: string, data: any) {
+  try {
+    const adminId = await requireAdmin();
+    
+    // Validate data and restrict to specific fields
+    const updateData = {
+      title: data.title,
+      pricePerYear: parseFloat(data.pricePerYear),
+      totalPackage: parseFloat(data.totalPackage),
+      healthScore: parseInt(data.healthScore, 10),
+      deedVerified: data.deedVerified,
+      priceVerified: data.priceVerified,
+      // Wait, description doesn't exist on Property model. I need to omit it or use metadata.
+      // Let's store description in metadata if needed, but the UI is showing description?
+      // Ah! Earlier I found description doesn't exist. I'll omit it from here too.
+    };
+
+    if (isNaN(updateData.pricePerYear) || isNaN(updateData.totalPackage) || isNaN(updateData.healthScore)) {
+      throw new Error("Invalid number formats provided");
+    }
+
+    const before = await prisma.property.findUnique({ where: { id } });
+    
+    await prisma.property.update({
+      where: { id },
+      data: updateData,
+    });
+
+    await prisma.auditLog.create({
+      data: {
+        actorId: adminId,
+        action: "UPDATE" as any,
+        entity: "Property",
+        entityId: id,
+      }
+    });
+
+    revalidatePath(`/admin/properties/${id}`);
+    revalidatePath(`/admin/properties`);
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed to update property" };
+  }
+}
+
+// ── Users ──
+export async function verifyUser(id: string) {
+  try {
+    const adminId = await requireAdmin();
+    await prisma.user.update({ where: { id }, data: { isVerified: true, verificationTier: 2 } });
+    await logAudit(adminId, "VERIFY", "User", id);
+    revalidatePath("/admin/users");
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed" };
+  }
+}
+
+export async function flagUser(id: string) {
+  try {
+    const adminId = await requireAdmin();
+    await prisma.user.update({ where: { id }, data: { isVerified: false } }); // Revoke verification as suspension proxy
+    await logAudit(adminId, "FLAG", "User", id);
+    revalidatePath("/admin/users");
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed" };
+  }
+}
+
+// ── Vault Items (Verifications) ──
+export async function verifyVaultItem(id: string, userId: string) {
+  try {
+    const adminId = await requireAdmin();
+    await prisma.vaultItem.update({ where: { id }, data: { isVerified: true } });
+    await logAudit(adminId, "APPROVE", "VaultItem", id);
+    revalidatePath("/admin/verifications");
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed" };
+  }
+}
+
+export async function rejectVaultItem(id: string) {
+  try {
+    const adminId = await requireAdmin();
+    // Delete the rejected document completely to force re-upload
+    await prisma.vaultItem.delete({ where: { id } });
+    await logAudit(adminId, "REJECT", "VaultItem", id);
+    revalidatePath("/admin/verifications");
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed" };
+  }
+}
+
+// ── Disputes ──
+export async function resolveDispute(id: string, resolution: string) {
+  try {
+    const adminId = await requireAdmin();
+    await prisma.dispute.update({
+      where: { id },
+      data: { status: "RESOLVED", resolution, resolvedById: adminId },
+    });
+    await logAudit(adminId, "UPDATE", "Dispute", id);
+    revalidatePath("/admin/disputes");
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed" };
+  }
+}
+
+// ── Support Tickets ──
+export async function closeTicket(id: string) {
+  try {
+    const adminId = await requireAdmin();
+    await prisma.supportTicket.update({ where: { id }, data: { status: "CLOSED" } });
+    await logAudit(adminId, "UPDATE", "SupportTicket", id);
+    revalidatePath("/admin/support");
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed" };
+  }
+}

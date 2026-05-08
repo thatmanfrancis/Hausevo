@@ -27,17 +27,17 @@ const PROPERTY_TYPES = [
 ];
 
 const LANDLORD_NEXT_STEPS = [
-  "Complete your profile with contact details",
-  "List your first property with photos and pricing",
-  "Get your property verified by our team",
-  "Start receiving applications from verified tenants",
+  "Complete your profile so people know who you are",
+  "List your property with clear photos and price",
+  "Get a 'Verified' badge to get 5x more views (Optional)",
+  "Start getting messages from serious tenants",
 ];
 
 const ARTISAN_NEXT_STEPS = [
   "Complete your profile with your trade and skills",
-  "Add your service area and availability",
-  "Get your identity verified for a trusted badge",
-  "Start receiving job requests from landlords and tenants",
+  "Add where you work and when you're available",
+  "Get a 'Verified' badge so customers trust you more",
+  "Start getting job requests from landlords and tenants",
 ];
 
 // ── Props ──────────────────────────────────────────────────────────────────
@@ -136,6 +136,8 @@ export default function OnboardingClient({
   const [propertyTypes, setPropertyTypes] = useState<string[]>([]);
   const [selectedTier, setSelectedTier] = useState<0 | 1>(0);
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<"IDLE" | "VERIFYING" | "SUCCESS">("IDLE");
+  const [vaultDocUrl, setVaultDocUrl] = useState("");
 
   const totalSteps = role === "TENANT" ? 4 : 3;
 
@@ -153,6 +155,7 @@ export default function OnboardingClient({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           role,
+          vaultDocUrl: vaultDocUrl || undefined,
           ...(role === "TENANT" && {
             lga: lga || undefined,
             maxBudget: budget || undefined,
@@ -160,12 +163,58 @@ export default function OnboardingClient({
           }),
         }),
       });
+      
+      // Step 1: Verifying
+      setLoading(false);
+      setStatus("VERIFYING");
+      await new Promise((resolve) => setTimeout(resolve, 2500));
+
+      // Step 2: Success
+      setStatus("SUCCESS");
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
       if (role === "LANDLORD") router.push("/landlord/dashboard");
       else if (role === "ARTISAN") router.push("/artisan/dashboard");
       else router.push("/properties");
     } catch {
       setLoading(false);
+      setStatus("IDLE");
     }
+  }
+
+  // ── Processing & Success views ──────────────────────────────────────────
+  if (status !== "IDLE") {
+    return (
+      <div className="flex flex-col items-center justify-center py-24 text-center animate-in fade-in zoom-in duration-500">
+        <div className="relative mb-8">
+          {status === "VERIFYING" ? (
+            <>
+              <div className="h-20 w-20 border-4 border-zinc-100 border-t-zinc-900 rounded-full animate-spin" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#18181b" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="animate-pulse">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+            </>
+          ) : (
+            <div className="h-20 w-20 bg-emerald-500 rounded-full flex items-center justify-center animate-in zoom-in duration-300">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+          )}
+        </div>
+
+        <h2 className="text-3xl font-extrabold text-zinc-900 tracking-tight mb-3">
+          {status === "VERIFYING" ? "Verifying your details" : "Success! You're verified"}
+        </h2>
+        <p className="text-base text-zinc-400 max-w-sm leading-relaxed px-6">
+          {status === "VERIFYING" 
+            ? "We're setting up your secure vault and checking your identity documents. One moment..."
+            : "Welcome to Shack! Your Trusted Badge is active. Redirecting you to your dashboard now."}
+        </p>
+      </div>
+    );
   }
 
   // ── Step 0: Role confirmation ────────────────────────────────────────────
@@ -174,20 +223,20 @@ export default function OnboardingClient({
     const roles = [
       {
         key: "TENANT",
-        label: "Tenant",
-        description: "I'm looking for a place to rent",
+        label: "I want a house",
+        description: "I'm here to find my next home to rent or buy",
         Icon: TenantIcon,
       },
       {
         key: "LANDLORD",
-        label: "Landlord",
-        description: "I have properties to list and rent out",
+        label: "I'm a Landlord/Host",
+        description: "I want to list my property and find verified tenants",
         Icon: LandlordIcon,
       },
       {
         key: "ARTISAN",
-        label: "Artisan",
-        description: "I offer repair and maintenance services",
+        label: "I'm a Professional",
+        description: "I want to provide repair or maintenance services",
         Icon: ArtisanIcon,
       },
     ];
@@ -459,26 +508,26 @@ export default function OnboardingClient({
             Step 3 of {totalSteps}
           </p>
           <h1 className="text-2xl font-extrabold text-zinc-900 tracking-tight mb-1">
-            Verify your identity
+            Unlock your Trusted Badge
           </h1>
           <p className="text-sm text-zinc-400 mb-8">
-            Build trust with a verified badge
+            Stand out and build instant trust with others
           </p>
 
           {/* Info card */}
           <div className="rounded-2xl border border-zinc-200 bg-[#f5f5f5] p-5 mb-8">
             <p className="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-3">
-              Free NIN Verification
+              Why get verified?
             </p>
             <p className="text-sm text-zinc-700 leading-relaxed mb-4">
-              We use your National Identification Number (NIN) to verify your identity.
-              This is completely free and takes less than a minute.
+              In Nigeria, trust is everything. Users with a <strong>Trusted Badge</strong> get more responses and close deals 5x faster.
             </p>
-            <ul className="flex flex-col gap-2">
+            <ul className="flex flex-col gap-2 mb-6">
               {[
-                "Your data is encrypted and never shared",
-                "Verification adds a trusted badge to your profile",
-                "You can skip this and verify later from your dashboard",
+                "Instant 'Trusted' badge on your profile",
+                "Higher ranking in search results",
+                "Tenants/Landlords will feel safe dealing with you",
+                "One-time NIN/CAC verification",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-2 text-xs text-zinc-500">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
@@ -491,6 +540,54 @@ export default function OnboardingClient({
                 </li>
               ))}
             </ul>
+
+            <div className="pt-4 border-t border-zinc-200">
+              {/* NIN Input */}
+              <div className="mb-6">
+                <label className="text-xs font-bold uppercase tracking-widest text-zinc-400 block mb-2">
+                  National Identity Number (NIN)
+                </label>
+                <input
+                  type="text"
+                  maxLength={11}
+                  placeholder="Enter your 11-digit NIN"
+                  className="w-full rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors"
+                />
+                <p className="text-[10px] text-zinc-400 mt-1.5">
+                  We use this only for one-time verification. Secure & encrypted.
+                </p>
+              </div>
+
+              {/* Document Upload */}
+              <label className="text-xs font-bold uppercase tracking-widest text-zinc-400 block mb-2">
+                Upload Proof (NIN Slip or CAC Certificate)
+              </label>
+              <div className="relative">
+                <input
+                  type="file"
+                  accept=".pdf,.jpg,.jpeg,.png"
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) setVaultDocUrl("https://example.com/mock-id.png"); // Mock upload
+                  }}
+                />
+                <div className="w-full rounded-xl border border-dashed border-zinc-300 bg-white p-6 text-center">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mx-auto text-zinc-400 mb-2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+                  </svg>
+                  <p className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1">
+                    {vaultDocUrl ? "Document Selected ✅" : "Select Document"}
+                  </p>
+                  <p className="text-[9px] text-zinc-400 font-medium">
+                    PDF, JPG, or PNG (Max 5MB)
+                  </p>
+                </div>
+              </div>
+              <p className="text-[10px] text-zinc-400 mt-3 italic text-center leading-relaxed">
+                This document will be saved in your <strong>Shack Vault</strong> so you never have to upload it again.
+              </p>
+            </div>
           </div>
 
           <div className="flex gap-3 mb-4">
@@ -526,16 +623,16 @@ export default function OnboardingClient({
 
   const tier0Features = [
     { label: "Browse all properties", included: true },
-    { label: "Save favourites", included: true },
+    { label: "Save your favorites", included: true },
     { label: "Chat with landlords", included: true },
-    { label: "Apply for properties", included: false },
+    { label: "Apply for houses", included: false },
   ];
 
   const tier1Features = [
-    { label: "Everything in Tier 0", included: true },
-    { label: "Apply for properties", included: true },
-    { label: "Verified badge", included: true },
-    { label: "ShackScore visible", included: true },
+    { label: "All Free features", included: true },
+    { label: "Apply for houses", included: true },
+    { label: "Trusted Badge on profile", included: true },
+    { label: "Show your ShackScore", included: true },
   ];
 
   const tierButtonLabel = selectedTier === 1

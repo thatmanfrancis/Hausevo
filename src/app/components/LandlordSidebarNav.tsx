@@ -2,12 +2,29 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import LogoutButton from "./LogoutButton";
 
 type NavItem = { href: string; label: string; icon: React.ReactNode };
 
 export default function LandlordSidebarNav({ items }: { items: NavItem[] }) {
   const pathname = usePathname();
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  useEffect(() => {
+    async function fetchUnread() {
+      try {
+        const res = await fetch("/api/notifications/unread-count");
+        if (res.ok) {
+          const data = await res.json();
+          setUnreadCount(data.count ?? 0);
+        }
+      } catch {}
+    }
+    fetchUnread();
+    const interval = setInterval(fetchUnread, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   function isActive(href: string) {
     if (href === "/landlord/dashboard") return pathname === "/landlord/dashboard";
@@ -18,6 +35,7 @@ export default function LandlordSidebarNav({ items }: { items: NavItem[] }) {
     <nav className="bg-white rounded-2xl border border-zinc-200 p-3 flex flex-col gap-0.5 sticky top-24">
       {items.map((item) => {
         const active = isActive(item.href);
+        const isNotifications = item.href === "/notifications";
         return (
           <Link
             key={item.href}
@@ -26,10 +44,20 @@ export default function LandlordSidebarNav({ items }: { items: NavItem[] }) {
               active ? "bg-zinc-900 text-white" : "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50"
             }`}
           >
-            <span className={`transition-colors ${active ? "text-white" : "text-zinc-400 group-hover:text-zinc-700"}`}>
+            <span className={`relative transition-colors ${active ? "text-white" : "text-zinc-400 group-hover:text-zinc-700"}`}>
               {item.icon}
+              {isNotifications && unreadCount > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[9px] font-bold text-white ring-2 ring-white">
+                  {unreadCount > 9 ? "9+" : unreadCount}
+                </span>
+              )}
             </span>
             {item.label}
+            {isNotifications && unreadCount > 0 && (
+              <span className="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-red-100 px-1 text-[10px] font-bold text-red-600">
+                {unreadCount > 99 ? "99+" : unreadCount}
+              </span>
+            )}
           </Link>
         );
       })}

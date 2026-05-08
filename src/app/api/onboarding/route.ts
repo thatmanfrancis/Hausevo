@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
   const userId = session.user.id;
 
   const body = await req.json();
-  const { role, lga, maxBudget, minBedrooms, propertyTypes } = body;
+  const { role, lga, maxBudget, minBedrooms, propertyTypes, vaultDocUrl } = body;
 
   const validRoles = ["TENANT", "LANDLORD", "ARTISAN"];
 
@@ -40,6 +40,18 @@ export async function POST(req: NextRequest) {
       onboardingCompleted: true,
     },
   });
+
+  // Create vault item for identity if provided
+  if (vaultDocUrl) {
+    await prisma.vaultItem.create({
+      data: {
+        title: "Identity Document (Onboarding)",
+        fileUrl: vaultDocUrl,
+        category: "IDENTITY",
+        ownerId: userId,
+      },
+    });
+  }
 
   // Save wishlist for tenants
   if (lga || maxBudget || minBedrooms) {

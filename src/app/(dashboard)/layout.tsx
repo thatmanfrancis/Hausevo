@@ -1,8 +1,10 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import prisma from "@/lib/prisma";
 import MobileNav from "@/app/components/MobileNav";
+import LandlordMobileNav from "@/app/components/LandlordMobileNav";
 import SidebarNav from "@/app/components/SidebarNav";
 import LandlordSidebarNav from "@/app/components/LandlordSidebarNav";
 import { TENANT_NAV_ITEMS, LANDLORD_NAV_ITEMS } from "@/lib/nav-constants";
@@ -15,6 +17,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
     where: { id: session.user.id },
     select: { roles: true },
   });
+
+  if (!user?.roles.includes) redirect("/auth/login");
+  if (user?.roles.includes("ADMIN")) redirect("/admin/dashboard");
 
   const isLandlord = user?.roles.includes("LANDLORD");
   const navItems = isLandlord ? LANDLORD_NAV_ITEMS : TENANT_NAV_ITEMS;
@@ -73,7 +78,11 @@ export default async function DashboardLayout({ children }: { children: React.Re
       </div>
 
       {/* ── Mobile floating nav ── */}
-      <MobileNav items={navItems} />
+      {isLandlord ? (
+        <LandlordMobileNav items={navItems} />
+      ) : (
+        <MobileNav items={navItems} />
+      )}
     </div>
   );
 }

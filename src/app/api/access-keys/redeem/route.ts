@@ -21,22 +21,33 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json();
   const {
-    key, title, address, lga,
+    key,
+    title,
+    address,
+    lga,
     state = "Lagos",
-    latitude, longitude,
-    pricePerYear, totalPackage,
+    latitude,
+    longitude,
+    pricePerYear,
+    totalPackage,
     rentFrequency = "ANNUALLY",
     metadata,
   } = body;
 
   if (!key) {
-    return NextResponse.json({ error: "Access key is required." }, { status: 400 });
+    return NextResponse.json(
+      { error: "Access key is required." },
+      { status: 400 },
+    );
   }
 
   if (!title || !address || !lga || !pricePerYear || !totalPackage) {
     return NextResponse.json(
-      { error: "title, address, lga, pricePerYear and totalPackage are required." },
-      { status: 400 }
+      {
+        error:
+          "title, address, lga, pricePerYear and totalPackage are required.",
+      },
+      { status: 400 },
     );
   }
 
@@ -47,76 +58,100 @@ export async function POST(req: NextRequest) {
   }
 
   if (accessKey.isUsed) {
-    return NextResponse.json({ error: "This key has already been used." }, { status: 400 });
+    return NextResponse.json(
+      { error: "This key has already been used." },
+      { status: 400 },
+    );
   }
 
   if (accessKey.expiresAt < new Date()) {
     return NextResponse.json(
-      { error: "This key has expired. Ask the landlord to generate a new one." },
-      { status: 400 }
+      {
+        error: "This key has expired. Ask the landlord to generate a new one.",
+      },
+      { status: 400 },
     );
   }
 
   if (accessKey.issuerId === session.user.id) {
     return NextResponse.json(
       { error: "You cannot redeem your own access key." },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
   // Create property + mark key used + create receipt in one transaction
-  const [property, updatedKey, vaultItem] = await prisma.$transaction([
-    prisma.property.create({
-      data: {
-        title, address, lga, state,
-        latitude: latitude ?? null,
-        longitude: longitude ?? null,
-        pricePerYear: Number(pricePerYear),
-        totalPackage: Number(totalPackage),
-        rentFrequency,
-        metadata: metadata ?? undefined,
-        landlordId: accessKey.issuerId,
-        accessKeyId: accessKey.id,
-      },
-      select: {
-        id: true, title: true, address: true, lga: true, status: true, createdAt: true,
-      },
-    }),
-    prisma.accessKey.update({
-      where: { id: accessKey.id },
-      data: { 
-        isUsed: true, 
-        redeemedBy: session.user.id, 
-        redeemedAt: new Date(),
-        receiptUrl: `/landlord/vault/receipt-${accessKey.key}`, // Placeholder URL
-      },
-      select: { id: true, key: true },
-    }),
-    prisma.vaultItem.create({
-      data: {
-        title: `Handover Receipt: ${accessKey.key}`,
-        fileUrl: `/api/vault/receipts/${accessKey.id}`, // Internal ref
-        category: "RECEIPT",
-        ownerId: accessKey.issuerId,
-        propertyId: undefined, // Will be linked later if needed
-      },
-    }),
-    // Create pending scout reward
-    prisma.scoutReward.create({
-      data: {
-        accessKeyId: accessKey.id,
-        redeemerId: session.user.id,
-        propertyId: "", // Temporary placeholder, updated below if needed or handled by relation
-        amount: 0,
-      },
-    }),
-  ]);
+  const [property, updatedKey, vaultItem] = await prisma.$transaction(
+    async (tx: any) => {
+      const p = await tx.property.create({
+        data: {
+          title,
+          address,
+          lga,
+          state,
+          latitude: latitude ?? null,
+          longitude: longitude ?? null,
+          pricePerYear: Number(pricePerYear),
+          totalPackage: Number(totalPackage),
+          rentFrequency,
+          metadata: metadata ?? undefined,
+          landlord: { connect: { id: accessKey.issuerId } },
+          accessKey: { connect: { id: accessKey.id } },
+        },
+        select: {
+          id: true,
+          title: true,
+          address: true,
+          lga: true,
+          status: true,
+          createdAt: true,
+        },
+      });
 
-  // Update reward with propertyId (Prisma transaction limitation with newly created IDs)
-  await prisma.scoutReward.update({
-    where: { accessKeyId: accessKey.id },
-    data: { propertyId: property.id },
-  });
+      // Handle image uploads if present in metadata
+      if (metadata?.images && Array.isArray(metadata.images)) {
+        await tx.propertyImage.createMany({
+          data: metadata.images.map((url: string, index: number) => ({
+            url,
+            propertyId: p.id,
+            isPrimary: index === 0,
+            order: index,
+          })),
+        });
+      }
+
+      const uk = await tx.accessKey.update({
+        where: { id: accessKey.id },
+        data: {
+          isUsed: true,
+          redeemedBy: session.user!.id,
+          redeemedAt: new Date(),
+          receiptUrl: `/landlord/vault/receipt-${accessKey.key}`,
+        },
+        select: { id: true, key: true },
+      });
+
+      const vi = await tx.vaultItem.create({
+        data: {
+          title: `Handover Receipt: ${accessKey.key}`,
+          fileUrl: `/api/vault/receipts/${accessKey.id}`,
+          category: "RECEIPT",
+          ownerId: accessKey.issuerId,
+        },
+      });
+
+      await tx.scoutReward.create({
+        data: {
+          accessKeyId: accessKey.id,
+          redeemerId: session.user!.id,
+          propertyId: p.id,
+          amount: 0,
+        },
+      });
+
+      return [p, uk, vi];
+    },
+  );
 
   await Promise.all([
     audit({
@@ -124,7 +159,13 @@ export async function POST(req: NextRequest) {
       action: "CREATE",
       entity: "Property",
       entityId: property.id,
-      after: { title, address, lga, submittedViaKey: key, landlordId: accessKey.issuerId },
+      after: {
+        title,
+        address,
+        lga,
+        submittedViaKey: key,
+        landlordId: accessKey.issuerId,
+      },
       req,
     }),
     audit({
@@ -141,7 +182,7 @@ export async function POST(req: NextRequest) {
       "Listing submitted successfully",
       `"${title}" has been submitted on behalf of the landlord. Your reward will be paid once it's verified.`,
       "REWARD_PAID",
-      { propertyId: property.id }
+      { propertyId: property.id },
     ),
     // Notify the landlord
     notify(
@@ -149,15 +190,16 @@ export async function POST(req: NextRequest) {
       "Property submitted via your key",
       `A listing for "${title}" in ${lga} has been submitted using your access key and is pending review.`,
       "KEY_ISSUED",
-      { propertyId: property.id, accessKeyId: accessKey.id }
+      { propertyId: property.id, accessKeyId: accessKey.id },
     ),
   ]);
 
   return NextResponse.json(
     {
-      message: "Property submitted. Your reward will be paid once the listing is verified.",
+      message:
+        "Property submitted. Your reward will be paid once the listing is verified.",
       property,
     },
-    { status: 201 }
+    { status: 201 },
   );
 }

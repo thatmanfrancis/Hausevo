@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const FOOTER_LINKS = [
   {
@@ -45,7 +46,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-10">
 
           {/* Brand */}
-          <div className="col-span-2 md:col-span-1 flex flex-col gap-3">
+          <div className="col-span-2 md:col-span-1 flex flex-col gap-4">
             <div className="flex items-center gap-2">
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-900 text-white">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">

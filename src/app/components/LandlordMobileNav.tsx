@@ -1,13 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import LogoutButton from "./LogoutButton";
 
 type NavItem = { href: string; label: string; icon: React.ReactNode };
 
-// Primary 4 shown in the pill
 const PRIMARY_HREFS = [
   "/landlord/dashboard",
   "/landlord/properties",
@@ -17,7 +16,23 @@ const PRIMARY_HREFS = [
 
 export default function LandlordMobileNav({ items }: { items: NavItem[] }) {
   const [trayOpen, setTrayOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
   const pathname = usePathname();
+
+  useEffect(() => {
+    async function fetchUnread() {
+      try {
+        const res = await fetch("/api/notifications/unread-count");
+        if (res.ok) {
+          const data = await res.json();
+          setUnreadCount(data.count ?? 0);
+        }
+      } catch {}
+    }
+    fetchUnread();
+    const interval = setInterval(fetchUnread, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   function isActive(href: string) {
     if (href === "/landlord/dashboard") return pathname === "/landlord/dashboard";
@@ -38,19 +53,34 @@ export default function LandlordMobileNav({ items }: { items: NavItem[] }) {
         trayOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-4 pointer-events-none"
       }`}>
         <div className="bg-zinc-900 rounded-2xl px-4 py-3 shadow-2xl shadow-black/40 flex flex-col gap-1 min-w-[180px]">
-          {secondary.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setTrayOpen(false)}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
-                isActive(item.href) ? "bg-white/15 text-white" : "text-zinc-300 hover:text-white hover:bg-white/10"
-              }`}
-            >
-              <span className={isActive(item.href) ? "text-white" : "text-zinc-400"}>{item.icon}</span>
-              {item.label}
-            </Link>
-          ))}
+          {secondary.map((item) => {
+            const isNotifications = item.href === "/notifications";
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setTrayOpen(false)}
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
+                  isActive(item.href) ? "bg-white/15 text-white" : "text-zinc-300 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                <span className={`relative ${isActive(item.href) ? "text-white" : "text-zinc-400"}`}>
+                  {item.icon}
+                  {isNotifications && unreadCount > 0 && (
+                    <span className="absolute -top-1.5 -right-1.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-red-500 text-[8px] font-bold text-white">
+                      {unreadCount > 9 ? "9+" : unreadCount}
+                    </span>
+                  )}
+                </span>
+                {item.label}
+                {isNotifications && unreadCount > 0 && (
+                  <span className="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500/20 px-1 text-[10px] font-bold text-red-400">
+                    {unreadCount > 99 ? "99+" : unreadCount}
+                  </span>
+                )}
+              </Link>
+            );
+          })}
           <div className="border-t border-zinc-800 mt-1 pt-1">
             <LogoutButton compact />
           </div>
@@ -60,18 +90,28 @@ export default function LandlordMobileNav({ items }: { items: NavItem[] }) {
       {/* Floating pill */}
       <nav className="md:hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-50">
         <div className="flex items-center gap-1 bg-zinc-900 rounded-full px-3 py-2.5 shadow-2xl shadow-black/30">
-          {primary.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`flex flex-col items-center gap-1 px-4 py-2 rounded-full transition-colors ${
-                isActive(item.href) ? "text-white bg-white/20" : "text-zinc-400 hover:text-white hover:bg-white/10"
-              }`}
-            >
-              {item.icon}
-              <span className="text-[9px] font-bold tracking-wide">{item.label}</span>
-            </Link>
-          ))}
+          {primary.map((item) => {
+            const isNotifications = item.href === "/notifications";
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`flex flex-col items-center gap-1 px-4 py-2 rounded-full transition-colors ${
+                  isActive(item.href) ? "text-white bg-white/20" : "text-zinc-400 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                <span className="relative">
+                  {item.icon}
+                  {isNotifications && unreadCount > 0 && (
+                    <span className="absolute -top-1.5 -right-1.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-red-500 text-[7px] font-bold text-white">
+                      {unreadCount > 9 ? "9+" : unreadCount}
+                    </span>
+                  )}
+                </span>
+                <span className="text-[9px] font-bold tracking-wide">{item.label}</span>
+              </Link>
+            );
+          })}
           <button
             onClick={() => setTrayOpen((o) => !o)}
             className={`flex flex-col items-center gap-1 px-4 py-2 rounded-full transition-colors ${

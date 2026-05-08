@@ -84,7 +84,7 @@ export async function GET(req: NextRequest) {
   // Filter by propertyType in metadata if specified
   let filteredProperties = properties;
   if (propertyType) {
-    filteredProperties = properties.filter((p) => {
+    filteredProperties = properties.filter((p: any) => {
       const meta = p.metadata as any;
       return meta?.propertyType === propertyType;
     });
@@ -148,6 +148,7 @@ export async function POST(req: NextRequest) {
     rentFrequency = "ANNUALLY",
     isOffPlan = false,
     developmentStage = "FINISHED",
+    vaultDocId,
     metadata,
   } = body;
 
@@ -170,38 +171,47 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const property = await prisma.property.create({
-    data: {
-      title,
-      address,
-      lga,
-      state,
-      listingType,
-      latitude: latitude ?? null,
-      longitude: longitude ?? null,
-      pricePerYear: Number(pricePerYear),
-      totalPackage: Number(totalPackage),
-      rentFrequency,
-      isOffPlan: Boolean(isOffPlan),
-      developmentStage: developmentStage as any,
-      metadata: metadata ?? undefined,
-      landlordId: session.user.id,
-    },
-    select: {
-      id: true,
-      title: true,
-      address: true,
-      lga: true,
-      state: true,
-      listingType: true,
-      pricePerYear: true,
-      totalPackage: true,
-      rentFrequency: true,
-      status: true,
-      healthScore: true,
-      metadata: true,
-      createdAt: true,
-    },
+  const property = await prisma.$transaction(async (tx: any) => {
+    const p = await tx.property.create({
+      data: {
+        title,
+        address,
+        lga,
+        state,
+        listingType,
+        latitude: latitude ?? null,
+        longitude: longitude ?? null,
+        pricePerYear: Number(pricePerYear),
+        totalPackage: Number(totalPackage),
+        rentFrequency,
+        isOffPlan: Boolean(isOffPlan),
+        developmentStage: developmentStage as any,
+        metadata: metadata ?? undefined,
+        landlord: { connect: { id: session.user!.id } },
+      },
+    });
+
+    // Handle vault document connection
+    if (vaultDocId && vaultDocId !== "new") {
+      await tx.vaultItem.update({
+        where: { id: vaultDocId },
+        data: { propertyId: p.id },
+      });
+    }
+
+    // Handle image uploads if present in metadata
+    if (metadata?.images && Array.isArray(metadata.images)) {
+      await tx.propertyImage.createMany({
+        data: metadata.images.map((url: string, index: number) => ({
+          url,
+          propertyId: p.id,
+          isPrimary: index === 0,
+          order: index,
+        })),
+      });
+    }
+
+    return p;
   });
 
   await Promise.all([

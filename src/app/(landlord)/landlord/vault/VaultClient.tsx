@@ -15,10 +15,11 @@ type VaultItem = {
 
 const CATEGORIES = [
   { id: "ALL", label: "All Items" },
+  { id: "IDENTITY", label: "Identity (NIN/CAC)" },
+  { id: "DEED", label: "Title Deeds" },
   { id: "RECEIPT", label: "Receipts" },
   { id: "REPORT", label: "Reports" },
-  { id: "DEED", label: "Title Deeds" },
-  { id: "LEGAL", label: "Legal" },
+  { id: "LEGAL", label: "Legal/POA" },
 ];
 
 export default function VaultClient({ items }: { items: VaultItem[] }) {
@@ -83,9 +84,9 @@ export default function VaultClient({ items }: { items: VaultItem[] }) {
               <line x1="9" y1="15" x2="15" y2="15"/>
             </svg>
           </div>
-          <p className="text-lg font-extrabold text-zinc-900 mb-1">No documents found</p>
+          <p className="text-lg font-extrabold text-zinc-900 mb-1">Your vault is empty</p>
           <p className="text-sm text-zinc-500 max-w-xs">
-            Documents appear here when you generate receipts, sign agreements, or upload deeds.
+            Documents appear here when you upload your identity, deeds, or when agreements are signed.
           </p>
         </div>
       ) : (
@@ -96,6 +97,7 @@ export default function VaultClient({ items }: { items: VaultItem[] }) {
                 <div className={`h-10 w-10 rounded-xl flex items-center justify-center border ${
                   item.category === "RECEIPT" ? "bg-emerald-50 border-emerald-100 text-emerald-600" :
                   item.category === "DEED" ? "bg-amber-50 border-amber-100 text-amber-600" :
+                  item.category === "IDENTITY" ? "bg-zinc-900 border-zinc-700 text-white" :
                   "bg-blue-50 border-blue-100 text-blue-600"
                 }`}>
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -113,7 +115,7 @@ export default function VaultClient({ items }: { items: VaultItem[] }) {
                 {item.title}
               </h3>
               <p className="text-[10px] text-zinc-400 font-medium mb-4">
-                {item.property ? item.property.title : "General Documentation"} · {formatDate(item.createdAt)}
+                {item.property ? item.property.title : "Account Documentation (One-Time)"} · {formatDate(item.createdAt)}
               </p>
               <div className="mt-auto pt-4 border-t border-zinc-50 flex items-center justify-between">
                 <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">{item.category}</span>

@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import LogoutButton from "./LogoutButton";
 
@@ -82,7 +83,6 @@ export default function Navbar({ session }: { session: any }) {
         ref={navRef}
         className="max-w-6xl mx-auto flex items-center justify-between px-6 h-16"
       >
-        {/* ── Logo ── */}
         <Link href="/" className="flex items-center gap-2.5 shrink-0">
           <span className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-900 text-white">
             {/* House icon */}
