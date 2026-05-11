@@ -56,6 +56,7 @@ export default function ForgotPasswordPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
+              disabled={loading}
             />
             <div className="mt-2">
               <AuthButton loading={loading} label="Send reset link" loadingLabel="Sending..." />

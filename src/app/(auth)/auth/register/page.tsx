@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import {
-  AuthCard, AuthHeading, AuthInput, AuthButton, AuthError, AuthSuccess, AuthDivider,
-} from "@/app/components/AuthCard";
+import { AuthCard, AuthHeading, AuthInput, AuthButton, AuthError, AuthSuccess, AuthDivider } from "@/app/components/AuthCard";
+import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 const ROLES = [
   {
@@ -45,6 +45,7 @@ export default function RegisterPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resending, setResending] = useState(false);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -150,16 +151,36 @@ export default function RegisterPage() {
           </Link>
           <button
             type="button"
+            disabled={resending}
             onClick={async () => {
-              await fetch("/api/auth/resend-verification", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email: formData.email }),
-              });
+              setResending(true);
+              try {
+                const res = await fetch("/api/auth/resend-verification", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ email: formData.email }),
+                });
+                if (res.ok) {
+                  toast.success("Verification email resent!");
+                } else {
+                  toast.error("Failed to resend. Please try again.");
+                }
+              } catch {
+                toast.error("Network error. Please try again.");
+              } finally {
+                setResending(false);
+              }
             }}
-            className="mt-3 text-xs font-semibold text-zinc-400 hover:text-zinc-700 transition-colors"
+            className="mt-3 text-xs font-semibold text-zinc-400 hover:text-zinc-700 transition-colors disabled:opacity-50 flex items-center gap-1.5"
           >
-            Didn't receive it? Resend
+            {resending ? (
+              <>
+                <Loader2 size={12} className="animate-spin" />
+                Resending...
+              </>
+            ) : (
+              "Didn't receive it? Resend"
+            )}
           </button>
         </div>
       </AuthCard>
@@ -193,6 +214,7 @@ export default function RegisterPage() {
           value={formData.fullName}
           onChange={handleChange}
           placeholder="Emeka Okafor"
+          disabled={loading}
           hint="Use your real name — it's matched against your NIN during verification."
         />
         <AuthInput
@@ -201,6 +223,7 @@ export default function RegisterPage() {
           type="email"
           value={formData.email}
           onChange={handleChange}
+          disabled={loading}
           placeholder="you@example.com"
         />
         <AuthInput
@@ -209,6 +232,7 @@ export default function RegisterPage() {
           type="tel"
           value={formData.phoneNumber}
           onChange={handleChange}
+          disabled={loading}
           placeholder="08012345678"
           hint="Nigerian number. Used for account recovery and notifications."
         />
@@ -218,6 +242,7 @@ export default function RegisterPage() {
           type="password"
           value={formData.password}
           onChange={handleChange}
+          disabled={loading}
           placeholder="Min. 8 characters"
         />
 

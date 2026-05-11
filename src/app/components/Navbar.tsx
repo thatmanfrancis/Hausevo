@@ -84,13 +84,14 @@ export default function Navbar({ session }: { session: any }) {
     >
       <nav className="max-w-6xl mx-auto flex items-center justify-between px-6 h-16">
         <Link href="/" className="flex items-center gap-2.5 shrink-0">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-900 text-white">
-            {/* House icon */}
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-            </svg>
-          </span>
-          <span className="text-base font-extrabold tracking-tight text-zinc-900">
+          <Image 
+            src="/icons/logo-black-bold.png" 
+            alt="Shack Logo" 
+            width={48} 
+            height={48} 
+            className="object-contain"
+          />
+          <span className="text-xl font-black tracking-tighter text-zinc-900 uppercase">
             Shack
           </span>
         </Link>

@@ -82,7 +82,7 @@ export async function POST(
       tenancyId,
       reference: paymentReference ?? `ESC-${Date.now()}`,
       description: `Caution deposit held in Shack Escrow for "${tenancy.property.title}"`,
-      status: "ESCROW",
+      status: "ESCROW" as const,
     },
     select: {
       id: true,
@@ -111,7 +111,7 @@ export async function POST(
     notify(
       tenancy.property.landlordId,
       "Caution deposit secured 🔒",
-      `₦${Number(amount).toLocaleString()} caution deposit for "${tenancy.property.title}" is held in Shack Escrow. It will be released after exit inspection.`,
+      '₦${Number(amount).toLocaleString()} caution deposit for "${tenancy.property.title}" is held in Shack Escrow. It will be released after exit inspection.',
       "SYSTEM",
       { tenancyId, escrowId: escrow.id },
     ),
@@ -237,7 +237,7 @@ export async function PATCH(
           tenancyId,
           reference: `FORFEIT-${Date.now()}`,
           description: `Deposit deduction for damages: ${reason ?? "No reason given"}`,
-          status: "COMPLETED",
+          status: "COMPLETED" as const,
         },
       });
       // Credit landlord wallet
@@ -283,7 +283,7 @@ export async function PATCH(
           tenancyId,
           reference: `REFUND-${Date.now()}`,
           description: `Caution deposit refund for "${propertyTitle}"`,
-          status: "COMPLETED",
+          status: "COMPLETED" as const,
         },
       });
     }

@@ -18,7 +18,7 @@ export function AuthHeading({ title, subtitle }: { title: string; subtitle: stri
 }
 
 export function AuthInput({
-  id, label, type = "text", value, onChange, placeholder, required = true, hint,
+  id, label, type = "text", value, onChange, placeholder, required = true, hint, disabled,
 }: {
   id: string;
   label: string;
@@ -28,6 +28,7 @@ export function AuthInput({
   placeholder?: string;
   required?: boolean;
   hint?: string;
+  disabled?: boolean;
 }) {
   return (
     <div className="flex flex-col gap-1.5">
@@ -41,7 +42,8 @@ export function AuthInput({
         onChange={onChange}
         required={required}
         placeholder={placeholder}
-        className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors"
+        disabled={disabled}
+        className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-zinc-50"
       />
       {hint && <p className="text-xs text-zinc-400">{hint}</p>}
     </div>

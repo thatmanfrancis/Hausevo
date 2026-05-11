@@ -51,12 +51,14 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1 flex flex-col gap-4">
             <div className="flex items-center gap-2">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-900 text-white">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-                </svg>
-              </span>
-              <span className="text-sm font-extrabold tracking-tight text-zinc-900">Shack</span>
+              <Image 
+                src="/icons/logo-white-bold.png" 
+                alt="Shack Logo" 
+                width={40} 
+                height={40} 
+                className="object-contain invert"
+              />
+              <span className="text-lg font-black tracking-tighter text-zinc-900 uppercase">Shack</span>
               <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 border border-zinc-200 rounded-full px-2 py-0.5">
                 Nigeria
               </span>

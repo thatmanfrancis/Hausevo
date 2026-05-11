@@ -50,6 +50,8 @@ export const viewport: Viewport = {
   themeColor: "#09090b",
 };
 
+import { Toaster } from "sonner";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -76,6 +78,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        <Toaster richColors position="top-center" />
         {children}
         <PWAInstallHandler />
         <CookieBanner />

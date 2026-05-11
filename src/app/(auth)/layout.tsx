@@ -8,12 +8,14 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <header className="w-full bg-white border-b border-zinc-100">
         <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-900 text-white">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-              </svg>
-            </span>
-            <span className="text-sm font-extrabold tracking-tight text-zinc-900">Shack</span>
+            <Image 
+              src="/icons/logo-black-bold.png" 
+              alt="Shack Logo" 
+              width={40} 
+              height={40} 
+              className="object-contain"
+            />
+            <span className="text-lg font-black tracking-tighter text-zinc-900 uppercase">Shack</span>
           </Link>
           <Link href="/properties" className="text-xs font-semibold text-zinc-400 hover:text-zinc-900 transition-colors">
             Browse properties →

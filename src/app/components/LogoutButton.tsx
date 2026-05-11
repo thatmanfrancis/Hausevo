@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
 
 export default function LogoutButton({ compact = false }: { compact?: boolean }) {
   const [showModal, setShowModal] = useState(false);
@@ -92,11 +93,13 @@ function LogoutModal({
               <div className="absolute inset-0 rounded-full border-4 border-t-zinc-900 animate-spin" />
               
               {/* Logo in center */}
-              <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-zinc-900">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
-                  <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-                </svg>
-              </div>
+              <Image 
+                src="/icons/logo-white-bold.png" 
+                alt="Shack Logo" 
+                width={80} 
+                height={80} 
+                className="object-contain"
+              />
             </div>
             <p className="text-sm font-bold text-zinc-900">Logging you out…</p>
             <p className="text-xs text-zinc-500 mt-1">See you soon!</p>

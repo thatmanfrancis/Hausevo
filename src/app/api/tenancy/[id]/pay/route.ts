@@ -73,7 +73,7 @@ export async function POST(
     return NextResponse.json({ error: "Schedule entry not found for this tenancy." }, { status: 404 });
   }
 
-  if (schedule.status === "COMPLETED") {
+  if (schedule.status === ("COMPLETED" as any)) {
     return NextResponse.json({ error: "This schedule entry is already marked as paid." }, { status: 409 });
   }
 
@@ -131,7 +131,7 @@ export async function POST(
     // Mark the schedule as paid
     prisma.rentSchedule.update({
       where: { id: scheduleId },
-      data: { status: "COMPLETED", paidAt: new Date() },
+      data: { status: "COMPLETED" as any, paidAt: new Date() },
     }),
     // Owner's portion of the rent transaction
     prisma.transaction.create({
@@ -145,7 +145,7 @@ export async function POST(
         tenancyId,
         reference: paymentReference ?? `PAY-${Date.now()}`,
         description: `Rent payment for ${tenancy.property.title} (Owner portion)`,
-        status: "COMPLETED",
+        status: "COMPLETED" as const,
       },
     }),
     // Manager's commission (only if a manager exists)
@@ -162,7 +162,7 @@ export async function POST(
               tenancyId,
               reference: `MGT-${Date.now()}`,
               description: `Management fee for ${tenancy.property.title}`,
-              status: "COMPLETED",
+              status: "COMPLETED" as const,
             },
           }),
         ]

@@ -66,6 +66,7 @@ function ResetContent() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Min. 8 characters"
+              disabled={loading}
               hint="Use a mix of letters, numbers, and symbols."
             />
             <AuthInput
@@ -75,6 +76,7 @@ function ResetContent() {
               value={confirm}
               onChange={(e) => setConfirm(e.target.value)}
               placeholder="Repeat your password"
+              disabled={loading}
             />
             <div className="mt-2">
               <AuthButton loading={loading} label="Update password" loadingLabel="Updating..." />
