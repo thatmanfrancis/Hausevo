@@ -4,6 +4,10 @@ import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "./prisma";
 import bcrypt from "bcryptjs";
+import { sendEmail } from "./mail";
+import { SHACK_LOGO_BASE64 } from "@/lib/assets";
+import LoginAlertEmail from "@/emails/LoginAlert";
+import React from "react";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -20,6 +24,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       allowDangerousEmailAccountLinking: true,
+      profile(profile) {
+        return {
+          id: profile.sub,
+          name: profile.name,
+          fullName: profile.name,
+          email: profile.email,
+          image: profile.picture,
+        };
+      },
     }),
 
     Credentials({
@@ -80,19 +93,65 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
 
     async jwt({ token, user }) {
-      // On sign in, attach the user id to the token
+      // On sign in, attach the user id and name to the token
       if (user) {
         token.id = user.id;
+        token.name = user.name;
+      } else if (!token.name && token.id) {
+        // Fallback: fetch name from DB if missing in token (e.g. after schema changes)
+        const dbUser = await prisma.user.findUnique({
+          where: { id: token.id as string },
+          select: { fullName: true },
+        });
+        if (dbUser) {
+          token.name = dbUser.fullName;
+        }
       }
       return token;
     },
 
     async session({ session, token }) {
-      // Expose the user id on the session object
+      // Expose the user id and name on the session object
       if (token && session.user) {
         session.user.id = token.id as string;
+        session.user.name = token.name as string;
       }
       return session;
+    },
+  },
+
+  events: {
+    async signIn({ user, account }) {
+      // Only send for Google/OAuth here to avoid duplication with the custom credentials login routes
+      if (account?.provider === "google") {
+        try {
+          const { renderToStaticMarkup } = require("react-dom/server");
+          
+          const html = `<!DOCTYPE html>${renderToStaticMarkup(
+            React.createElement(LoginAlertEmail, {
+              name: user.name || user.email || "User",
+              device: "Google Login",
+              location: "Lagos, Nigeria",
+              time: new Date().toLocaleString("en-NG", { timeZone: "Africa/Lagos" }),
+            })
+          )}`;
+
+          await sendEmail({
+            to: [{ email: user.email!, name: user.name || undefined }],
+            subject: "Security Alert: New login to your Shack account",
+            html,
+            inline_images: [
+              {
+                cid: "shack_logo",
+                content: SHACK_LOGO_BASE64,
+                mime_type: "image/jpeg",
+              },
+            ],
+          });
+        } catch (error) {
+          console.error("[AuthEvents] Error sending login alert:", error);
+        }
+      }
     },
   },
 

@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
+import React from "react";
 import bcrypt from "bcryptjs";
 import prisma from "@/lib/prisma";
 import { rateLimit } from "@/lib/rate-limit";
+import { sendEmail } from "@/lib/mail";
+import { SHACK_LOGO_BASE64 } from "@/lib/assets";
+import LoginAlertEmail from "@/emails/LoginAlert";
 
 /*
   POST /api/auth/login
@@ -70,6 +74,35 @@ export async function POST(req: NextRequest) {
   if (user.twoFactorEnabled) {
     return NextResponse.json({ requires2FA: true, userId: user.id });
   }
+
+  // Send Login Notification Email
+  const userAgent = req.headers.get("user-agent") || "Unknown Device";
+  
+  // Use require to bypass Next.js static analysis for react-dom/server in Route Handlers
+  const { renderToStaticMarkup } = require("react-dom/server");
+  
+  const html = `<!DOCTYPE html>${renderToStaticMarkup(
+    React.createElement(LoginAlertEmail, {
+      name: user.fullName || user.email,
+      device: userAgent,
+      location: "Lagos, Nigeria",
+      time: new Date().toLocaleString("en-NG", { timeZone: "Africa/Lagos" }),
+    })
+  )}`;
+
+  // Fire and forget (don't block the response)
+  sendEmail({
+    to: [{ email: user.email, name: user.fullName || undefined }],
+    subject: "Security Alert: New login to your Shack account",
+    html,
+    inline_images: [
+      {
+        cid: "shack_logo",
+        content: SHACK_LOGO_BASE64,
+        mime_type: "image/jpeg",
+      },
+    ],
+  }).catch((err) => console.error("[LoginEmail] Error sending email:", err));
 
   const { passwordHash: _, ...safeUser } = user;
   return NextResponse.json({ user: safeUser });
