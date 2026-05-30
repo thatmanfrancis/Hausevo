@@ -11,6 +11,7 @@ const FOOTER_LINKS = [
       { label: "Add Listing", href: "/auth/register" },
       { label: "How It Works", href: "/about" },
       { label: "Blog", href: "/blogs" },
+      { label: "Join Waitlist", href: "/waitlist" },
       { label: "Download App", href: "#download", isInstall: true },
     ],
   },

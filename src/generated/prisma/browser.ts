@@ -213,6 +213,11 @@ export type TenancyAgreement = Prisma.TenancyAgreementModel
  */
 export type AIMessage = Prisma.AIMessageModel
 /**
+ * Model LaunchWaitlist
+ * 
+ */
+export type LaunchWaitlist = Prisma.LaunchWaitlistModel
+/**
  * Model NotificationPreferences
  * 
  */

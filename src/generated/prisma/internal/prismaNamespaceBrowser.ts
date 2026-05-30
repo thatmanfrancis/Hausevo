@@ -90,6 +90,7 @@ export const ModelName = {
   ConditionReport: 'ConditionReport',
   TenancyAgreement: 'TenancyAgreement',
   AIMessage: 'AIMessage',
+  LaunchWaitlist: 'LaunchWaitlist',
   NotificationPreferences: 'NotificationPreferences'
 } as const
 
@@ -726,6 +727,19 @@ export const AIMessageScalarFieldEnum = {
 } as const
 
 export type AIMessageScalarFieldEnum = (typeof AIMessageScalarFieldEnum)[keyof typeof AIMessageScalarFieldEnum]
+
+
+export const LaunchWaitlistScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  fullName: 'fullName',
+  role: 'role',
+  lga: 'lga',
+  position: 'position',
+  createdAt: 'createdAt'
+} as const
+
+export type LaunchWaitlistScalarFieldEnum = (typeof LaunchWaitlistScalarFieldEnum)[keyof typeof LaunchWaitlistScalarFieldEnum]
 
 
 export const NotificationPreferencesScalarFieldEnum = {

@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
+import WaitlistBanner from "@/app/components/WaitlistBanner";
 
 export default async function PublicLayout({
   children,
@@ -16,6 +17,8 @@ export default async function PublicLayout({
         {children}
       </main>
       <Footer />
+      {/* Only show waitlist banner to non-logged-in visitors */}
+      {!session?.user && <WaitlistBanner />}
     </div>
   );
 }

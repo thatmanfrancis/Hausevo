@@ -864,6 +864,16 @@ model AIMessage {
   @@index([userId, createdAt])
 }
 
+model LaunchWaitlist {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  fullName  String
+  role      String   // "TENANT" | "LANDLORD" | "BOTH"
+  lga       String?
+  position  Int
+  createdAt DateTime @default(now())
+}
+
 model NotificationPreferences {
   id                    String   @id @default(uuid())
   userId                String   @unique

@@ -49,6 +49,7 @@ const NAV_ITEMS: NavItem[] = [
       { label: "Blog", href: "/blogs" },
       { label: "Contact", href: "/contact" },
       { label: "FAQ", href: "/faq" },
+      { label: "Waitlist", href: "/waitlist" },
     ],
   },
 ];
@@ -211,18 +212,6 @@ export default function Navbar({ session }: { session: any }) {
               <polyline points="12 5 19 12 12 19" />
             </svg>
           </Link>
-
-          {/* Filter icon */}
-          <button
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 text-zinc-600 hover:border-zinc-400 hover:text-zinc-900 transition-colors"
-            aria-label="Filters"
-          >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="4" y1="6" x2="20" y2="6" />
-              <line x1="8" y1="12" x2="16" y2="12" />
-              <line x1="11" y1="18" x2="13" y2="18" />
-            </svg>
-          </button>
         </div>
 
         {/* ── Mobile hamburger ── */}

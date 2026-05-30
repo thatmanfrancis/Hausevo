@@ -428,9 +428,14 @@ export default function PropertiesClient({
               No agents. No markups. Every listing verified. Lagos first — then Abuja, Port Harcourt, and every city in between.
             </p>
           </div>
-          <Link href="/auth/register" className="shrink-0 rounded-full bg-white text-zinc-900 px-7 py-3 text-sm font-bold hover:bg-zinc-100 transition-colors">
-            Join Shack →
-          </Link>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 shrink-0">
+            <Link href="/auth/register" className="rounded-full bg-white text-zinc-900 px-7 py-3 text-sm font-bold hover:bg-zinc-100 transition-colors">
+              Join Shack →
+            </Link>
+            <Link href="/waitlist" className="text-sm font-semibold text-zinc-400 hover:text-white transition-colors">
+              Join the waitlist
+            </Link>
+          </div>
         </div>
 
       </div>

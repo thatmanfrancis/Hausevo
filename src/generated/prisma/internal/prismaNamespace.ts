@@ -423,6 +423,7 @@ export const ModelName = {
   ConditionReport: 'ConditionReport',
   TenancyAgreement: 'TenancyAgreement',
   AIMessage: 'AIMessage',
+  LaunchWaitlist: 'LaunchWaitlist',
   NotificationPreferences: 'NotificationPreferences'
 } as const
 
@@ -439,7 +440,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verificationToken" | "shackScore" | "accessKey" | "property" | "propertyImage" | "savedProperty" | "propertyWishlist" | "waitlist" | "vaultItem" | "tenancyApplication" | "tenancy" | "rentSchedule" | "movingOrder" | "chatRoom" | "message" | "artisanProfile" | "maintenanceJob" | "serviceRequest" | "inspection" | "review" | "dispute" | "scoutReward" | "referralCode" | "referral" | "bankAccount" | "transaction" | "notification" | "supportTicket" | "supportMessage" | "auditLog" | "propertyManagement" | "financingOption" | "milestone" | "conditionReport" | "tenancyAgreement" | "aIMessage" | "notificationPreferences"
+    modelProps: "user" | "account" | "session" | "verificationToken" | "shackScore" | "accessKey" | "property" | "propertyImage" | "savedProperty" | "propertyWishlist" | "waitlist" | "vaultItem" | "tenancyApplication" | "tenancy" | "rentSchedule" | "movingOrder" | "chatRoom" | "message" | "artisanProfile" | "maintenanceJob" | "serviceRequest" | "inspection" | "review" | "dispute" | "scoutReward" | "referralCode" | "referral" | "bankAccount" | "transaction" | "notification" | "supportTicket" | "supportMessage" | "auditLog" | "propertyManagement" | "financingOption" | "milestone" | "conditionReport" | "tenancyAgreement" | "aIMessage" | "launchWaitlist" | "notificationPreferences"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3329,6 +3330,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    LaunchWaitlist: {
+      payload: Prisma.$LaunchWaitlistPayload<ExtArgs>
+      fields: Prisma.LaunchWaitlistFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LaunchWaitlistFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaunchWaitlistPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LaunchWaitlistFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaunchWaitlistPayload>
+        }
+        findFirst: {
+          args: Prisma.LaunchWaitlistFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaunchWaitlistPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LaunchWaitlistFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaunchWaitlistPayload>
+        }
+        findMany: {
+          args: Prisma.LaunchWaitlistFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaunchWaitlistPayload>[]
+        }
+        create: {
+          args: Prisma.LaunchWaitlistCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaunchWaitlistPayload>
+        }
+        createMany: {
+          args: Prisma.LaunchWaitlistCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LaunchWaitlistCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaunchWaitlistPayload>[]
+        }
+        delete: {
+          args: Prisma.LaunchWaitlistDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaunchWaitlistPayload>
+        }
+        update: {
+          args: Prisma.LaunchWaitlistUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaunchWaitlistPayload>
+        }
+        deleteMany: {
+          args: Prisma.LaunchWaitlistDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LaunchWaitlistUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LaunchWaitlistUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaunchWaitlistPayload>[]
+        }
+        upsert: {
+          args: Prisma.LaunchWaitlistUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaunchWaitlistPayload>
+        }
+        aggregate: {
+          args: Prisma.LaunchWaitlistAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLaunchWaitlist>
+        }
+        groupBy: {
+          args: Prisma.LaunchWaitlistGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LaunchWaitlistGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LaunchWaitlistCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LaunchWaitlistCountAggregateOutputType> | number
+        }
+      }
+    }
     NotificationPreferences: {
       payload: Prisma.$NotificationPreferencesPayload<ExtArgs>
       fields: Prisma.NotificationPreferencesFieldRefs
@@ -4061,6 +4136,19 @@ export const AIMessageScalarFieldEnum = {
 export type AIMessageScalarFieldEnum = (typeof AIMessageScalarFieldEnum)[keyof typeof AIMessageScalarFieldEnum]
 
 
+export const LaunchWaitlistScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  fullName: 'fullName',
+  role: 'role',
+  lga: 'lga',
+  position: 'position',
+  createdAt: 'createdAt'
+} as const
+
+export type LaunchWaitlistScalarFieldEnum = (typeof LaunchWaitlistScalarFieldEnum)[keyof typeof LaunchWaitlistScalarFieldEnum]
+
+
 export const NotificationPreferencesScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -4683,6 +4771,7 @@ export type GlobalOmitConfig = {
   conditionReport?: Prisma.ConditionReportOmit
   tenancyAgreement?: Prisma.TenancyAgreementOmit
   aIMessage?: Prisma.AIMessageOmit
+  launchWaitlist?: Prisma.LaunchWaitlistOmit
   notificationPreferences?: Prisma.NotificationPreferencesOmit
 }
 
