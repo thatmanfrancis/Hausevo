@@ -208,6 +208,11 @@ export type ConditionReport = Prisma.ConditionReportModel
  */
 export type TenancyAgreement = Prisma.TenancyAgreementModel
 /**
+ * Model AIMessage
+ * 
+ */
+export type AIMessage = Prisma.AIMessageModel
+/**
  * Model NotificationPreferences
  * 
  */

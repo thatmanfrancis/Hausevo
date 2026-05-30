@@ -303,7 +303,7 @@ export type UserGroupByOutputType = {
   id: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber: string | null
   passwordHash: string | null
   googleId: string | null
   roles: $Enums.UserRole[]
@@ -352,7 +352,7 @@ export type UserWhereInput = {
   id?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
   fullName?: Prisma.StringFilter<"User"> | string
-  phoneNumber?: Prisma.StringFilter<"User"> | string
+  phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null
   passwordHash?: Prisma.StringNullableFilter<"User"> | string | null
   googleId?: Prisma.StringNullableFilter<"User"> | string | null
   roles?: Prisma.EnumUserRoleNullableListFilter<"User">
@@ -410,13 +410,14 @@ export type UserWhereInput = {
   waitlists?: Prisma.WaitlistListRelationFilter
   chats?: Prisma.ChatRoomListRelationFilter
   coTenancies?: Prisma.TenancyListRelationFilter
+  aiMessages?: Prisma.AIMessageListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   fullName?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordHash?: Prisma.SortOrderInput | Prisma.SortOrder
   googleId?: Prisma.SortOrderInput | Prisma.SortOrder
   roles?: Prisma.SortOrder
@@ -474,6 +475,7 @@ export type UserOrderByWithRelationInput = {
   waitlists?: Prisma.WaitlistOrderByRelationAggregateInput
   chats?: Prisma.ChatRoomOrderByRelationAggregateInput
   coTenancies?: Prisma.TenancyOrderByRelationAggregateInput
+  aiMessages?: Prisma.AIMessageOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -541,13 +543,14 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   waitlists?: Prisma.WaitlistListRelationFilter
   chats?: Prisma.ChatRoomListRelationFilter
   coTenancies?: Prisma.TenancyListRelationFilter
+  aiMessages?: Prisma.AIMessageListRelationFilter
 }, "id" | "email" | "phoneNumber" | "googleId">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   fullName?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordHash?: Prisma.SortOrderInput | Prisma.SortOrder
   googleId?: Prisma.SortOrderInput | Prisma.SortOrder
   roles?: Prisma.SortOrder
@@ -581,7 +584,7 @@ export type UserScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   fullName?: Prisma.StringWithAggregatesFilter<"User"> | string
-  phoneNumber?: Prisma.StringWithAggregatesFilter<"User"> | string
+  phoneNumber?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   passwordHash?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   googleId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   roles?: Prisma.EnumUserRoleNullableListFilter<"User">
@@ -607,7 +610,7 @@ export type UserCreateInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -665,13 +668,14 @@ export type UserCreateInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -729,13 +733,14 @@ export type UserUncheckedCreateInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -793,13 +798,14 @@ export type UserUpdateInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -857,13 +863,14 @@ export type UserUncheckedUpdateInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -889,7 +896,7 @@ export type UserUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -915,7 +922,7 @@ export type UserUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -1678,6 +1685,20 @@ export type UserUpdateOneRequiredWithoutOwnedManagementNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOwnedManagementInput, Prisma.UserUpdateWithoutOwnedManagementInput>, Prisma.UserUncheckedUpdateWithoutOwnedManagementInput>
 }
 
+export type UserCreateNestedOneWithoutAiMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiMessagesInput, Prisma.UserUncheckedCreateWithoutAiMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAiMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiMessagesInput, Prisma.UserUncheckedCreateWithoutAiMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiMessagesInput
+  upsert?: Prisma.UserUpsertWithoutAiMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAiMessagesInput, Prisma.UserUpdateWithoutAiMessagesInput>, Prisma.UserUncheckedUpdateWithoutAiMessagesInput>
+}
+
 export type UserCreateNestedOneWithoutNotificationPreferencesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationPreferencesInput, Prisma.UserUncheckedCreateWithoutNotificationPreferencesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationPreferencesInput
@@ -1696,7 +1717,7 @@ export type UserCreateWithoutAccountsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -1753,13 +1774,14 @@ export type UserCreateWithoutAccountsInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -1816,6 +1838,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1838,7 +1861,7 @@ export type UserUpdateWithoutAccountsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -1895,13 +1918,14 @@ export type UserUpdateWithoutAccountsInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -1958,13 +1982,14 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -2021,13 +2046,14 @@ export type UserCreateWithoutSessionsInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -2084,6 +2110,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -2106,7 +2133,7 @@ export type UserUpdateWithoutSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -2163,13 +2190,14 @@ export type UserUpdateWithoutSessionsInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -2226,13 +2254,14 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutShackScoreInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -2289,13 +2318,14 @@ export type UserCreateWithoutShackScoreInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutShackScoreInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -2352,6 +2382,7 @@ export type UserUncheckedCreateWithoutShackScoreInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutShackScoreInput = {
@@ -2374,7 +2405,7 @@ export type UserUpdateWithoutShackScoreInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -2431,13 +2462,14 @@ export type UserUpdateWithoutShackScoreInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShackScoreInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -2494,13 +2526,14 @@ export type UserUncheckedUpdateWithoutShackScoreInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutIssuedKeysInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -2557,13 +2590,14 @@ export type UserCreateWithoutIssuedKeysInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutIssuedKeysInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -2620,6 +2654,7 @@ export type UserUncheckedCreateWithoutIssuedKeysInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutIssuedKeysInput = {
@@ -2642,7 +2677,7 @@ export type UserUpdateWithoutIssuedKeysInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -2699,13 +2734,14 @@ export type UserUpdateWithoutIssuedKeysInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIssuedKeysInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -2762,13 +2798,14 @@ export type UserUncheckedUpdateWithoutIssuedKeysInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOwnedPropertiesInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -2825,13 +2862,14 @@ export type UserCreateWithoutOwnedPropertiesInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOwnedPropertiesInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -2888,6 +2926,7 @@ export type UserUncheckedCreateWithoutOwnedPropertiesInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOwnedPropertiesInput = {
@@ -2899,7 +2938,7 @@ export type UserCreateWithoutProxySubmissionsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -2956,13 +2995,14 @@ export type UserCreateWithoutProxySubmissionsInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProxySubmissionsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -3019,6 +3059,7 @@ export type UserUncheckedCreateWithoutProxySubmissionsInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProxySubmissionsInput = {
@@ -3041,7 +3082,7 @@ export type UserUpdateWithoutOwnedPropertiesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -3098,13 +3139,14 @@ export type UserUpdateWithoutOwnedPropertiesInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedPropertiesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -3161,6 +3203,7 @@ export type UserUncheckedUpdateWithoutOwnedPropertiesInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutProxySubmissionsInput = {
@@ -3178,7 +3221,7 @@ export type UserUpdateWithoutProxySubmissionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -3235,13 +3278,14 @@ export type UserUpdateWithoutProxySubmissionsInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProxySubmissionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -3298,13 +3342,14 @@ export type UserUncheckedUpdateWithoutProxySubmissionsInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSavedPropertiesInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -3361,13 +3406,14 @@ export type UserCreateWithoutSavedPropertiesInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSavedPropertiesInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -3424,6 +3470,7 @@ export type UserUncheckedCreateWithoutSavedPropertiesInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSavedPropertiesInput = {
@@ -3446,7 +3493,7 @@ export type UserUpdateWithoutSavedPropertiesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -3503,13 +3550,14 @@ export type UserUpdateWithoutSavedPropertiesInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSavedPropertiesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -3566,13 +3614,14 @@ export type UserUncheckedUpdateWithoutSavedPropertiesInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWishlistInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -3629,13 +3678,14 @@ export type UserCreateWithoutWishlistInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWishlistInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -3692,6 +3742,7 @@ export type UserUncheckedCreateWithoutWishlistInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWishlistInput = {
@@ -3714,7 +3765,7 @@ export type UserUpdateWithoutWishlistInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -3771,13 +3822,14 @@ export type UserUpdateWithoutWishlistInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWishlistInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -3834,13 +3886,14 @@ export type UserUncheckedUpdateWithoutWishlistInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWaitlistsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -3897,13 +3950,14 @@ export type UserCreateWithoutWaitlistsInput = {
   vaultItems?: Prisma.VaultItemCreateNestedManyWithoutOwnerInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWaitlistsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -3960,6 +4014,7 @@ export type UserUncheckedCreateWithoutWaitlistsInput = {
   vaultItems?: Prisma.VaultItemUncheckedCreateNestedManyWithoutOwnerInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWaitlistsInput = {
@@ -3982,7 +4037,7 @@ export type UserUpdateWithoutWaitlistsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -4039,13 +4094,14 @@ export type UserUpdateWithoutWaitlistsInput = {
   vaultItems?: Prisma.VaultItemUpdateManyWithoutOwnerNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWaitlistsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -4102,13 +4158,14 @@ export type UserUncheckedUpdateWithoutWaitlistsInput = {
   vaultItems?: Prisma.VaultItemUncheckedUpdateManyWithoutOwnerNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutVaultItemsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -4165,13 +4222,14 @@ export type UserCreateWithoutVaultItemsInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutVaultItemsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -4228,6 +4286,7 @@ export type UserUncheckedCreateWithoutVaultItemsInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutVaultItemsInput = {
@@ -4250,7 +4309,7 @@ export type UserUpdateWithoutVaultItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -4307,13 +4366,14 @@ export type UserUpdateWithoutVaultItemsInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVaultItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -4370,13 +4430,14 @@ export type UserUncheckedUpdateWithoutVaultItemsInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutApplicationsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -4433,13 +4494,14 @@ export type UserCreateWithoutApplicationsInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutApplicationsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -4496,6 +4558,7 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutApplicationsInput = {
@@ -4518,7 +4581,7 @@ export type UserUpdateWithoutApplicationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -4575,13 +4638,14 @@ export type UserUpdateWithoutApplicationsInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApplicationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -4638,13 +4702,14 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTenancyInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -4701,13 +4766,14 @@ export type UserCreateWithoutTenancyInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTenancyInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -4764,6 +4830,7 @@ export type UserUncheckedCreateWithoutTenancyInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTenancyInput = {
@@ -4775,7 +4842,7 @@ export type UserCreateWithoutCoTenanciesInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -4832,13 +4899,14 @@ export type UserCreateWithoutCoTenanciesInput = {
   vaultItems?: Prisma.VaultItemCreateNestedManyWithoutOwnerInput
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCoTenanciesInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -4895,6 +4963,7 @@ export type UserUncheckedCreateWithoutCoTenanciesInput = {
   vaultItems?: Prisma.VaultItemUncheckedCreateNestedManyWithoutOwnerInput
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCoTenanciesInput = {
@@ -4917,7 +4986,7 @@ export type UserUpdateWithoutTenancyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -4974,13 +5043,14 @@ export type UserUpdateWithoutTenancyInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTenancyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -5037,6 +5107,7 @@ export type UserUncheckedUpdateWithoutTenancyInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutCoTenanciesInput = {
@@ -5062,7 +5133,7 @@ export type UserScalarWhereInput = {
   id?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
   fullName?: Prisma.StringFilter<"User"> | string
-  phoneNumber?: Prisma.StringFilter<"User"> | string
+  phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null
   passwordHash?: Prisma.StringNullableFilter<"User"> | string | null
   googleId?: Prisma.StringNullableFilter<"User"> | string | null
   roles?: Prisma.EnumUserRoleNullableListFilter<"User">
@@ -5088,7 +5159,7 @@ export type UserCreateWithoutChatsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -5145,13 +5216,14 @@ export type UserCreateWithoutChatsInput = {
   vaultItems?: Prisma.VaultItemCreateNestedManyWithoutOwnerInput
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChatsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -5208,6 +5280,7 @@ export type UserUncheckedCreateWithoutChatsInput = {
   vaultItems?: Prisma.VaultItemUncheckedCreateNestedManyWithoutOwnerInput
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChatsInput = {
@@ -5235,7 +5308,7 @@ export type UserCreateWithoutMessagesInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -5292,13 +5365,14 @@ export type UserCreateWithoutMessagesInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMessagesInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -5355,6 +5429,7 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMessagesInput = {
@@ -5377,7 +5452,7 @@ export type UserUpdateWithoutMessagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -5434,13 +5509,14 @@ export type UserUpdateWithoutMessagesInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -5497,13 +5573,14 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutArtisanProfileInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -5560,13 +5637,14 @@ export type UserCreateWithoutArtisanProfileInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutArtisanProfileInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -5623,6 +5701,7 @@ export type UserUncheckedCreateWithoutArtisanProfileInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutArtisanProfileInput = {
@@ -5645,7 +5724,7 @@ export type UserUpdateWithoutArtisanProfileInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -5702,13 +5781,14 @@ export type UserUpdateWithoutArtisanProfileInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutArtisanProfileInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -5765,13 +5845,14 @@ export type UserUncheckedUpdateWithoutArtisanProfileInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMaintenanceJobsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -5828,13 +5909,14 @@ export type UserCreateWithoutMaintenanceJobsInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMaintenanceJobsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -5891,6 +5973,7 @@ export type UserUncheckedCreateWithoutMaintenanceJobsInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMaintenanceJobsInput = {
@@ -5913,7 +5996,7 @@ export type UserUpdateWithoutMaintenanceJobsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -5970,13 +6053,14 @@ export type UserUpdateWithoutMaintenanceJobsInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMaintenanceJobsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -6033,13 +6117,14 @@ export type UserUncheckedUpdateWithoutMaintenanceJobsInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutServiceRequestsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -6096,13 +6181,14 @@ export type UserCreateWithoutServiceRequestsInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutServiceRequestsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -6159,6 +6245,7 @@ export type UserUncheckedCreateWithoutServiceRequestsInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutServiceRequestsInput = {
@@ -6181,7 +6268,7 @@ export type UserUpdateWithoutServiceRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -6238,13 +6325,14 @@ export type UserUpdateWithoutServiceRequestsInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutServiceRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -6301,13 +6389,14 @@ export type UserUncheckedUpdateWithoutServiceRequestsInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutInspectionsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -6364,13 +6453,14 @@ export type UserCreateWithoutInspectionsInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutInspectionsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -6427,6 +6517,7 @@ export type UserUncheckedCreateWithoutInspectionsInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutInspectionsInput = {
@@ -6449,7 +6540,7 @@ export type UserUpdateWithoutInspectionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -6506,13 +6597,14 @@ export type UserUpdateWithoutInspectionsInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInspectionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -6569,13 +6661,14 @@ export type UserUncheckedUpdateWithoutInspectionsInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReviewsGivenInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -6632,13 +6725,14 @@ export type UserCreateWithoutReviewsGivenInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsGivenInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -6695,6 +6789,7 @@ export type UserUncheckedCreateWithoutReviewsGivenInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsGivenInput = {
@@ -6706,7 +6801,7 @@ export type UserCreateWithoutReviewsReceivedInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -6763,13 +6858,14 @@ export type UserCreateWithoutReviewsReceivedInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsReceivedInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -6826,6 +6922,7 @@ export type UserUncheckedCreateWithoutReviewsReceivedInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsReceivedInput = {
@@ -6848,7 +6945,7 @@ export type UserUpdateWithoutReviewsGivenInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -6905,13 +7002,14 @@ export type UserUpdateWithoutReviewsGivenInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsGivenInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -6968,6 +7066,7 @@ export type UserUncheckedUpdateWithoutReviewsGivenInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReviewsReceivedInput = {
@@ -6985,7 +7084,7 @@ export type UserUpdateWithoutReviewsReceivedInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -7042,13 +7141,14 @@ export type UserUpdateWithoutReviewsReceivedInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -7105,13 +7205,14 @@ export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDisputesAgainstInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -7168,13 +7269,14 @@ export type UserCreateWithoutDisputesAgainstInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDisputesAgainstInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -7231,6 +7333,7 @@ export type UserUncheckedCreateWithoutDisputesAgainstInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDisputesAgainstInput = {
@@ -7242,7 +7345,7 @@ export type UserCreateWithoutDisputesRaisedInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -7299,13 +7402,14 @@ export type UserCreateWithoutDisputesRaisedInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDisputesRaisedInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -7362,6 +7466,7 @@ export type UserUncheckedCreateWithoutDisputesRaisedInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDisputesRaisedInput = {
@@ -7373,7 +7478,7 @@ export type UserCreateWithoutDisputesResolvedInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -7430,13 +7535,14 @@ export type UserCreateWithoutDisputesResolvedInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDisputesResolvedInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -7493,6 +7599,7 @@ export type UserUncheckedCreateWithoutDisputesResolvedInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDisputesResolvedInput = {
@@ -7515,7 +7622,7 @@ export type UserUpdateWithoutDisputesAgainstInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -7572,13 +7679,14 @@ export type UserUpdateWithoutDisputesAgainstInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDisputesAgainstInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -7635,6 +7743,7 @@ export type UserUncheckedUpdateWithoutDisputesAgainstInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutDisputesRaisedInput = {
@@ -7652,7 +7761,7 @@ export type UserUpdateWithoutDisputesRaisedInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -7709,13 +7818,14 @@ export type UserUpdateWithoutDisputesRaisedInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDisputesRaisedInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -7772,6 +7882,7 @@ export type UserUncheckedUpdateWithoutDisputesRaisedInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutDisputesResolvedInput = {
@@ -7789,7 +7900,7 @@ export type UserUpdateWithoutDisputesResolvedInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -7846,13 +7957,14 @@ export type UserUpdateWithoutDisputesResolvedInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDisputesResolvedInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -7909,13 +8021,14 @@ export type UserUncheckedUpdateWithoutDisputesResolvedInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutScoutRewardsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -7972,13 +8085,14 @@ export type UserCreateWithoutScoutRewardsInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutScoutRewardsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -8035,6 +8149,7 @@ export type UserUncheckedCreateWithoutScoutRewardsInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutScoutRewardsInput = {
@@ -8057,7 +8172,7 @@ export type UserUpdateWithoutScoutRewardsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -8114,13 +8229,14 @@ export type UserUpdateWithoutScoutRewardsInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutScoutRewardsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -8177,13 +8293,14 @@ export type UserUncheckedUpdateWithoutScoutRewardsInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReferralCodesInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -8240,13 +8357,14 @@ export type UserCreateWithoutReferralCodesInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferralCodesInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -8303,6 +8421,7 @@ export type UserUncheckedCreateWithoutReferralCodesInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferralCodesInput = {
@@ -8325,7 +8444,7 @@ export type UserUpdateWithoutReferralCodesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -8382,13 +8501,14 @@ export type UserUpdateWithoutReferralCodesInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralCodesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -8445,13 +8565,14 @@ export type UserUncheckedUpdateWithoutReferralCodesInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReferredByInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -8508,13 +8629,14 @@ export type UserCreateWithoutReferredByInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferredByInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -8571,6 +8693,7 @@ export type UserUncheckedCreateWithoutReferredByInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferredByInput = {
@@ -8582,7 +8705,7 @@ export type UserCreateWithoutReferralInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -8639,13 +8762,14 @@ export type UserCreateWithoutReferralInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferralInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -8702,6 +8826,7 @@ export type UserUncheckedCreateWithoutReferralInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferralInput = {
@@ -8724,7 +8849,7 @@ export type UserUpdateWithoutReferredByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -8781,13 +8906,14 @@ export type UserUpdateWithoutReferredByInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferredByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -8844,6 +8970,7 @@ export type UserUncheckedUpdateWithoutReferredByInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReferralInput = {
@@ -8861,7 +8988,7 @@ export type UserUpdateWithoutReferralInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -8918,13 +9045,14 @@ export type UserUpdateWithoutReferralInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -8981,13 +9109,14 @@ export type UserUncheckedUpdateWithoutReferralInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBankAccountsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -9044,13 +9173,14 @@ export type UserCreateWithoutBankAccountsInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBankAccountsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -9107,6 +9237,7 @@ export type UserUncheckedCreateWithoutBankAccountsInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBankAccountsInput = {
@@ -9129,7 +9260,7 @@ export type UserUpdateWithoutBankAccountsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -9186,13 +9317,14 @@ export type UserUpdateWithoutBankAccountsInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBankAccountsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -9249,13 +9381,14 @@ export type UserUncheckedUpdateWithoutBankAccountsInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTransactionsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -9312,13 +9445,14 @@ export type UserCreateWithoutTransactionsInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTransactionsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -9375,6 +9509,7 @@ export type UserUncheckedCreateWithoutTransactionsInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTransactionsInput = {
@@ -9397,7 +9532,7 @@ export type UserUpdateWithoutTransactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -9454,13 +9589,14 @@ export type UserUpdateWithoutTransactionsInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTransactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -9517,13 +9653,14 @@ export type UserUncheckedUpdateWithoutTransactionsInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -9580,13 +9717,14 @@ export type UserCreateWithoutNotificationsInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -9643,6 +9781,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -9665,7 +9804,7 @@ export type UserUpdateWithoutNotificationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -9722,13 +9861,14 @@ export type UserUpdateWithoutNotificationsInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -9785,13 +9925,14 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAssignedTicketsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -9848,13 +9989,14 @@ export type UserCreateWithoutAssignedTicketsInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAssignedTicketsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -9911,6 +10053,7 @@ export type UserUncheckedCreateWithoutAssignedTicketsInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAssignedTicketsInput = {
@@ -9922,7 +10065,7 @@ export type UserCreateWithoutSupportTicketsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -9979,13 +10122,14 @@ export type UserCreateWithoutSupportTicketsInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSupportTicketsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -10042,6 +10186,7 @@ export type UserUncheckedCreateWithoutSupportTicketsInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSupportTicketsInput = {
@@ -10064,7 +10209,7 @@ export type UserUpdateWithoutAssignedTicketsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -10121,13 +10266,14 @@ export type UserUpdateWithoutAssignedTicketsInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedTicketsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -10184,6 +10330,7 @@ export type UserUncheckedUpdateWithoutAssignedTicketsInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutSupportTicketsInput = {
@@ -10201,7 +10348,7 @@ export type UserUpdateWithoutSupportTicketsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -10258,13 +10405,14 @@ export type UserUpdateWithoutSupportTicketsInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSupportTicketsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -10321,13 +10469,14 @@ export type UserUncheckedUpdateWithoutSupportTicketsInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSupportMessagesInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -10384,13 +10533,14 @@ export type UserCreateWithoutSupportMessagesInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSupportMessagesInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -10447,6 +10597,7 @@ export type UserUncheckedCreateWithoutSupportMessagesInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSupportMessagesInput = {
@@ -10469,7 +10620,7 @@ export type UserUpdateWithoutSupportMessagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -10526,13 +10677,14 @@ export type UserUpdateWithoutSupportMessagesInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSupportMessagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -10589,13 +10741,14 @@ export type UserUncheckedUpdateWithoutSupportMessagesInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -10652,13 +10805,14 @@ export type UserCreateWithoutAuditLogsInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -10715,6 +10869,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -10737,7 +10892,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -10794,13 +10949,14 @@ export type UserUpdateWithoutAuditLogsInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -10857,13 +11013,14 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutManagedPropertiesInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -10920,13 +11077,14 @@ export type UserCreateWithoutManagedPropertiesInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutManagedPropertiesInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -10983,6 +11141,7 @@ export type UserUncheckedCreateWithoutManagedPropertiesInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutManagedPropertiesInput = {
@@ -10994,7 +11153,7 @@ export type UserCreateWithoutOwnedManagementInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -11051,13 +11210,14 @@ export type UserCreateWithoutOwnedManagementInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOwnedManagementInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -11114,6 +11274,7 @@ export type UserUncheckedCreateWithoutOwnedManagementInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOwnedManagementInput = {
@@ -11136,7 +11297,7 @@ export type UserUpdateWithoutManagedPropertiesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -11193,13 +11354,14 @@ export type UserUpdateWithoutManagedPropertiesInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutManagedPropertiesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -11256,6 +11418,7 @@ export type UserUncheckedUpdateWithoutManagedPropertiesInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutOwnedManagementInput = {
@@ -11273,7 +11436,7 @@ export type UserUpdateWithoutOwnedManagementInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -11330,13 +11493,14 @@ export type UserUpdateWithoutOwnedManagementInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedManagementInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -11372,6 +11536,279 @@ export type UserUncheckedUpdateWithoutOwnedManagementInput = {
   ownedProperties?: Prisma.PropertyUncheckedUpdateManyWithoutLandlordNestedInput
   proxySubmissions?: Prisma.PropertyUncheckedUpdateManyWithoutProxySubmitterNestedInput
   managedProperties?: Prisma.PropertyManagementUncheckedUpdateManyWithoutManagerNestedInput
+  wishlist?: Prisma.PropertyWishlistUncheckedUpdateOneWithoutTenantNestedInput
+  referredBy?: Prisma.ReferralUncheckedUpdateOneWithoutRefereeNestedInput
+  referral?: Prisma.ReferralUncheckedUpdateOneWithoutReferrerNestedInput
+  referralCodes?: Prisma.ReferralCodeUncheckedUpdateManyWithoutOwnerNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutSubjectNestedInput
+  savedProperties?: Prisma.SavedPropertyUncheckedUpdateManyWithoutTenantNestedInput
+  scoutRewards?: Prisma.ScoutRewardUncheckedUpdateManyWithoutRedeemerNestedInput
+  serviceRequests?: Prisma.ServiceRequestUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  shackScore?: Prisma.ShackScoreUncheckedUpdateOneWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUncheckedUpdateManyWithoutSenderNestedInput
+  assignedTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+  tenancy?: Prisma.TenancyUncheckedUpdateOneWithoutTenantNestedInput
+  applications?: Prisma.TenancyApplicationUncheckedUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  vaultItems?: Prisma.VaultItemUncheckedUpdateManyWithoutOwnerNestedInput
+  waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
+  chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
+  coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAiMessagesInput = {
+  id?: string
+  email: string
+  fullName: string
+  phoneNumber?: string | null
+  passwordHash?: string | null
+  googleId?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  isVerified?: boolean
+  twoFactorEnabled?: boolean
+  twoFactorSecret?: string | null
+  verificationTier?: number
+  walletBalance?: number
+  fintechPartnerRef?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accumulatedBond?: number
+  vaultPremium?: boolean
+  vaultPremiumUntil?: Date | string | null
+  vaultStorageLimit?: number
+  vaultStorageUsed?: number
+  verificationBundlePaid?: boolean
+  verificationBundlePaidAt?: Date | string | null
+  onboardingCompleted?: boolean
+  issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
+  notificationPreferences?: Prisma.NotificationPreferencesCreateNestedOneWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutUserInput
+  disputesAgainst?: Prisma.DisputeCreateNestedManyWithoutAgainstInput
+  disputesRaised?: Prisma.DisputeCreateNestedManyWithoutRaisedByInput
+  disputesResolved?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
+  inspections?: Prisma.InspectionCreateNestedManyWithoutInspectorInput
+  maintenanceJobs?: Prisma.MaintenanceJobCreateNestedManyWithoutArtisanInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  ownedProperties?: Prisma.PropertyCreateNestedManyWithoutLandlordInput
+  proxySubmissions?: Prisma.PropertyCreateNestedManyWithoutProxySubmitterInput
+  managedProperties?: Prisma.PropertyManagementCreateNestedManyWithoutManagerInput
+  ownedManagement?: Prisma.PropertyManagementCreateNestedManyWithoutOwnerInput
+  wishlist?: Prisma.PropertyWishlistCreateNestedOneWithoutTenantInput
+  referredBy?: Prisma.ReferralCreateNestedOneWithoutRefereeInput
+  referral?: Prisma.ReferralCreateNestedOneWithoutReferrerInput
+  referralCodes?: Prisma.ReferralCodeCreateNestedManyWithoutOwnerInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutSubjectInput
+  savedProperties?: Prisma.SavedPropertyCreateNestedManyWithoutTenantInput
+  scoutRewards?: Prisma.ScoutRewardCreateNestedManyWithoutRedeemerInput
+  serviceRequests?: Prisma.ServiceRequestCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  shackScore?: Prisma.ShackScoreCreateNestedOneWithoutUserInput
+  supportMessages?: Prisma.SupportMessageCreateNestedManyWithoutSenderInput
+  assignedTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
+  tenancy?: Prisma.TenancyCreateNestedOneWithoutTenantInput
+  applications?: Prisma.TenancyApplicationCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  vaultItems?: Prisma.VaultItemCreateNestedManyWithoutOwnerInput
+  waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
+  chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
+  coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+}
+
+export type UserUncheckedCreateWithoutAiMessagesInput = {
+  id?: string
+  email: string
+  fullName: string
+  phoneNumber?: string | null
+  passwordHash?: string | null
+  googleId?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  isVerified?: boolean
+  twoFactorEnabled?: boolean
+  twoFactorSecret?: string | null
+  verificationTier?: number
+  walletBalance?: number
+  fintechPartnerRef?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accumulatedBond?: number
+  vaultPremium?: boolean
+  vaultPremiumUntil?: Date | string | null
+  vaultStorageLimit?: number
+  vaultStorageUsed?: number
+  verificationBundlePaid?: boolean
+  verificationBundlePaidAt?: Date | string | null
+  onboardingCompleted?: boolean
+  issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
+  notificationPreferences?: Prisma.NotificationPreferencesUncheckedCreateNestedOneWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutUserInput
+  disputesAgainst?: Prisma.DisputeUncheckedCreateNestedManyWithoutAgainstInput
+  disputesRaised?: Prisma.DisputeUncheckedCreateNestedManyWithoutRaisedByInput
+  disputesResolved?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
+  inspections?: Prisma.InspectionUncheckedCreateNestedManyWithoutInspectorInput
+  maintenanceJobs?: Prisma.MaintenanceJobUncheckedCreateNestedManyWithoutArtisanInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  ownedProperties?: Prisma.PropertyUncheckedCreateNestedManyWithoutLandlordInput
+  proxySubmissions?: Prisma.PropertyUncheckedCreateNestedManyWithoutProxySubmitterInput
+  managedProperties?: Prisma.PropertyManagementUncheckedCreateNestedManyWithoutManagerInput
+  ownedManagement?: Prisma.PropertyManagementUncheckedCreateNestedManyWithoutOwnerInput
+  wishlist?: Prisma.PropertyWishlistUncheckedCreateNestedOneWithoutTenantInput
+  referredBy?: Prisma.ReferralUncheckedCreateNestedOneWithoutRefereeInput
+  referral?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferrerInput
+  referralCodes?: Prisma.ReferralCodeUncheckedCreateNestedManyWithoutOwnerInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutSubjectInput
+  savedProperties?: Prisma.SavedPropertyUncheckedCreateNestedManyWithoutTenantInput
+  scoutRewards?: Prisma.ScoutRewardUncheckedCreateNestedManyWithoutRedeemerInput
+  serviceRequests?: Prisma.ServiceRequestUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  shackScore?: Prisma.ShackScoreUncheckedCreateNestedOneWithoutUserInput
+  supportMessages?: Prisma.SupportMessageUncheckedCreateNestedManyWithoutSenderInput
+  assignedTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
+  tenancy?: Prisma.TenancyUncheckedCreateNestedOneWithoutTenantInput
+  applications?: Prisma.TenancyApplicationUncheckedCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  vaultItems?: Prisma.VaultItemUncheckedCreateNestedManyWithoutOwnerInput
+  waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
+  chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
+  coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+}
+
+export type UserCreateOrConnectWithoutAiMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiMessagesInput, Prisma.UserUncheckedCreateWithoutAiMessagesInput>
+}
+
+export type UserUpsertWithoutAiMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAiMessagesInput, Prisma.UserUncheckedUpdateWithoutAiMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiMessagesInput, Prisma.UserUncheckedCreateWithoutAiMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAiMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAiMessagesInput, Prisma.UserUncheckedUpdateWithoutAiMessagesInput>
+}
+
+export type UserUpdateWithoutAiMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationTier?: Prisma.IntFieldUpdateOperationsInput | number
+  walletBalance?: Prisma.FloatFieldUpdateOperationsInput | number
+  fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
+  vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vaultStorageLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  vaultStorageUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferencesUpdateOneWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutUserNestedInput
+  disputesAgainst?: Prisma.DisputeUpdateManyWithoutAgainstNestedInput
+  disputesRaised?: Prisma.DisputeUpdateManyWithoutRaisedByNestedInput
+  disputesResolved?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
+  inspections?: Prisma.InspectionUpdateManyWithoutInspectorNestedInput
+  maintenanceJobs?: Prisma.MaintenanceJobUpdateManyWithoutArtisanNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  ownedProperties?: Prisma.PropertyUpdateManyWithoutLandlordNestedInput
+  proxySubmissions?: Prisma.PropertyUpdateManyWithoutProxySubmitterNestedInput
+  managedProperties?: Prisma.PropertyManagementUpdateManyWithoutManagerNestedInput
+  ownedManagement?: Prisma.PropertyManagementUpdateManyWithoutOwnerNestedInput
+  wishlist?: Prisma.PropertyWishlistUpdateOneWithoutTenantNestedInput
+  referredBy?: Prisma.ReferralUpdateOneWithoutRefereeNestedInput
+  referral?: Prisma.ReferralUpdateOneWithoutReferrerNestedInput
+  referralCodes?: Prisma.ReferralCodeUpdateManyWithoutOwnerNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutSubjectNestedInput
+  savedProperties?: Prisma.SavedPropertyUpdateManyWithoutTenantNestedInput
+  scoutRewards?: Prisma.ScoutRewardUpdateManyWithoutRedeemerNestedInput
+  serviceRequests?: Prisma.ServiceRequestUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  shackScore?: Prisma.ShackScoreUpdateOneWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUpdateManyWithoutSenderNestedInput
+  assignedTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
+  tenancy?: Prisma.TenancyUpdateOneWithoutTenantNestedInput
+  applications?: Prisma.TenancyApplicationUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  vaultItems?: Prisma.VaultItemUpdateManyWithoutOwnerNestedInput
+  waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
+  chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
+  coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAiMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationTier?: Prisma.IntFieldUpdateOperationsInput | number
+  walletBalance?: Prisma.FloatFieldUpdateOperationsInput | number
+  fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
+  vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vaultStorageLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  vaultStorageUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferencesUncheckedUpdateOneWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutUserNestedInput
+  disputesAgainst?: Prisma.DisputeUncheckedUpdateManyWithoutAgainstNestedInput
+  disputesRaised?: Prisma.DisputeUncheckedUpdateManyWithoutRaisedByNestedInput
+  disputesResolved?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
+  inspections?: Prisma.InspectionUncheckedUpdateManyWithoutInspectorNestedInput
+  maintenanceJobs?: Prisma.MaintenanceJobUncheckedUpdateManyWithoutArtisanNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  ownedProperties?: Prisma.PropertyUncheckedUpdateManyWithoutLandlordNestedInput
+  proxySubmissions?: Prisma.PropertyUncheckedUpdateManyWithoutProxySubmitterNestedInput
+  managedProperties?: Prisma.PropertyManagementUncheckedUpdateManyWithoutManagerNestedInput
+  ownedManagement?: Prisma.PropertyManagementUncheckedUpdateManyWithoutOwnerNestedInput
   wishlist?: Prisma.PropertyWishlistUncheckedUpdateOneWithoutTenantNestedInput
   referredBy?: Prisma.ReferralUncheckedUpdateOneWithoutRefereeNestedInput
   referral?: Prisma.ReferralUncheckedUpdateOneWithoutReferrerNestedInput
@@ -11399,7 +11836,7 @@ export type UserCreateWithoutNotificationPreferencesInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -11456,13 +11893,14 @@ export type UserCreateWithoutNotificationPreferencesInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
   id?: string
   email: string
   fullName: string
-  phoneNumber: string
+  phoneNumber?: string | null
   passwordHash?: string | null
   googleId?: string | null
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
@@ -11519,6 +11957,7 @@ export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationPreferencesInput = {
@@ -11541,7 +11980,7 @@ export type UserUpdateWithoutNotificationPreferencesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -11598,13 +12037,14 @@ export type UserUpdateWithoutNotificationPreferencesInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -11661,13 +12101,14 @@ export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpdateWithoutCoTenanciesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -11724,13 +12165,14 @@ export type UserUpdateWithoutCoTenanciesInput = {
   vaultItems?: Prisma.VaultItemUpdateManyWithoutOwnerNestedInput
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCoTenanciesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -11787,13 +12229,14 @@ export type UserUncheckedUpdateWithoutCoTenanciesInput = {
   vaultItems?: Prisma.VaultItemUncheckedUpdateManyWithoutOwnerNestedInput
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutCoTenanciesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -11819,7 +12262,7 @@ export type UserUpdateWithoutChatsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -11876,13 +12319,14 @@ export type UserUpdateWithoutChatsInput = {
   vaultItems?: Prisma.VaultItemUpdateManyWithoutOwnerNestedInput
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChatsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -11939,13 +12383,14 @@ export type UserUncheckedUpdateWithoutChatsInput = {
   vaultItems?: Prisma.VaultItemUncheckedUpdateManyWithoutOwnerNestedInput
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutChatsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
@@ -12004,6 +12449,7 @@ export type UserCountOutputType = {
   waitlists: number
   chats: number
   coTenancies: number
+  aiMessages: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -12038,6 +12484,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   waitlists?: boolean | UserCountOutputTypeCountWaitlistsArgs
   chats?: boolean | UserCountOutputTypeCountChatsArgs
   coTenancies?: boolean | UserCountOutputTypeCountCoTenanciesArgs
+  aiMessages?: boolean | UserCountOutputTypeCountAiMessagesArgs
 }
 
 /**
@@ -12267,6 +12714,13 @@ export type UserCountOutputTypeCountCoTenanciesArgs<ExtArgs extends runtime.Type
   where?: Prisma.TenancyWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAiMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AIMessageWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -12330,6 +12784,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   waitlists?: boolean | Prisma.User$waitlistsArgs<ExtArgs>
   chats?: boolean | Prisma.User$chatsArgs<ExtArgs>
   coTenancies?: boolean | Prisma.User$coTenanciesArgs<ExtArgs>
+  aiMessages?: boolean | Prisma.User$aiMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -12451,6 +12906,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   waitlists?: boolean | Prisma.User$waitlistsArgs<ExtArgs>
   chats?: boolean | Prisma.User$chatsArgs<ExtArgs>
   coTenancies?: boolean | Prisma.User$coTenanciesArgs<ExtArgs>
+  aiMessages?: boolean | Prisma.User$aiMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -12497,12 +12953,13 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     waitlists: Prisma.$WaitlistPayload<ExtArgs>[]
     chats: Prisma.$ChatRoomPayload<ExtArgs>[]
     coTenancies: Prisma.$TenancyPayload<ExtArgs>[]
+    aiMessages: Prisma.$AIMessagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     email: string
     fullName: string
-    phoneNumber: string
+    phoneNumber: string | null
     passwordHash: string | null
     googleId: string | null
     roles: $Enums.UserRole[]
@@ -12954,6 +13411,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   waitlists<T extends Prisma.User$waitlistsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$waitlistsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WaitlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   chats<T extends Prisma.User$chatsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$chatsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatRoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   coTenancies<T extends Prisma.User$coTenanciesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$coTenanciesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenancyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiMessages<T extends Prisma.User$aiMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aiMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AIMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14273,6 +14731,30 @@ export type User$coTenanciesArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.TenancyScalarFieldEnum | Prisma.TenancyScalarFieldEnum[]
+}
+
+/**
+ * User.aiMessages
+ */
+export type User$aiMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AIMessage
+   */
+  select?: Prisma.AIMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AIMessage
+   */
+  omit?: Prisma.AIMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AIMessageInclude<ExtArgs> | null
+  where?: Prisma.AIMessageWhereInput
+  orderBy?: Prisma.AIMessageOrderByWithRelationInput | Prisma.AIMessageOrderByWithRelationInput[]
+  cursor?: Prisma.AIMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AIMessageScalarFieldEnum | Prisma.AIMessageScalarFieldEnum[]
 }
 
 /**

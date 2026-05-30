@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
-import BackButton from "@/app/components/BackButton";
+"use client";
 
-export const metadata: Metadata = {
-  title: "FAQ — Shack",
-  description: "Frequently asked questions about Shack — Nigeria's verified property platform.",
-};
+import { useState } from "react";
+import BackButton from "@/app/components/BackButton";
+import Link from "next/link";
+
+// ── Data ───────────────────────────────────────────────────────────────────
 
 const FAQS = [
   {
@@ -98,16 +98,96 @@ const FAQS = [
   },
 ];
 
+// ── Accordion item ─────────────────────────────────────────────────────────
+
+function AccordionItem({
+  q,
+  a,
+  open,
+  onToggle,
+}: {
+  q: string;
+  a: string;
+  open: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <div className="bg-white rounded-2xl border border-zinc-200 overflow-hidden transition-colors hover:border-zinc-300">
+      <button
+        type="button"
+        onClick={onToggle}
+        className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
+        aria-expanded={open}
+      >
+        <span className="text-sm font-bold text-zinc-900">{q}</span>
+
+        {/* +/- box with hover expand transition */}
+        <span
+          className={`
+            shrink-0 flex items-center justify-center
+            border rounded-lg leading-none select-none
+            transition-all duration-200 ease-in-out
+            w-7 h-7 hover:w-9 hover:h-9
+            ${
+              open
+                ? "bg-zinc-900 border-zinc-900 text-white"
+                : "border-zinc-200 text-zinc-500 hover:border-zinc-400 hover:text-zinc-900 hover:bg-zinc-50"
+            }
+          `}
+        >
+          {open ? (
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+          ) : (
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+          )}
+        </span>
+      </button>
+
+      <div
+        className={`grid transition-all duration-300 ease-in-out ${
+          open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div className="px-5 pb-5 border-t border-zinc-100">
+            <p className="text-sm text-zinc-500 leading-relaxed pt-4">{a}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Page ───────────────────────────────────────────────────────────────────
+
 export default function FAQPage() {
+  // Single global open key — "category::question" or null
+  const [openKey, setOpenKey] = useState<string | null>(null);
+
+  function toggle(key: string) {
+    setOpenKey((prev) => (prev === key ? null : key));
+  }
+
   return (
     <div className="max-w-3xl mx-auto py-4">
       <BackButton />
-      <h1 className="text-3xl font-extrabold text-zinc-900 mb-2">Frequently Asked Questions</h1>
+      <h1 className="text-3xl font-extrabold text-zinc-900 mb-2">
+        Frequently Asked Questions
+      </h1>
       <p className="text-sm text-zinc-400 mb-10">
-        Can't find what you're looking for?{" "}
-        <a href="/contact" className="text-zinc-900 font-semibold underline underline-offset-2">
+        Can&apos;t find what you&apos;re looking for?{" "}
+        <Link
+          href="/contact"
+          className="text-zinc-900 font-semibold underline underline-offset-2"
+        >
           Contact us
-        </a>.
+        </Link>
+        .
       </p>
 
       <div className="space-y-10">
@@ -116,13 +196,19 @@ export default function FAQPage() {
             <h2 className="text-xs font-extrabold uppercase tracking-widest text-zinc-400 mb-4">
               {section.category}
             </h2>
-            <div className="space-y-4">
-              {section.items.map((item) => (
-                <div key={item.q} className="bg-white rounded-2xl border border-zinc-200 p-5">
-                  <p className="text-sm font-bold text-zinc-900 mb-2">{item.q}</p>
-                  <p className="text-sm text-zinc-500 leading-relaxed">{item.a}</p>
-                </div>
-              ))}
+            <div className="flex flex-col gap-2">
+              {section.items.map((item) => {
+                const key = `${section.category}::${item.q}`;
+                return (
+                  <AccordionItem
+                    key={key}
+                    q={item.q}
+                    a={item.a}
+                    open={openKey === key}
+                    onToggle={() => toggle(key)}
+                  />
+                );
+              })}
             </div>
           </div>
         ))}

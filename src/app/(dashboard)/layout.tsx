@@ -7,6 +7,7 @@ import MobileNav from "@/app/components/MobileNav";
 import LandlordMobileNav from "@/app/components/LandlordMobileNav";
 import SidebarNav from "@/app/components/SidebarNav";
 import LandlordSidebarNav from "@/app/components/LandlordSidebarNav";
+import AIFloatingWidget from "@/app/components/AIFloatingWidget";
 import { TENANT_NAV_ITEMS, LANDLORD_NAV_ITEMS, ARTISAN_NAV_ITEMS } from "@/lib/nav-constants";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -96,6 +97,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
       ) : (
         <MobileNav items={navItems} />
       )}
+
+      {/* ── AI floating widget ── */}
+      <AIFloatingWidget userName={session.user.name ?? "there"} />
     </div>
   );
 }

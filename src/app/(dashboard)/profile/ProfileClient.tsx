@@ -19,7 +19,7 @@ type Props = {
     id: string;
     fullName: string;
     email: string;
-    phoneNumber: string;
+    phoneNumber: string | null;
     roles: string[];
     verificationTier: number;
     isVerified: boolean;
@@ -77,7 +77,7 @@ function VerificationBadge({ tier }: { tier: number }) {
 
 export default function ProfileClient({ user }: Props) {
   const [fullName, setFullName] = useState(user.fullName);
-  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
+  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber ?? "");
   const [saving, setSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState("");
   const [saveError, setSaveError] = useState("");

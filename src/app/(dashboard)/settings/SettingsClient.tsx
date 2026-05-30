@@ -17,7 +17,7 @@ type Props = {
     id: string;
     fullName: string;
     email: string;
-    phoneNumber: string;
+    phoneNumber: string | null;
     twoFactorEnabled: boolean;
     roles: string[];
     onboardingCompleted: boolean;
@@ -60,7 +60,7 @@ function Toggle({
 
 export default function SettingsClient({ user, notificationPreferences }: Props) {
   // Account settings
-  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
+  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber ?? "");
   const [phoneSaving, setPhoneSaving] = useState(false);
   const [phoneSuccess, setPhoneSuccess] = useState("");
   const [phoneError, setPhoneError] = useState("");

@@ -89,6 +89,7 @@ export const ModelName = {
   Milestone: 'Milestone',
   ConditionReport: 'ConditionReport',
   TenancyAgreement: 'TenancyAgreement',
+  AIMessage: 'AIMessage',
   NotificationPreferences: 'NotificationPreferences'
 } as const
 
@@ -714,6 +715,17 @@ export const TenancyAgreementScalarFieldEnum = {
 } as const
 
 export type TenancyAgreementScalarFieldEnum = (typeof TenancyAgreementScalarFieldEnum)[keyof typeof TenancyAgreementScalarFieldEnum]
+
+
+export const AIMessageScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  role: 'role',
+  text: 'text',
+  createdAt: 'createdAt'
+} as const
+
+export type AIMessageScalarFieldEnum = (typeof AIMessageScalarFieldEnum)[keyof typeof AIMessageScalarFieldEnum]
 
 
 export const NotificationPreferencesScalarFieldEnum = {

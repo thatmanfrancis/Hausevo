@@ -422,6 +422,7 @@ export const ModelName = {
   Milestone: 'Milestone',
   ConditionReport: 'ConditionReport',
   TenancyAgreement: 'TenancyAgreement',
+  AIMessage: 'AIMessage',
   NotificationPreferences: 'NotificationPreferences'
 } as const
 
@@ -438,7 +439,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verificationToken" | "shackScore" | "accessKey" | "property" | "propertyImage" | "savedProperty" | "propertyWishlist" | "waitlist" | "vaultItem" | "tenancyApplication" | "tenancy" | "rentSchedule" | "movingOrder" | "chatRoom" | "message" | "artisanProfile" | "maintenanceJob" | "serviceRequest" | "inspection" | "review" | "dispute" | "scoutReward" | "referralCode" | "referral" | "bankAccount" | "transaction" | "notification" | "supportTicket" | "supportMessage" | "auditLog" | "propertyManagement" | "financingOption" | "milestone" | "conditionReport" | "tenancyAgreement" | "notificationPreferences"
+    modelProps: "user" | "account" | "session" | "verificationToken" | "shackScore" | "accessKey" | "property" | "propertyImage" | "savedProperty" | "propertyWishlist" | "waitlist" | "vaultItem" | "tenancyApplication" | "tenancy" | "rentSchedule" | "movingOrder" | "chatRoom" | "message" | "artisanProfile" | "maintenanceJob" | "serviceRequest" | "inspection" | "review" | "dispute" | "scoutReward" | "referralCode" | "referral" | "bankAccount" | "transaction" | "notification" | "supportTicket" | "supportMessage" | "auditLog" | "propertyManagement" | "financingOption" | "milestone" | "conditionReport" | "tenancyAgreement" | "aIMessage" | "notificationPreferences"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3254,6 +3255,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    AIMessage: {
+      payload: Prisma.$AIMessagePayload<ExtArgs>
+      fields: Prisma.AIMessageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AIMessageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AIMessageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload>
+        }
+        findFirst: {
+          args: Prisma.AIMessageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AIMessageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload>
+        }
+        findMany: {
+          args: Prisma.AIMessageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload>[]
+        }
+        create: {
+          args: Prisma.AIMessageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload>
+        }
+        createMany: {
+          args: Prisma.AIMessageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AIMessageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload>[]
+        }
+        delete: {
+          args: Prisma.AIMessageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload>
+        }
+        update: {
+          args: Prisma.AIMessageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload>
+        }
+        deleteMany: {
+          args: Prisma.AIMessageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AIMessageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AIMessageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload>[]
+        }
+        upsert: {
+          args: Prisma.AIMessageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload>
+        }
+        aggregate: {
+          args: Prisma.AIMessageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAIMessage>
+        }
+        groupBy: {
+          args: Prisma.AIMessageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AIMessageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AIMessageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AIMessageCountAggregateOutputType> | number
+        }
+      }
+    }
     NotificationPreferences: {
       payload: Prisma.$NotificationPreferencesPayload<ExtArgs>
       fields: Prisma.NotificationPreferencesFieldRefs
@@ -3975,6 +4050,17 @@ export const TenancyAgreementScalarFieldEnum = {
 export type TenancyAgreementScalarFieldEnum = (typeof TenancyAgreementScalarFieldEnum)[keyof typeof TenancyAgreementScalarFieldEnum]
 
 
+export const AIMessageScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  role: 'role',
+  text: 'text',
+  createdAt: 'createdAt'
+} as const
+
+export type AIMessageScalarFieldEnum = (typeof AIMessageScalarFieldEnum)[keyof typeof AIMessageScalarFieldEnum]
+
+
 export const NotificationPreferencesScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -4596,6 +4682,7 @@ export type GlobalOmitConfig = {
   milestone?: Prisma.MilestoneOmit
   conditionReport?: Prisma.ConditionReportOmit
   tenancyAgreement?: Prisma.TenancyAgreementOmit
+  aIMessage?: Prisma.AIMessageOmit
   notificationPreferences?: Prisma.NotificationPreferencesOmit
 }
 

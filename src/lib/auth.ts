@@ -9,8 +9,34 @@ import { SHACK_LOGO_BASE64 } from "@/lib/assets";
 import LoginAlertEmail from "@/emails/LoginAlert";
 import React from "react";
 
+// ── Custom adapter — maps NextAuth's `name` field to our `fullName` column ──
+function ShackPrismaAdapter() {
+  const base = PrismaAdapter(prisma);
+  return {
+    ...base,
+    // Override createUser so `name` → `fullName` and `phoneNumber` is omitted
+    async createUser(data: any) {
+      const { name, phoneNumber: _phone, ...rest } = data;
+      delete rest.image;
+      delete rest.emailVerified;
+      const user = await prisma.user.create({
+        data: {
+          ...rest,
+          fullName: name ?? rest.fullName ?? "Shack User",
+        },
+      });
+      // Return shape must satisfy AdapterUser (needs `name` + `emailVerified`)
+      return {
+        ...user,
+        name: user.fullName,
+        emailVerified: null,
+      };
+    },
+  };
+}
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(prisma),
+  adapter: ShackPrismaAdapter(),
   trustHost: true,
 
   // JWT is required when using Credentials provider alongside a database adapter.
@@ -31,6 +57,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           fullName: profile.name,
           email: profile.email,
           image: profile.picture,
+          // phoneNumber is nullable — Google doesn't provide it
         };
       },
     }),
