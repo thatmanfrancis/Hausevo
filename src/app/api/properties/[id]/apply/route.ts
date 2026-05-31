@@ -58,7 +58,7 @@ export async function POST(
         upgradeUrl: "/api/verify/upgrade",
         benefits: [
           "Apply for unlimited properties",
-          "ShackScore visible to landlords",
+          "Hausevo Score visible to landlords",
           "Verified badge on profile",
           "Priority in application queue",
         ],

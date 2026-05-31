@@ -25,13 +25,13 @@ export default function ContactForm() {
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        setError(data.error ?? "Failed to send. Please try again or email us at support@shack.ng.");
+        setError(data.error ?? "Failed to send. Please try again or email us at support@hausevo.com.ng.");
         return;
       }
 
       setSent(true);
     } catch {
-      setError("Network error. Please try again or email us at support@shack.ng.");
+      setError("Network error. Please try again or email us at support@hausevo.com.ng.");
     } finally {
       setSubmitting(false);
     }

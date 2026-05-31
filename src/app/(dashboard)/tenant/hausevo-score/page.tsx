@@ -1,9 +1,9 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
-import ShackScoreClient from "./ShackScoreClient";
+import HausevoScoreClient from "./HausevoScoreClient";
 
-export default async function ShackScorePage() {
+export default async function HausevoScorePage() {
   const session = await auth();
   if (!session?.user?.id) redirect("/auth/login");
 
@@ -31,5 +31,5 @@ export default async function ShackScorePage() {
     lastCalculated: null,
   };
 
-  return <ShackScoreClient score={data} />;
+  return <HausevoScoreClient score={data} />;
 }

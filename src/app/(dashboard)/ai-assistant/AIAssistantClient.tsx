@@ -17,7 +17,7 @@ type HistoryItem = { role: "user" | "model"; text: string };
 
 const SUGGESTIONS = [
   "When is my next rent due?",
-  "What is my ShackScore and how do I improve it?",
+  "What is my Hausevo Score and how do I improve it?",
   "Show me available properties in Yaba under ₦1m",
   "What documents do I need to apply for a property?",
   "How does the verification process work?",
@@ -169,7 +169,7 @@ export default function AIAssistantClient({ userName }: { userName: string }) {
           </svg>
         </div>
         <div>
-          <p className="text-sm font-extrabold text-zinc-900">Shack AI</p>
+          <p className="text-sm font-extrabold text-zinc-900">Hausevo AI</p>
           <p className="text-xs text-zinc-400">Powered by Google Gemini · knows your account</p>
         </div>
         <div className="ml-auto flex items-center gap-1.5">
@@ -190,10 +190,10 @@ export default function AIAssistantClient({ userName }: { userName: string }) {
                 </svg>
               </div>
               <p className="text-base font-extrabold text-zinc-900 mb-1">
-                Hey {userName.split(" ")[0]}, I&apos;m your Shack AI
+                Hey {userName.split(" ")[0]}, I&apos;m your Hausevo AI
               </p>
               <p className="text-sm text-zinc-500 max-w-sm">
-                I know your tenancy, wallet, ShackScore, and the Lagos property market.
+                I know your tenancy, wallet, Hausevo Score, and the Lagos property market.
                 Ask me anything.
               </p>
             </div>
@@ -252,7 +252,7 @@ export default function AIAssistantClient({ userName }: { userName: string }) {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Ask about your tenancy, properties, ShackScore…"
+            placeholder="Ask about your tenancy, properties, Hausevo Score…"
             rows={1}
             className="flex-1 resize-none rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-400 transition-colors max-h-32 overflow-y-auto"
             style={{ lineHeight: "1.5" }}
@@ -270,7 +270,7 @@ export default function AIAssistantClient({ userName }: { userName: string }) {
           </button>
         </form>
         <p className="text-[10px] text-zinc-400 mt-2 text-center">
-          Shack AI can make mistakes. Verify important information independently.
+          Hausevo AI can make mistakes. Verify important information independently.
         </p>
       </div>
     </div>

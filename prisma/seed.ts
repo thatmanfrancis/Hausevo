@@ -602,6 +602,94 @@ async function main() {
   });
   console.log(`   ✓ ${DEMO_TENANT.fullName} (${DEMO_TENANT.email})`);
 
+  // 2b. Upsert admin user
+  console.log("\n👤 Creating admin user...");
+  const adminPasswordHash = await bcrypt.hash("Admin@123", 12);
+  const adminUser = await prisma.user.upsert({
+    where: { email: "admin@hausevo.com.ng" },
+    update: {},
+    create: {
+      email: "admin@hausevo.com.ng",
+      fullName: "Hausevo Admin",
+      phoneNumber: "+2348022222222",
+      passwordHash: adminPasswordHash,
+      roles: ["ADMIN"],
+      isVerified: true,
+      verificationTier: 3,
+    },
+  });
+  console.log(`   ✓ Hausevo Admin (admin@hausevo.com.ng)`);
+
+  // 2c. Seed additional users for pagination testing
+  console.log("\n👥 Seeding additional test users for pagination...");
+  const EXTRA_TENANTS = [
+    { name: "Chioma Eze", email: "chioma.eze@tenant.ng", phone: "+2348030000001" },
+    { name: "Yusuf Bello", email: "yusuf.bello@tenant.ng", phone: "+2348030000002" },
+    { name: "Adesina Adebayo", email: "adesina.adebayo@tenant.ng", phone: "+2348030000003" },
+    { name: "Ngozi Okeke", email: "ngozi.okeke@tenant.ng", phone: "+2348030000004" },
+    { name: "Tobi Alabi", email: "tobi.alabi@tenant.ng", phone: "+2348030000005" },
+    { name: "Zainab Ibrahim", email: "zainab.ibrahim@tenant.ng", phone: "+2348030000006" },
+    { name: "Chukwuma Nwachukwu", email: "chukwuma.nwachukwu@tenant.ng", phone: "+2348030000007" },
+    { name: "Amina Abubakar", email: "amina.abubakar@tenant.ng", phone: "+2348030000008" },
+    { name: "Damilola Ojo", email: "damilola.ojo@tenant.ng", phone: "+2348030000009" },
+    { name: "Emeka Ani", email: "emeka.ani@tenant.ng", phone: "+2348030000010" },
+    { name: "Fatima Umar", email: "fatima.umar@tenant.ng", phone: "+2348030000011" },
+    { name: "Kelechi Nwosu", email: "kelechi.nwosu@tenant.ng", phone: "+2348030000012" },
+    { name: "Temitope Shittu", email: "temitope.shittu@tenant.ng", phone: "+2348030000013" },
+    { name: "Bolanle Alade", email: "bolanle.alade@tenant.ng", phone: "+2348030000014" },
+    { name: "Olumide Lawal", email: "olumide.lawal@tenant.ng", phone: "+2348030000015" }
+  ];
+
+  const EXTRA_LANDLORDS = [
+    { name: "Tunde Shofowora", email: "tunde.shofowora@landlord.ng", phone: "+2348030000016" },
+    { name: "Abdul Salam", email: "abdul.salam@landlord.ng", phone: "+2348030000017" },
+    { name: "Nkechi Johnson", email: "nkechi.johnson@landlord.ng", phone: "+2348030000018" },
+    { name: "Olamilekan Balogun", email: "olamilekan.balogun@landlord.ng", phone: "+2348030000019" },
+    { name: "Ibe Anayo", email: "ibe.anayo@landlord.ng", phone: "+2348030000020" },
+    { name: "Grace Edet", email: "grace.edet@landlord.ng", phone: "+2348030000021" },
+    { name: "Segun Ogunleye", email: "segun.ogunleye@landlord.ng", phone: "+2348030000022" },
+    { name: "Yemi Oshibajo", email: "yemi.oshibajo@landlord.ng", phone: "+2348030000023" },
+    { name: "Chinenye Nnamdi", email: "chinenye.nnamdi@landlord.ng", phone: "+2348030000024" },
+    { name: "Bashir Dangote", email: "bashir.dangote@landlord.ng", phone: "+2348030000025" }
+  ];
+
+  const defaultPasswordHash = await bcrypt.hash("Password@123", 12);
+
+  for (const t of EXTRA_TENANTS) {
+    await prisma.user.upsert({
+      where: { email: t.email },
+      update: {},
+      create: {
+        email: t.email,
+        fullName: t.name,
+        phoneNumber: t.phone,
+        passwordHash: defaultPasswordHash,
+        roles: ["TENANT"],
+        isVerified: Math.random() > 0.4,
+        verificationTier: 1,
+        onboardingCompleted: true,
+      },
+    });
+  }
+
+  for (const l of EXTRA_LANDLORDS) {
+    await prisma.user.upsert({
+      where: { email: l.email },
+      update: {},
+      create: {
+        email: l.email,
+        fullName: l.name,
+        phoneNumber: l.phone,
+        passwordHash: defaultPasswordHash,
+        roles: ["LANDLORD"],
+        isVerified: Math.random() > 0.3,
+        verificationTier: 2,
+        onboardingCompleted: true,
+      },
+    });
+  }
+  console.log(`   ✓ Seeded ${EXTRA_TENANTS.length} extra tenants and ${EXTRA_LANDLORDS.length} extra landlords successfully.`);
+
   // 3. Create properties
   console.log("\n🏠 Creating properties...");
   let created = 0;

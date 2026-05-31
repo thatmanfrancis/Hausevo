@@ -4,9 +4,9 @@ import NewsGrid from "./NewsGrid";
 import type { NewsItem } from "./NewsGrid";
 
 export const metadata: Metadata = {
-  title: "Blog — Shack",
+  title: "Blog — Hausevo",
   description:
-    "Insights on renting in Nigeria, the Lagos property market, and how Shack is changing the game.",
+    "Insights on renting in Nigeria, the Lagos property market, and how Hausevo is changing the game.",
 };
 
 // ── RSS fetch (server-side, no API key needed) ─────────────────────────────
@@ -27,7 +27,7 @@ async function fetchHousingNews(): Promise<NewsItem[]> {
         const res = await fetch(url, {
           next: { revalidate: 3600 }, // cache for 1 hour
           signal: AbortSignal.timeout(8000), // never hang the page
-          headers: { "User-Agent": "Shack/1.0 (+https://shack.ng)" },
+          headers: { "User-Agent": "Hausevo/1.0 (+https://hausevo.com.ng)" },
         });
         if (!res.ok) return;
         const xml = await res.text();
@@ -93,7 +93,7 @@ const EDITORIAL_POSTS = [
   {
     slug: "what-is-shackscore",
     category: "Product",
-    title: "What Is ShackScore and Why It Matters",
+    title: "What Is Hausevo Score and Why It Matters",
     excerpt:
       "Nigeria's first rental credit score. How it's built, what it measures, and why landlords are already using it.",
     date: "May 8, 2026",
@@ -193,7 +193,7 @@ export default async function BlogsPage() {
       {/* Editorial posts */}
       <div>
         <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-6">
-          From Shack
+          From Hausevo
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {editorialRest.map((post) => (

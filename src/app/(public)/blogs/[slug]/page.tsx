@@ -112,7 +112,7 @@ const POSTS: Post[] = [
           <p className="text-lg font-extrabold text-zinc-900 leading-snug mb-2">
             &ldquo;The agent is a toll booth on a road they didn&apos;t build.&rdquo;
           </p>
-          <p className="text-xs text-zinc-400 font-semibold uppercase tracking-widest">Shack Research, 2026</p>
+          <p className="text-xs text-zinc-400 font-semibold uppercase tracking-widest">Hausevo Research, 2026</p>
         </blockquote>
 
         <h2>What agents actually do — and don't do</h2>
@@ -184,7 +184,7 @@ const POSTS: Post[] = [
             </ul>
           </div>
           <div className="bg-emerald-50 rounded-2xl border border-emerald-100 p-5">
-            <p className="text-xs font-bold uppercase tracking-widest text-emerald-600 mb-3">The Shack way</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-emerald-600 mb-3">The Hausevo way</p>
             <ul className="space-y-2 text-sm text-emerald-700">
               {[
                 "Zero agency fees. Ever.",
@@ -226,7 +226,7 @@ const POSTS: Post[] = [
 
         <h2>What changes when you remove the agent</h2>
         <p>
-          Shack was built on a simple premise: the agent shouldn't exist in this transaction.
+          Hausevo was built on a simple premise: the agent shouldn't exist in this transaction.
           Not because agents are bad people — but because the role they play in Lagos adds no
           value and extracts enormous cost.
         </p>
@@ -236,12 +236,12 @@ const POSTS: Post[] = [
           The price is confirmed against market rate. The agreement is digital and enforceable.
         </p>
         <p>
-          The one-time ₦1,500 verification fee on Shack covers NIN verification, biometric
+          The one-time ₦1,500 verification fee on Hausevo covers NIN verification, biometric
           selfie matching, and BVN financial signal. That's it. No percentage. No finder's fee.
           No caution deposit held hostage. No agent who disappears.
         </p>
         <p>
-          Chisom eventually found her flat — through Shack. She paid ₦750,000 for the year.
+          Chisom eventually found her flat — through Hausevo. She paid ₦750,000 for the year.
           Not ₦825,000. Not ₦1.6 million. ₦750,000, plus ₦1,500 to verify her identity.
           She moved in two weeks after she started looking.
         </p>
@@ -268,7 +268,7 @@ const POSTS: Post[] = [
   {
     slug: "what-is-shackscore",
     category: "Product",
-    title: "What Is ShackScore and Why It Matters",
+    title: "What Is Hausevo Score and Why It Matters",
     excerpt:
       "Nigeria's first rental credit score. How it's built, what it measures, and why landlords are already using it.",
     date: "May 8, 2026",
@@ -279,12 +279,12 @@ const POSTS: Post[] = [
           In most countries, landlords check your credit score before renting to you. In Nigeria,
           there's no equivalent for rental history. A tenant who has paid rent on time for five
           years has no way to prove it. A tenant who trashed a flat and disappeared has no record
-          against them. ShackScore changes that.
+          against them. Hausevo Score changes that.
         </p>
 
-        <h2>What ShackScore measures</h2>
+        <h2>What Hausevo Score measures</h2>
         <p>
-          ShackScore is a trust signal built from your activity on the Shack platform. It's not a
+          Hausevo Score is a trust signal built from your activity on the Hausevo platform. It's not a
           financial credit score — it doesn't pull from your bank account or penalise you for
           loans. It measures rental-specific behaviour:
         </p>
@@ -298,7 +298,7 @@ const POSTS: Post[] = [
 
         <h2>How landlords use it</h2>
         <p>
-          When a tenant applies for a property on Shack, the landlord sees their ShackScore
+          When a tenant applies for a property on Hausevo, the landlord sees their Hausevo Score
           alongside their verified name and profile. A higher score means the tenant has a track
           record of being a good tenant. It doesn't guarantee anything — landlords still make
           their own decisions — but it gives them real signal instead of gut feel.
@@ -306,13 +306,13 @@ const POSTS: Post[] = [
 
         <h2>Building your score</h2>
         <p>
-          If you're new to Shack, your score starts at zero. The fastest way to build it is to
+          If you're new to Hausevo, your score starts at zero. The fastest way to build it is to
           complete Tier 1 verification (NIN + BVN + selfie), fill in your profile, and — if
-          you're already renting — ask your current landlord to join Shack so your payment
+          you're already renting — ask your current landlord to join Hausevo so your payment
           history can be recorded going forward.
         </p>
         <p>
-          ShackScore is still early. We're building it carefully, and we'll be transparent about
+          Hausevo Score is still early. We're building it carefully, and we'll be transparent about
           how it's calculated as it evolves. The goal is simple: give good tenants a way to prove
           it.
         </p>
@@ -389,9 +389,9 @@ const POSTS: Post[] = [
           </li>
         </ul>
 
-        <h2>On Shack</h2>
+        <h2>On Hausevo</h2>
         <p>
-          Every listing on Shack has been through our verification process — deed documents
+          Every listing on Hausevo has been through our verification process — deed documents
           checked, landlord identity confirmed, price verified against market rate. You still
           do your own due diligence, but you're starting from a much safer baseline.
         </p>
@@ -410,7 +410,7 @@ const POSTS: Post[] = [
       <>
         <p>
           Not every landlord in Lagos is online. Some are older, some are busy, some just don't
-          know Shack exists yet. The Scout Programme is how we reach them — through people who
+          know Hausevo exists yet. The Scout Programme is how we reach them — through people who
           already know them.
         </p>
 
@@ -428,7 +428,7 @@ const POSTS: Post[] = [
 
         <h2>Who can be a scout?</h2>
         <p>
-          Anyone with a verified Shack account. You don't need a real estate licence. You don't
+          Anyone with a verified Hausevo account. You don't need a real estate licence. You don't
           need to be an agent. You just need to know landlords with vacant properties and be
           willing to do the legwork of submitting accurate information.
         </p>
@@ -437,7 +437,7 @@ const POSTS: Post[] = [
         <p>
           Scouts are not agents. You don't charge tenants anything. You don't negotiate rent.
           You don't collect fees from landlords. Your only job is to submit accurate listings.
-          The reward comes from Shack, not from the landlord or tenant.
+          The reward comes from Hausevo, not from the landlord or tenant.
         </p>
 
         <h2>Fraud policy</h2>
@@ -469,9 +469,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const post = POSTS.find((p) => p.slug === slug);
-  if (!post) return { title: "Not Found — Shack" };
+  if (!post) return { title: "Not Found — Hausevo" };
   return {
-    title: `${post.title} — Shack Blog`,
+    title: `${post.title} — Hausevo Blog`,
     description: post.excerpt,
   };
 }

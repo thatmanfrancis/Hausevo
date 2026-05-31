@@ -6,7 +6,7 @@ import { notify } from "@/lib/notifications";
 
 /*
   POST /api/referrals/generate
-  Generate a SHACK-XXXXXX referral code for the logged-in user.
+  Generate a HAUSEVO-XXXXXX referral code for the logged-in user.
   Each user gets one code. Calling again returns the existing one.
   Requires: active session
 */
@@ -26,12 +26,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ referralCode: existing });
   }
 
-  // Generate a unique SHACK-XXXXXX code
+  // Generate a unique HAUSEVO-XXXXXX code
   let code: string;
   let attempts = 0;
   do {
     const raw = Math.random().toString(36).substring(2, 8).toUpperCase();
-    code = `SHACK-${raw}`;
+    code = `HAUSEVO-${raw}`;
     const taken = await prisma.referralCode.findUnique({ where: { code } });
     if (!taken) break;
     attempts++;

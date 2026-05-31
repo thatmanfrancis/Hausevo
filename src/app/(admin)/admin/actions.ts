@@ -257,3 +257,73 @@ export async function updateArtisanByAdmin(id: string, data: any) {
     return { success: false, message: e instanceof Error ? e.message : "Failed to update profile" };
   }
 }
+
+// ── Free User ID Documents ──
+export async function approveUserIdDoc(userId: string) {
+  try {
+    const adminId = await requireAdmin();
+    
+    // Update verificationTier on the User
+    await prisma.user.update({
+      where: { id: userId },
+      data: { verificationTier: 1 },
+    });
+
+    // Also mark corresponding VaultItem as verified
+    await prisma.vaultItem.updateMany({
+      where: { ownerId: userId, title: "Government ID Document" },
+      data: { isVerified: true },
+    });
+
+    // Create Notification
+    await prisma.notification.create({
+      data: {
+        userId,
+        title: "ID Verification Approved! 🎉",
+        body: "Your government ID document has been reviewed and approved. You are now Tier 1 verified and can apply for properties.",
+        type: "SYSTEM",
+        actionUrl: "/tenant/verification",
+      },
+    });
+
+    await logAudit(adminId, "APPROVE", "UserIdDoc", userId);
+    revalidatePath("/admin/verifications");
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed" };
+  }
+}
+
+export async function rejectUserIdDoc(userId: string) {
+  try {
+    const adminId = await requireAdmin();
+
+    // Clear ID document and selfie URLs on the User
+    await prisma.user.update({
+      where: { id: userId },
+      data: { idDocumentUrl: null, selfieUrl: null },
+    });
+
+    // Also delete the VaultItem completely
+    await prisma.vaultItem.deleteMany({
+      where: { ownerId: userId, title: "Government ID Document" },
+    });
+
+    // Create Notification
+    await prisma.notification.create({
+      data: {
+        userId,
+        title: "ID Verification Rejected ✗",
+        body: "Your uploaded ID document was rejected. Please check the requirements and upload a valid government-issued ID.",
+        type: "SYSTEM",
+        actionUrl: "/tenant/verification",
+      },
+    });
+
+    await logAudit(adminId, "REJECT", "UserIdDoc", userId);
+    revalidatePath("/admin/verifications");
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed" };
+  }
+}

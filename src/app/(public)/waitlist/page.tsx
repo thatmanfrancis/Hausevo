@@ -3,9 +3,9 @@ import prisma from "@/lib/prisma";
 import WaitlistClient from "./WaitlistClient";
 
 export const metadata: Metadata = {
-  title: "Join the Waitlist — Shack",
+  title: "Join the Waitlist — Hausevo",
   description:
-    "Be among the first to rent or list on Shack — Nigeria's verified property platform. No agents, no markups.",
+    "Be among the first to rent or list on Hausevo — Nigeria's verified property platform. No agents, no markups.",
 };
 
 export default async function WaitlistPage() {

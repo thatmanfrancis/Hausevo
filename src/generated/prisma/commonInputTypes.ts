@@ -698,6 +698,23 @@ export type EnumAgreementStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumAgreementStatusFilter<$PrismaModel>
 }
 
+export type EnumGuarantorStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.GuarantorStatus | Prisma.EnumGuarantorStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.GuarantorStatus[] | Prisma.ListEnumGuarantorStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.GuarantorStatus[] | Prisma.ListEnumGuarantorStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumGuarantorStatusFilter<$PrismaModel> | $Enums.GuarantorStatus
+}
+
+export type EnumGuarantorStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.GuarantorStatus | Prisma.EnumGuarantorStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.GuarantorStatus[] | Prisma.ListEnumGuarantorStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.GuarantorStatus[] | Prisma.ListEnumGuarantorStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumGuarantorStatusWithAggregatesFilter<$PrismaModel> | $Enums.GuarantorStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumGuarantorStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumGuarantorStatusFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -1344,6 +1361,23 @@ export type NestedEnumAgreementStatusWithAggregatesFilter<$PrismaModel = never> 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumAgreementStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumAgreementStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumGuarantorStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.GuarantorStatus | Prisma.EnumGuarantorStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.GuarantorStatus[] | Prisma.ListEnumGuarantorStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.GuarantorStatus[] | Prisma.ListEnumGuarantorStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumGuarantorStatusFilter<$PrismaModel> | $Enums.GuarantorStatus
+}
+
+export type NestedEnumGuarantorStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.GuarantorStatus | Prisma.EnumGuarantorStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.GuarantorStatus[] | Prisma.ListEnumGuarantorStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.GuarantorStatus[] | Prisma.ListEnumGuarantorStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumGuarantorStatusWithAggregatesFilter<$PrismaModel> | $Enums.GuarantorStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumGuarantorStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumGuarantorStatusFilter<$PrismaModel>
 }
 
 

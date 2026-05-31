@@ -17,9 +17,9 @@ type HistoryItem = { role: "user" | "model"; text: string };
 
 const SUGGESTIONS = [
   "When is my next rent due?",
-  "What is my ShackScore?",
+  "What is my Hausevo Score?",
   "Show properties in Yaba under ₦1m",
-  "How do I improve my ShackScore?",
+  "How do I improve my Hausevo Score?",
   "Explain my tenancy status",
   "How does verification work?",
 ];
@@ -304,7 +304,7 @@ export default function AIFloatingWidget({ userName }: { userName: string }) {
                 <AIIcon size={16} />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-extrabold text-zinc-900 leading-none">Shack AI</p>
+                <p className="text-sm font-extrabold text-zinc-900 leading-none">Hausevo AI</p>
                 <p className="text-[10px] text-zinc-400 mt-0.5">Powered by Google Gemini</p>
               </div>
               <div className="flex items-center gap-2 shrink-0">

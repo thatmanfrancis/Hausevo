@@ -72,9 +72,25 @@ export async function PATCH(req: NextRequest) {
   const userId = session.user.id;
 
   const body = await req.json();
-  const { fullName, phoneNumber } = body;
+  const {
+    fullName,
+    phoneNumber,
+    employmentStatus,
+    profession,
+    employerName,
+    monthlyIncome,
+    emergencyContact,
+  } = body;
 
-  if (!fullName && !phoneNumber) {
+  if (
+    !fullName &&
+    !phoneNumber &&
+    !employmentStatus &&
+    !profession &&
+    !employerName &&
+    !monthlyIncome &&
+    !emergencyContact
+  ) {
     return NextResponse.json(
       { error: "Provide at least one field to update." },
       { status: 400 }
@@ -93,17 +109,63 @@ export async function PATCH(req: NextRequest) {
     }
   }
 
+  // Handle emergency contact upsert if provided
+  if (emergencyContact) {
+    const { fullName: ecName, phone: ecPhone, email: ecEmail, relationship: ecRel } = emergencyContact;
+    if (!ecName?.trim() || !ecPhone?.trim()) {
+      return NextResponse.json(
+        { error: "Emergency contact requires a name and phone number." },
+        { status: 400 }
+      );
+    }
+
+    const existingEC = await prisma.guarantor.findFirst({
+      where: { userId, isEmergency: true },
+    });
+
+    if (existingEC) {
+      await prisma.guarantor.update({
+        where: { id: existingEC.id },
+        data: {
+          fullName: ecName.trim(),
+          phone: ecPhone.trim(),
+          email: ecEmail?.trim()?.toLowerCase() || null,
+          relationship: ecRel || "OTHER",
+        },
+      });
+    } else {
+      await prisma.guarantor.create({
+        data: {
+          userId,
+          fullName: ecName.trim(),
+          phone: ecPhone.trim(),
+          email: ecEmail?.trim()?.toLowerCase() || null,
+          relationship: ecRel || "OTHER",
+          isEmergency: true,
+        },
+      });
+    }
+  }
+
   const updated = await prisma.user.update({
     where: { id: userId },
     data: {
       ...(fullName && { fullName }),
       ...(phoneNumber && { phoneNumber }),
+      ...(employmentStatus !== undefined && { employmentStatus }),
+      ...(profession !== undefined && { profession }),
+      ...(employerName !== undefined && { employerName }),
+      ...(monthlyIncome !== undefined && { monthlyIncome }),
     },
     select: {
       id: true,
       fullName: true,
       email: true,
       phoneNumber: true,
+      employmentStatus: true,
+      profession: true,
+      employerName: true,
+      monthlyIncome: true,
       roles: true,
       updatedAt: true,
     },

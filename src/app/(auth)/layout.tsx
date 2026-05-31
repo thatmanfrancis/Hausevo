@@ -9,13 +9,13 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Image 
-              src="/icons/logo-black-bold.png" 
-              alt="Shack Logo" 
-              width={40} 
-              height={40} 
+              src="/hausevofinal.png" 
+              alt="Hausevo Logo" 
+              width={56} 
+              height={56} 
               className="object-contain"
+              priority
             />
-            <span className="text-lg font-black tracking-tighter text-zinc-900 uppercase">Shack</span>
           </Link>
           <Link href="/properties" className="text-xs font-semibold text-zinc-400 hover:text-zinc-900 transition-colors">
             Browse properties →
@@ -31,7 +31,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       {/* Minimal footer */}
       <footer className="py-6 text-center flex flex-col items-center gap-2">
         <p className="text-xs text-zinc-400">
-          © {new Date().getFullYear()} Shack Technologies Ltd ·{" "}
+          © {new Date().getFullYear()} Hausevo Technologies Ltd ·{" "}
           <Link href="/terms" className="hover:text-zinc-700 transition-colors">Terms</Link>
           {" · "}
           <Link href="/privacy" className="hover:text-zinc-700 transition-colors">Privacy</Link>

@@ -14,6 +14,8 @@ export default async function VerificationPage() {
       verificationTier: true,
       walletBalance: true,
       verificationBundlePaid: true,
+      idDocumentUrl: true,
+      selfieUrl: true,
     },
   });
 
@@ -25,6 +27,8 @@ export default async function VerificationPage() {
       verificationTier={user.verificationTier}
       walletBalance={user.walletBalance}
       verificationBundlePaid={user.verificationBundlePaid}
+      idDocumentUrl={user.idDocumentUrl}
+      selfieUrl={user.selfieUrl}
     />
   );
 }

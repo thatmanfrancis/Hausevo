@@ -686,7 +686,7 @@ export default function PropertyDetailClient({
 
             {property.landlord.shackScore?.score != null && (
               <div className="flex items-center justify-between text-sm">
-                <span className="text-zinc-500 font-medium">ShackScore</span>
+                <span className="text-zinc-500 font-medium">Hausevo Score</span>
                 <span className="font-extrabold text-zinc-900">{property.landlord.shackScore.score}</span>
               </div>
             )}

@@ -1,6 +1,6 @@
 {
-  "name": "Shack",
-  "short_name": "Shack",
+  "name": "Hausevo",
+  "short_name": "Hausevo",
   "description": "Premium real estate platform for direct landlord-tenant connections.",
   "start_url": "/",
   "display": "standalone",

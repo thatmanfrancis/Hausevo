@@ -12,7 +12,7 @@ export default function Error({
 }) {
   useEffect(() => {
     // Log to your error tracking service here (e.g. Sentry)
-    console.error("[Shack Error]", error);
+    console.error("[Hausevo Error]", error);
   }, [error]);
 
   return (

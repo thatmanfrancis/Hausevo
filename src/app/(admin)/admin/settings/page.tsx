@@ -21,6 +21,22 @@ export default async function AdminSettingsPage() {
         twoFactorEnabled: true,
         roles: true,
         onboardingCompleted: true,
+        employmentStatus: true,
+        profession: true,
+        employerName: true,
+        monthlyIncome: true,
+        guarantors: {
+          where: { isEmergency: true },
+          select: {
+            id: true,
+            fullName: true,
+            phone: true,
+            email: true,
+            relationship: true,
+            status: true,
+          },
+          take: 1,
+        },
       },
     }),
     prisma.notificationPreferences.upsert({

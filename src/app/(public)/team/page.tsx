@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "Team — Shack",
-  description: "Meet the people building Shack.",
+  title: "Team — Hausevo",
+  description: "Meet the people building Hausevo.",
 };
 
 const TEAM = [
@@ -9,43 +9,47 @@ const TEAM = [
     role: "Co-founder & CEO",
     bio: "CEO @LemonWares Technologies. Spent 8 years watching tenants get exploited by agents and decided to fix it.",
     initials: "JA",
+    socials: {
+      x: "https://x.com/lemonwares",
+      linkedin: "https://www.linkedin.com/in/jeremiah-amaukwu-758a0b50",
+    },
   },
   {
     name: "Francis Uzoigwe",
-    role: "Co-founder & CTO",
+    role: "Founder & CTO",
     bio: "Built fintech infrastructure at two Lagos startups before joining forces to bring transparency to Nigerian real estate.",
     initials: "FU",
+    socials: {
+      x: "https://x.com/thatmanfran6ix",
+      linkedin: "https://linkedin.com/in/francisuzoigwe",
+      instagram: "https://instagram.com/thatmanfran6ix",
+    },
   },
   {
-    name: "Fatima Aliyu",
-    role: "Head of Operations",
-    bio: "Runs the verification pipeline and landlord onboarding. Previously at a property management firm in Abuja.",
-    initials: "FA",
-  },
-  {
-    name: "Austin Onwuka",
-    role: "Lead Engineer",
-    bio: "Full-stack engineer obsessed with performance and clean APIs. Builds the systems that keep Shack running.",
-    initials: "AO",
+    name: "Charles Ezenwa",
+    role: "Co-founder & Brand Designer",
+    bio: "Crafts Hausevo's visual identity, brand communications, and marketing design. Obsessed with clean grid layouts, modern typography, and pixel-perfect brand consistency.",
+    initials: "CE",
+    socials: {
+      x: "https://x.com/OxCharles0",
+      linkedin: "https://www.linkedin.com/in/charles-ezenwa-488167356",
+    },
   },
   {
     name: "Joseph Ohere",
     role: "Strategy & Growth",
-    bio: "Drives Shack's growth and expansion strategies, ensuring we scale thoughtfully and effectively.",
+    bio: "Drives Hausevo's growth and expansion strategies, ensuring we scale thoughtfully and effectively.",
     initials: "JO",
-  },
-  {
-    name: "Tunde Bakare",
-    role: "Head of Growth",
-    bio: "Grew up in Surulere and knows the Lagos rental market from the inside. Leads our scout and landlord acquisition.",
-    initials: "TB",
+    // socials: {
+    //   linkedin: "https://linkedin.com/company/hausevong",
+    // },
   },
 ];
 
 const VALUES = [
   {
     title: "Transparency first",
-    body: "No hidden fees, no agent markups. Every price on Shack is what you actually pay.",
+    body: "No hidden fees, no agent markups. Every price on Hausevo is what you actually pay.",
   },
   {
     title: "Tenant-centred",
@@ -73,7 +77,7 @@ export default function TeamPage() {
           We&apos;re fixing renting in Nigeria
         </h1>
         <p className="text-lg text-zinc-500 leading-relaxed">
-          Shack is a small team of builders, operators, and former tenants who
+          Hausevo is a small team of builders, operators, and former tenants who
           got tired of the broken rental market. We&apos;re starting in Lagos
           and going everywhere.
         </p>
@@ -121,9 +125,82 @@ export default function TeamPage() {
                   {member.role}
                 </p>
               </div>
-              <p className="text-sm text-zinc-500 leading-relaxed">
+              <p className="text-sm text-zinc-500 leading-relaxed mb-2">
                 {member.bio}
               </p>
+
+              {member.socials && (
+                <div className="flex items-center gap-3 mt-auto pt-3 border-t border-zinc-100">
+                  {member.socials.x && (
+                    <a
+                      href={member.socials.x}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-zinc-400 hover:text-zinc-700 transition-colors"
+                      title={`${member.name} on X`}
+                    >
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                      >
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                      </svg>
+                    </a>
+                  )}
+                  {member.socials.instagram && (
+                    <a
+                      href={member.socials.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-zinc-400 hover:text-zinc-700 transition-colors"
+                      title={`${member.name} on Instagram`}
+                    >
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <rect
+                          x="2"
+                          y="2"
+                          width="20"
+                          height="20"
+                          rx="5"
+                          ry="5"
+                        />
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                      </svg>
+                    </a>
+                  )}
+                  {member.socials.linkedin && (
+                    <a
+                      href={member.socials.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-zinc-400 hover:text-zinc-700 transition-colors"
+                      title={`${member.name} on LinkedIn`}
+                    >
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                      >
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" />
+                        <circle cx="4" cy="4" r="2" />
+                      </svg>
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
           ))}
         </div>

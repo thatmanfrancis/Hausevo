@@ -81,8 +81,8 @@ export default function RegisterPage() {
     return (
       <AuthCard>
         <AuthHeading
-          title="Join Shack"
-          subtitle="How are you planning to use Shack?"
+          title="Join Hausevo"
+          subtitle="How are you planning to use Hausevo?"
         />
 
         <div className="flex flex-col gap-3 mb-8">

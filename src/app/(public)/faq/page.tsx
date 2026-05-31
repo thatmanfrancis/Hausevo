@@ -11,15 +11,15 @@ const FAQS = [
     category: "Getting Started",
     items: [
       {
-        q: "What is Shack?",
-        a: "Shack is a Nigerian property platform that connects verified landlords directly with tenants — no agents, no markups. Every listing is submitted by the property owner and verified by our team.",
+        q: "What is Hausevo?",
+        a: "Hausevo is a Nigerian property platform that connects verified landlords directly with tenants — no agents, no markups. Every listing is submitted by the property owner and verified by our team.",
       },
       {
-        q: "Is Shack free to use?",
+        q: "Is Hausevo free to use?",
         a: "Browsing and saving properties is completely free. To apply for a property, you need to complete identity verification (₦1,500 one-time fee). This covers NIN verification, biometric selfie matching, and BVN financial signal.",
       },
       {
-        q: "Which cities does Shack cover?",
+        q: "Which cities does Hausevo cover?",
         a: "We launched in Lagos and are expanding to Abuja, Port Harcourt, Ibadan, and other major Nigerian cities. If you're a landlord outside Lagos, you can still list — we'll verify and activate your listing as we expand.",
       },
     ],
@@ -29,11 +29,11 @@ const FAQS = [
     items: [
       {
         q: "Why do I need to verify my identity?",
-        a: "Verification protects both tenants and landlords. It ensures that the person applying for a property is who they say they are, and it builds your ShackScore — a trust signal that landlords use when reviewing applications.",
+        a: "Verification protects both tenants and landlords. It ensures that the person applying for a property is who they say they are, and it builds your Hausevo Score — a trust signal that landlords use when reviewing applications.",
       },
       {
         q: "What is Tier 0 vs Tier 1 verification?",
-        a: "Tier 0 (free) is basic NIN verification — it lets you browse and save properties. Tier 1 (₦1,500) adds biometric selfie matching and BVN, unlocking the ability to apply for properties and making your ShackScore visible to landlords.",
+        a: "Tier 0 (free) is basic NIN verification — it lets you browse and save properties. Tier 1 (₦1,500) adds biometric selfie matching and BVN, unlocking the ability to apply for properties and making your Hausevo Score visible to landlords.",
       },
       {
         q: "Is my NIN and BVN data safe?",
@@ -46,11 +46,11 @@ const FAQS = [
     items: [
       {
         q: "How do I apply for a property?",
-        a: "Complete Tier 1 verification, then click 'Apply Now' on any listing. Your ShackScore and verified profile are shared with the landlord. You'll be notified when they respond.",
+        a: "Complete Tier 1 verification, then click 'Apply Now' on any listing. Your Hausevo Score and verified profile are shared with the landlord. You'll be notified when they respond.",
       },
       {
-        q: "What is ShackScore?",
-        a: "ShackScore is Nigeria's first rental credit score. It's built from your payment history, clean tenancy exits, and dispute record on the platform. A higher score improves your chances with landlords.",
+        q: "What is Hausevo Score?",
+        a: "Hausevo Score is Nigeria's first rental credit score. It's built from your payment history, clean tenancy exits, and dispute record on the platform. A higher score improves your chances with landlords.",
       },
       {
         q: "Can I join a waitlist for a rented property?",
@@ -58,7 +58,7 @@ const FAQS = [
       },
       {
         q: "What is the Vault?",
-        a: "The Vault is your personal document storage on Shack. Store your tenancy agreements, receipts, inspection reports, and identity documents securely. Verified documents strengthen your profile.",
+        a: "The Vault is your personal document storage on Hausevo. Store your tenancy agreements, receipts, inspection reports, and identity documents securely. Verified documents strengthen your profile.",
       },
     ],
   },
@@ -74,7 +74,7 @@ const FAQS = [
         a: "If you're not on the platform yet, you can give a trusted person an Access Key. They submit the listing on your behalf and earn a ₦2,000–₦3,000 reward once it's verified. No agent fees, no percentage cuts.",
       },
       {
-        q: "How does Shack prevent agent markup?",
+        q: "How does Hausevo prevent agent markup?",
         a: "Every listing price is verified against the landlord's stated price. We contact landlords directly to confirm. Listings with inflated prices are flagged and removed.",
       },
       {
@@ -88,7 +88,7 @@ const FAQS = [
     items: [
       {
         q: "How does the wallet work?",
-        a: "Your Shack wallet holds funds for platform services (verification, boosts, etc.). Top up via Paystack. Rent payments are made directly between tenant and landlord — Shack does not hold rent unless an escrow arrangement is agreed.",
+        a: "Your Hausevo wallet holds funds for platform services (verification, boosts, etc.). Top up via Paystack. Rent payments are made directly between tenant and landlord — Hausevo does not hold rent unless an escrow arrangement is agreed.",
       },
       {
         q: "Are verification fees refundable?",

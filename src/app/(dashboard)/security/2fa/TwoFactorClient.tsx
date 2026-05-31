@@ -396,7 +396,7 @@ export default function TwoFactorClient({ user }: Props) {
                 Enter the 6-digit code from your app
               </p>
               <p className="text-xs text-zinc-500 mb-5">
-                Open your authenticator app and enter the code shown for Shack.
+                Open your authenticator app and enter the code shown for Hausevo.
               </p>
 
               <form onSubmit={handleVerifySetup} className="flex flex-col gap-4">

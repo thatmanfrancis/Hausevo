@@ -32,7 +32,7 @@ export default function LocationDetector({
     if (geo.state) params.set("state", geo.state);
     params.set("locationSource", "geo");
 
-    // console.log("[Shack Geo] Injecting into URL:", params.toString());
+    // console.log("[Hausevo Geo] Injecting into URL:", params.toString());
     router.replace(`${redirectTo}?${params.toString()}`, { scroll: false });
   }, [geo.status, geo.lga, geo.state, isLoggedIn, router, searchParams, redirectTo]);
 

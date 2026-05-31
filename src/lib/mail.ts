@@ -21,7 +21,7 @@ export async function sendEmail({
 }: SendEmailOptions) {
   const apiKey = process.env.ZEPTOMAIL_API_KEY?.trim();
   const senderEmail = process.env.ZEPTOMAIL_SENDER_EMAIL?.trim();
-  const senderName = process.env.ZEPTOMAIL_SENDER_NAME?.trim() || "Shack";
+  const senderName = process.env.ZEPTOMAIL_SENDER_NAME?.trim() || "Hausevo";
 
   if (!apiKey || !senderEmail) {
     console.warn(

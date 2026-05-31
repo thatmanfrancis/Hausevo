@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Nunito, Pacifico } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import CookieBanner from "@/app/components/CookieBanner";
 
@@ -17,7 +18,8 @@ const pacifico = Pacifico({
 });
 
 export const metadata: Metadata = {
-  title: "Shack — Verified Houses for Rent in Lagos & Nigeria",
+  metadataBase: new URL("https://hausevo.com.ng"),
+  title: "Hausevo — Verified Houses for Rent in Lagos & Nigeria",
   description: "Find verified houses for rent in Lagos near you. No agents, no hidden markups. Rent self-contain, flats, and luxury apartments in Lagos directly from landlords.",
   keywords: [
     "houses for rent in Lagos",
@@ -28,17 +30,41 @@ export const metadata: Metadata = {
     "self contain for rent in Lagos",
     "luxury apartments Lagos",
     "houses for sale in Lagos",
-    "Shack Nigeria",
+    "Hausevo Nigeria",
     "real estate Lagos"
   ],
   manifest: "/manifest.json",
+
+  openGraph: {
+    title: "Hausevo — Verified Houses for Rent in Lagos & Nigeria",
+    description: "Find verified houses for rent in Lagos near you. No agents, no hidden markups. Rent self-contain, flats, and luxury apartments in Lagos directly from landlords.",
+    url: "https://hausevo.com.ng",
+    siteName: "Hausevo",
+    images: [
+      {
+        url: "/hausevofinal.png",
+        width: 500,
+        height: 500,
+        alt: "Hausevo Logo",
+      },
+    ],
+    locale: "en_NG",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Hausevo — Verified Houses for Rent in Lagos & Nigeria",
+    description: "Find verified houses for rent in Lagos near you. No agents, no hidden markups. Rent self-contain, flats, and luxury apartments in Lagos directly from landlords.",
+    images: ["/hausevofinal.png"],
+    creator: "@hausevong",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Shack",
+    title: "Hausevo",
   },
   alternates: {
-    canonical: "https://shack.ng",
+    canonical: "https://hausevo.com.ng",
   }
 };
 
@@ -65,17 +91,18 @@ export default function RootLayout({
     >
       <head>
         {/* Google Analytics */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-XXXXXXXXXX');
-            `,
-          }}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID || "G-XXXXXXXXXX"}`}
+          strategy="afterInteractive"
         />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GA_ID || "G-XXXXXXXXXX"}');
+          `}
+        </Script>
       </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <Toaster richColors position="top-center" />

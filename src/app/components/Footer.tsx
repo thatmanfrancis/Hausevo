@@ -51,18 +51,14 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="col-span-2 md:col-span-1 flex flex-col gap-4">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center">
               <Image 
-                src="/icons/logo-white-bold.png" 
-                alt="Shack Logo" 
-                width={40} 
-                height={40} 
-                className="object-contain invert"
+                src="/hausevofinal.png" 
+                alt="Hausevo Logo" 
+                width={96} 
+                height={96} 
+                className="object-contain"
               />
-              <span className="text-lg font-black tracking-tighter text-zinc-900 uppercase">Shack</span>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 border border-zinc-200 rounded-full px-2 py-0.5">
-                Nigeria
-              </span>
             </div>
             <p className="text-xs text-zinc-400 leading-relaxed max-w-[200px]">
               Verified properties. No agents, no markups, transparent pricing.
@@ -70,7 +66,7 @@ export default function Footer() {
             {/* Social links */}
             <div className="flex items-center gap-3 mt-1">
               <a
-                href="https://twitter.com/shackng"
+                href="https://twitter.com/hausevong"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Twitter"
@@ -81,7 +77,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://instagram.com/shackng"
+                href="https://instagram.com/hausevong"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -94,7 +90,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://linkedin.com/company/shackng"
+                href="https://linkedin.com/company/hausevong"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -158,7 +154,7 @@ export default function Footer() {
         {/* Bottom row */}
         <div className="mt-10 pt-6 border-t border-zinc-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <p className="text-xs text-zinc-400">
-            © {new Date().getFullYear()} Shack Technologies Ltd. All rights reserved.
+            © {new Date().getFullYear()} Hausevo Technologies Ltd. All rights reserved.
           </p>
           <a
             href="https://dev.lemonwares.com/"

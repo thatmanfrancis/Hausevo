@@ -51,7 +51,7 @@ export default function VaultClient({ items }: { items: VaultItem[] }) {
             </span>
             <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Secure Storage</p>
           </div>
-          <h1 className="text-4xl font-extrabold tracking-tight text-zinc-900">Shack Vault</h1>
+          <h1 className="text-4xl font-extrabold tracking-tight text-zinc-900">Hausevo Vault</h1>
           <p className="text-sm text-zinc-500 mt-2 max-w-md">
             Your single source of truth for all property documentation, receipts, and condition reports.
           </p>

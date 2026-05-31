@@ -9,7 +9,7 @@ export type GeoLocation = {
   status: "idle" | "loading" | "success" | "denied" | "unavailable";
 };
 
-const CACHE_KEY = "shack_geolocation_v2"; // bumped to bust stale "Lagos" cache
+const CACHE_KEY = "hausevo_geolocation_v2"; // bumped to bust stale "Lagos" cache
 const CACHE_TTL_MS = 1000 * 60 * 60 * 6; // 6 hours
 
 function normaliseState(raw: string): string {
@@ -48,22 +48,22 @@ async function reverseGeocode(
 ): Promise<GeoLocation | null> {
   try {
     const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`;
-    // console.log("[Shack Geo] Fetching:", url);
+    // console.log("[Hausevo Geo] Fetching:", url);
 
     const res = await fetch(url, { signal: AbortSignal.timeout(5000) });
     if (!res.ok) {
-      console.warn("[Shack Geo] API error:", res.status);
+      console.warn("[Hausevo Geo] API error:", res.status);
       return null;
     }
 
     const data = await res.json();
-    console.log("[Shack Geo] Raw response:", JSON.stringify(data, null, 2));
+    console.log("[Hausevo Geo] Raw response:", JSON.stringify(data, null, 2));
 
     const state = normaliseState(data.principalSubdivision ?? "");
 
     const adminLevels: any[] = data.localityInfo?.administrative ?? [];
     console.log(
-      "[Shack Geo] Admin levels:",
+      "[Hausevo Geo] Admin levels:",
       adminLevels.map((a: any) => ({
         level: a.adminLevel,
         name: a.name,
@@ -94,11 +94,11 @@ async function reverseGeocode(
       }
     }
 
-    console.log("[Shack Geo] Chosen LGA entry:", lgaEntry);
-    console.log("[Shack Geo] data.city:", data.city);
-    console.log("[Shack Geo] data.locality:", data.locality);
+    console.log("[Hausevo Geo] Chosen LGA entry:", lgaEntry);
+    console.log("[Hausevo Geo] data.city:", data.city);
+    console.log("[Hausevo Geo] data.locality:", data.locality);
     console.log(
-      "[Shack Geo] data.principalSubdivision:",
+      "[Hausevo Geo] data.principalSubdivision:",
       data.principalSubdivision,
     );
 
@@ -125,7 +125,7 @@ async function reverseGeocode(
     // Final check: if what we have is a known Lagos LGA, great.
     if (state === "Lagos" && lga && !LAGOS_LGAS.has(lga)) {
       console.warn(
-        `[Shack Geo] "${lga}" is not a recognised Lagos LGA — using anyway`,
+        `[Hausevo Geo] "${lga}" is not a recognised Lagos LGA — using anyway`,
       );
     }
 
@@ -133,7 +133,7 @@ async function reverseGeocode(
     if (!lga || lga.toLowerCase() === stateName) {
       if (locality && locality.toLowerCase() !== stateName) {
         lga = locality;
-        console.log("[Shack Geo] Fell back to locality as LGA:", lga);
+        console.log("[Hausevo Geo] Fell back to locality as LGA:", lga);
       }
     }
 
@@ -144,10 +144,10 @@ async function reverseGeocode(
       status: "success" as const,
     };
 
-    console.log("[Shack Geo] Final result:", result);
+    console.log("[Hausevo Geo] Final result:", result);
     return result;
   } catch (err) {
-    console.error("[Shack Geo] Error:", err);
+    console.error("[Hausevo Geo] Error:", err);
     return null;
   }
 }
@@ -164,18 +164,18 @@ export function useGeolocation(): GeoLocation {
     // Check cache first
     try {
       // Clean up old cache key if present
-      localStorage.removeItem("shack_geolocation");
+      localStorage.removeItem("hausevo_geolocation");
 
       const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
         const parsed = JSON.parse(cached);
         if (parsed.expiresAt > Date.now() && parsed.lga) {
-          console.log("[Shack Geo] Using cached location:", parsed);
+          console.log("[Hausevo Geo] Using cached location:", parsed);
           setGeo({ ...parsed, status: "success" });
           return;
         } else {
           localStorage.removeItem(CACHE_KEY);
-          console.log("[Shack Geo] Cache expired, re-detecting");
+          console.log("[Hausevo Geo] Cache expired, re-detecting");
         }
       }
     } catch {
@@ -183,18 +183,18 @@ export function useGeolocation(): GeoLocation {
     }
 
     if (!navigator.geolocation) {
-      console.warn("[Shack Geo] Geolocation not supported");
+      console.warn("[Hausevo Geo] Geolocation not supported");
       setGeo((prev) => ({ ...prev, status: "unavailable" }));
       return;
     }
 
     setGeo((prev) => ({ ...prev, status: "loading" }));
-    console.log("[Shack Geo] Requesting browser location...");
+    console.log("[Hausevo Geo] Requesting browser location...");
 
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const { latitude, longitude } = position.coords;
-        console.log("[Shack Geo] Got coordinates:", { latitude, longitude });
+        console.log("[Hausevo Geo] Got coordinates:", { latitude, longitude });
 
         const result = await reverseGeocode(latitude, longitude);
 
@@ -207,7 +207,7 @@ export function useGeolocation(): GeoLocation {
           }
           setGeo(result);
         } else {
-          console.warn("[Shack Geo] Reverse geocode returned null");
+          console.warn("[Hausevo Geo] Reverse geocode returned null");
           setGeo((prev) => ({ ...prev, status: "unavailable" }));
         }
       },
@@ -218,7 +218,7 @@ export function useGeolocation(): GeoLocation {
           3: "Timeout",
         };
         console.warn(
-          "[Shack Geo] Geolocation error:",
+          "[Hausevo Geo] Geolocation error:",
           reasons[error.code] ?? error.message,
         );
         setGeo((prev) => ({

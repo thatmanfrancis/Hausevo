@@ -50,7 +50,7 @@ export async function POST(
   });
 
   if (!targetUser) {
-    return NextResponse.json({ error: "User not found. They must have a Shack account first." }, { status: 404 });
+    return NextResponse.json({ error: "User not found. They must have a Hausevo account first." }, { status: 404 });
   }
 
   if (targetUser.id === session.user.id) {

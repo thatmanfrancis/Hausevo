@@ -19,113 +19,73 @@ type Role = {
 
 const OPEN_ROLES: Role[] = [
   {
-    title: "Senior Full-Stack Engineer",
-    team: "Engineering",
-    type: "Full-time",
-    location: "Lagos / Remote",
-    description:
-      "Own features end-to-end — from database schema to the UI. You'll work directly with the founders and ship fast.",
-    responsibilities: [
-      "Design and build full-stack features using Next.js, Prisma, and PostgreSQL",
-      "Own the performance and reliability of the systems you build",
-      "Review code and mentor junior engineers",
-      "Collaborate with design to ship polished, accessible UIs",
-      "Participate in architecture decisions and technical planning",
-    ],
-    requirements: [
-      "4+ years of full-stack experience",
-      "Strong TypeScript and React skills",
-      "Experience with PostgreSQL or similar relational databases",
-      "Comfortable working in a fast-moving startup environment",
-      "Strong understanding of REST API design",
-    ],
-    niceToHave: [
-      "Experience with Next.js App Router",
-      "Familiarity with Prisma ORM",
-      "Previous startup experience",
-      "Knowledge of Nigerian fintech or proptech landscape",
-    ],
-  },
-  {
-    title: "Product Designer",
-    team: "Design",
-    type: "Full-time",
-    location: "Lagos / Remote",
-    description:
-      "Design the experience for tenants, landlords, and artisans across web and mobile. You'll work directly with the founders and ship fast.",
-    responsibilities: [
-      "Own the end-to-end design process from research to final UI",
-      "Create wireframes, prototypes, and high-fidelity designs in Figma",
-      "Conduct user research and usability testing",
-      "Build and maintain the Shack design system",
-      "Collaborate closely with engineering to ensure pixel-perfect implementation",
-    ],
-    requirements: [
-      "3+ years of product design experience",
-      "Strong Figma skills with a portfolio to show",
-      "Experience designing for mobile-first products",
-      "Ability to think through complex user flows clearly",
-      "Strong communication and collaboration skills",
-    ],
-    niceToHave: [
-      "Experience designing for Nigerian or African users",
-      "Motion design skills",
-      "Familiarity with Tailwind CSS",
-      "Background in real estate or fintech products",
-    ],
-  },
-  {
-    title: "Verification & Operations Analyst",
-    team: "Operations",
-    type: "Full-time",
-    location: "Lagos",
-    description:
-      "Verify property listings, contact landlords, and ensure every property on Shack is legitimate. You're the quality gate between submission and going live.",
-    responsibilities: [
-      "Review and verify property submissions against our standards",
-      "Contact landlords to confirm ownership, pricing, and availability",
-      "Coordinate with legal team to review deed documents",
-      "Maintain verification records and audit trails",
-      "Identify and flag fraudulent or suspicious listings",
-    ],
-    requirements: [
-      "Experience in property, legal, operations, or compliance",
-      "Strong attention to detail and process orientation",
-      "Comfortable making phone calls and following up persistently",
-      "Based in Lagos — this role requires in-person verification",
-      "Excellent written and verbal communication",
-    ],
-    niceToHave: [
-      "Background in real estate or property law",
-      "Experience with KYC or document verification",
-      "Familiarity with Lagos LGAs and property market",
-    ],
-  },
-  {
-    title: "Growth & Scout Lead",
+    title: "Social Media Manager (Volunteer)",
     team: "Growth",
-    type: "Full-time",
-    location: "Lagos",
+    type: "Volunteer",
+    location: "Remote (Nigeria)",
     description:
-      "Build and manage our scout network — the people who find properties and submit them on behalf of landlords. You'll also run landlord acquisition campaigns.",
+      "Grow our community, manage our social channels (X, Instagram, LinkedIn), and share beautiful verified homes with our audience. Help us spread the word about agent-free, transparent renting!",
     responsibilities: [
-      "Recruit, train, and manage a network of property scouts across Lagos",
-      "Design and run landlord acquisition campaigns",
-      "Track scout performance and reward metrics",
-      "Build partnerships with estate agents transitioning to the platform",
-      "Report on growth metrics and pipeline to the founding team",
+      "Manage Hausevo's official social media accounts on X, Instagram, and LinkedIn",
+      "Create engaging, visually appealing posts showcasing our verified properties and tenant stories",
+      "Interact with our online community, answer inquiries, and foster positive engagement",
+      "Monitor social media trends and propose creative campaign ideas to grow our audience",
     ],
     requirements: [
-      "Experience in sales, growth, community building, or field operations",
-      "Deep knowledge of the Lagos rental market",
-      "Self-starter who can build systems and processes from scratch",
-      "Based in Lagos — this is a field-heavy role",
-      "Strong interpersonal and negotiation skills",
+      "Passionate about fixing the real estate market in Nigeria and eliminating agent exploitation",
+      "Active social media presence with good copywriting and communication skills",
+      "Basic graphic design or video editing skills (Canva, CapCut, etc.)",
+      "Excellent online community relations and interpersonal skills",
     ],
     niceToHave: [
-      "Existing network in Lagos real estate",
-      "Experience managing distributed teams or agents",
-      "Background in proptech or marketplace growth",
+      "Previous experience running social media or building communities for a brand",
+      "Knowledge of real estate, proptech, or Lagos rental dynamics",
+    ],
+  },
+  {
+    title: "Verification Scout (Volunteer)",
+    team: "Operations",
+    type: "Volunteer",
+    location: "Lagos / Major Nigerian Cities (Field)",
+    description:
+      "Be our eyes on the ground! Inspect properties submitted to Hausevo, verify their physical existence, check the condition of facilities, and ensure they are 100% legitimate before they go live on our platform.",
+    responsibilities: [
+      "Visit properties in your local area to conduct physical verifications on behalf of Hausevo",
+      "Check and record the state of facilities (water, electricity, structure, path access)",
+      "Take high-quality photos and videos of verified properties for the listing page",
+      "Review landlord details on-site and confirm they match platform submissions",
+    ],
+    requirements: [
+      "Based in Lagos or other major cities in Nigeria",
+      "Extremely honest, observant, and detail-oriented",
+      "A smartphone with a good camera for taking property photos and videos",
+      "Good interpersonal skills to interact with landlords and caretakers on-site",
+    ],
+    niceToHave: [
+      "Familiarity with Lagos neighborhoods, estate layouts, and local LGAs",
+      "Background in surveying, estate management, building tech, or geography",
+    ],
+  },
+  {
+    title: "General Volunteer",
+    team: "Community",
+    type: "Volunteer",
+    location: "Nigeria / Remote",
+    description:
+      "Join our core volunteer group and help out across multiple areas including tenant support, feedback loops, data entry, city mapping, and local community outreach.",
+    responsibilities: [
+      "Support the team in checking property listings and verifying data accuracy",
+      "Provide feedback on new app features and participate in beta testing of our systems",
+      "Help renters in our community navigate the platform and report issues",
+      "Spread the word about Hausevo in your local neighborhood, university, and community groups",
+    ],
+    requirements: [
+      "Passionate about Hausevo's mission to eliminate agent exploitation and bring transparency to real estate",
+      "Reliable internet connection and active communication skills",
+      "A self-starter who is eager to learn and contribute to a fast-growing startup",
+    ],
+    niceToHave: [
+      "Prior volunteering, community organizing, or customer support experience",
     ],
   },
 ];
@@ -278,7 +238,7 @@ function GeneralApplicationModal({ onClose }: { onClose: () => void }) {
       // Even if the endpoint doesn't exist yet, show success — the mailto fallback handles it
       if (!res.ok && res.status !== 404) {
         setError(
-          "Something went wrong. Please email us directly at careers@shack.ng.",
+          "Something went wrong. Please email us directly at careers@hausevo.com.ng.",
         );
         setSubmitting(false);
         return;
@@ -287,7 +247,7 @@ function GeneralApplicationModal({ onClose }: { onClose: () => void }) {
       setDone(true);
     } catch {
       // Fallback — open mailto
-      window.location.href = `mailto:careers@shack.ng?subject=${encodeURIComponent(`General Application — ${role}`)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
+      window.location.href = `mailto:careers@hausevo.com.ng?subject=${encodeURIComponent(`General Application — ${role}`)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
       setDone(true);
     } finally {
       setSubmitting(false);
@@ -611,7 +571,7 @@ function ApplyModal({ role, onClose }: { role: Role; onClose: () => void }) {
           {/* Apply CTA */}
           <div className="pt-2 border-t border-zinc-100">
             <a
-              href={`mailto:careers@shack.ng?subject=Application: ${encodeURIComponent(role.title)}`}
+              href={`mailto:careers@hausevo.com.ng?subject=Application: ${encodeURIComponent(role.title)}`}
               className="flex items-center justify-center gap-2 rounded-full bg-zinc-900 text-white px-6 py-3 text-sm font-bold hover:bg-zinc-700 transition-colors"
             >
               <svg
@@ -627,7 +587,7 @@ function ApplyModal({ role, onClose }: { role: Role; onClose: () => void }) {
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                 <polyline points="22,6 12,13 2,6" />
               </svg>
-              Apply via email — careers@shack.ng
+              Apply via email — careers@hausevo.com.ng
             </a>
             <p className="text-xs text-zinc-400 text-center mt-2">
               Include your CV and a short note about why you want to work on
@@ -667,7 +627,7 @@ export default function CareersClient() {
         {/* Perks */}
         <div>
           <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-6">
-            Why Shack
+            Why Hausevo
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {PERKS.map((perk) => (

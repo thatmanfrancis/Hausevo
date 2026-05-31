@@ -30,7 +30,7 @@ export default function ConditionReportFlow({ tenancyId, tenantName, propertyNam
 
   return (
     <div className="bg-white rounded-2xl border border-zinc-200 overflow-hidden max-w-2xl mx-auto">
-      <div className="shack-gradient-luxury p-8 text-white">
+      <div className="hausevo-gradient-luxury p-8 text-white">
         <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2">Security Step</p>
         <h2 className="text-3xl font-extrabold tracking-tight">Condition Report</h2>
         <p className="text-sm text-zinc-400 mt-2">Document the property status before {tenantName} moves into {propertyName}.</p>
@@ -130,7 +130,7 @@ export default function ConditionReportFlow({ tenancyId, tenantName, propertyNam
           </svg>
           <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Encrypted Storage</span>
         </div>
-        <p className="text-[10px] text-zinc-400 font-medium italic">Shack Security ID: #CR-{tenancyId.slice(0, 8)}</p>
+        <p className="text-[10px] text-zinc-400 font-medium italic">Hausevo Security ID: #CR-{tenancyId.slice(0, 8)}</p>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Pagination from "../components/Pagination";
 import ActionModal from "../components/ActionModal";
-import { verifyVaultItem, rejectVaultItem } from "../actions";
+import { verifyVaultItem, rejectVaultItem, approveUserIdDoc, rejectUserIdDoc } from "../actions";
 
 export default async function AdminVerificationsPage({
   searchParams,
@@ -20,28 +20,65 @@ export default async function AdminVerificationsPage({
   const limit = 20;
   const skip = (page - 1) * limit;
 
-  const isVerifiedFilter = filter === "VERIFIED" ? true : false;
-  const whereClause = filter === "ALL" ? {} : { isVerified: isVerifiedFilter };
+  let totalItems = 0;
+  let items: any[] = [];
+  let userItems: any[] = [];
 
-  const [totalItems, items] = await Promise.all([
-    prisma.vaultItem.count({ where: whereClause }),
-    prisma.vaultItem.findMany({
-      where: whereClause,
-      orderBy: { createdAt: "desc" },
-      skip,
-      take: limit,
-      select: {
-        id: true,
-        title: true,
-        category: true,
-        fileUrl: true,
-        isVerified: true,
-        createdAt: true,
-        owner: { select: { id: true, fullName: true, email: true, roles: true } },
-        property: { select: { title: true, lga: true } },
-      },
-    }),
-  ]);
+  if (filter === "ID_DOCS") {
+    const [count, users] = await Promise.all([
+      prisma.user.count({
+        where: {
+          idDocumentUrl: { not: null },
+          verificationTier: 0,
+        },
+      }),
+      prisma.user.findMany({
+        where: {
+          idDocumentUrl: { not: null },
+          verificationTier: 0,
+        },
+        orderBy: { createdAt: "desc" },
+        skip,
+        take: limit,
+        select: {
+          id: true,
+          fullName: true,
+          email: true,
+          idDocumentUrl: true,
+          selfieUrl: true,
+          createdAt: true,
+          roles: true,
+        },
+      }),
+    ]);
+    totalItems = count;
+    userItems = users;
+  } else {
+    const isVerifiedFilter = filter === "VERIFIED" ? true : false;
+    const whereClause = filter === "ALL" ? {} : { isVerified: isVerifiedFilter };
+
+    const [count, vaultItems] = await Promise.all([
+      prisma.vaultItem.count({ where: whereClause }),
+      prisma.vaultItem.findMany({
+        where: whereClause,
+        orderBy: { createdAt: "desc" },
+        skip,
+        take: limit,
+        select: {
+          id: true,
+          title: true,
+          category: true,
+          fileUrl: true,
+          isVerified: true,
+          createdAt: true,
+          owner: { select: { id: true, fullName: true, email: true, roles: true } },
+          property: { select: { title: true, lga: true } },
+        },
+      }),
+    ]);
+    totalItems = count;
+    items = vaultItems;
+  }
 
   const totalPages = Math.ceil(totalItems / limit);
 
@@ -58,7 +95,7 @@ export default async function AdminVerificationsPage({
       </div>
 
       <div className="flex gap-2 flex-wrap">
-        {["ALL", "PENDING", "VERIFIED"].map((s) => (
+        {["ALL", "PENDING", "VERIFIED", "ID_DOCS"].map((s) => (
           <Link 
             key={s} 
             href={`/admin/verifications?filter=${s}`}
@@ -68,7 +105,7 @@ export default async function AdminVerificationsPage({
                 : "border-zinc-200 text-zinc-500 hover:border-zinc-900 hover:text-zinc-900"
             }`}
           >
-            {s}
+            {s === "ID_DOCS" ? "ID Docs (Free)" : s}
           </Link>
         ))}
       </div>
@@ -78,72 +115,148 @@ export default async function AdminVerificationsPage({
           <table className="w-full">
             <thead>
               <tr className="border-b border-zinc-100">
-                <th className="text-left px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Document</th>
-                <th className="text-left px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Owner</th>
-                <th className="text-left px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Property</th>
-                <th className="text-left px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Status</th>
-                <th className="text-right px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Actions</th>
+                {filter === "ID_DOCS" ? (
+                  <>
+                    <th className="text-left px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-zinc-400">ID Document</th>
+                    <th className="text-left px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Selfie</th>
+                    <th className="text-left px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-zinc-400">User / Owner</th>
+                    <th className="text-left px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Status</th>
+                    <th className="text-right px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Actions</th>
+                  </>
+                ) : (
+                  <>
+                    <th className="text-left px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Document</th>
+                    <th className="text-left px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Owner</th>
+                    <th className="text-left px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Property</th>
+                    <th className="text-left px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Status</th>
+                    <th className="text-right px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Actions</th>
+                  </>
+                )}
               </tr>
             </thead>
             <tbody>
-              {items.map((item) => (
-                <tr key={item.id} className="border-b border-zinc-50 hover:bg-zinc-50 transition-colors">
-                  <td className="px-5 py-3">
-                    <a href={item.fileUrl} target="_blank" rel="noreferrer" className="text-sm font-bold text-blue-600 hover:underline">
-                      {item.title}
-                    </a>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mt-0.5">{item.category}</p>
-                    <p className="text-xs text-zinc-400 mt-0.5">
-                      {new Date(item.createdAt).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" })}
-                    </p>
-                  </td>
-                  <td className="px-5 py-3">
-                    <p className="text-sm font-semibold text-zinc-700">{item.owner.fullName}</p>
-                    <p className="text-xs text-zinc-400">{item.owner.roles[0]}</p>
-                  </td>
-                  <td className="px-5 py-3">
-                    {item.property ? (
-                      <>
-                        <p className="text-sm font-semibold text-zinc-700 truncate max-w-[150px]">{item.property.title}</p>
-                        <p className="text-xs text-zinc-400">{item.property.lga}</p>
-                      </>
-                    ) : (
-                      <span className="text-xs text-zinc-400">—</span>
-                    )}
-                  </td>
-                  <td className="px-5 py-3">
-                    <span className={`text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full ${
-                      item.isVerified ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"
-                    }`}>
-                      {item.isVerified ? "Verified" : "Pending"}
-                    </span>
-                  </td>
-                  <td className="px-5 py-3 text-right">
-                    <div className="flex items-center justify-end gap-2">
-                      {!item.isVerified && (
-                        <>
-                          <ActionModal
-                            title="Verify Document"
-                            description={`Are you sure you want to approve this ${item.category}?`}
-                            triggerLabel="Approve"
-                            triggerClass="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border border-emerald-200 text-emerald-600 hover:bg-emerald-50 transition-colors"
-                            action={verifyVaultItem.bind(null, item.id, item.owner.id)}
-                          />
-                          <ActionModal
-                            title="Reject Document"
-                            description={`Are you sure you want to reject and delete this document? The user will have to re-upload.`}
-                            triggerLabel="Reject"
-                            triggerClass="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border border-red-200 text-red-500 hover:bg-red-50 transition-colors"
-                            action={rejectVaultItem.bind(null, item.id)}
-                            destructive
-                          />
-                        </>
+              {filter === "ID_DOCS" ? (
+                userItems.map((u) => (
+                  <tr key={u.id} className="border-b border-zinc-50 hover:bg-zinc-50 transition-colors">
+                    <td className="px-5 py-3">
+                      {u.idDocumentUrl ? (
+                        <a href={u.idDocumentUrl} target="_blank" rel="noreferrer" className="text-sm font-bold text-blue-600 hover:underline">
+                          Government ID Document
+                        </a>
+                      ) : (
+                        <span className="text-xs text-zinc-400">—</span>
                       )}
-                    </div>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mt-0.5">IDENTITY DOCUMENT</p>
+                      <p className="text-xs text-zinc-400 mt-0.5">
+                        {new Date(u.createdAt).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" })}
+                      </p>
+                    </td>
+                    <td className="px-5 py-3">
+                      {u.selfieUrl ? (
+                        <a href={u.selfieUrl} target="_blank" rel="noreferrer" className="text-sm font-bold text-blue-600 hover:underline">
+                          Selfie Photo
+                        </a>
+                      ) : (
+                        <span className="text-xs text-zinc-400">—</span>
+                      )}
+                    </td>
+                    <td className="px-5 py-3">
+                      <p className="text-sm font-semibold text-zinc-700">{u.fullName}</p>
+                      <p className="text-xs text-zinc-400">{u.email}</p>
+                    </td>
+                    <td className="px-5 py-3">
+                      <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">
+                        Pending Review
+                      </span>
+                    </td>
+                    <td className="px-5 py-3 text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        <ActionModal
+                          title="Approve ID"
+                          description={`Are you sure you want to approve ${u.fullName}'s ID? This will upgrade them to Tier 1.`}
+                          triggerLabel="Approve"
+                          triggerClass="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border border-emerald-200 text-emerald-600 hover:bg-emerald-50 transition-colors"
+                          action={approveUserIdDoc.bind(null, u.id)}
+                        />
+                        <ActionModal
+                          title="Reject ID"
+                          description={`Are you sure you want to reject this ID document? It will be cleared and the user will have to re-upload.`}
+                          triggerLabel="Reject"
+                          triggerClass="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border border-red-200 text-red-500 hover:bg-red-50 transition-colors"
+                          action={rejectUserIdDoc.bind(null, u.id)}
+                          destructive
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                items.map((item) => (
+                  <tr key={item.id} className="border-b border-zinc-50 hover:bg-zinc-50 transition-colors">
+                    <td className="px-5 py-3">
+                      <a href={item.fileUrl} target="_blank" rel="noreferrer" className="text-sm font-bold text-blue-600 hover:underline">
+                        {item.title}
+                      </a>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mt-0.5">{item.category}</p>
+                      <p className="text-xs text-zinc-400 mt-0.5">
+                        {new Date(item.createdAt).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" })}
+                      </p>
+                    </td>
+                    <td className="px-5 py-3">
+                      <p className="text-sm font-semibold text-zinc-700">{item.owner.fullName}</p>
+                      <p className="text-xs text-zinc-400">{item.owner.roles[0]}</p>
+                    </td>
+                    <td className="px-5 py-3">
+                      {item.property ? (
+                        <>
+                          <p className="text-sm font-semibold text-zinc-700 truncate max-w-[150px]">{item.property.title}</p>
+                          <p className="text-xs text-zinc-400">{item.property.lga}</p>
+                        </>
+                      ) : (
+                        <span className="text-xs text-zinc-400">—</span>
+                      )}
+                    </td>
+                    <td className="px-5 py-3">
+                      <span className={`text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full ${
+                        item.isVerified ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"
+                      }`}>
+                        {item.isVerified ? "Verified" : "Pending"}
+                      </span>
+                    </td>
+                    <td className="px-5 py-3 text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        {!item.isVerified && (
+                          <>
+                            <ActionModal
+                              title="Verify Document"
+                              description={`Are you sure you want to approve this ${item.category}?`}
+                              triggerLabel="Approve"
+                              triggerClass="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border border-emerald-200 text-emerald-600 hover:bg-emerald-50 transition-colors"
+                              action={verifyVaultItem.bind(null, item.id, item.owner.id)}
+                            />
+                            <ActionModal
+                              title="Reject Document"
+                              description={`Are you sure you want to reject and delete this document? The user will have to re-upload.`}
+                              triggerLabel="Reject"
+                              triggerClass="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border border-red-200 text-red-500 hover:bg-red-50 transition-colors"
+                              action={rejectVaultItem.bind(null, item.id)}
+                              destructive
+                            />
+                          </>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+              {filter === "ID_DOCS" && userItems.length === 0 && (
+                <tr>
+                  <td colSpan={5} className="px-5 py-12 text-center text-sm text-zinc-400 font-bold">
+                    No pending ID documents found.
                   </td>
                 </tr>
-              ))}
-              {items.length === 0 && (
+              )}
+              {filter !== "ID_DOCS" && items.length === 0 && (
                 <tr>
                   <td colSpan={5} className="px-5 py-12 text-center text-sm text-zinc-400 font-bold">
                     No documents found.

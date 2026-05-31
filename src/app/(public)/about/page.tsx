@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "About — Shack",
+  title: "About — Hausevo",
   description: "We're building the most trusted property platform in Nigeria.",
 };
 
@@ -24,7 +24,7 @@ const HOW_IT_WORKS = [
   {
     step: "03",
     title: "Tenants apply with confidence",
-    body: "Browse verified listings, chat directly with landlords, and apply with your ShackScore. No surprises.",
+    body: "Browse verified listings, chat directly with landlords, and apply with your Hausevo Score. No surprises.",
   },
   {
     step: "04",
@@ -56,7 +56,7 @@ const PROBLEMS = [
   },
   {
     problem: "No tenant credit history",
-    solution: "ShackScore — a rental credit score built for Nigeria.",
+    solution: "Hausevo Score — a rental credit score built for Nigeria.",
   },
 ];
 
@@ -66,7 +66,7 @@ export default function AboutPage() {
 
       {/* Hero */}
       <div className="bg-zinc-900 rounded-2xl p-8 md:p-12">
-        <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">About Shack</p>
+        <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">About Hausevo</p>
         <h1 className="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-4 max-w-2xl">
           We&apos;re building the most trusted property platform in Nigeria.
         </h1>
@@ -139,7 +139,7 @@ export default function AboutPage() {
           &ldquo;Make renting in Nigeria as simple, safe, and transparent as it should be.&rdquo;
         </p>
         <p className="text-sm text-zinc-500 leading-relaxed max-w-xl">
-          We started Shack because we&apos;ve been tenants. We&apos;ve paid agent fees we didn&apos;t owe, moved into properties that didn&apos;t match the listing, and had no recourse when things went wrong. Shack is the platform we wish existed.
+          We started Hausevo because we&apos;ve been tenants. We&apos;ve paid agent fees we didn&apos;t owe, moved into properties that didn&apos;t match the listing, and had no recourse when things went wrong. Hausevo is the platform we wish existed.
         </p>
       </div>
 
@@ -150,7 +150,7 @@ export default function AboutPage() {
           className="bg-zinc-900 rounded-2xl p-6 text-white hover:bg-zinc-800 transition-colors group"
         >
           <p className="text-sm font-extrabold mb-1">Browse properties</p>
-          <p className="text-xs text-zinc-400 mb-4">Find your next home on Shack</p>
+          <p className="text-xs text-zinc-400 mb-4">Find your next home on Hausevo</p>
           <span className="text-xs font-bold group-hover:translate-x-1 transition-transform inline-block">Browse →</span>
         </a>
         <a
@@ -158,7 +158,7 @@ export default function AboutPage() {
           className="bg-white rounded-2xl border border-zinc-200 p-6 hover:border-zinc-400 transition-colors group"
         >
           <p className="text-sm font-extrabold text-zinc-900 mb-1">Meet the team</p>
-          <p className="text-xs text-zinc-500 mb-4">The people building Shack</p>
+          <p className="text-xs text-zinc-500 mb-4">The people building Hausevo</p>
           <span className="text-xs font-bold text-zinc-700 group-hover:translate-x-1 transition-transform inline-block">Team →</span>
         </a>
         <a

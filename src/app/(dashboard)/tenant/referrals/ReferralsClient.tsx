@@ -167,7 +167,7 @@ export default function ReferralsClient({ referralCode: initialCode, referrals, 
         ) : (
           <div className="flex flex-col items-center text-center py-4">
             <p className="text-sm text-zinc-500 mb-4">
-              Generate your unique referral code and start earning when friends join Shack.
+              Generate your unique referral code and start earning when friends join Hausevo.
             </p>
             <button
               type="button"

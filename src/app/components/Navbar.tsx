@@ -84,17 +84,15 @@ export default function Navbar({ session }: { session: any }) {
       className="w-full bg-white border-b border-zinc-100 sticky top-0 z-50"
     >
       <nav className="max-w-6xl mx-auto flex items-center justify-between px-6 h-16">
-        <Link href="/" className="flex items-center gap-2.5 shrink-0">
+        <Link href="/" className="flex items-center shrink-0">
           <Image 
-            src="/icons/logo-black-bold.png" 
-            alt="Shack Logo" 
-            width={48} 
-            height={48} 
+            src="/hausevofinal.png" 
+            alt="Hausevo Logo" 
+            width={64} 
+            height={64} 
             className="object-contain"
+            priority
           />
-          <span className="text-xl font-black tracking-tighter text-zinc-900 uppercase">
-            Shack
-          </span>
         </Link>
 
         {/* ── Desktop nav ── */}

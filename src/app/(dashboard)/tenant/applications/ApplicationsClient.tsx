@@ -303,7 +303,7 @@ export default function ApplicationsClient({ applications }: Props) {
                             {payingId === app.id ? "Securing Home…" : "Pay & Secure Home"}
                           </button>
                           <p className="text-[10px] text-zinc-500 text-center leading-relaxed">
-                            To protect your deposit, always pay through the Shack app. <br/> Never pay landlords directly.
+                            To protect your deposit, always pay through the Hausevo app. <br/> Never pay landlords directly.
                           </p>
                         </div>
                       </div>

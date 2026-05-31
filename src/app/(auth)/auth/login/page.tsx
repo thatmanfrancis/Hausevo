@@ -170,7 +170,7 @@ export default function LoginPage() {
       <AuthCard>
         <AuthHeading
           title="Welcome back"
-          subtitle="Log in to your Shack account"
+          subtitle="Log in to your Hausevo account"
         />
 
         <form onSubmit={handleCredentialsSubmit} className="flex flex-col gap-4">
@@ -326,7 +326,7 @@ export default function LoginPage() {
 
       <div className="mt-6 rounded-xl bg-zinc-50 border border-zinc-200 p-4">
         <p className="text-xs text-zinc-500">
-          <span className="font-bold text-zinc-700">Tip:</span> Open your authenticator app (Google Authenticator, Authy, etc.) and enter the 6-digit code shown for Shack.
+          <span className="font-bold text-zinc-700">Tip:</span> Open your authenticator app (Google Authenticator, Authy, etc.) and enter the 6-digit code shown for Hausevo.
         </p>
       </div>
     </AuthCard>

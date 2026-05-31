@@ -23,7 +23,21 @@ export async function POST(req: NextRequest) {
   const userId = session.user.id;
 
   const body = await req.json();
-  const { role, lga, maxBudget, minBedrooms, propertyTypes, vaultDocUrl } = body;
+  const {
+    role,
+    lga,
+    maxBudget,
+    minBedrooms,
+    propertyTypes,
+    vaultDocUrl,
+    // Employment / profession profile
+    employmentStatus,
+    profession,
+    employerName,
+    monthlyIncome,
+    // Emergency contact / guarantor
+    emergencyContact,
+  } = body;
 
   const validRoles = ["TENANT", "LANDLORD", "ARTISAN"];
 
@@ -32,13 +46,20 @@ export async function POST(req: NextRequest) {
     ? { roles: [role] as any }
     : {};
 
-  // Mark onboarding complete
+  // Build the user update payload
+  const userUpdateData: Record<string, unknown> = {
+    ...roleUpdate,
+    onboardingCompleted: true,
+    ...(employmentStatus && { employmentStatus }),
+    ...(profession && { profession }),
+    ...(employerName && { employerName }),
+    ...(monthlyIncome && { monthlyIncome }),
+  };
+
+  // Mark onboarding complete + save profile fields
   await prisma.user.update({
     where: { id: userId },
-    data: {
-      ...roleUpdate,
-      onboardingCompleted: true,
-    },
+    data: userUpdateData,
   });
 
   // Create vault item for identity if provided
@@ -69,6 +90,29 @@ export async function POST(req: NextRequest) {
         maxBudget: maxBudget ? Number(maxBudget) : null,
         minBedrooms: minBedrooms ? Number(minBedrooms) : null,
         requirements: propertyTypes ? { propertyTypes } : undefined,
+      },
+    });
+  }
+
+  // Create emergency contact / guarantor if provided
+  if (
+    emergencyContact &&
+    emergencyContact.fullName?.trim() &&
+    emergencyContact.phone?.trim()
+  ) {
+    // Delete any existing emergency contact first to prevent duplicates on re-run
+    await prisma.guarantor.deleteMany({
+      where: { userId, isEmergency: true },
+    });
+    await prisma.guarantor.create({
+      data: {
+        userId,
+        applicationId: null,
+        fullName: emergencyContact.fullName.trim(),
+        email: emergencyContact.email?.trim().toLowerCase() ?? "",
+        phone: emergencyContact.phone.trim(),
+        relationship: emergencyContact.relationship ?? "OTHER",
+        isEmergency: true,
       },
     });
   }

@@ -91,7 +91,8 @@ export const ModelName = {
   TenancyAgreement: 'TenancyAgreement',
   AIMessage: 'AIMessage',
   LaunchWaitlist: 'LaunchWaitlist',
-  NotificationPreferences: 'NotificationPreferences'
+  NotificationPreferences: 'NotificationPreferences',
+  Guarantor: 'Guarantor'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -133,7 +134,13 @@ export const UserScalarFieldEnum = {
   vaultStorageUsed: 'vaultStorageUsed',
   verificationBundlePaid: 'verificationBundlePaid',
   verificationBundlePaidAt: 'verificationBundlePaidAt',
-  onboardingCompleted: 'onboardingCompleted'
+  onboardingCompleted: 'onboardingCompleted',
+  idDocumentUrl: 'idDocumentUrl',
+  selfieUrl: 'selfieUrl',
+  employmentStatus: 'employmentStatus',
+  profession: 'profession',
+  employerName: 'employerName',
+  monthlyIncome: 'monthlyIncome'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -754,6 +761,25 @@ export const NotificationPreferencesScalarFieldEnum = {
 } as const
 
 export type NotificationPreferencesScalarFieldEnum = (typeof NotificationPreferencesScalarFieldEnum)[keyof typeof NotificationPreferencesScalarFieldEnum]
+
+
+export const GuarantorScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  applicationId: 'applicationId',
+  fullName: 'fullName',
+  email: 'email',
+  phone: 'phone',
+  relationship: 'relationship',
+  token: 'token',
+  status: 'status',
+  isEmergency: 'isEmergency',
+  acknowledgedAt: 'acknowledgedAt',
+  ipAddress: 'ipAddress',
+  createdAt: 'createdAt'
+} as const
+
+export type GuarantorScalarFieldEnum = (typeof GuarantorScalarFieldEnum)[keyof typeof GuarantorScalarFieldEnum]
 
 
 export const SortOrder = {

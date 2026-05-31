@@ -205,7 +205,7 @@ export default function TenantDashboard({ user }: Props) {
           <p className="text-[10px] text-zinc-400 mt-1 group-hover:text-zinc-600 transition-colors">Top up →</p>
         </Link>
 
-        {/* ShackScore */}
+        {/* Hausevo Score */}
         <div className="bg-white rounded-2xl border border-zinc-200 p-4 flex flex-col items-center justify-center">
           {shackScore ? (
             <ScoreRing score={shackScore.score} />
@@ -249,7 +249,7 @@ export default function TenantDashboard({ user }: Props) {
         <div className="bg-white rounded-2xl border border-dashed border-zinc-200 p-5 flex items-center justify-between gap-4">
           <div>
             <p className="text-sm font-bold text-zinc-900">No active tenancy</p>
-            <p className="text-xs text-zinc-400 mt-0.5">Find your next home on Shack</p>
+            <p className="text-xs text-zinc-400 mt-0.5">Find your next home on Hausevo</p>
           </div>
           <Link href="/properties" className="rounded-full bg-zinc-900 text-white px-4 py-2 text-xs font-bold hover:bg-zinc-700 transition-colors whitespace-nowrap">
             Browse →

@@ -13,7 +13,7 @@ import { verifyNINWithSelfie, lookupBVN } from "@/lib/dojah";
   - Biometric selfie verification
   - BVN financial signal
   - Ability to apply for properties
-  - ShackScore visible to landlords
+  - Hausevo Score visible to landlords
   - "Verified" badge
   
   Requires: active session + verificationTier 0 + wallet balance ₦1,500
@@ -176,7 +176,7 @@ export async function POST(req: NextRequest) {
       data: {
         userId,
         amount: -UPGRADE_FEE,
-        shackFee: 0, // No Shack fee for verification service
+        shackFee: 0, // No Hausevo fee for verification service
         netAmount: -UPGRADE_FEE,
         type: "SERVICE",
         status: "SUCCESS",
@@ -253,7 +253,7 @@ export async function POST(req: NextRequest) {
     },
     benefits: [
       "Can now apply for properties",
-      "ShackScore visible to landlords",
+      "Hausevo Score visible to landlords",
       "Verified badge on profile",
       "Priority in application queue",
     ],
@@ -304,7 +304,7 @@ export async function GET(req: NextRequest) {
       tier1: [
         "Everything in Tier 0",
         "Apply for properties",
-        "ShackScore visible to landlords",
+        "Hausevo Score visible to landlords",
         "Verified badge on profile",
         "Priority in application queue",
         "Vault document storage (100MB)",

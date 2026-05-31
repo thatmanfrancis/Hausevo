@@ -3,8 +3,8 @@ import BackButton from "@/app/components/BackButton";
 import ContactForm from "./ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contact Us — Shack",
-  description: "Get in touch with the Shack team.",
+  title: "Contact Us — Hausevo",
+  description: "Get in touch with the Hausevo team.",
 };
 
 export default function ContactPage() {
@@ -20,20 +20,20 @@ export default function ContactPage() {
         <ContactCard
           icon={<MailIcon />}
           label="General Enquiries"
-          value="hello@shack.ng"
-          href="mailto:hello@shack.ng"
+          value="hello@hausevo.com.ng"
+          href="mailto:hello@hausevo.com.ng"
         />
         <ContactCard
           icon={<MailIcon />}
           label="Support"
-          value="support@shack.ng"
-          href="mailto:support@shack.ng"
+          value="support@hausevo.com.ng"
+          href="mailto:support@hausevo.com.ng"
         />
         <ContactCard
           icon={<MailIcon />}
           label="Legal & Privacy"
-          value="legal@shack.ng"
-          href="mailto:legal@shack.ng"
+          value="legal@hausevo.com.ng"
+          href="mailto:legal@hausevo.com.ng"
         />
         <ContactCard
           icon={<LocationIcon />}

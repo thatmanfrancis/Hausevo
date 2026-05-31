@@ -100,7 +100,7 @@ export default function MaintenanceJobDetail({ job }: { job: MaintenanceJob }) {
           </div>
           
           <p className="mt-4 text-xs text-zinc-500 leading-relaxed italic">
-            "Photos are digitally timestamped and stored in the Shack Vault for dispute resolution."
+            "Photos are digitally timestamped and stored in the Hausevo Vault for dispute resolution."
           </p>
         </div>
 

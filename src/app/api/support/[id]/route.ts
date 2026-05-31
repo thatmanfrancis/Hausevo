@@ -129,7 +129,7 @@ export async function POST(
       ? notify(
           notifyTarget,
           "Support reply received",
-          `The Shack team replied to your ticket "${ticket.subject}".`,
+          `The Hausevo team replied to your ticket "${ticket.subject}".`,
           "SYSTEM",
           { ticketId: id }
         )

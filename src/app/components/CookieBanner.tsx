@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-const COOKIE_KEY = "shack_cookie_consent";
+const COOKIE_KEY = "hausevo_cookie_consent";
 
 export default function CookieBanner() {
   const [visible, setVisible] = useState(false);

@@ -116,7 +116,7 @@ export async function POST(req: NextRequest) {
   await notify(
     userId,
     "Face verification passed ✅",
-    "Your selfie matched your NIN. Your account is now Tier 2 verified on Shack.",
+    "Your selfie matched your NIN. Your account is now Tier 2 verified on Hausevo.",
     "DOC_VERIFIED",
     { verificationTier: 2, confidence_value }
   );

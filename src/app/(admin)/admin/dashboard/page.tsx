@@ -42,9 +42,9 @@ export default async function AdminDashboardPage() {
   return (
     <div className="flex flex-col gap-8">
       <div>
-        <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-1">Shack Admin</p>
+        <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-1">Hausevo Admin</p>
         <h1 className="text-2xl font-extrabold text-zinc-900">Platform Overview</h1>
-        <p className="text-sm text-zinc-500 mt-1">Real-time snapshot of the Shack ecosystem.</p>
+        <p className="text-sm text-zinc-500 mt-1">Real-time snapshot of the Hausevo ecosystem.</p>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">

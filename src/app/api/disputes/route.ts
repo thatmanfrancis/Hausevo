@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
     notify(
       againstId,
       "Dispute raised against you",
-      `A ${type.replace("_", " ").toLowerCase()} dispute has been raised against you. Shack will review it shortly.`,
+      `A ${type.replace("_", " ").toLowerCase()} dispute has been raised against you. Hausevo will review it shortly.`,
       "DISPUTE_UPDATE",
       { disputeId: dispute.id }
     ),

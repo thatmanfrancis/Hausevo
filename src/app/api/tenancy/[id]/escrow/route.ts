@@ -6,7 +6,7 @@ import { notify } from "@/lib/notifications";
 
 /*
   POST /api/tenancy/:id/escrow
-  Tenant locks their caution deposit into Shack Escrow at the start of tenancy.
+  Tenant locks their caution deposit into Hausevo Escrow at the start of tenancy.
   The deposit cannot be touched by anyone until the tenancy ends and an exit
   inspection is completed.
 
@@ -81,7 +81,7 @@ export async function POST(
       propertyId: tenancy.property.id,
       tenancyId,
       reference: paymentReference ?? `ESC-${Date.now()}`,
-      description: `Caution deposit held in Shack Escrow for "${tenancy.property.title}"`,
+      description: `Caution deposit held in Hausevo Escrow for "${tenancy.property.title}"`,
       status: "ESCROW" as const,
     },
     select: {
@@ -111,14 +111,14 @@ export async function POST(
     notify(
       tenancy.property.landlordId,
       "Caution deposit secured 🔒",
-      '₦${Number(amount).toLocaleString()} caution deposit for "${tenancy.property.title}" is held in Shack Escrow. It will be released after exit inspection.',
+      '₦${Number(amount).toLocaleString()} caution deposit for "${tenancy.property.title}" is held in Hausevo Escrow. It will be released after exit inspection.',
       "SYSTEM",
       { tenancyId, escrowId: escrow.id },
     ),
     notify(
       userId,
       "Deposit locked in escrow ✅",
-      `Your ₦${Number(amount).toLocaleString()} caution deposit is safely held by Shack. You will get it back after your exit inspection is completed.`,
+      `Your ₦${Number(amount).toLocaleString()} caution deposit is safely held by Hausevo. You will get it back after your exit inspection is completed.`,
       "SYSTEM",
       { tenancyId, escrowId: escrow.id },
     ),
@@ -126,7 +126,7 @@ export async function POST(
 
   return NextResponse.json(
     {
-      message: "Caution deposit locked in Shack Escrow.",
+      message: "Caution deposit locked in Hausevo Escrow.",
       escrow,
     },
     { status: 201 },
@@ -314,7 +314,7 @@ export async function PATCH(
           ? "Deposit refunded 🎉"
           : "Deposit partially kept",
       moveWithinShack
-        ? `₦${bondAmount.toLocaleString()} has been added to your Shack Bond for your next home! (20% platform fee applied).`
+        ? `₦${bondAmount.toLocaleString()} has been added to your Hausevo Bond for your next home! (20% platform fee applied).`
         : refundAmount > 0
           ? `₦${refundAmount.toLocaleString()} of your caution deposit for "${propertyTitle}" is being refunded.${deduction > 0 ? ` ₦${deduction.toLocaleString()} was deducted for damages.` : ""}`
           : `Your caution deposit for "${propertyTitle}" has been forfeited due to damages. Reason: ${reason}`,

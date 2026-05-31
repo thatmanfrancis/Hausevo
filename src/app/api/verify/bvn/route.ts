@@ -7,7 +7,7 @@ import { lookupBVN } from "@/lib/dojah";
 
 /*
   POST /api/verify/bvn
-  Optional BVN lookup — enriches ShackScore with financial identity signals.
+  Optional BVN lookup — enriches Hausevo Score with financial identity signals.
   Does NOT change verificationTier (that's NIN-based).
   Stores a vault record and flags the user's fintechPartnerRef.
 
@@ -107,7 +107,7 @@ export async function POST(req: NextRequest) {
     notify(
       userId,
       "BVN linked ✅",
-      "Your BVN has been linked to your Shack account. This strengthens your ShackScore.",
+      "Your BVN has been linked to your Hausevo account. This strengthens your Hausevo Score.",
       "DOC_VERIFIED",
       { bvnLinked: true }
     ),

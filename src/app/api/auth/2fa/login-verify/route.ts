@@ -4,7 +4,7 @@ import { verify } from "otplib";
 import prisma from "@/lib/prisma";
 import { rateLimit } from "@/lib/rate-limit";
 import { sendEmail } from "@/lib/mail";
-import { SHACK_LOGO_BASE64 } from "@/lib/assets";
+import { HAUSEVO_LOGO_BASE64 } from "@/lib/assets";
 import LoginAlertEmail from "@/emails/LoginAlert";
 
 /*
@@ -84,12 +84,12 @@ export async function POST(req: NextRequest) {
 
   sendEmail({
     to: [{ email: user.email, name: user.fullName || undefined }],
-    subject: "Security Alert: New login to your Shack account",
+    subject: "Security Alert: New login to your Hausevo account",
     html,
     inline_images: [
       {
-        cid: "shack_logo",
-        content: SHACK_LOGO_BASE64,
+        cid: "hausevo_logo",
+        content: HAUSEVO_LOGO_BASE64,
         mime_type: "image/jpeg",
       },
     ],

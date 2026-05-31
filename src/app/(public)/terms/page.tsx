@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import BackButton from "@/app/components/BackButton";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions — Shack",
-  description: "Read Shack's terms and conditions for using our property platform.",
+  title: "Terms & Conditions — Hausevo",
+  description: "Read Hausevo's terms and conditions for using our property platform.",
 };
 
 export default function TermsPage() {
@@ -17,20 +17,20 @@ export default function TermsPage() {
 
         <Section title="1. Acceptance of Terms">
           <p>
-            By accessing or using Shack ("the Platform"), you agree to be bound by these Terms and
+            By accessing or using Hausevo ("the Platform"), you agree to be bound by these Terms and
             Conditions. If you do not agree, please do not use the Platform. These terms apply to all
             users including tenants, landlords, artisans, and visitors.
           </p>
         </Section>
 
-        <Section title="2. About Shack">
+        <Section title="2. About Hausevo">
           <p>
-            Shack is a Nigerian property technology platform that connects verified landlords with
+            Hausevo is a Nigerian property technology platform that connects verified landlords with
             prospective tenants. We operate on a no-agent, no-markup model — all listings are
             submitted directly by property owners or their authorised representatives.
           </p>
           <p>
-            Shack is not a real estate agent, broker, or property manager. We provide a marketplace
+            Hausevo is not a real estate agent, broker, or property manager. We provide a marketplace
             and verification infrastructure. Any tenancy agreement is directly between the landlord
             and tenant.
           </p>
@@ -41,7 +41,7 @@ export default function TermsPage() {
             <li>You must be at least 18 years old to create an account.</li>
             <li>You are responsible for maintaining the confidentiality of your login credentials.</li>
             <li>You must provide accurate and truthful information during registration and verification.</li>
-            <li>Shack reserves the right to suspend or terminate accounts that violate these terms.</li>
+            <li>Hausevo reserves the right to suspend or terminate accounts that violate these terms.</li>
           </ul>
         </Section>
 
@@ -60,16 +60,16 @@ export default function TermsPage() {
         <Section title="5. Listings & Property Data">
           <ul>
             <li>Landlords are solely responsible for the accuracy of their listings.</li>
-            <li>Shack verifies deed documents and price claims but does not guarantee property condition.</li>
+            <li>Hausevo verifies deed documents and price claims but does not guarantee property condition.</li>
             <li>Listings found to contain false information will be removed and the account suspended.</li>
-            <li>Shack reserves the right to remove any listing at its discretion.</li>
+            <li>Hausevo reserves the right to remove any listing at its discretion.</li>
           </ul>
         </Section>
 
         <Section title="6. Payments & Wallet">
           <p>
-            Shack operates a wallet system for service fees. Wallet top-ups are processed via
-            Paystack. Shack does not hold rent payments — all rent is paid directly between tenant
+            Hausevo operates a wallet system for service fees. Wallet top-ups are processed via
+            Paystack. Hausevo does not hold rent payments — all rent is paid directly between tenant
             and landlord unless an escrow arrangement is explicitly agreed.
           </p>
           <p>
@@ -99,8 +99,8 @@ export default function TermsPage() {
 
         <Section title="9. Dispute Resolution">
           <p>
-            Shack provides a dispute resolution mechanism for tenancy-related disagreements. Disputes
-            must be raised within 30 days of the triggering event. Shack's decision in disputes is
+            Hausevo provides a dispute resolution mechanism for tenancy-related disagreements. Disputes
+            must be raised within 30 days of the triggering event. Hausevo's decision in disputes is
             final for platform-related matters but does not constitute legal advice or a binding
             legal ruling.
           </p>
@@ -108,9 +108,9 @@ export default function TermsPage() {
 
         <Section title="10. Limitation of Liability">
           <p>
-            Shack is not liable for any loss arising from reliance on listing information, failed
+            Hausevo is not liable for any loss arising from reliance on listing information, failed
             tenancy agreements, property damage, or disputes between users. Our maximum liability to
-            any user is limited to the fees paid to Shack in the 3 months preceding the claim.
+            any user is limited to the fees paid to Hausevo in the 3 months preceding the claim.
           </p>
         </Section>
 
@@ -132,8 +132,8 @@ export default function TermsPage() {
         <Section title="13. Contact">
           <p>
             For questions about these terms, contact us at{" "}
-            <a href="mailto:legal@shack.ng" className="text-zinc-900 font-semibold underline underline-offset-2">
-              legal@shack.ng
+            <a href="mailto:legal@hausevo.com.ng" className="text-zinc-900 font-semibold underline underline-offset-2">
+              legal@hausevo.com.ng
             </a>
             .
           </p>

@@ -23,7 +23,7 @@ export default function OfflinePage() {
           You&apos;re Offline
         </h1>
         <p className="text-zinc-400 text-sm leading-relaxed mb-10">
-          It looks like your connection has been interrupted. Shack requires an active internet connection to verify listings and secure your payments.
+          It looks like your connection has been interrupted. Hausevo requires an active internet connection to verify listings and secure your payments.
         </p>
 
         <button
@@ -42,7 +42,7 @@ export default function OfflinePage() {
       </div>
 
       <div className="absolute bottom-8 text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-600">
-        Shack &copy; {new Date().getFullYear()} · Offline Mode
+        Hausevo &copy; {new Date().getFullYear()} · Offline Mode
       </div>
     </div>
   );

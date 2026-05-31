@@ -104,9 +104,9 @@ export async function POST(req: NextRequest) {
   // TODO: swap the console.log below with your email provider (Resend, Nodemailer, etc.)
   // Example with Resend:
   //   await resend.emails.send({
-  //     from: "Shack <no-reply@shack.ng>",
+  //     from: "Hausevo <no-reply@hausevo.com.ng>",
   //     to: email,
-  //     subject: "Verify your Shack account",
+  //     subject: "Verify your Hausevo account",
   //     html: `<p>Hi ${fullName}, click the link below to verify your account:</p>
   //            <a href="${process.env.NEXT_PUBLIC_APP_URL}/auth/verify-email?token=${verificationToken}">
   //              Verify my account

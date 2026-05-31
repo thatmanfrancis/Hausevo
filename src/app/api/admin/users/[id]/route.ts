@@ -88,7 +88,7 @@ export async function PATCH(
         notify(
           id,
           "Artisan profile approved! ✅",
-          "Your artisan profile has been vetted. You can now receive job assignments on Shack.",
+          "Your artisan profile has been vetted. You can now receive job assignments on Hausevo.",
           "SYSTEM",
           { artisanProfileId: target.artisanProfile.id }
         )
@@ -107,7 +107,7 @@ export async function PATCH(
       notify(
         id,
         "Verification upgrade",
-        `Your account has been upgraded to ${label} status on Shack.`,
+        `Your account has been upgraded to ${label} status on Hausevo.`,
         "DOC_VERIFIED",
         { verificationTier }
       )

@@ -132,7 +132,7 @@ export async function PATCH(
       ? notify(
           item.ownerId,
           "Document verified ✅",
-          `Your ${item.category.toLowerCase()} document "${item.title}" has been verified by Shack.`,
+          `Your ${item.category.toLowerCase()} document "${item.title}" has been verified by Hausevo.`,
           "DOC_VERIFIED",
           { vaultItemId: id },
         )

@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import BackButton from "@/app/components/BackButton";
 
 export const metadata: Metadata = {
-  title: "Cookie Policy — Shack",
-  description: "How Shack uses cookies and similar technologies.",
+  title: "Cookie Policy — Hausevo",
+  description: "How Hausevo uses cookies and similar technologies.",
 };
 
 export default function CookiesPage() {
@@ -56,7 +56,7 @@ export default function CookiesPage() {
           <p>
             You can control cookies through your browser settings. Disabling
             essential cookies will prevent you from logging in. To clear all
-            Shack cookies:
+            Hausevo cookies:
           </p>
           <ul>
             <li>
@@ -75,10 +75,10 @@ export default function CookiesPage() {
           <p>
             Questions about our cookie use? Email{" "}
             <a
-              href="mailto:privacy@shack.ng"
+              href="mailto:privacy@hausevo.com.ng"
               className="text-zinc-900 font-semibold underline underline-offset-2"
             >
-              privacy@shack.ng
+              privacy@hausevo.com.ng
             </a>
             .
           </p>

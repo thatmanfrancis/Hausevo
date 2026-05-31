@@ -67,8 +67,8 @@ const LoginAlertEmail: React.FC<LoginAlertEmailProps> = ({
               }}
             >
               <img
-                src="cid:shack_logo"
-                alt="Shack Logo"
+                src="cid:hausevo_logo"
+                alt="Hausevo Logo"
                 style={{
                   height: "48px",
                   width: "auto",
@@ -102,7 +102,7 @@ const LoginAlertEmail: React.FC<LoginAlertEmailProps> = ({
                   fontFamily: nunitoFont,
                 }}
               >
-                Hello {name}, we detected a new login to your Shack account. 
+                Hello {name}, we detected a new login to your Hausevo account. 
                 If this was you, you can safely ignore this email.
               </p>
 
@@ -242,7 +242,7 @@ const LoginAlertEmail: React.FC<LoginAlertEmailProps> = ({
                   fontFamily: nunitoFont,
                 }}
               >
-                &copy; {new Date().getFullYear()} Shack. All rights reserved.
+                &copy; {new Date().getFullYear()} Hausevo. All rights reserved.
               </p>
               <p
                 style={{

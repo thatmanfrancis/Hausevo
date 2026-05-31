@@ -424,7 +424,8 @@ export const ModelName = {
   TenancyAgreement: 'TenancyAgreement',
   AIMessage: 'AIMessage',
   LaunchWaitlist: 'LaunchWaitlist',
-  NotificationPreferences: 'NotificationPreferences'
+  NotificationPreferences: 'NotificationPreferences',
+  Guarantor: 'Guarantor'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -440,7 +441,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verificationToken" | "shackScore" | "accessKey" | "property" | "propertyImage" | "savedProperty" | "propertyWishlist" | "waitlist" | "vaultItem" | "tenancyApplication" | "tenancy" | "rentSchedule" | "movingOrder" | "chatRoom" | "message" | "artisanProfile" | "maintenanceJob" | "serviceRequest" | "inspection" | "review" | "dispute" | "scoutReward" | "referralCode" | "referral" | "bankAccount" | "transaction" | "notification" | "supportTicket" | "supportMessage" | "auditLog" | "propertyManagement" | "financingOption" | "milestone" | "conditionReport" | "tenancyAgreement" | "aIMessage" | "launchWaitlist" | "notificationPreferences"
+    modelProps: "user" | "account" | "session" | "verificationToken" | "shackScore" | "accessKey" | "property" | "propertyImage" | "savedProperty" | "propertyWishlist" | "waitlist" | "vaultItem" | "tenancyApplication" | "tenancy" | "rentSchedule" | "movingOrder" | "chatRoom" | "message" | "artisanProfile" | "maintenanceJob" | "serviceRequest" | "inspection" | "review" | "dispute" | "scoutReward" | "referralCode" | "referral" | "bankAccount" | "transaction" | "notification" | "supportTicket" | "supportMessage" | "auditLog" | "propertyManagement" | "financingOption" | "milestone" | "conditionReport" | "tenancyAgreement" | "aIMessage" | "launchWaitlist" | "notificationPreferences" | "guarantor"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3478,6 +3479,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Guarantor: {
+      payload: Prisma.$GuarantorPayload<ExtArgs>
+      fields: Prisma.GuarantorFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GuarantorFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuarantorPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GuarantorFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuarantorPayload>
+        }
+        findFirst: {
+          args: Prisma.GuarantorFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuarantorPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GuarantorFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuarantorPayload>
+        }
+        findMany: {
+          args: Prisma.GuarantorFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuarantorPayload>[]
+        }
+        create: {
+          args: Prisma.GuarantorCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuarantorPayload>
+        }
+        createMany: {
+          args: Prisma.GuarantorCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GuarantorCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuarantorPayload>[]
+        }
+        delete: {
+          args: Prisma.GuarantorDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuarantorPayload>
+        }
+        update: {
+          args: Prisma.GuarantorUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuarantorPayload>
+        }
+        deleteMany: {
+          args: Prisma.GuarantorDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GuarantorUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GuarantorUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuarantorPayload>[]
+        }
+        upsert: {
+          args: Prisma.GuarantorUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuarantorPayload>
+        }
+        aggregate: {
+          args: Prisma.GuarantorAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGuarantor>
+        }
+        groupBy: {
+          args: Prisma.GuarantorGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuarantorGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GuarantorCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuarantorCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3540,7 +3615,13 @@ export const UserScalarFieldEnum = {
   vaultStorageUsed: 'vaultStorageUsed',
   verificationBundlePaid: 'verificationBundlePaid',
   verificationBundlePaidAt: 'verificationBundlePaidAt',
-  onboardingCompleted: 'onboardingCompleted'
+  onboardingCompleted: 'onboardingCompleted',
+  idDocumentUrl: 'idDocumentUrl',
+  selfieUrl: 'selfieUrl',
+  employmentStatus: 'employmentStatus',
+  profession: 'profession',
+  employerName: 'employerName',
+  monthlyIncome: 'monthlyIncome'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -4163,6 +4244,25 @@ export const NotificationPreferencesScalarFieldEnum = {
 export type NotificationPreferencesScalarFieldEnum = (typeof NotificationPreferencesScalarFieldEnum)[keyof typeof NotificationPreferencesScalarFieldEnum]
 
 
+export const GuarantorScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  applicationId: 'applicationId',
+  fullName: 'fullName',
+  email: 'email',
+  phone: 'phone',
+  relationship: 'relationship',
+  token: 'token',
+  status: 'status',
+  isEmergency: 'isEmergency',
+  acknowledgedAt: 'acknowledgedAt',
+  ipAddress: 'ipAddress',
+  createdAt: 'createdAt'
+} as const
+
+export type GuarantorScalarFieldEnum = (typeof GuarantorScalarFieldEnum)[keyof typeof GuarantorScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -4622,6 +4722,20 @@ export type EnumAgreementStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$
 export type ListEnumAgreementStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AgreementStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'GuarantorStatus'
+ */
+export type EnumGuarantorStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GuarantorStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'GuarantorStatus[]'
+ */
+export type ListEnumGuarantorStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GuarantorStatus[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -4773,6 +4887,7 @@ export type GlobalOmitConfig = {
   aIMessage?: Prisma.AIMessageOmit
   launchWaitlist?: Prisma.LaunchWaitlistOmit
   notificationPreferences?: Prisma.NotificationPreferencesOmit
+  guarantor?: Prisma.GuarantorOmit
 }
 
 /* Types for Logging */

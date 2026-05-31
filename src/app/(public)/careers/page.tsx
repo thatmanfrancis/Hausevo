@@ -1,7 +1,7 @@
 import CareersClient from "./CareersClient";
 
 export const metadata = {
-  title: "Careers — Shack",
+  title: "Careers — Hausevo",
   description: "Join the team building the future of renting in Nigeria.",
 };
 

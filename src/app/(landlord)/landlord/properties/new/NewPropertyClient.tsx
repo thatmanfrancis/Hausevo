@@ -422,7 +422,7 @@ export default function NewPropertyClient() {
                 </p>
               )}
               <p className="text-[10px] text-zinc-400 leading-tight">
-                Includes annual rent + ₦50,000 standard Shack service fee (covers legal and agency).
+                Includes annual rent + ₦50,000 standard Hausevo service fee (covers legal and agency).
               </p>
             </div>
 
@@ -774,7 +774,7 @@ export default function NewPropertyClient() {
 
             <div className="flex flex-col gap-3">
               <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">
-                Choose from your Shack Vault
+                Choose from your Hausevo Vault
               </label>
               <div className="flex flex-col gap-2">
                 <button

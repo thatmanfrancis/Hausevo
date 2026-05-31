@@ -74,7 +74,7 @@ function VerifyContent() {
             href="/auth/login"
             className="w-full rounded-full bg-zinc-900 py-3 text-sm font-bold text-white hover:bg-zinc-700 transition-colors"
           >
-            Log in to Shack
+            Log in to Hausevo
           </Link>
         )}
 

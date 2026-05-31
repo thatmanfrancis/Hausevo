@@ -8,7 +8,7 @@ import { notify } from "@/lib/notifications";
   POST /api/applications/:id/pay-total
   Tenant pays the full "Total Package" after their application is accepted.
   This handles the "Split":
-  - ₦50,000 -> Shack Platform Fee (Revenue)
+  - ₦50,000 -> Hausevo Platform Fee (Revenue)
   - Rent -> Landlord Wallet
   - Caution Deposit -> Escrow Account
 */
@@ -64,7 +64,7 @@ export async function POST(
   const totalAmount = application.property.totalPackage;
   const annualRent = application.property.pricePerYear;
   
-  // Caution deposit is the remainder (Total - Rent - Shack Fee)
+  // Caution deposit is the remainder (Total - Rent - Hausevo Fee)
   // In a real system, these would be explicit fields, but we follow the 50k rule here.
   const cautionDeposit = totalAmount - annualRent - SHACK_FLAT_FEE;
 
@@ -95,7 +95,7 @@ export async function POST(
         data: { walletBalance: { increment: annualRent } }
       });
 
-      // C. Record Shack Revenue Transaction
+      // C. Record Hausevo Revenue Transaction
       await tx.transaction.create({
         data: {
           userId: userId,

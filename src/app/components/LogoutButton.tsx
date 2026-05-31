@@ -94,8 +94,8 @@ function LogoutModal({
               
               {/* Logo in center */}
               <Image 
-                src="/icons/logo-white-bold.png" 
-                alt="Shack Logo" 
+                src="/hausevofinal.png" 
+                alt="Hausevo Logo" 
                 width={80} 
                 height={80} 
                 className="object-contain"

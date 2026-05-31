@@ -91,7 +91,7 @@ function StatRow({
 
 // ── Main component ─────────────────────────────────────────────────────────
 
-export default function ShackScoreClient({ score }: Props) {
+export default function HausevoScoreClient({ score }: Props) {
   const { label, cls, desc } = scoreLabel(score.score);
 
   const formatDate = (d: Date | null) =>
@@ -106,9 +106,9 @@ export default function ShackScoreClient({ score }: Props) {
             Dashboard
           </Link>
           <span className="text-xs text-zinc-300">/</span>
-          <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">ShackScore</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">Hausevo Score</p>
         </div>
-        <h1 className="text-2xl font-extrabold text-zinc-900">ShackScore</h1>
+        <h1 className="text-2xl font-extrabold text-zinc-900">Hausevo Score</h1>
       </div>
 
       {/* Score card */}
@@ -151,7 +151,7 @@ export default function ShackScoreClient({ score }: Props) {
       {/* Breakdown */}
       <div className="bg-white rounded-2xl border border-zinc-200 p-6">
         <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-1">Score Breakdown</p>
-        <p className="text-xs text-zinc-500 mb-4">These factors determine your ShackScore.</p>
+        <p className="text-xs text-zinc-500 mb-4">These factors determine your Hausevo Score.</p>
 
         <StatRow
           label="On-time payments"
@@ -214,7 +214,7 @@ export default function ShackScoreClient({ score }: Props) {
       <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5">
         <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-3">What landlords see</p>
         <p className="text-sm text-zinc-600 leading-relaxed">
-          When you apply for a property, your ShackScore is shared with the landlord alongside your application. A higher score increases your chances of being accepted — especially for competitive listings.
+          When you apply for a property, your Hausevo Score is shared with the landlord alongside your application. A higher score increases your chances of being accepted — especially for competitive listings.
         </p>
       </div>
     </div>

@@ -387,7 +387,7 @@ export default function WalletClient({
                 Withdraw Funds
               </p>
               <p className="text-xs text-zinc-500 mt-1">
-                Transfer money from your Shack wallet to your bank.
+                Transfer money from your Hausevo wallet to your bank.
               </p>
             </div>
 

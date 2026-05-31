@@ -5,7 +5,7 @@ import { sendEmail } from "@/lib/mail";
 
 /*
   POST /api/waitlist
-  Join the Shack launch waitlist.
+  Join the Hausevo launch waitlist.
   Body: { email, fullName, role, lga? }
 */
 export async function POST(req: NextRequest) {
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
     const { renderToStaticMarkup } = require("react-dom/server");
     const React = require("react");
     const { default: WaitlistConfirmEmail } = require("@/emails/WaitlistConfirm");
-    const { SHACK_LOGO_BASE64 } = require("@/lib/assets");
+    const { HAUSEVO_LOGO_BASE64 } = require("@/lib/assets");
 
     const html = `<!DOCTYPE html>${renderToStaticMarkup(
       React.createElement(WaitlistConfirmEmail, {
@@ -75,12 +75,12 @@ export async function POST(req: NextRequest) {
 
     await sendEmail({
       to: [{ email: entry.email, name: fullName.trim() }],
-      subject: "You're on the Shack waitlist 🏠",
+      subject: "You're on the Hausevo waitlist 🏠",
       html,
       inline_images: [
         {
-          cid: "shack_logo",
-          content: SHACK_LOGO_BASE64,
+          cid: "hausevo_logo",
+          content: HAUSEVO_LOGO_BASE64,
           mime_type: "image/jpeg",
         },
       ],

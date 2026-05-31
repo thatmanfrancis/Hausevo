@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import BackButton from "@/app/components/BackButton";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Shack",
-  description: "How Shack collects, uses, and protects your personal data.",
+  title: "Privacy Policy — Hausevo",
+  description: "How Hausevo collects, uses, and protects your personal data.",
 };
 
 export default function PrivacyPage() {
@@ -17,13 +17,13 @@ export default function PrivacyPage() {
 
         <Section title="1. Who We Are">
           <p>
-            Shack ("we", "us", "our") is a property technology platform operating in Nigeria.
+            Hausevo ("we", "us", "our") is a property technology platform operating in Nigeria.
             We are committed to protecting your personal data in accordance with the Nigeria Data
             Protection Act (NDPA) 2023 and applicable regulations.
           </p>
           <p>
-            Data Controller: Shack Technologies Ltd, Lagos, Nigeria.
-            Contact: <a href="mailto:privacy@shack.ng" className="text-zinc-900 font-semibold underline underline-offset-2">privacy@shack.ng</a>
+            Data Controller: Hausevo Technologies Ltd, Lagos, Nigeria.
+            Contact: <a href="mailto:privacy@hausevo.com.ng" className="text-zinc-900 font-semibold underline underline-offset-2">privacy@hausevo.com.ng</a>
           </p>
         </Section>
 
@@ -63,7 +63,7 @@ export default function PrivacyPage() {
             <li><strong>Dojah</strong> — KYC verification (NIN/BVN lookup, selfie matching).</li>
             <li><strong>Paystack</strong> — Payment processing.</li>
             <li><strong>AWS / Cloudinary</strong> — Document and image storage.</li>
-            <li><strong>Landlords</strong> — Your verified name and ShackScore when you apply for a property.</li>
+            <li><strong>Landlords</strong> — Your verified name and Hausevo Score when you apply for a property.</li>
           </ul>
           <p>We do not sell your personal data to third parties.</p>
         </Section>
@@ -88,7 +88,7 @@ export default function PrivacyPage() {
           </ul>
           <p>
             To exercise these rights, email{" "}
-            <a href="mailto:privacy@shack.ng" className="text-zinc-900 font-semibold underline underline-offset-2">privacy@shack.ng</a>.
+            <a href="mailto:privacy@hausevo.com.ng" className="text-zinc-900 font-semibold underline underline-offset-2">privacy@hausevo.com.ng</a>.
             We will respond within 30 days.
           </p>
         </Section>

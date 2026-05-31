@@ -151,7 +151,7 @@ export async function PATCH(
       notify(
         property.landlordId,
         "Listing approved! 🎉",
-        `Your property "${property.title}" has been approved and is now live on Shack.`,
+        `Your property "${property.title}" has been approved and is now live on Hausevo.`,
         "DOC_VERIFIED",
         { propertyId: id },
       ),
@@ -176,7 +176,7 @@ export async function PATCH(
         notify(
           wishlist.tenantId,
           "New match for your wishlist! 🏠",
-          `A property in ${property.lga} matching your criteria is now available on Shack.`,
+          `A property in ${property.lga} matching your criteria is now available on Hausevo.`,
           "WISHLIST_MATCH",
           { propertyId: id },
         ),

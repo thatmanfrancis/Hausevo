@@ -289,3 +289,12 @@ export const AgreementStatus = {
 } as const
 
 export type AgreementStatus = (typeof AgreementStatus)[keyof typeof AgreementStatus]
+
+
+export const GuarantorStatus = {
+  PENDING: 'PENDING',
+  ACKNOWLEDGED: 'ACKNOWLEDGED',
+  DECLINED: 'DECLINED'
+} as const
+
+export type GuarantorStatus = (typeof GuarantorStatus)[keyof typeof GuarantorStatus]

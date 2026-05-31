@@ -225,7 +225,7 @@ export default function NewApplicationClient({
           <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-2">Verification Required</p>
           <p className="text-sm font-bold mb-1">Upgrade to Tier 1 to apply</p>
           <p className="text-xs text-zinc-400 mb-4">
-            A one-time ₦1,500 verification unlocks applications, your ShackScore, and a verified badge.
+            A one-time ₦1,500 verification unlocks applications, your Hausevo Score, and a verified badge.
           </p>
           <Link
             href="/tenant/verification"
@@ -257,14 +257,14 @@ export default function NewApplicationClient({
             Write a short message to the landlord introducing yourself. This is optional but increases your chances.
           </p>
 
-          {/* ShackScore indicator */}
+          {/* Hausevo Score indicator */}
           {shackScore !== null && (
             <div className="flex items-center gap-3 rounded-xl bg-zinc-50 border border-zinc-200 px-4 py-3 mb-5">
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-white text-xs font-bold">
                 {shackScore}
               </div>
               <div>
-                <p className="text-xs font-bold text-zinc-700">Your ShackScore</p>
+                <p className="text-xs font-bold text-zinc-700">Your Hausevo Score</p>
                 <p className="text-[10px] text-zinc-400">This will be shared with the landlord alongside your application</p>
               </div>
             </div>

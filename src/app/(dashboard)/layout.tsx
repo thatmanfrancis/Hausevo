@@ -41,13 +41,13 @@ export default async function DashboardLayout({ children }: { children: React.Re
         <div className="max-w-6xl mx-auto flex items-center justify-between px-6 h-14">
           <Link href="/" className="flex items-center gap-2">
             <Image 
-              src="/icons/logo-black-bold.png" 
-              alt="Shack Logo" 
-              width={40} 
-              height={40} 
+              src="/hausevofinal.png" 
+              alt="Hausevo Logo" 
+              width={56} 
+              height={56} 
               className="object-contain"
+              priority
             />
-            <span className="text-lg font-black tracking-tighter text-zinc-900 uppercase">Shack</span>
             {isLandlord && (
               <span className="hidden sm:block text-[10px] font-bold uppercase tracking-widest text-zinc-400 border border-zinc-200 rounded-full px-2 py-0.5 ml-1">
                 Landlord

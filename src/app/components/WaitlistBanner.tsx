@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-const STORAGE_KEY = "shack_waitlist_banner";
+const STORAGE_KEY = "hausevo_waitlist_banner";
 const DELAY_MS = 8000; // show after 8 seconds
 const SNOOZE_MS = 10 * 60 * 1000; // "remind me later" snoozes for 10 minutes
 

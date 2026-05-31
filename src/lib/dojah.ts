@@ -118,7 +118,7 @@ export async function verifyNINWithSelfie(
 
 // ─────────────────────────────────────────────
 // BVN LOOKUP
-// Returns basic BVN record — useful for ShackScore financial signals.
+// Returns basic BVN record — useful for Hausevo Score financial signals.
 // ─────────────────────────────────────────────
 
 export interface BVNLookupResult {

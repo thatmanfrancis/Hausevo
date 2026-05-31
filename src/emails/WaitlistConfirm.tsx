@@ -12,7 +12,7 @@ const nunitoFont = "'Nunito', 'Helvetica Neue', Helvetica, Arial, sans-serif";
 const primaryColor = "#09090b";
 const secondaryColor = "#71717a";
 const borderColor = "#e4e4e7";
-const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://shack.ng";
+const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://hausevo.com.ng";
 
 const WaitlistConfirmEmail: React.FC<WaitlistConfirmEmailProps> = ({
   name,
@@ -68,8 +68,8 @@ const WaitlistConfirmEmail: React.FC<WaitlistConfirmEmailProps> = ({
               }}
             >
               <img
-                src="cid:shack_logo"
-                alt="Shack Logo"
+                src="cid:hausevo_logo"
+                alt="Hausevo Logo"
                 style={{
                   height: "48px",
                   width: "auto",
@@ -235,7 +235,7 @@ const WaitlistConfirmEmail: React.FC<WaitlistConfirmEmailProps> = ({
               fontFamily: nunitoFont,
             }}>
               <p style={{ fontSize: "12px", color: "#a1a1aa", margin: "0 0 4px 0", fontFamily: nunitoFont }}>
-                &copy; {new Date().getFullYear()} Shack Technologies Ltd. All rights reserved.
+                &copy; {new Date().getFullYear()} Hausevo Technologies Ltd. All rights reserved.
               </p>
               <p style={{ fontSize: "11px", color: "#d4d4d8", margin: 0, fontFamily: nunitoFont }}>
                 Verified properties. No agents, no markups.

@@ -649,7 +649,7 @@ export default function TenancyClient({ tenancy, userId, walletBalance }: Props)
         )}
         <div className="mt-6 pt-4 border-t border-zinc-50">
           <p className="text-[10px] text-zinc-400 text-center italic">
-            Always pay through the Shack app to maintain digital proof of payment. <br/> Never pay landlords via direct bank transfer.
+            Always pay through the Hausevo app to maintain digital proof of payment. <br/> Never pay landlords via direct bank transfer.
           </p>
         </div>
       </div>
@@ -792,7 +792,7 @@ export default function TenancyClient({ tenancy, userId, walletBalance }: Props)
             <div className="flex-1">
               <p className="text-xs font-bold text-zinc-900 mb-0.5">Caution Deposit Secured</p>
               <p className="text-[10px] text-zinc-400 leading-relaxed">
-                Your deposit of {formatNaira(tenancy.cautionDeposit)} is held in Shack Escrow. It is protected and cannot be released without a mutual move-out audit.
+                Your deposit of {formatNaira(tenancy.cautionDeposit)} is held in Hausevo Escrow. It is protected and cannot be released without a mutual move-out audit.
               </p>
             </div>
           </div>
@@ -832,10 +832,10 @@ export default function TenancyClient({ tenancy, userId, walletBalance }: Props)
           <div className="rounded-xl border border-blue-100 bg-blue-50/50 p-4">
             <div className="flex items-center gap-2 mb-1.5">
               <span className="text-blue-600">✨</span>
-              <p className="text-[10px] font-extrabold uppercase tracking-widest text-blue-700">Shack Loyalty Reward</p>
+              <p className="text-[10px] font-extrabold uppercase tracking-widest text-blue-700">Hausevo Loyalty Reward</p>
             </div>
             <p className="text-[10px] text-blue-600 leading-relaxed">
-              Moving to another house on Shack? Get <span className="font-bold">80% of your deposit back</span> as a Shack Bond, with only a 20% processing fee. Loyalty pays.
+              Moving to another house on Hausevo? Get <span className="font-bold">80% of your deposit back</span> as a Hausevo Bond, with only a 20% processing fee. Loyalty pays.
             </p>
           </div>
         </div>

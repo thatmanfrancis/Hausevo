@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
 
   // Build the otpauth URI that authenticator apps understand
   const otpauthUrl = generateURI({
-    issuer: "Shack",
+    issuer: "Hausevo",
     label: user.email,
     secret,
   });

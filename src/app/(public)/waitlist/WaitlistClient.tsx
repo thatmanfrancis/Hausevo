@@ -160,7 +160,7 @@ const PERKS = [
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
             </svg>
         ),
-        text: "ShackScore — Nigeria's first rental credit score",
+        text: "Hausevo Score — Nigeria's first rental credit score",
     },
 ];
 
@@ -223,7 +223,7 @@ export default function WaitlistClient({ count }: { count: number }) {
                         <p className="text-base text-zinc-500 leading-relaxed max-w-sm mx-auto">
                             {alreadyJoined
                                 ? "We already have your details. We'll reach out when we launch."
-                                : "We'll email you the moment Shack launches publicly. You'll be among the first to get access."}
+                                : "We'll email you the moment Hausevo launches publicly. You'll be among the first to get access."}
                         </p>
                     </div>
 

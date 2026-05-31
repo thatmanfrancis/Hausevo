@@ -222,3 +222,8 @@ export type LaunchWaitlist = Prisma.LaunchWaitlistModel
  * 
  */
 export type NotificationPreferences = Prisma.NotificationPreferencesModel
+/**
+ * Model Guarantor
+ * 
+ */
+export type Guarantor = Prisma.GuarantorModel

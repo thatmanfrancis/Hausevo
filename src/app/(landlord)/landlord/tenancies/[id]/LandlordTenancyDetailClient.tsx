@@ -226,7 +226,7 @@ export default function LandlordTenancyDetailClient({ tenancy }: { tenancy: Tena
           <div className="text-right shrink-0">
             {tenancy.tenant.shackScore && (
               <>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">ShackScore</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Hausevo Score</p>
                 <p className="text-xl font-extrabold text-zinc-900">{tenancy.tenant.shackScore.score}</p>
               </>
             )}

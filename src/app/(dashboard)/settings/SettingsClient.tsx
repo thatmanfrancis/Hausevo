@@ -21,6 +21,18 @@ type Props = {
     twoFactorEnabled: boolean;
     roles: string[];
     onboardingCompleted: boolean;
+    employmentStatus: string | null;
+    profession: string | null;
+    employerName: string | null;
+    monthlyIncome: string | null;
+    guarantors: {
+      id: string;
+      fullName: string;
+      phone: string;
+      email: string | null;
+      relationship: string;
+      status: string;
+    }[];
   };
   notificationPreferences: NotificationPreferences;
 };
@@ -58,12 +70,48 @@ function Toggle({
 
 // ── Main component ─────────────────────────────────────────────────────────
 
+const EMPLOYMENT_STATUSES = [
+  "Employed",
+  "Self-Employed",
+  "Business Owner",
+  "Student",
+  "Retired",
+  "Other",
+];
+
+const INCOME_BRACKETS = [
+  "Under ₦100k/mo",
+  "₦100k–₦200k",
+  "₦200k–₦500k",
+  "₦500k–₦1M",
+  "Above ₦1M",
+];
+
+const RELATIONSHIPS = ["Family", "Employer", "Colleague", "Friend", "Other"];
+
 export default function SettingsClient({ user, notificationPreferences }: Props) {
   // Account settings
   const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber ?? "");
   const [phoneSaving, setPhoneSaving] = useState(false);
   const [phoneSuccess, setPhoneSuccess] = useState("");
   const [phoneError, setPhoneError] = useState("");
+
+  // Tenant Profile settings
+  const [employmentStatus, setEmploymentStatus] = useState(user.employmentStatus ?? "");
+  const [profession, setProfession] = useState(user.profession ?? "");
+  const [employerName, setEmployerName] = useState(user.employerName ?? "");
+  const [monthlyIncome, setMonthlyIncome] = useState(user.monthlyIncome ?? "");
+
+  // Emergency contact state
+  const ecInitial = user.guarantors?.[0] ?? null;
+  const [ecFullName, setEcFullName] = useState(ecInitial?.fullName ?? "");
+  const [ecPhone, setEcPhone] = useState(ecInitial?.phone ?? "");
+  const [ecEmail, setEcEmail] = useState(ecInitial?.email ?? "");
+  const [ecRelationship, setEcRelationship] = useState(ecInitial?.relationship ?? "");
+
+  const [profileSaving, setProfileSaving] = useState(false);
+  const [profileSuccess, setProfileSuccess] = useState("");
+  const [profileError, setProfileError] = useState("");
 
   // Notification preferences
   const [prefs, setPrefs] = useState<NotificationPreferences>(notificationPreferences);
@@ -101,6 +149,43 @@ export default function SettingsClient({ user, notificationPreferences }: Props)
     }
   }
 
+  async function handleProfileSave(e: React.FormEvent) {
+    e.preventDefault();
+    setProfileSaving(true);
+    setProfileSuccess("");
+    setProfileError("");
+
+    try {
+      const res = await fetch("/api/user/me", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          employmentStatus: employmentStatus || null,
+          profession: profession || null,
+          employerName: employerName || null,
+          monthlyIncome: monthlyIncome || null,
+          emergencyContact: ecFullName.trim() && ecPhone.trim() ? {
+            fullName: ecFullName.trim(),
+            phone: ecPhone.trim(),
+            email: ecEmail.trim() || null,
+            relationship: ecRelationship || "OTHER",
+          } : undefined
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setProfileError(data.error ?? "Failed to update profile details.");
+      } else {
+        setProfileSuccess("Profile details updated successfully.");
+      }
+    } catch {
+      setProfileError("Network error. Please try again.");
+    } finally {
+      setProfileSaving(false);
+    }
+  }
+
   async function handleToggle(key: keyof NotificationPreferences, value: boolean) {
     // Optimistic update
     setPrefs((prev) => ({ ...prev, [key]: value }));
@@ -135,7 +220,7 @@ export default function SettingsClient({ user, notificationPreferences }: Props)
 
       if (res.status === 404 || res.status === 405) {
         setDeleteError(
-          "Account deletion is not available via self-service. Please contact support at support@shack.ng."
+          "Account deletion is not available via self-service. Please contact support at support@hausevo.com.ng."
         );
         setDeleting(false);
         return;
@@ -178,7 +263,7 @@ export default function SettingsClient({ user, notificationPreferences }: Props)
     {
       key: "platformAnnouncements",
       label: "Platform announcements",
-      description: "News and updates from Shack",
+      description: "News and updates from Hausevo",
     },
   ];
 
@@ -256,6 +341,168 @@ export default function SettingsClient({ user, notificationPreferences }: Props)
           </form>
         </div>
       </div>
+
+      {/* Profile details (TENANT only) */}
+      {user.roles.includes("TENANT") && (
+        <div className="bg-white rounded-2xl border border-zinc-200 p-6">
+          <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-5">
+            Profile Details
+          </p>
+          <form onSubmit={handleProfileSave} className="flex flex-col gap-5">
+            {/* Employment Status */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">
+                Employment Status
+              </label>
+              <select
+                value={employmentStatus}
+                onChange={(e) => setEmploymentStatus(e.target.value)}
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 outline-none focus:border-zinc-900 transition-colors"
+              >
+                <option value="">Select employment status…</option>
+                {EMPLOYMENT_STATUSES.map((s) => (
+                  <option key={s} value={s}>{s}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Profession */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">
+                Job Title / Profession
+              </label>
+              <input
+                type="text"
+                value={profession}
+                onChange={(e) => setProfession(e.target.value)}
+                placeholder="e.g. Software Engineer, Trader, Nurse"
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors"
+              />
+            </div>
+
+            {/* Employer Name */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">
+                Employer / Business Name
+              </label>
+              <input
+                type="text"
+                value={employerName}
+                onChange={(e) => setEmployerName(e.target.value)}
+                placeholder="e.g. Chevron Nigeria, Self-Employed"
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors"
+              />
+            </div>
+
+            {/* Monthly Income Bracket */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">
+                Monthly Income Bracket
+              </label>
+              <select
+                value={monthlyIncome}
+                onChange={(e) => setMonthlyIncome(e.target.value)}
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 outline-none focus:border-zinc-900 transition-colors"
+              >
+                <option value="">Select income bracket…</option>
+                {INCOME_BRACKETS.map((b) => (
+                  <option key={b} value={b}>{b}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Emergency Contact Divider */}
+            <div className="h-px bg-zinc-100 my-2" />
+
+            <div>
+              <p className="text-sm font-bold text-zinc-900 mb-1">Emergency Contact</p>
+              <p className="text-xs text-zinc-400 mb-4">
+                Someone landlords can reach in case of an emergency (replaces physical agent contact).
+              </p>
+            </div>
+
+            {/* Emergency Contact Name */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">
+                Contact Full Name
+              </label>
+              <input
+                type="text"
+                value={ecFullName}
+                onChange={(e) => setEcFullName(e.target.value)}
+                placeholder="e.g. Ngozi Adeyemi"
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors"
+              />
+            </div>
+
+            {/* Emergency Contact Phone */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">
+                Contact Phone Number
+              </label>
+              <input
+                type="tel"
+                value={ecPhone}
+                onChange={(e) => setEcPhone(e.target.value)}
+                placeholder="e.g. 08012345678"
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors"
+              />
+            </div>
+
+            {/* Emergency Contact Email */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">
+                Contact Email Address
+              </label>
+              <input
+                type="email"
+                value={ecEmail}
+                onChange={(e) => setEcEmail(e.target.value)}
+                placeholder="e.g. ngozi@gmail.com"
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors"
+              />
+            </div>
+
+            {/* Emergency Contact Relationship */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">
+                Relationship
+              </label>
+              <select
+                value={ecRelationship}
+                onChange={(e) => setEcRelationship(e.target.value)}
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 outline-none focus:border-zinc-900 transition-colors"
+              >
+                <option value="">Select relationship…</option>
+                {RELATIONSHIPS.map((r) => (
+                  <option key={r} value={r}>{r}</option>
+                ))}
+              </select>
+            </div>
+
+            {profileSuccess && (
+              <div className="rounded-xl bg-emerald-50 border border-emerald-100 px-4 py-3 text-sm text-emerald-700">
+                {profileSuccess}
+              </div>
+            )}
+            {profileError && (
+              <div className="rounded-xl bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700">
+                {profileError}
+              </div>
+            )}
+
+            <div>
+              <button
+                type="submit"
+                disabled={profileSaving}
+                className="rounded-full bg-zinc-900 text-white px-5 py-2.5 text-sm font-bold hover:bg-zinc-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {profileSaving ? "Saving…" : "Save profile details"}
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
 
       {/* 2. Notifications */}
       <div className="bg-white rounded-2xl border border-zinc-200 p-6">

@@ -250,6 +250,7 @@ export type TenancyApplicationWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"TenancyApplication"> | Date | string
   property?: Prisma.XOR<Prisma.PropertyScalarRelationFilter, Prisma.PropertyWhereInput>
   tenant?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  guarantors?: Prisma.GuarantorListRelationFilter
 }
 
 export type TenancyApplicationOrderByWithRelationInput = {
@@ -264,6 +265,7 @@ export type TenancyApplicationOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   property?: Prisma.PropertyOrderByWithRelationInput
   tenant?: Prisma.UserOrderByWithRelationInput
+  guarantors?: Prisma.GuarantorOrderByRelationAggregateInput
 }
 
 export type TenancyApplicationWhereUniqueInput = Prisma.AtLeast<{
@@ -282,6 +284,7 @@ export type TenancyApplicationWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"TenancyApplication"> | Date | string
   property?: Prisma.XOR<Prisma.PropertyScalarRelationFilter, Prisma.PropertyWhereInput>
   tenant?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  guarantors?: Prisma.GuarantorListRelationFilter
 }, "id" | "propertyId_tenantId">
 
 export type TenancyApplicationOrderByWithAggregationInput = {
@@ -326,6 +329,7 @@ export type TenancyApplicationCreateInput = {
   updatedAt?: Date | string
   property: Prisma.PropertyCreateNestedOneWithoutApplicationsInput
   tenant: Prisma.UserCreateNestedOneWithoutApplicationsInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutApplicationInput
 }
 
 export type TenancyApplicationUncheckedCreateInput = {
@@ -338,6 +342,7 @@ export type TenancyApplicationUncheckedCreateInput = {
   shackScoreAtApplication?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutApplicationInput
 }
 
 export type TenancyApplicationUpdateInput = {
@@ -350,6 +355,7 @@ export type TenancyApplicationUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   property?: Prisma.PropertyUpdateOneRequiredWithoutApplicationsNestedInput
   tenant?: Prisma.UserUpdateOneRequiredWithoutApplicationsNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutApplicationNestedInput
 }
 
 export type TenancyApplicationUncheckedUpdateInput = {
@@ -362,6 +368,7 @@ export type TenancyApplicationUncheckedUpdateInput = {
   shackScoreAtApplication?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutApplicationNestedInput
 }
 
 export type TenancyApplicationCreateManyInput = {
@@ -457,6 +464,11 @@ export type TenancyApplicationSumOrderByAggregateInput = {
   shackScoreAtApplication?: Prisma.SortOrder
 }
 
+export type TenancyApplicationNullableScalarRelationFilter = {
+  is?: Prisma.TenancyApplicationWhereInput | null
+  isNot?: Prisma.TenancyApplicationWhereInput | null
+}
+
 export type TenancyApplicationCreateNestedManyWithoutTenantInput = {
   create?: Prisma.XOR<Prisma.TenancyApplicationCreateWithoutTenantInput, Prisma.TenancyApplicationUncheckedCreateWithoutTenantInput> | Prisma.TenancyApplicationCreateWithoutTenantInput[] | Prisma.TenancyApplicationUncheckedCreateWithoutTenantInput[]
   connectOrCreate?: Prisma.TenancyApplicationCreateOrConnectWithoutTenantInput | Prisma.TenancyApplicationCreateOrConnectWithoutTenantInput[]
@@ -545,6 +557,22 @@ export type EnumApplicationStatusFieldUpdateOperationsInput = {
   set?: $Enums.ApplicationStatus
 }
 
+export type TenancyApplicationCreateNestedOneWithoutGuarantorsInput = {
+  create?: Prisma.XOR<Prisma.TenancyApplicationCreateWithoutGuarantorsInput, Prisma.TenancyApplicationUncheckedCreateWithoutGuarantorsInput>
+  connectOrCreate?: Prisma.TenancyApplicationCreateOrConnectWithoutGuarantorsInput
+  connect?: Prisma.TenancyApplicationWhereUniqueInput
+}
+
+export type TenancyApplicationUpdateOneWithoutGuarantorsNestedInput = {
+  create?: Prisma.XOR<Prisma.TenancyApplicationCreateWithoutGuarantorsInput, Prisma.TenancyApplicationUncheckedCreateWithoutGuarantorsInput>
+  connectOrCreate?: Prisma.TenancyApplicationCreateOrConnectWithoutGuarantorsInput
+  upsert?: Prisma.TenancyApplicationUpsertWithoutGuarantorsInput
+  disconnect?: Prisma.TenancyApplicationWhereInput | boolean
+  delete?: Prisma.TenancyApplicationWhereInput | boolean
+  connect?: Prisma.TenancyApplicationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenancyApplicationUpdateToOneWithWhereWithoutGuarantorsInput, Prisma.TenancyApplicationUpdateWithoutGuarantorsInput>, Prisma.TenancyApplicationUncheckedUpdateWithoutGuarantorsInput>
+}
+
 export type TenancyApplicationCreateWithoutTenantInput = {
   id?: string
   status?: $Enums.ApplicationStatus
@@ -554,6 +582,7 @@ export type TenancyApplicationCreateWithoutTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   property: Prisma.PropertyCreateNestedOneWithoutApplicationsInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutApplicationInput
 }
 
 export type TenancyApplicationUncheckedCreateWithoutTenantInput = {
@@ -565,6 +594,7 @@ export type TenancyApplicationUncheckedCreateWithoutTenantInput = {
   shackScoreAtApplication?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutApplicationInput
 }
 
 export type TenancyApplicationCreateOrConnectWithoutTenantInput = {
@@ -617,6 +647,7 @@ export type TenancyApplicationCreateWithoutPropertyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.UserCreateNestedOneWithoutApplicationsInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutApplicationInput
 }
 
 export type TenancyApplicationUncheckedCreateWithoutPropertyInput = {
@@ -628,6 +659,7 @@ export type TenancyApplicationUncheckedCreateWithoutPropertyInput = {
   shackScoreAtApplication?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutApplicationInput
 }
 
 export type TenancyApplicationCreateOrConnectWithoutPropertyInput = {
@@ -656,6 +688,70 @@ export type TenancyApplicationUpdateManyWithWhereWithoutPropertyInput = {
   data: Prisma.XOR<Prisma.TenancyApplicationUpdateManyMutationInput, Prisma.TenancyApplicationUncheckedUpdateManyWithoutPropertyInput>
 }
 
+export type TenancyApplicationCreateWithoutGuarantorsInput = {
+  id?: string
+  status?: $Enums.ApplicationStatus
+  message?: string | null
+  rejectionReason?: string | null
+  shackScoreAtApplication?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  property: Prisma.PropertyCreateNestedOneWithoutApplicationsInput
+  tenant: Prisma.UserCreateNestedOneWithoutApplicationsInput
+}
+
+export type TenancyApplicationUncheckedCreateWithoutGuarantorsInput = {
+  id?: string
+  propertyId: string
+  tenantId: string
+  status?: $Enums.ApplicationStatus
+  message?: string | null
+  rejectionReason?: string | null
+  shackScoreAtApplication?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TenancyApplicationCreateOrConnectWithoutGuarantorsInput = {
+  where: Prisma.TenancyApplicationWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenancyApplicationCreateWithoutGuarantorsInput, Prisma.TenancyApplicationUncheckedCreateWithoutGuarantorsInput>
+}
+
+export type TenancyApplicationUpsertWithoutGuarantorsInput = {
+  update: Prisma.XOR<Prisma.TenancyApplicationUpdateWithoutGuarantorsInput, Prisma.TenancyApplicationUncheckedUpdateWithoutGuarantorsInput>
+  create: Prisma.XOR<Prisma.TenancyApplicationCreateWithoutGuarantorsInput, Prisma.TenancyApplicationUncheckedCreateWithoutGuarantorsInput>
+  where?: Prisma.TenancyApplicationWhereInput
+}
+
+export type TenancyApplicationUpdateToOneWithWhereWithoutGuarantorsInput = {
+  where?: Prisma.TenancyApplicationWhereInput
+  data: Prisma.XOR<Prisma.TenancyApplicationUpdateWithoutGuarantorsInput, Prisma.TenancyApplicationUncheckedUpdateWithoutGuarantorsInput>
+}
+
+export type TenancyApplicationUpdateWithoutGuarantorsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shackScoreAtApplication?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  property?: Prisma.PropertyUpdateOneRequiredWithoutApplicationsNestedInput
+  tenant?: Prisma.UserUpdateOneRequiredWithoutApplicationsNestedInput
+}
+
+export type TenancyApplicationUncheckedUpdateWithoutGuarantorsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  propertyId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shackScoreAtApplication?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type TenancyApplicationCreateManyTenantInput = {
   id?: string
   propertyId: string
@@ -676,6 +772,7 @@ export type TenancyApplicationUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   property?: Prisma.PropertyUpdateOneRequiredWithoutApplicationsNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutApplicationNestedInput
 }
 
 export type TenancyApplicationUncheckedUpdateWithoutTenantInput = {
@@ -687,6 +784,7 @@ export type TenancyApplicationUncheckedUpdateWithoutTenantInput = {
   shackScoreAtApplication?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutApplicationNestedInput
 }
 
 export type TenancyApplicationUncheckedUpdateManyWithoutTenantInput = {
@@ -720,6 +818,7 @@ export type TenancyApplicationUpdateWithoutPropertyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.UserUpdateOneRequiredWithoutApplicationsNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutApplicationNestedInput
 }
 
 export type TenancyApplicationUncheckedUpdateWithoutPropertyInput = {
@@ -731,6 +830,7 @@ export type TenancyApplicationUncheckedUpdateWithoutPropertyInput = {
   shackScoreAtApplication?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutApplicationNestedInput
 }
 
 export type TenancyApplicationUncheckedUpdateManyWithoutPropertyInput = {
@@ -745,6 +845,35 @@ export type TenancyApplicationUncheckedUpdateManyWithoutPropertyInput = {
 }
 
 
+/**
+ * Count Type TenancyApplicationCountOutputType
+ */
+
+export type TenancyApplicationCountOutputType = {
+  guarantors: number
+}
+
+export type TenancyApplicationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  guarantors?: boolean | TenancyApplicationCountOutputTypeCountGuarantorsArgs
+}
+
+/**
+ * TenancyApplicationCountOutputType without action
+ */
+export type TenancyApplicationCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TenancyApplicationCountOutputType
+   */
+  select?: Prisma.TenancyApplicationCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * TenancyApplicationCountOutputType without action
+ */
+export type TenancyApplicationCountOutputTypeCountGuarantorsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuarantorWhereInput
+}
+
 
 export type TenancyApplicationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -758,6 +887,8 @@ export type TenancyApplicationSelect<ExtArgs extends runtime.Types.Extensions.In
   updatedAt?: boolean
   property?: boolean | Prisma.PropertyDefaultArgs<ExtArgs>
   tenant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  guarantors?: boolean | Prisma.TenancyApplication$guarantorsArgs<ExtArgs>
+  _count?: boolean | Prisma.TenancyApplicationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tenancyApplication"]>
 
 export type TenancyApplicationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -804,6 +935,8 @@ export type TenancyApplicationOmit<ExtArgs extends runtime.Types.Extensions.Inte
 export type TenancyApplicationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   property?: boolean | Prisma.PropertyDefaultArgs<ExtArgs>
   tenant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  guarantors?: boolean | Prisma.TenancyApplication$guarantorsArgs<ExtArgs>
+  _count?: boolean | Prisma.TenancyApplicationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TenancyApplicationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   property?: boolean | Prisma.PropertyDefaultArgs<ExtArgs>
@@ -819,6 +952,7 @@ export type $TenancyApplicationPayload<ExtArgs extends runtime.Types.Extensions.
   objects: {
     property: Prisma.$PropertyPayload<ExtArgs>
     tenant: Prisma.$UserPayload<ExtArgs>
+    guarantors: Prisma.$GuarantorPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1226,6 +1360,7 @@ export interface Prisma__TenancyApplicationClient<T, Null = never, ExtArgs exten
   readonly [Symbol.toStringTag]: "PrismaPromise"
   property<T extends Prisma.PropertyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PropertyDefaultArgs<ExtArgs>>): Prisma.Prisma__PropertyClient<runtime.Types.Result.GetResult<Prisma.$PropertyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   tenant<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  guarantors<T extends Prisma.TenancyApplication$guarantorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenancyApplication$guarantorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuarantorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1662,6 +1797,30 @@ export type TenancyApplicationDeleteManyArgs<ExtArgs extends runtime.Types.Exten
    * Limit how many TenancyApplications to delete.
    */
   limit?: number
+}
+
+/**
+ * TenancyApplication.guarantors
+ */
+export type TenancyApplication$guarantorsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Guarantor
+   */
+  select?: Prisma.GuarantorSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Guarantor
+   */
+  omit?: Prisma.GuarantorOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuarantorInclude<ExtArgs> | null
+  where?: Prisma.GuarantorWhereInput
+  orderBy?: Prisma.GuarantorOrderByWithRelationInput | Prisma.GuarantorOrderByWithRelationInput[]
+  cursor?: Prisma.GuarantorWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuarantorScalarFieldEnum | Prisma.GuarantorScalarFieldEnum[]
 }
 
 /**

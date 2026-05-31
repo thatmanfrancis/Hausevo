@@ -27,13 +27,13 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <div className="max-w-6xl mx-auto flex items-center justify-between px-6 h-14">
           <Link href="/admin/dashboard" className="flex items-center gap-2">
             <Image 
-              src="/icons/logo-white-bold.png" 
-              alt="Shack Logo" 
-              width={40} 
-              height={40} 
-              className="object-contain"
+              src="/hausevofinal.png" 
+              alt="Hausevo Logo" 
+              width={56} 
+              height={56} 
+              className="object-contain brightness-0 invert"
+              priority
             />
-            <span className="text-lg font-black tracking-tighter text-white uppercase">Shack</span>
             <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 border border-zinc-700 rounded-full px-2 py-0.5 ml-1">
               Admin
             </span>

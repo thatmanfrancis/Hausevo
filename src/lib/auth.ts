@@ -5,12 +5,12 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "./prisma";
 import bcrypt from "bcryptjs";
 import { sendEmail } from "./mail";
-import { SHACK_LOGO_BASE64 } from "@/lib/assets";
+import { HAUSEVO_LOGO_BASE64 } from "@/lib/assets";
 import LoginAlertEmail from "@/emails/LoginAlert";
 import React from "react";
 
 // ── Custom adapter — maps NextAuth's `name` field to our `fullName` column ──
-function ShackPrismaAdapter() {
+function HausevoPrismaAdapter() {
   const base = PrismaAdapter(prisma);
   return {
     ...base,
@@ -22,7 +22,7 @@ function ShackPrismaAdapter() {
       const user = await prisma.user.create({
         data: {
           ...rest,
-          fullName: name ?? rest.fullName ?? "Shack User",
+          fullName: name ?? rest.fullName ?? "Hausevo User",
         },
       });
       // Return shape must satisfy AdapterUser (needs `name` + `emailVerified`)
@@ -36,7 +36,7 @@ function ShackPrismaAdapter() {
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: ShackPrismaAdapter(),
+  adapter: HausevoPrismaAdapter(),
   trustHost: true,
 
   // JWT is required when using Credentials provider alongside a database adapter.
@@ -165,13 +165,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
           await sendEmail({
             to: [{ email: user.email!, name: user.name || undefined }],
-            subject: "Security Alert: New login to your Shack account",
+            subject: "Security Alert: New login to your Hausevo account",
             html,
             inline_images: [
               {
-                cid: "shack_logo",
-                content: SHACK_LOGO_BASE64,
-                mime_type: "image/jpeg",
+                cid: "hausevo_logo",
+                content: HAUSEVO_LOGO_BASE64,
+                mime_type: "image/png",
               },
             ],
           });

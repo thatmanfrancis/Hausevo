@@ -26,6 +26,20 @@ const PROPERTY_TYPES = [
   "3 Bedroom Flat", "Bungalow", "Duplex", "Shortlet",
 ];
 
+const EMPLOYMENT_STATUSES = [
+  "Employed", "Self-Employed", "Business Owner", "Student", "Retired", "Other",
+];
+
+const INCOME_BRACKETS = [
+  "Under ₦100k/mo",
+  "₦100k–₦200k",
+  "₦200k–₦500k",
+  "₦500k–₦1M",
+  "Above ₦1M",
+];
+
+const RELATIONSHIPS = ["Family", "Employer", "Colleague", "Friend", "Other"];
+
 const LANDLORD_NEXT_STEPS = [
   "Complete your profile so people know who you are",
   "List your property with clear photos and price",
@@ -139,7 +153,19 @@ export default function OnboardingClient({
   const [status, setStatus] = useState<"IDLE" | "VERIFYING" | "SUCCESS">("IDLE");
   const [vaultDocUrl, setVaultDocUrl] = useState("");
 
-  const totalSteps = role === "TENANT" ? 4 : 3;
+  // Step 2b: Employment
+  const [employmentStatus, setEmploymentStatus] = useState("");
+  const [profession, setProfession] = useState("");
+  const [employerName, setEmployerName] = useState("");
+  const [monthlyIncome, setMonthlyIncome] = useState("");
+
+  // Step 2c: Emergency contact
+  const [ecFullName, setEcFullName] = useState("");
+  const [ecPhone, setEcPhone] = useState("");
+  const [ecEmail, setEcEmail] = useState("");
+  const [ecRelationship, setEcRelationship] = useState("");
+
+  const totalSteps = role === "TENANT" ? 6 : 3;
 
   function togglePropertyType(type: string) {
     setPropertyTypes((prev) =>
@@ -160,6 +186,21 @@ export default function OnboardingClient({
             lga: lga || undefined,
             maxBudget: budget || undefined,
             propertyTypes: propertyTypes.length > 0 ? propertyTypes : undefined,
+            // Employment profile
+            employmentStatus: employmentStatus || undefined,
+            profession: profession || undefined,
+            employerName: employerName || undefined,
+            monthlyIncome: monthlyIncome || undefined,
+            // Emergency contact
+            emergencyContact:
+              ecFullName.trim() && ecPhone.trim()
+                ? {
+                    fullName: ecFullName.trim(),
+                    phone: ecPhone.trim(),
+                    email: ecEmail.trim() || undefined,
+                    relationship: ecRelationship || "OTHER",
+                  }
+                : undefined,
           }),
         }),
       });
@@ -211,7 +252,7 @@ export default function OnboardingClient({
         <p className="text-base text-zinc-400 max-w-sm leading-relaxed px-6">
           {status === "VERIFYING" 
             ? "We're setting up your secure vault and checking your identity documents. One moment..."
-            : "Welcome to Shack! Your Trusted Badge is active. Redirecting you to your dashboard now."}
+            : "Welcome to Hausevo! Your Trusted Badge is active. Redirecting you to your dashboard now."}
         </p>
       </div>
     );
@@ -249,7 +290,7 @@ export default function OnboardingClient({
             Step 1 of {totalSteps}
           </p>
           <h1 className="text-2xl font-extrabold text-zinc-900 tracking-tight mb-1">
-            Welcome to Shack, {userName}
+            Welcome to Hausevo, {userName}
           </h1>
           <p className="text-sm text-zinc-400 mb-8">
             Confirm how you&apos;ll be using the platform
@@ -401,7 +442,7 @@ export default function OnboardingClient({
             What happens next
           </h1>
           <p className="text-sm text-zinc-400 mb-8">
-            Here&apos;s how to get started on Shack
+            Here&apos;s how to get started on Hausevo
           </p>
 
           <ol className="flex flex-col gap-4 mb-8">
@@ -585,7 +626,7 @@ export default function OnboardingClient({
                 </div>
               </div>
               <p className="text-[10px] text-zinc-400 mt-3 italic text-center leading-relaxed">
-                This document will be saved in your <strong>Shack Vault</strong> so you never have to upload it again.
+                This document will be saved in your <strong>Hausevo Vault</strong> so you never have to upload it again.
               </p>
             </div>
           </div>
@@ -602,7 +643,7 @@ export default function OnboardingClient({
               disabled={loading}
               className="flex-1 rounded-full bg-zinc-900 py-3 text-sm font-bold text-white hover:bg-zinc-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? "Setting up…" : "Finish setup →"}
+              {loading ? "Setting up…" : "Verify & Finish"}
             </button>
           </div>
           <div className="text-center">
@@ -619,7 +660,232 @@ export default function OnboardingClient({
     );
   }
 
-  // ── Step 3: Tier selection (TENANT only) ─────────────────────────────────
+  // ── Step 3: Employment & Profession (TENANT only) ─────────────────────
+
+  if (step === 3 && role === "TENANT") {
+    return (
+      <div className="w-full max-w-md">
+        <StepDots total={totalSteps} current={3} />
+        <div className="bg-white rounded-2xl border border-zinc-200 p-8">
+          <p className="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">
+            Step 4 of {totalSteps}
+          </p>
+          <h1 className="text-2xl font-extrabold text-zinc-900 tracking-tight mb-1">
+            Tell us about your work
+          </h1>
+          <p className="text-sm text-zinc-400 mb-8">
+            Landlords need to know you can afford the rent. This stays private until you apply.
+          </p>
+
+          {/* Employment status */}
+          <div className="mb-6">
+            <label className="text-xs font-bold uppercase tracking-wider text-zinc-400 block mb-2">
+              Employment Status
+            </label>
+            <div className="grid grid-cols-2 gap-2">
+              {EMPLOYMENT_STATUSES.map((s) => (
+                <button
+                  key={s}
+                  onClick={() => setEmploymentStatus(employmentStatus === s ? "" : s)}
+                  className={[
+                    "rounded-xl border px-4 py-3 text-xs font-semibold transition-colors text-left",
+                    employmentStatus === s
+                      ? "border-zinc-900 bg-zinc-900 text-white"
+                      : "border-zinc-200 bg-white text-zinc-700 hover:border-zinc-400",
+                  ].join(" ")}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Profession */}
+          <div className="mb-4">
+            <label className="text-xs font-bold uppercase tracking-wider text-zinc-400 block mb-2">
+              Job Title / Profession
+            </label>
+            <input
+              type="text"
+              value={profession}
+              onChange={(e) => setProfession(e.target.value)}
+              placeholder="e.g. Software Engineer, Trader, Teacher"
+              className="w-full rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors"
+            />
+          </div>
+
+          {/* Employer name */}
+          <div className="mb-6">
+            <label className="text-xs font-bold uppercase tracking-wider text-zinc-400 block mb-2">
+              Employer / Business Name
+            </label>
+            <input
+              type="text"
+              value={employerName}
+              onChange={(e) => setEmployerName(e.target.value)}
+              placeholder="e.g. Access Bank, Self-Employed"
+              className="w-full rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors"
+            />
+          </div>
+
+          {/* Monthly income bracket */}
+          <div className="mb-8">
+            <label className="text-xs font-bold uppercase tracking-wider text-zinc-400 block mb-2">
+              Monthly Income Bracket
+            </label>
+            <div className="grid grid-cols-2 gap-2">
+              {INCOME_BRACKETS.map((b) => (
+                <button
+                  key={b}
+                  onClick={() => setMonthlyIncome(monthlyIncome === b ? "" : b)}
+                  className={[
+                    "rounded-xl border px-4 py-3 text-xs font-semibold transition-colors text-left",
+                    monthlyIncome === b
+                      ? "border-zinc-900 bg-zinc-900 text-white"
+                      : "border-zinc-200 bg-white text-zinc-700 hover:border-zinc-400",
+                  ].join(" ")}
+                >
+                  {b}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex gap-3 mb-4">
+            <button
+              onClick={() => setStep(2)}
+              className="flex-1 rounded-full border border-zinc-200 py-3 text-sm font-bold text-zinc-900 hover:border-zinc-400 transition-colors"
+            >
+              ← Back
+            </button>
+            <button
+              onClick={() => setStep(4)}
+              className="flex-1 rounded-full bg-zinc-900 py-3 text-sm font-bold text-white hover:bg-zinc-700 transition-colors"
+            >
+              Continue →
+            </button>
+          </div>
+          <div className="text-center">
+            <button
+              onClick={() => setStep(4)}
+              className="text-xs text-zinc-400 hover:text-zinc-700 transition-colors"
+            >
+              Skip for now
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Step 4: Emergency Contact (TENANT only) ──────────────────────────
+
+  if (step === 4 && role === "TENANT") {
+    return (
+      <div className="w-full max-w-md">
+        <StepDots total={totalSteps} current={4} />
+        <div className="bg-white rounded-2xl border border-zinc-200 p-8">
+          <p className="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">
+            Step 5 of {totalSteps}
+          </p>
+          <h1 className="text-2xl font-extrabold text-zinc-900 tracking-tight mb-1">
+            Add an emergency contact
+          </h1>
+          <p className="text-sm text-zinc-400 mb-2">
+            Someone landlords can always reach — like a family member or employer.
+          </p>
+          <div className="bg-zinc-50 rounded-xl px-4 py-3 mb-6">
+            <p className="text-xs text-zinc-500 leading-relaxed">
+              This helps landlords feel confident renting to you. It’s one of the key
+              things that replaces the need for a physical agent.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-4 mb-8">
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">
+                Full Name
+              </label>
+              <input
+                type="text"
+                value={ecFullName}
+                onChange={(e) => setEcFullName(e.target.value)}
+                placeholder="e.g. Ngozi Adeyemi"
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors"
+              />
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                value={ecPhone}
+                onChange={(e) => setEcPhone(e.target.value)}
+                placeholder="e.g. 08012345678"
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors"
+              />
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">
+                Email Address
+              </label>
+              <input
+                type="email"
+                value={ecEmail}
+                onChange={(e) => setEcEmail(e.target.value)}
+                placeholder="e.g. ngozi@gmail.com"
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors"
+              />
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">
+                Relationship
+              </label>
+              <select
+                value={ecRelationship}
+                onChange={(e) => setEcRelationship(e.target.value)}
+                className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 outline-none focus:border-zinc-900 transition-colors"
+              >
+                <option value="">Select relationship…</option>
+                {RELATIONSHIPS.map((r) => (
+                  <option key={r} value={r}>{r}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="flex gap-3 mb-4">
+            <button
+              onClick={() => setStep(3)}
+              className="flex-1 rounded-full border border-zinc-200 py-3 text-sm font-bold text-zinc-900 hover:border-zinc-400 transition-colors"
+            >
+              ← Back
+            </button>
+            <button
+              onClick={() => setStep(5)}
+              className="flex-1 rounded-full bg-zinc-900 py-3 text-sm font-bold text-white hover:bg-zinc-700 transition-colors"
+            >
+              Continue →
+            </button>
+          </div>
+          <div className="text-center">
+            <button
+              onClick={() => setStep(5)}
+              className="text-xs text-zinc-400 hover:text-zinc-700 transition-colors"
+            >
+              Skip for now
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Step 5: Tier selection (TENANT only) ────────────────────────────
 
   const tier0Features = [
     { label: "Browse all properties", included: true },
@@ -632,7 +898,7 @@ export default function OnboardingClient({
     { label: "All Free features", included: true },
     { label: "Apply for houses", included: true },
     { label: "Trusted Badge on profile", included: true },
-    { label: "Show your ShackScore", included: true },
+    { label: "Show your Hausevo Score", included: true },
   ];
 
   const tierButtonLabel = selectedTier === 1
@@ -641,16 +907,16 @@ export default function OnboardingClient({
 
   return (
     <div className="w-full max-w-md">
-      <StepDots total={totalSteps} current={3} />
+      <StepDots total={totalSteps} current={5} />
       <div className="bg-white rounded-2xl border border-zinc-200 p-8">
         <p className="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">
-          Step 4 of {totalSteps}
+          Step 6 of {totalSteps}
         </p>
         <h1 className="text-2xl font-extrabold text-zinc-900 tracking-tight mb-1">
           You&apos;re almost set
         </h1>
         <p className="text-sm text-zinc-400 mb-8">
-          Choose how you want to use Shack
+          Choose how you want to use Hausevo
         </p>
 
         {/* Tier selection — clickable cards */}
@@ -726,7 +992,7 @@ export default function OnboardingClient({
 
         <div className="flex gap-3 mb-4">
           <button
-            onClick={() => setStep(2)}
+            onClick={() => setStep(4)}
             className="flex-1 rounded-full border border-zinc-200 py-3 text-sm font-bold text-zinc-900 hover:border-zinc-400 transition-colors"
           >
             ← Back

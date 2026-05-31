@@ -65,6 +65,12 @@ export type UserMinAggregateOutputType = {
   verificationBundlePaid: boolean | null
   verificationBundlePaidAt: Date | null
   onboardingCompleted: boolean | null
+  idDocumentUrl: string | null
+  selfieUrl: string | null
+  employmentStatus: string | null
+  profession: string | null
+  employerName: string | null
+  monthlyIncome: string | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -90,6 +96,12 @@ export type UserMaxAggregateOutputType = {
   verificationBundlePaid: boolean | null
   verificationBundlePaidAt: Date | null
   onboardingCompleted: boolean | null
+  idDocumentUrl: string | null
+  selfieUrl: string | null
+  employmentStatus: string | null
+  profession: string | null
+  employerName: string | null
+  monthlyIncome: string | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -116,6 +128,12 @@ export type UserCountAggregateOutputType = {
   verificationBundlePaid: number
   verificationBundlePaidAt: number
   onboardingCompleted: number
+  idDocumentUrl: number
+  selfieUrl: number
+  employmentStatus: number
+  profession: number
+  employerName: number
+  monthlyIncome: number
   _all: number
 }
 
@@ -159,6 +177,12 @@ export type UserMinAggregateInputType = {
   verificationBundlePaid?: true
   verificationBundlePaidAt?: true
   onboardingCompleted?: true
+  idDocumentUrl?: true
+  selfieUrl?: true
+  employmentStatus?: true
+  profession?: true
+  employerName?: true
+  monthlyIncome?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -184,6 +208,12 @@ export type UserMaxAggregateInputType = {
   verificationBundlePaid?: true
   verificationBundlePaidAt?: true
   onboardingCompleted?: true
+  idDocumentUrl?: true
+  selfieUrl?: true
+  employmentStatus?: true
+  profession?: true
+  employerName?: true
+  monthlyIncome?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -210,6 +240,12 @@ export type UserCountAggregateInputType = {
   verificationBundlePaid?: true
   verificationBundlePaidAt?: true
   onboardingCompleted?: true
+  idDocumentUrl?: true
+  selfieUrl?: true
+  employmentStatus?: true
+  profession?: true
+  employerName?: true
+  monthlyIncome?: true
   _all?: true
 }
 
@@ -323,6 +359,12 @@ export type UserGroupByOutputType = {
   verificationBundlePaid: boolean
   verificationBundlePaidAt: Date | null
   onboardingCompleted: boolean
+  idDocumentUrl: string | null
+  selfieUrl: string | null
+  employmentStatus: string | null
+  profession: string | null
+  employerName: string | null
+  monthlyIncome: string | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -372,6 +414,12 @@ export type UserWhereInput = {
   verificationBundlePaid?: Prisma.BoolFilter<"User"> | boolean
   verificationBundlePaidAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   onboardingCompleted?: Prisma.BoolFilter<"User"> | boolean
+  idDocumentUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  selfieUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  employmentStatus?: Prisma.StringNullableFilter<"User"> | string | null
+  profession?: Prisma.StringNullableFilter<"User"> | string | null
+  employerName?: Prisma.StringNullableFilter<"User"> | string | null
+  monthlyIncome?: Prisma.StringNullableFilter<"User"> | string | null
   issuedKeys?: Prisma.AccessKeyListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
   artisanProfile?: Prisma.XOR<Prisma.ArtisanProfileNullableScalarRelationFilter, Prisma.ArtisanProfileWhereInput> | null
@@ -411,6 +459,7 @@ export type UserWhereInput = {
   chats?: Prisma.ChatRoomListRelationFilter
   coTenancies?: Prisma.TenancyListRelationFilter
   aiMessages?: Prisma.AIMessageListRelationFilter
+  guarantors?: Prisma.GuarantorListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -437,6 +486,12 @@ export type UserOrderByWithRelationInput = {
   verificationBundlePaid?: Prisma.SortOrder
   verificationBundlePaidAt?: Prisma.SortOrderInput | Prisma.SortOrder
   onboardingCompleted?: Prisma.SortOrder
+  idDocumentUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  selfieUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  employmentStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  profession?: Prisma.SortOrderInput | Prisma.SortOrder
+  employerName?: Prisma.SortOrderInput | Prisma.SortOrder
+  monthlyIncome?: Prisma.SortOrderInput | Prisma.SortOrder
   issuedKeys?: Prisma.AccessKeyOrderByRelationAggregateInput
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   artisanProfile?: Prisma.ArtisanProfileOrderByWithRelationInput
@@ -476,6 +531,7 @@ export type UserOrderByWithRelationInput = {
   chats?: Prisma.ChatRoomOrderByRelationAggregateInput
   coTenancies?: Prisma.TenancyOrderByRelationAggregateInput
   aiMessages?: Prisma.AIMessageOrderByRelationAggregateInput
+  guarantors?: Prisma.GuarantorOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -505,6 +561,12 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   verificationBundlePaid?: Prisma.BoolFilter<"User"> | boolean
   verificationBundlePaidAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   onboardingCompleted?: Prisma.BoolFilter<"User"> | boolean
+  idDocumentUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  selfieUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  employmentStatus?: Prisma.StringNullableFilter<"User"> | string | null
+  profession?: Prisma.StringNullableFilter<"User"> | string | null
+  employerName?: Prisma.StringNullableFilter<"User"> | string | null
+  monthlyIncome?: Prisma.StringNullableFilter<"User"> | string | null
   issuedKeys?: Prisma.AccessKeyListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
   artisanProfile?: Prisma.XOR<Prisma.ArtisanProfileNullableScalarRelationFilter, Prisma.ArtisanProfileWhereInput> | null
@@ -544,6 +606,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   chats?: Prisma.ChatRoomListRelationFilter
   coTenancies?: Prisma.TenancyListRelationFilter
   aiMessages?: Prisma.AIMessageListRelationFilter
+  guarantors?: Prisma.GuarantorListRelationFilter
 }, "id" | "email" | "phoneNumber" | "googleId">
 
 export type UserOrderByWithAggregationInput = {
@@ -570,6 +633,12 @@ export type UserOrderByWithAggregationInput = {
   verificationBundlePaid?: Prisma.SortOrder
   verificationBundlePaidAt?: Prisma.SortOrderInput | Prisma.SortOrder
   onboardingCompleted?: Prisma.SortOrder
+  idDocumentUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  selfieUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  employmentStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  profession?: Prisma.SortOrderInput | Prisma.SortOrder
+  employerName?: Prisma.SortOrderInput | Prisma.SortOrder
+  monthlyIncome?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -604,6 +673,12 @@ export type UserScalarWhereWithAggregatesInput = {
   verificationBundlePaid?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   verificationBundlePaidAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   onboardingCompleted?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  idDocumentUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  selfieUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  employmentStatus?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  profession?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  employerName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  monthlyIncome?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
 }
 
 export type UserCreateInput = {
@@ -630,6 +705,12 @@ export type UserCreateInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -669,6 +750,7 @@ export type UserCreateInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -695,6 +777,12 @@ export type UserUncheckedCreateInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -734,6 +822,7 @@ export type UserUncheckedCreateInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -760,6 +849,12 @@ export type UserUpdateInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -799,6 +894,7 @@ export type UserUpdateInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -825,6 +921,12 @@ export type UserUncheckedUpdateInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -864,6 +966,7 @@ export type UserUncheckedUpdateInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -890,6 +993,12 @@ export type UserCreateManyInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -916,6 +1025,12 @@ export type UserUpdateManyMutationInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -942,6 +1057,12 @@ export type UserUncheckedUpdateManyInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EnumUserRoleNullableListFilter<$PrismaModel = never> = {
@@ -976,6 +1097,12 @@ export type UserCountOrderByAggregateInput = {
   verificationBundlePaid?: Prisma.SortOrder
   verificationBundlePaidAt?: Prisma.SortOrder
   onboardingCompleted?: Prisma.SortOrder
+  idDocumentUrl?: Prisma.SortOrder
+  selfieUrl?: Prisma.SortOrder
+  employmentStatus?: Prisma.SortOrder
+  profession?: Prisma.SortOrder
+  employerName?: Prisma.SortOrder
+  monthlyIncome?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -1009,6 +1136,12 @@ export type UserMaxOrderByAggregateInput = {
   verificationBundlePaid?: Prisma.SortOrder
   verificationBundlePaidAt?: Prisma.SortOrder
   onboardingCompleted?: Prisma.SortOrder
+  idDocumentUrl?: Prisma.SortOrder
+  selfieUrl?: Prisma.SortOrder
+  employmentStatus?: Prisma.SortOrder
+  profession?: Prisma.SortOrder
+  employerName?: Prisma.SortOrder
+  monthlyIncome?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -1034,6 +1167,12 @@ export type UserMinOrderByAggregateInput = {
   verificationBundlePaid?: Prisma.SortOrder
   verificationBundlePaidAt?: Prisma.SortOrder
   onboardingCompleted?: Prisma.SortOrder
+  idDocumentUrl?: Prisma.SortOrder
+  selfieUrl?: Prisma.SortOrder
+  employmentStatus?: Prisma.SortOrder
+  profession?: Prisma.SortOrder
+  employerName?: Prisma.SortOrder
+  monthlyIncome?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -1713,6 +1852,20 @@ export type UserUpdateOneRequiredWithoutNotificationPreferencesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationPreferencesInput, Prisma.UserUpdateWithoutNotificationPreferencesInput>, Prisma.UserUncheckedUpdateWithoutNotificationPreferencesInput>
 }
 
+export type UserCreateNestedOneWithoutGuarantorsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGuarantorsInput, Prisma.UserUncheckedCreateWithoutGuarantorsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuarantorsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutGuarantorsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGuarantorsInput, Prisma.UserUncheckedCreateWithoutGuarantorsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuarantorsInput
+  upsert?: Prisma.UserUpsertWithoutGuarantorsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGuarantorsInput, Prisma.UserUpdateWithoutGuarantorsInput>, Prisma.UserUncheckedUpdateWithoutGuarantorsInput>
+}
+
 export type UserCreateWithoutAccountsInput = {
   id?: string
   email: string
@@ -1737,6 +1890,12 @@ export type UserCreateWithoutAccountsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferencesCreateNestedOneWithoutUserInput
@@ -1775,6 +1934,7 @@ export type UserCreateWithoutAccountsInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1801,6 +1961,12 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferencesUncheckedCreateNestedOneWithoutUserInput
@@ -1839,6 +2005,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1881,6 +2048,12 @@ export type UserUpdateWithoutAccountsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferencesUpdateOneWithoutUserNestedInput
@@ -1919,6 +2092,7 @@ export type UserUpdateWithoutAccountsInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1945,6 +2119,12 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferencesUncheckedUpdateOneWithoutUserNestedInput
@@ -1983,6 +2163,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -2009,6 +2190,12 @@ export type UserCreateWithoutSessionsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -2047,6 +2234,7 @@ export type UserCreateWithoutSessionsInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -2073,6 +2261,12 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -2111,6 +2305,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -2153,6 +2348,12 @@ export type UserUpdateWithoutSessionsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -2191,6 +2392,7 @@ export type UserUpdateWithoutSessionsInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -2217,6 +2419,12 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -2255,6 +2463,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutShackScoreInput = {
@@ -2281,6 +2490,12 @@ export type UserCreateWithoutShackScoreInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -2319,6 +2534,7 @@ export type UserCreateWithoutShackScoreInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutShackScoreInput = {
@@ -2345,6 +2561,12 @@ export type UserUncheckedCreateWithoutShackScoreInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -2383,6 +2605,7 @@ export type UserUncheckedCreateWithoutShackScoreInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutShackScoreInput = {
@@ -2425,6 +2648,12 @@ export type UserUpdateWithoutShackScoreInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -2463,6 +2692,7 @@ export type UserUpdateWithoutShackScoreInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShackScoreInput = {
@@ -2489,6 +2719,12 @@ export type UserUncheckedUpdateWithoutShackScoreInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -2527,6 +2763,7 @@ export type UserUncheckedUpdateWithoutShackScoreInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutIssuedKeysInput = {
@@ -2553,6 +2790,12 @@ export type UserCreateWithoutIssuedKeysInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferencesCreateNestedOneWithoutUserInput
@@ -2591,6 +2834,7 @@ export type UserCreateWithoutIssuedKeysInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutIssuedKeysInput = {
@@ -2617,6 +2861,12 @@ export type UserUncheckedCreateWithoutIssuedKeysInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferencesUncheckedCreateNestedOneWithoutUserInput
@@ -2655,6 +2905,7 @@ export type UserUncheckedCreateWithoutIssuedKeysInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutIssuedKeysInput = {
@@ -2697,6 +2948,12 @@ export type UserUpdateWithoutIssuedKeysInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferencesUpdateOneWithoutUserNestedInput
@@ -2735,6 +2992,7 @@ export type UserUpdateWithoutIssuedKeysInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIssuedKeysInput = {
@@ -2761,6 +3019,12 @@ export type UserUncheckedUpdateWithoutIssuedKeysInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferencesUncheckedUpdateOneWithoutUserNestedInput
@@ -2799,6 +3063,7 @@ export type UserUncheckedUpdateWithoutIssuedKeysInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOwnedPropertiesInput = {
@@ -2825,6 +3090,12 @@ export type UserCreateWithoutOwnedPropertiesInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -2863,6 +3134,7 @@ export type UserCreateWithoutOwnedPropertiesInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOwnedPropertiesInput = {
@@ -2889,6 +3161,12 @@ export type UserUncheckedCreateWithoutOwnedPropertiesInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -2927,6 +3205,7 @@ export type UserUncheckedCreateWithoutOwnedPropertiesInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOwnedPropertiesInput = {
@@ -2958,6 +3237,12 @@ export type UserCreateWithoutProxySubmissionsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -2996,6 +3281,7 @@ export type UserCreateWithoutProxySubmissionsInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProxySubmissionsInput = {
@@ -3022,6 +3308,12 @@ export type UserUncheckedCreateWithoutProxySubmissionsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -3060,6 +3352,7 @@ export type UserUncheckedCreateWithoutProxySubmissionsInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProxySubmissionsInput = {
@@ -3102,6 +3395,12 @@ export type UserUpdateWithoutOwnedPropertiesInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -3140,6 +3439,7 @@ export type UserUpdateWithoutOwnedPropertiesInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedPropertiesInput = {
@@ -3166,6 +3466,12 @@ export type UserUncheckedUpdateWithoutOwnedPropertiesInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -3204,6 +3510,7 @@ export type UserUncheckedUpdateWithoutOwnedPropertiesInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutProxySubmissionsInput = {
@@ -3241,6 +3548,12 @@ export type UserUpdateWithoutProxySubmissionsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -3279,6 +3592,7 @@ export type UserUpdateWithoutProxySubmissionsInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProxySubmissionsInput = {
@@ -3305,6 +3619,12 @@ export type UserUncheckedUpdateWithoutProxySubmissionsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -3343,6 +3663,7 @@ export type UserUncheckedUpdateWithoutProxySubmissionsInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSavedPropertiesInput = {
@@ -3369,6 +3690,12 @@ export type UserCreateWithoutSavedPropertiesInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -3407,6 +3734,7 @@ export type UserCreateWithoutSavedPropertiesInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSavedPropertiesInput = {
@@ -3433,6 +3761,12 @@ export type UserUncheckedCreateWithoutSavedPropertiesInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -3471,6 +3805,7 @@ export type UserUncheckedCreateWithoutSavedPropertiesInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSavedPropertiesInput = {
@@ -3513,6 +3848,12 @@ export type UserUpdateWithoutSavedPropertiesInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -3551,6 +3892,7 @@ export type UserUpdateWithoutSavedPropertiesInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSavedPropertiesInput = {
@@ -3577,6 +3919,12 @@ export type UserUncheckedUpdateWithoutSavedPropertiesInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -3615,6 +3963,7 @@ export type UserUncheckedUpdateWithoutSavedPropertiesInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWishlistInput = {
@@ -3641,6 +3990,12 @@ export type UserCreateWithoutWishlistInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -3679,6 +4034,7 @@ export type UserCreateWithoutWishlistInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWishlistInput = {
@@ -3705,6 +4061,12 @@ export type UserUncheckedCreateWithoutWishlistInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -3743,6 +4105,7 @@ export type UserUncheckedCreateWithoutWishlistInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWishlistInput = {
@@ -3785,6 +4148,12 @@ export type UserUpdateWithoutWishlistInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -3823,6 +4192,7 @@ export type UserUpdateWithoutWishlistInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWishlistInput = {
@@ -3849,6 +4219,12 @@ export type UserUncheckedUpdateWithoutWishlistInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -3887,6 +4263,7 @@ export type UserUncheckedUpdateWithoutWishlistInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWaitlistsInput = {
@@ -3913,6 +4290,12 @@ export type UserCreateWithoutWaitlistsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -3951,6 +4334,7 @@ export type UserCreateWithoutWaitlistsInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWaitlistsInput = {
@@ -3977,6 +4361,12 @@ export type UserUncheckedCreateWithoutWaitlistsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -4015,6 +4405,7 @@ export type UserUncheckedCreateWithoutWaitlistsInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWaitlistsInput = {
@@ -4057,6 +4448,12 @@ export type UserUpdateWithoutWaitlistsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -4095,6 +4492,7 @@ export type UserUpdateWithoutWaitlistsInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWaitlistsInput = {
@@ -4121,6 +4519,12 @@ export type UserUncheckedUpdateWithoutWaitlistsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -4159,6 +4563,7 @@ export type UserUncheckedUpdateWithoutWaitlistsInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutVaultItemsInput = {
@@ -4185,6 +4590,12 @@ export type UserCreateWithoutVaultItemsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -4223,6 +4634,7 @@ export type UserCreateWithoutVaultItemsInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutVaultItemsInput = {
@@ -4249,6 +4661,12 @@ export type UserUncheckedCreateWithoutVaultItemsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -4287,6 +4705,7 @@ export type UserUncheckedCreateWithoutVaultItemsInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutVaultItemsInput = {
@@ -4329,6 +4748,12 @@ export type UserUpdateWithoutVaultItemsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -4367,6 +4792,7 @@ export type UserUpdateWithoutVaultItemsInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVaultItemsInput = {
@@ -4393,6 +4819,12 @@ export type UserUncheckedUpdateWithoutVaultItemsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -4431,6 +4863,7 @@ export type UserUncheckedUpdateWithoutVaultItemsInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutApplicationsInput = {
@@ -4457,6 +4890,12 @@ export type UserCreateWithoutApplicationsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -4495,6 +4934,7 @@ export type UserCreateWithoutApplicationsInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutApplicationsInput = {
@@ -4521,6 +4961,12 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -4559,6 +5005,7 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutApplicationsInput = {
@@ -4601,6 +5048,12 @@ export type UserUpdateWithoutApplicationsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -4639,6 +5092,7 @@ export type UserUpdateWithoutApplicationsInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApplicationsInput = {
@@ -4665,6 +5119,12 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -4703,6 +5163,7 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTenancyInput = {
@@ -4729,6 +5190,12 @@ export type UserCreateWithoutTenancyInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -4767,6 +5234,7 @@ export type UserCreateWithoutTenancyInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTenancyInput = {
@@ -4793,6 +5261,12 @@ export type UserUncheckedCreateWithoutTenancyInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -4831,6 +5305,7 @@ export type UserUncheckedCreateWithoutTenancyInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTenancyInput = {
@@ -4862,6 +5337,12 @@ export type UserCreateWithoutCoTenanciesInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -4900,6 +5381,7 @@ export type UserCreateWithoutCoTenanciesInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCoTenanciesInput = {
@@ -4926,6 +5408,12 @@ export type UserUncheckedCreateWithoutCoTenanciesInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -4964,6 +5452,7 @@ export type UserUncheckedCreateWithoutCoTenanciesInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCoTenanciesInput = {
@@ -5006,6 +5495,12 @@ export type UserUpdateWithoutTenancyInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -5044,6 +5539,7 @@ export type UserUpdateWithoutTenancyInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTenancyInput = {
@@ -5070,6 +5566,12 @@ export type UserUncheckedUpdateWithoutTenancyInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -5108,6 +5610,7 @@ export type UserUncheckedUpdateWithoutTenancyInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutCoTenanciesInput = {
@@ -5153,6 +5656,12 @@ export type UserScalarWhereInput = {
   verificationBundlePaid?: Prisma.BoolFilter<"User"> | boolean
   verificationBundlePaidAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   onboardingCompleted?: Prisma.BoolFilter<"User"> | boolean
+  idDocumentUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  selfieUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  employmentStatus?: Prisma.StringNullableFilter<"User"> | string | null
+  profession?: Prisma.StringNullableFilter<"User"> | string | null
+  employerName?: Prisma.StringNullableFilter<"User"> | string | null
+  monthlyIncome?: Prisma.StringNullableFilter<"User"> | string | null
 }
 
 export type UserCreateWithoutChatsInput = {
@@ -5179,6 +5688,12 @@ export type UserCreateWithoutChatsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -5217,6 +5732,7 @@ export type UserCreateWithoutChatsInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChatsInput = {
@@ -5243,6 +5759,12 @@ export type UserUncheckedCreateWithoutChatsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -5281,6 +5803,7 @@ export type UserUncheckedCreateWithoutChatsInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChatsInput = {
@@ -5328,6 +5851,12 @@ export type UserCreateWithoutMessagesInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -5366,6 +5895,7 @@ export type UserCreateWithoutMessagesInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMessagesInput = {
@@ -5392,6 +5922,12 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -5430,6 +5966,7 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMessagesInput = {
@@ -5472,6 +6009,12 @@ export type UserUpdateWithoutMessagesInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -5510,6 +6053,7 @@ export type UserUpdateWithoutMessagesInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessagesInput = {
@@ -5536,6 +6080,12 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -5574,6 +6124,7 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutArtisanProfileInput = {
@@ -5600,6 +6151,12 @@ export type UserCreateWithoutArtisanProfileInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferencesCreateNestedOneWithoutUserInput
@@ -5638,6 +6195,7 @@ export type UserCreateWithoutArtisanProfileInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutArtisanProfileInput = {
@@ -5664,6 +6222,12 @@ export type UserUncheckedCreateWithoutArtisanProfileInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   notificationPreferences?: Prisma.NotificationPreferencesUncheckedCreateNestedOneWithoutUserInput
@@ -5702,6 +6266,7 @@ export type UserUncheckedCreateWithoutArtisanProfileInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutArtisanProfileInput = {
@@ -5744,6 +6309,12 @@ export type UserUpdateWithoutArtisanProfileInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferencesUpdateOneWithoutUserNestedInput
@@ -5782,6 +6353,7 @@ export type UserUpdateWithoutArtisanProfileInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutArtisanProfileInput = {
@@ -5808,6 +6380,12 @@ export type UserUncheckedUpdateWithoutArtisanProfileInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   notificationPreferences?: Prisma.NotificationPreferencesUncheckedUpdateOneWithoutUserNestedInput
@@ -5846,6 +6424,7 @@ export type UserUncheckedUpdateWithoutArtisanProfileInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMaintenanceJobsInput = {
@@ -5872,6 +6451,12 @@ export type UserCreateWithoutMaintenanceJobsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -5910,6 +6495,7 @@ export type UserCreateWithoutMaintenanceJobsInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMaintenanceJobsInput = {
@@ -5936,6 +6522,12 @@ export type UserUncheckedCreateWithoutMaintenanceJobsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -5974,6 +6566,7 @@ export type UserUncheckedCreateWithoutMaintenanceJobsInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMaintenanceJobsInput = {
@@ -6016,6 +6609,12 @@ export type UserUpdateWithoutMaintenanceJobsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -6054,6 +6653,7 @@ export type UserUpdateWithoutMaintenanceJobsInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMaintenanceJobsInput = {
@@ -6080,6 +6680,12 @@ export type UserUncheckedUpdateWithoutMaintenanceJobsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -6118,6 +6724,7 @@ export type UserUncheckedUpdateWithoutMaintenanceJobsInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutServiceRequestsInput = {
@@ -6144,6 +6751,12 @@ export type UserCreateWithoutServiceRequestsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -6182,6 +6795,7 @@ export type UserCreateWithoutServiceRequestsInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutServiceRequestsInput = {
@@ -6208,6 +6822,12 @@ export type UserUncheckedCreateWithoutServiceRequestsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -6246,6 +6866,7 @@ export type UserUncheckedCreateWithoutServiceRequestsInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutServiceRequestsInput = {
@@ -6288,6 +6909,12 @@ export type UserUpdateWithoutServiceRequestsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -6326,6 +6953,7 @@ export type UserUpdateWithoutServiceRequestsInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutServiceRequestsInput = {
@@ -6352,6 +6980,12 @@ export type UserUncheckedUpdateWithoutServiceRequestsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -6390,6 +7024,7 @@ export type UserUncheckedUpdateWithoutServiceRequestsInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutInspectionsInput = {
@@ -6416,6 +7051,12 @@ export type UserCreateWithoutInspectionsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -6454,6 +7095,7 @@ export type UserCreateWithoutInspectionsInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutInspectionsInput = {
@@ -6480,6 +7122,12 @@ export type UserUncheckedCreateWithoutInspectionsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -6518,6 +7166,7 @@ export type UserUncheckedCreateWithoutInspectionsInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutInspectionsInput = {
@@ -6560,6 +7209,12 @@ export type UserUpdateWithoutInspectionsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -6598,6 +7253,7 @@ export type UserUpdateWithoutInspectionsInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInspectionsInput = {
@@ -6624,6 +7280,12 @@ export type UserUncheckedUpdateWithoutInspectionsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -6662,6 +7324,7 @@ export type UserUncheckedUpdateWithoutInspectionsInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReviewsGivenInput = {
@@ -6688,6 +7351,12 @@ export type UserCreateWithoutReviewsGivenInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -6726,6 +7395,7 @@ export type UserCreateWithoutReviewsGivenInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsGivenInput = {
@@ -6752,6 +7422,12 @@ export type UserUncheckedCreateWithoutReviewsGivenInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -6790,6 +7466,7 @@ export type UserUncheckedCreateWithoutReviewsGivenInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsGivenInput = {
@@ -6821,6 +7498,12 @@ export type UserCreateWithoutReviewsReceivedInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -6859,6 +7542,7 @@ export type UserCreateWithoutReviewsReceivedInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsReceivedInput = {
@@ -6885,6 +7569,12 @@ export type UserUncheckedCreateWithoutReviewsReceivedInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -6923,6 +7613,7 @@ export type UserUncheckedCreateWithoutReviewsReceivedInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsReceivedInput = {
@@ -6965,6 +7656,12 @@ export type UserUpdateWithoutReviewsGivenInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -7003,6 +7700,7 @@ export type UserUpdateWithoutReviewsGivenInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsGivenInput = {
@@ -7029,6 +7727,12 @@ export type UserUncheckedUpdateWithoutReviewsGivenInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -7067,6 +7771,7 @@ export type UserUncheckedUpdateWithoutReviewsGivenInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReviewsReceivedInput = {
@@ -7104,6 +7809,12 @@ export type UserUpdateWithoutReviewsReceivedInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -7142,6 +7853,7 @@ export type UserUpdateWithoutReviewsReceivedInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
@@ -7168,6 +7880,12 @@ export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -7206,6 +7924,7 @@ export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDisputesAgainstInput = {
@@ -7232,6 +7951,12 @@ export type UserCreateWithoutDisputesAgainstInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -7270,6 +7995,7 @@ export type UserCreateWithoutDisputesAgainstInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDisputesAgainstInput = {
@@ -7296,6 +8022,12 @@ export type UserUncheckedCreateWithoutDisputesAgainstInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -7334,6 +8066,7 @@ export type UserUncheckedCreateWithoutDisputesAgainstInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDisputesAgainstInput = {
@@ -7365,6 +8098,12 @@ export type UserCreateWithoutDisputesRaisedInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -7403,6 +8142,7 @@ export type UserCreateWithoutDisputesRaisedInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDisputesRaisedInput = {
@@ -7429,6 +8169,12 @@ export type UserUncheckedCreateWithoutDisputesRaisedInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -7467,6 +8213,7 @@ export type UserUncheckedCreateWithoutDisputesRaisedInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDisputesRaisedInput = {
@@ -7498,6 +8245,12 @@ export type UserCreateWithoutDisputesResolvedInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -7536,6 +8289,7 @@ export type UserCreateWithoutDisputesResolvedInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDisputesResolvedInput = {
@@ -7562,6 +8316,12 @@ export type UserUncheckedCreateWithoutDisputesResolvedInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -7600,6 +8360,7 @@ export type UserUncheckedCreateWithoutDisputesResolvedInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDisputesResolvedInput = {
@@ -7642,6 +8403,12 @@ export type UserUpdateWithoutDisputesAgainstInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -7680,6 +8447,7 @@ export type UserUpdateWithoutDisputesAgainstInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDisputesAgainstInput = {
@@ -7706,6 +8474,12 @@ export type UserUncheckedUpdateWithoutDisputesAgainstInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -7744,6 +8518,7 @@ export type UserUncheckedUpdateWithoutDisputesAgainstInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutDisputesRaisedInput = {
@@ -7781,6 +8556,12 @@ export type UserUpdateWithoutDisputesRaisedInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -7819,6 +8600,7 @@ export type UserUpdateWithoutDisputesRaisedInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDisputesRaisedInput = {
@@ -7845,6 +8627,12 @@ export type UserUncheckedUpdateWithoutDisputesRaisedInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -7883,6 +8671,7 @@ export type UserUncheckedUpdateWithoutDisputesRaisedInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutDisputesResolvedInput = {
@@ -7920,6 +8709,12 @@ export type UserUpdateWithoutDisputesResolvedInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -7958,6 +8753,7 @@ export type UserUpdateWithoutDisputesResolvedInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDisputesResolvedInput = {
@@ -7984,6 +8780,12 @@ export type UserUncheckedUpdateWithoutDisputesResolvedInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -8022,6 +8824,7 @@ export type UserUncheckedUpdateWithoutDisputesResolvedInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutScoutRewardsInput = {
@@ -8048,6 +8851,12 @@ export type UserCreateWithoutScoutRewardsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -8086,6 +8895,7 @@ export type UserCreateWithoutScoutRewardsInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutScoutRewardsInput = {
@@ -8112,6 +8922,12 @@ export type UserUncheckedCreateWithoutScoutRewardsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -8150,6 +8966,7 @@ export type UserUncheckedCreateWithoutScoutRewardsInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutScoutRewardsInput = {
@@ -8192,6 +9009,12 @@ export type UserUpdateWithoutScoutRewardsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -8230,6 +9053,7 @@ export type UserUpdateWithoutScoutRewardsInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutScoutRewardsInput = {
@@ -8256,6 +9080,12 @@ export type UserUncheckedUpdateWithoutScoutRewardsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -8294,6 +9124,7 @@ export type UserUncheckedUpdateWithoutScoutRewardsInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReferralCodesInput = {
@@ -8320,6 +9151,12 @@ export type UserCreateWithoutReferralCodesInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -8358,6 +9195,7 @@ export type UserCreateWithoutReferralCodesInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferralCodesInput = {
@@ -8384,6 +9222,12 @@ export type UserUncheckedCreateWithoutReferralCodesInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -8422,6 +9266,7 @@ export type UserUncheckedCreateWithoutReferralCodesInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferralCodesInput = {
@@ -8464,6 +9309,12 @@ export type UserUpdateWithoutReferralCodesInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -8502,6 +9353,7 @@ export type UserUpdateWithoutReferralCodesInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralCodesInput = {
@@ -8528,6 +9380,12 @@ export type UserUncheckedUpdateWithoutReferralCodesInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -8566,6 +9424,7 @@ export type UserUncheckedUpdateWithoutReferralCodesInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReferredByInput = {
@@ -8592,6 +9451,12 @@ export type UserCreateWithoutReferredByInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -8630,6 +9495,7 @@ export type UserCreateWithoutReferredByInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferredByInput = {
@@ -8656,6 +9522,12 @@ export type UserUncheckedCreateWithoutReferredByInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -8694,6 +9566,7 @@ export type UserUncheckedCreateWithoutReferredByInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferredByInput = {
@@ -8725,6 +9598,12 @@ export type UserCreateWithoutReferralInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -8763,6 +9642,7 @@ export type UserCreateWithoutReferralInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferralInput = {
@@ -8789,6 +9669,12 @@ export type UserUncheckedCreateWithoutReferralInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -8827,6 +9713,7 @@ export type UserUncheckedCreateWithoutReferralInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferralInput = {
@@ -8869,6 +9756,12 @@ export type UserUpdateWithoutReferredByInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -8907,6 +9800,7 @@ export type UserUpdateWithoutReferredByInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferredByInput = {
@@ -8933,6 +9827,12 @@ export type UserUncheckedUpdateWithoutReferredByInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -8971,6 +9871,7 @@ export type UserUncheckedUpdateWithoutReferredByInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReferralInput = {
@@ -9008,6 +9909,12 @@ export type UserUpdateWithoutReferralInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -9046,6 +9953,7 @@ export type UserUpdateWithoutReferralInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralInput = {
@@ -9072,6 +9980,12 @@ export type UserUncheckedUpdateWithoutReferralInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -9110,6 +10024,7 @@ export type UserUncheckedUpdateWithoutReferralInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBankAccountsInput = {
@@ -9136,6 +10051,12 @@ export type UserCreateWithoutBankAccountsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -9174,6 +10095,7 @@ export type UserCreateWithoutBankAccountsInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBankAccountsInput = {
@@ -9200,6 +10122,12 @@ export type UserUncheckedCreateWithoutBankAccountsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -9238,6 +10166,7 @@ export type UserUncheckedCreateWithoutBankAccountsInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBankAccountsInput = {
@@ -9280,6 +10209,12 @@ export type UserUpdateWithoutBankAccountsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -9318,6 +10253,7 @@ export type UserUpdateWithoutBankAccountsInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBankAccountsInput = {
@@ -9344,6 +10280,12 @@ export type UserUncheckedUpdateWithoutBankAccountsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -9382,6 +10324,7 @@ export type UserUncheckedUpdateWithoutBankAccountsInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTransactionsInput = {
@@ -9408,6 +10351,12 @@ export type UserCreateWithoutTransactionsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -9446,6 +10395,7 @@ export type UserCreateWithoutTransactionsInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTransactionsInput = {
@@ -9472,6 +10422,12 @@ export type UserUncheckedCreateWithoutTransactionsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -9510,6 +10466,7 @@ export type UserUncheckedCreateWithoutTransactionsInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTransactionsInput = {
@@ -9552,6 +10509,12 @@ export type UserUpdateWithoutTransactionsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -9590,6 +10553,7 @@ export type UserUpdateWithoutTransactionsInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTransactionsInput = {
@@ -9616,6 +10580,12 @@ export type UserUncheckedUpdateWithoutTransactionsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -9654,6 +10624,7 @@ export type UserUncheckedUpdateWithoutTransactionsInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -9680,6 +10651,12 @@ export type UserCreateWithoutNotificationsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -9718,6 +10695,7 @@ export type UserCreateWithoutNotificationsInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -9744,6 +10722,12 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -9782,6 +10766,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -9824,6 +10809,12 @@ export type UserUpdateWithoutNotificationsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -9862,6 +10853,7 @@ export type UserUpdateWithoutNotificationsInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -9888,6 +10880,12 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -9926,6 +10924,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAssignedTicketsInput = {
@@ -9952,6 +10951,12 @@ export type UserCreateWithoutAssignedTicketsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -9990,6 +10995,7 @@ export type UserCreateWithoutAssignedTicketsInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAssignedTicketsInput = {
@@ -10016,6 +11022,12 @@ export type UserUncheckedCreateWithoutAssignedTicketsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -10054,6 +11066,7 @@ export type UserUncheckedCreateWithoutAssignedTicketsInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAssignedTicketsInput = {
@@ -10085,6 +11098,12 @@ export type UserCreateWithoutSupportTicketsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -10123,6 +11142,7 @@ export type UserCreateWithoutSupportTicketsInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSupportTicketsInput = {
@@ -10149,6 +11169,12 @@ export type UserUncheckedCreateWithoutSupportTicketsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -10187,6 +11213,7 @@ export type UserUncheckedCreateWithoutSupportTicketsInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSupportTicketsInput = {
@@ -10229,6 +11256,12 @@ export type UserUpdateWithoutAssignedTicketsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -10267,6 +11300,7 @@ export type UserUpdateWithoutAssignedTicketsInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedTicketsInput = {
@@ -10293,6 +11327,12 @@ export type UserUncheckedUpdateWithoutAssignedTicketsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -10331,6 +11371,7 @@ export type UserUncheckedUpdateWithoutAssignedTicketsInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutSupportTicketsInput = {
@@ -10368,6 +11409,12 @@ export type UserUpdateWithoutSupportTicketsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -10406,6 +11453,7 @@ export type UserUpdateWithoutSupportTicketsInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSupportTicketsInput = {
@@ -10432,6 +11480,12 @@ export type UserUncheckedUpdateWithoutSupportTicketsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -10470,6 +11524,7 @@ export type UserUncheckedUpdateWithoutSupportTicketsInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSupportMessagesInput = {
@@ -10496,6 +11551,12 @@ export type UserCreateWithoutSupportMessagesInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -10534,6 +11595,7 @@ export type UserCreateWithoutSupportMessagesInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSupportMessagesInput = {
@@ -10560,6 +11622,12 @@ export type UserUncheckedCreateWithoutSupportMessagesInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -10598,6 +11666,7 @@ export type UserUncheckedCreateWithoutSupportMessagesInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSupportMessagesInput = {
@@ -10640,6 +11709,12 @@ export type UserUpdateWithoutSupportMessagesInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -10678,6 +11753,7 @@ export type UserUpdateWithoutSupportMessagesInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSupportMessagesInput = {
@@ -10704,6 +11780,12 @@ export type UserUncheckedUpdateWithoutSupportMessagesInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -10742,6 +11824,7 @@ export type UserUncheckedUpdateWithoutSupportMessagesInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -10768,6 +11851,12 @@ export type UserCreateWithoutAuditLogsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -10806,6 +11895,7 @@ export type UserCreateWithoutAuditLogsInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -10832,6 +11922,12 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -10870,6 +11966,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -10912,6 +12009,12 @@ export type UserUpdateWithoutAuditLogsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -10950,6 +12053,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -10976,6 +12080,12 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -11014,6 +12124,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutManagedPropertiesInput = {
@@ -11040,6 +12151,12 @@ export type UserCreateWithoutManagedPropertiesInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -11078,6 +12195,7 @@ export type UserCreateWithoutManagedPropertiesInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutManagedPropertiesInput = {
@@ -11104,6 +12222,12 @@ export type UserUncheckedCreateWithoutManagedPropertiesInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -11142,6 +12266,7 @@ export type UserUncheckedCreateWithoutManagedPropertiesInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutManagedPropertiesInput = {
@@ -11173,6 +12298,12 @@ export type UserCreateWithoutOwnedManagementInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -11211,6 +12342,7 @@ export type UserCreateWithoutOwnedManagementInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOwnedManagementInput = {
@@ -11237,6 +12369,12 @@ export type UserUncheckedCreateWithoutOwnedManagementInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -11275,6 +12413,7 @@ export type UserUncheckedCreateWithoutOwnedManagementInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOwnedManagementInput = {
@@ -11317,6 +12456,12 @@ export type UserUpdateWithoutManagedPropertiesInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -11355,6 +12500,7 @@ export type UserUpdateWithoutManagedPropertiesInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutManagedPropertiesInput = {
@@ -11381,6 +12527,12 @@ export type UserUncheckedUpdateWithoutManagedPropertiesInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -11419,6 +12571,7 @@ export type UserUncheckedUpdateWithoutManagedPropertiesInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutOwnedManagementInput = {
@@ -11456,6 +12609,12 @@ export type UserUpdateWithoutOwnedManagementInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -11494,6 +12653,7 @@ export type UserUpdateWithoutOwnedManagementInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedManagementInput = {
@@ -11520,6 +12680,12 @@ export type UserUncheckedUpdateWithoutOwnedManagementInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -11558,6 +12724,7 @@ export type UserUncheckedUpdateWithoutOwnedManagementInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAiMessagesInput = {
@@ -11584,6 +12751,12 @@ export type UserCreateWithoutAiMessagesInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -11622,6 +12795,7 @@ export type UserCreateWithoutAiMessagesInput = {
   waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAiMessagesInput = {
@@ -11648,6 +12822,12 @@ export type UserUncheckedCreateWithoutAiMessagesInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -11686,6 +12866,7 @@ export type UserUncheckedCreateWithoutAiMessagesInput = {
   waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAiMessagesInput = {
@@ -11728,6 +12909,12 @@ export type UserUpdateWithoutAiMessagesInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -11766,6 +12953,7 @@ export type UserUpdateWithoutAiMessagesInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAiMessagesInput = {
@@ -11792,6 +12980,12 @@ export type UserUncheckedUpdateWithoutAiMessagesInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -11830,6 +13024,7 @@ export type UserUncheckedUpdateWithoutAiMessagesInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationPreferencesInput = {
@@ -11856,6 +13051,12 @@ export type UserCreateWithoutNotificationPreferencesInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
@@ -11894,6 +13095,7 @@ export type UserCreateWithoutNotificationPreferencesInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
@@ -11920,6 +13122,12 @@ export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: Date | string | null
   onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
   issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
@@ -11958,6 +13166,7 @@ export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationPreferencesInput = {
@@ -12000,6 +13209,12 @@ export type UserUpdateWithoutNotificationPreferencesInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -12038,6 +13253,7 @@ export type UserUpdateWithoutNotificationPreferencesInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
@@ -12064,9 +13280,316 @@ export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutUserNestedInput
+  disputesAgainst?: Prisma.DisputeUncheckedUpdateManyWithoutAgainstNestedInput
+  disputesRaised?: Prisma.DisputeUncheckedUpdateManyWithoutRaisedByNestedInput
+  disputesResolved?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
+  inspections?: Prisma.InspectionUncheckedUpdateManyWithoutInspectorNestedInput
+  maintenanceJobs?: Prisma.MaintenanceJobUncheckedUpdateManyWithoutArtisanNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  ownedProperties?: Prisma.PropertyUncheckedUpdateManyWithoutLandlordNestedInput
+  proxySubmissions?: Prisma.PropertyUncheckedUpdateManyWithoutProxySubmitterNestedInput
+  managedProperties?: Prisma.PropertyManagementUncheckedUpdateManyWithoutManagerNestedInput
+  ownedManagement?: Prisma.PropertyManagementUncheckedUpdateManyWithoutOwnerNestedInput
+  wishlist?: Prisma.PropertyWishlistUncheckedUpdateOneWithoutTenantNestedInput
+  referredBy?: Prisma.ReferralUncheckedUpdateOneWithoutRefereeNestedInput
+  referral?: Prisma.ReferralUncheckedUpdateOneWithoutReferrerNestedInput
+  referralCodes?: Prisma.ReferralCodeUncheckedUpdateManyWithoutOwnerNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutSubjectNestedInput
+  savedProperties?: Prisma.SavedPropertyUncheckedUpdateManyWithoutTenantNestedInput
+  scoutRewards?: Prisma.ScoutRewardUncheckedUpdateManyWithoutRedeemerNestedInput
+  serviceRequests?: Prisma.ServiceRequestUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  shackScore?: Prisma.ShackScoreUncheckedUpdateOneWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUncheckedUpdateManyWithoutSenderNestedInput
+  assignedTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+  tenancy?: Prisma.TenancyUncheckedUpdateOneWithoutTenantNestedInput
+  applications?: Prisma.TenancyApplicationUncheckedUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  vaultItems?: Prisma.VaultItemUncheckedUpdateManyWithoutOwnerNestedInput
+  waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
+  chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
+  coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutGuarantorsInput = {
+  id?: string
+  email: string
+  fullName: string
+  phoneNumber?: string | null
+  passwordHash?: string | null
+  googleId?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  isVerified?: boolean
+  twoFactorEnabled?: boolean
+  twoFactorSecret?: string | null
+  verificationTier?: number
+  walletBalance?: number
+  fintechPartnerRef?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accumulatedBond?: number
+  vaultPremium?: boolean
+  vaultPremiumUntil?: Date | string | null
+  vaultStorageLimit?: number
+  vaultStorageUsed?: number
+  verificationBundlePaid?: boolean
+  verificationBundlePaidAt?: Date | string | null
+  onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
+  issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
+  notificationPreferences?: Prisma.NotificationPreferencesCreateNestedOneWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutUserInput
+  disputesAgainst?: Prisma.DisputeCreateNestedManyWithoutAgainstInput
+  disputesRaised?: Prisma.DisputeCreateNestedManyWithoutRaisedByInput
+  disputesResolved?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
+  inspections?: Prisma.InspectionCreateNestedManyWithoutInspectorInput
+  maintenanceJobs?: Prisma.MaintenanceJobCreateNestedManyWithoutArtisanInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  ownedProperties?: Prisma.PropertyCreateNestedManyWithoutLandlordInput
+  proxySubmissions?: Prisma.PropertyCreateNestedManyWithoutProxySubmitterInput
+  managedProperties?: Prisma.PropertyManagementCreateNestedManyWithoutManagerInput
+  ownedManagement?: Prisma.PropertyManagementCreateNestedManyWithoutOwnerInput
+  wishlist?: Prisma.PropertyWishlistCreateNestedOneWithoutTenantInput
+  referredBy?: Prisma.ReferralCreateNestedOneWithoutRefereeInput
+  referral?: Prisma.ReferralCreateNestedOneWithoutReferrerInput
+  referralCodes?: Prisma.ReferralCodeCreateNestedManyWithoutOwnerInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutSubjectInput
+  savedProperties?: Prisma.SavedPropertyCreateNestedManyWithoutTenantInput
+  scoutRewards?: Prisma.ScoutRewardCreateNestedManyWithoutRedeemerInput
+  serviceRequests?: Prisma.ServiceRequestCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  shackScore?: Prisma.ShackScoreCreateNestedOneWithoutUserInput
+  supportMessages?: Prisma.SupportMessageCreateNestedManyWithoutSenderInput
+  assignedTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
+  tenancy?: Prisma.TenancyCreateNestedOneWithoutTenantInput
+  applications?: Prisma.TenancyApplicationCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  vaultItems?: Prisma.VaultItemCreateNestedManyWithoutOwnerInput
+  waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
+  chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
+  coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutGuarantorsInput = {
+  id?: string
+  email: string
+  fullName: string
+  phoneNumber?: string | null
+  passwordHash?: string | null
+  googleId?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  isVerified?: boolean
+  twoFactorEnabled?: boolean
+  twoFactorSecret?: string | null
+  verificationTier?: number
+  walletBalance?: number
+  fintechPartnerRef?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accumulatedBond?: number
+  vaultPremium?: boolean
+  vaultPremiumUntil?: Date | string | null
+  vaultStorageLimit?: number
+  vaultStorageUsed?: number
+  verificationBundlePaid?: boolean
+  verificationBundlePaidAt?: Date | string | null
+  onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
+  issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
+  notificationPreferences?: Prisma.NotificationPreferencesUncheckedCreateNestedOneWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutUserInput
+  disputesAgainst?: Prisma.DisputeUncheckedCreateNestedManyWithoutAgainstInput
+  disputesRaised?: Prisma.DisputeUncheckedCreateNestedManyWithoutRaisedByInput
+  disputesResolved?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
+  inspections?: Prisma.InspectionUncheckedCreateNestedManyWithoutInspectorInput
+  maintenanceJobs?: Prisma.MaintenanceJobUncheckedCreateNestedManyWithoutArtisanInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  ownedProperties?: Prisma.PropertyUncheckedCreateNestedManyWithoutLandlordInput
+  proxySubmissions?: Prisma.PropertyUncheckedCreateNestedManyWithoutProxySubmitterInput
+  managedProperties?: Prisma.PropertyManagementUncheckedCreateNestedManyWithoutManagerInput
+  ownedManagement?: Prisma.PropertyManagementUncheckedCreateNestedManyWithoutOwnerInput
+  wishlist?: Prisma.PropertyWishlistUncheckedCreateNestedOneWithoutTenantInput
+  referredBy?: Prisma.ReferralUncheckedCreateNestedOneWithoutRefereeInput
+  referral?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferrerInput
+  referralCodes?: Prisma.ReferralCodeUncheckedCreateNestedManyWithoutOwnerInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutSubjectInput
+  savedProperties?: Prisma.SavedPropertyUncheckedCreateNestedManyWithoutTenantInput
+  scoutRewards?: Prisma.ScoutRewardUncheckedCreateNestedManyWithoutRedeemerInput
+  serviceRequests?: Prisma.ServiceRequestUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  shackScore?: Prisma.ShackScoreUncheckedCreateNestedOneWithoutUserInput
+  supportMessages?: Prisma.SupportMessageUncheckedCreateNestedManyWithoutSenderInput
+  assignedTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
+  tenancy?: Prisma.TenancyUncheckedCreateNestedOneWithoutTenantInput
+  applications?: Prisma.TenancyApplicationUncheckedCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  vaultItems?: Prisma.VaultItemUncheckedCreateNestedManyWithoutOwnerInput
+  waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
+  chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
+  coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutGuarantorsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutGuarantorsInput, Prisma.UserUncheckedCreateWithoutGuarantorsInput>
+}
+
+export type UserUpsertWithoutGuarantorsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutGuarantorsInput, Prisma.UserUncheckedUpdateWithoutGuarantorsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutGuarantorsInput, Prisma.UserUncheckedCreateWithoutGuarantorsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutGuarantorsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutGuarantorsInput, Prisma.UserUncheckedUpdateWithoutGuarantorsInput>
+}
+
+export type UserUpdateWithoutGuarantorsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationTier?: Prisma.IntFieldUpdateOperationsInput | number
+  walletBalance?: Prisma.FloatFieldUpdateOperationsInput | number
+  fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
+  vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vaultStorageLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  vaultStorageUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferencesUpdateOneWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutUserNestedInput
+  disputesAgainst?: Prisma.DisputeUpdateManyWithoutAgainstNestedInput
+  disputesRaised?: Prisma.DisputeUpdateManyWithoutRaisedByNestedInput
+  disputesResolved?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
+  inspections?: Prisma.InspectionUpdateManyWithoutInspectorNestedInput
+  maintenanceJobs?: Prisma.MaintenanceJobUpdateManyWithoutArtisanNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  ownedProperties?: Prisma.PropertyUpdateManyWithoutLandlordNestedInput
+  proxySubmissions?: Prisma.PropertyUpdateManyWithoutProxySubmitterNestedInput
+  managedProperties?: Prisma.PropertyManagementUpdateManyWithoutManagerNestedInput
+  ownedManagement?: Prisma.PropertyManagementUpdateManyWithoutOwnerNestedInput
+  wishlist?: Prisma.PropertyWishlistUpdateOneWithoutTenantNestedInput
+  referredBy?: Prisma.ReferralUpdateOneWithoutRefereeNestedInput
+  referral?: Prisma.ReferralUpdateOneWithoutReferrerNestedInput
+  referralCodes?: Prisma.ReferralCodeUpdateManyWithoutOwnerNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutSubjectNestedInput
+  savedProperties?: Prisma.SavedPropertyUpdateManyWithoutTenantNestedInput
+  scoutRewards?: Prisma.ScoutRewardUpdateManyWithoutRedeemerNestedInput
+  serviceRequests?: Prisma.ServiceRequestUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  shackScore?: Prisma.ShackScoreUpdateOneWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUpdateManyWithoutSenderNestedInput
+  assignedTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
+  tenancy?: Prisma.TenancyUpdateOneWithoutTenantNestedInput
+  applications?: Prisma.TenancyApplicationUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  vaultItems?: Prisma.VaultItemUpdateManyWithoutOwnerNestedInput
+  waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
+  chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
+  coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutGuarantorsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationTier?: Prisma.IntFieldUpdateOperationsInput | number
+  walletBalance?: Prisma.FloatFieldUpdateOperationsInput | number
+  fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
+  vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vaultStorageLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  vaultStorageUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferencesUncheckedUpdateOneWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutUserNestedInput
   disputesAgainst?: Prisma.DisputeUncheckedUpdateManyWithoutAgainstNestedInput
@@ -12128,6 +13651,12 @@ export type UserUpdateWithoutCoTenanciesInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -12166,6 +13695,7 @@ export type UserUpdateWithoutCoTenanciesInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCoTenanciesInput = {
@@ -12192,6 +13722,12 @@ export type UserUncheckedUpdateWithoutCoTenanciesInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -12230,6 +13766,7 @@ export type UserUncheckedUpdateWithoutCoTenanciesInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutCoTenanciesInput = {
@@ -12256,6 +13793,12 @@ export type UserUncheckedUpdateManyWithoutCoTenanciesInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserUpdateWithoutChatsInput = {
@@ -12282,6 +13825,12 @@ export type UserUpdateWithoutChatsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
@@ -12320,6 +13869,7 @@ export type UserUpdateWithoutChatsInput = {
   waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChatsInput = {
@@ -12346,6 +13896,12 @@ export type UserUncheckedUpdateWithoutChatsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -12384,6 +13940,7 @@ export type UserUncheckedUpdateWithoutChatsInput = {
   waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutChatsInput = {
@@ -12410,6 +13967,12 @@ export type UserUncheckedUpdateManyWithoutChatsInput = {
   verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -12450,6 +14013,7 @@ export type UserCountOutputType = {
   chats: number
   coTenancies: number
   aiMessages: number
+  guarantors: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -12485,6 +14049,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   chats?: boolean | UserCountOutputTypeCountChatsArgs
   coTenancies?: boolean | UserCountOutputTypeCountCoTenanciesArgs
   aiMessages?: boolean | UserCountOutputTypeCountAiMessagesArgs
+  guarantors?: boolean | UserCountOutputTypeCountGuarantorsArgs
 }
 
 /**
@@ -12721,6 +14286,13 @@ export type UserCountOutputTypeCountAiMessagesArgs<ExtArgs extends runtime.Types
   where?: Prisma.AIMessageWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountGuarantorsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuarantorWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -12746,6 +14318,12 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: boolean
   onboardingCompleted?: boolean
+  idDocumentUrl?: boolean
+  selfieUrl?: boolean
+  employmentStatus?: boolean
+  profession?: boolean
+  employerName?: boolean
+  monthlyIncome?: boolean
   issuedKeys?: boolean | Prisma.User$issuedKeysArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   artisanProfile?: boolean | Prisma.User$artisanProfileArgs<ExtArgs>
@@ -12785,6 +14363,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   chats?: boolean | Prisma.User$chatsArgs<ExtArgs>
   coTenancies?: boolean | Prisma.User$coTenanciesArgs<ExtArgs>
   aiMessages?: boolean | Prisma.User$aiMessagesArgs<ExtArgs>
+  guarantors?: boolean | Prisma.User$guarantorsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -12812,6 +14391,12 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: boolean
   onboardingCompleted?: boolean
+  idDocumentUrl?: boolean
+  selfieUrl?: boolean
+  employmentStatus?: boolean
+  profession?: boolean
+  employerName?: boolean
+  monthlyIncome?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -12838,6 +14423,12 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: boolean
   onboardingCompleted?: boolean
+  idDocumentUrl?: boolean
+  selfieUrl?: boolean
+  employmentStatus?: boolean
+  profession?: boolean
+  employerName?: boolean
+  monthlyIncome?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -12864,9 +14455,15 @@ export type UserSelectScalar = {
   verificationBundlePaid?: boolean
   verificationBundlePaidAt?: boolean
   onboardingCompleted?: boolean
+  idDocumentUrl?: boolean
+  selfieUrl?: boolean
+  employmentStatus?: boolean
+  profession?: boolean
+  employerName?: boolean
+  monthlyIncome?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "fullName" | "phoneNumber" | "passwordHash" | "googleId" | "roles" | "isVerified" | "twoFactorEnabled" | "twoFactorSecret" | "verificationTier" | "walletBalance" | "fintechPartnerRef" | "createdAt" | "updatedAt" | "accumulatedBond" | "vaultPremium" | "vaultPremiumUntil" | "vaultStorageLimit" | "vaultStorageUsed" | "verificationBundlePaid" | "verificationBundlePaidAt" | "onboardingCompleted", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "fullName" | "phoneNumber" | "passwordHash" | "googleId" | "roles" | "isVerified" | "twoFactorEnabled" | "twoFactorSecret" | "verificationTier" | "walletBalance" | "fintechPartnerRef" | "createdAt" | "updatedAt" | "accumulatedBond" | "vaultPremium" | "vaultPremiumUntil" | "vaultStorageLimit" | "vaultStorageUsed" | "verificationBundlePaid" | "verificationBundlePaidAt" | "onboardingCompleted" | "idDocumentUrl" | "selfieUrl" | "employmentStatus" | "profession" | "employerName" | "monthlyIncome", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   issuedKeys?: boolean | Prisma.User$issuedKeysArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -12907,6 +14504,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   chats?: boolean | Prisma.User$chatsArgs<ExtArgs>
   coTenancies?: boolean | Prisma.User$coTenanciesArgs<ExtArgs>
   aiMessages?: boolean | Prisma.User$aiMessagesArgs<ExtArgs>
+  guarantors?: boolean | Prisma.User$guarantorsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -12954,6 +14552,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     chats: Prisma.$ChatRoomPayload<ExtArgs>[]
     coTenancies: Prisma.$TenancyPayload<ExtArgs>[]
     aiMessages: Prisma.$AIMessagePayload<ExtArgs>[]
+    guarantors: Prisma.$GuarantorPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -12979,6 +14578,12 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     verificationBundlePaid: boolean
     verificationBundlePaidAt: Date | null
     onboardingCompleted: boolean
+    idDocumentUrl: string | null
+    selfieUrl: string | null
+    employmentStatus: string | null
+    profession: string | null
+    employerName: string | null
+    monthlyIncome: string | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -13412,6 +15017,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   chats<T extends Prisma.User$chatsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$chatsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatRoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   coTenancies<T extends Prisma.User$coTenanciesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$coTenanciesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenancyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   aiMessages<T extends Prisma.User$aiMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aiMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AIMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  guarantors<T extends Prisma.User$guarantorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$guarantorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuarantorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13464,6 +15070,12 @@ export interface UserFieldRefs {
   readonly verificationBundlePaid: Prisma.FieldRef<"User", 'Boolean'>
   readonly verificationBundlePaidAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly onboardingCompleted: Prisma.FieldRef<"User", 'Boolean'>
+  readonly idDocumentUrl: Prisma.FieldRef<"User", 'String'>
+  readonly selfieUrl: Prisma.FieldRef<"User", 'String'>
+  readonly employmentStatus: Prisma.FieldRef<"User", 'String'>
+  readonly profession: Prisma.FieldRef<"User", 'String'>
+  readonly employerName: Prisma.FieldRef<"User", 'String'>
+  readonly monthlyIncome: Prisma.FieldRef<"User", 'String'>
 }
     
 
@@ -14755,6 +16367,30 @@ export type User$aiMessagesArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.AIMessageScalarFieldEnum | Prisma.AIMessageScalarFieldEnum[]
+}
+
+/**
+ * User.guarantors
+ */
+export type User$guarantorsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Guarantor
+   */
+  select?: Prisma.GuarantorSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Guarantor
+   */
+  omit?: Prisma.GuarantorOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuarantorInclude<ExtArgs> | null
+  where?: Prisma.GuarantorWhereInput
+  orderBy?: Prisma.GuarantorOrderByWithRelationInput | Prisma.GuarantorOrderByWithRelationInput[]
+  cursor?: Prisma.GuarantorWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuarantorScalarFieldEnum | Prisma.GuarantorScalarFieldEnum[]
 }
 
 /**

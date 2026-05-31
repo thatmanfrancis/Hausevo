@@ -75,7 +75,7 @@ export default function AccessKeysClient({ keys: initial }: { keys: AccessKey[] 
           </p>
           <h2 className="text-xl font-bold mb-3 tracking-tight">Delegated Listing Control</h2>
           <p className="text-sm text-zinc-400 leading-relaxed max-w-2xl">
-            Empower trusted family members or local scouts to list properties on your behalf without handing over account credentials. Every key used generates a digital handover receipt stored in your <span className="text-white font-bold underline underline-offset-4 decoration-emerald-500/50">Shack Vault</span> for full audit transparency.
+            Empower trusted family members or local scouts to list properties on your behalf without handing over account credentials. Every key used generates a digital handover receipt stored in your <span className="text-white font-bold underline underline-offset-4 decoration-emerald-500/50">Hausevo Vault</span> for full audit transparency.
           </p>
         </div>
       </div>

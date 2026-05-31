@@ -183,7 +183,7 @@ export default function LandlordDashboard({
           </div>
           <div className="bg-white/5 rounded-xl p-5 border border-white/10 flex flex-col justify-center">
             <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mb-1">
-              Shack Score
+              Hausevo Score
             </p>
             <div className="flex items-center gap-2">
               <p className="text-3xl font-extrabold text-white">
@@ -245,7 +245,7 @@ export default function LandlordDashboard({
             Documentation
           </p>
           <div className="flex items-center justify-between">
-            <p className="text-sm font-bold text-white">Shack Vault</p>
+            <p className="text-sm font-bold text-white">Hausevo Vault</p>
             <svg
               width="16"
               height="16"

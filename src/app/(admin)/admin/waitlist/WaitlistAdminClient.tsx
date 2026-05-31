@@ -179,7 +179,7 @@ function BroadcastModal({
                     type="text"
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
-                    placeholder="e.g. Shack is launching next week 🏠"
+                    placeholder="e.g. Hausevo is launching next week 🏠"
                     className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors"
                   />
                 </div>

@@ -14,7 +14,7 @@ import { lookupNIN } from "@/lib/dojah";
   This is FREE for all users - part of the freemium onboarding.
   Users can browse properties but cannot apply until they upgrade to Tier 1.
 
-  Cost: ~₦100 per call (Dojah starter rate) - absorbed by Shack.
+  Cost: ~₦100 per call (Dojah starter rate) - absorbed by Hausevo.
   Charge to User: ₦0 (FREE)
 
   Requires: active session

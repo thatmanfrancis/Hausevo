@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
   const { renderToStaticMarkup } = require("react-dom/server");
   const React = require("react");
   const { default: WaitlistBroadcastEmail } = require("@/emails/WaitlistBroadcast");
-  const { SHACK_LOGO_BASE64 } = require("@/lib/assets");
+  const { HAUSEVO_LOGO_BASE64 } = require("@/lib/assets");
 
   let sent = 0;
   let failed = 0;
@@ -77,8 +77,8 @@ export async function POST(req: NextRequest) {
             html,
             inline_images: [
               {
-                cid: "shack_logo",
-                content: SHACK_LOGO_BASE64,
+                cid: "hausevo_logo",
+                content: HAUSEVO_LOGO_BASE64,
                 mime_type: "image/jpeg",
               },
             ],

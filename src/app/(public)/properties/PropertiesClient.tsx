@@ -430,7 +430,7 @@ export default function PropertiesClient({
           </div>
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 shrink-0">
             <Link href="/auth/register" className="rounded-full bg-white text-zinc-900 px-7 py-3 text-sm font-bold hover:bg-zinc-100 transition-colors">
-              Join Shack →
+              Join Hausevo →
             </Link>
             <Link href="/waitlist" className="text-sm font-semibold text-zinc-400 hover:text-white transition-colors">
               Join the waitlist

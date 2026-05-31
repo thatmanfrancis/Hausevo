@@ -4,7 +4,7 @@ import { auth } from "@/lib/auth";
 
 /*
   GET /api/user/shack-score
-  Get the logged-in user's ShackScore breakdown.
+  Get the logged-in user's Hausevo Score breakdown.
   Requires: active session
 */
 export async function GET() {
