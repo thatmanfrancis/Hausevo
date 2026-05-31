@@ -423,6 +423,9 @@ export const ModelName = {
   ConditionReport: 'ConditionReport',
   TenancyAgreement: 'TenancyAgreement',
   AIMessage: 'AIMessage',
+  JointSavings: 'JointSavings',
+  SavingsContribution: 'SavingsContribution',
+  DocumentVault: 'DocumentVault',
   LaunchWaitlist: 'LaunchWaitlist',
   NotificationPreferences: 'NotificationPreferences',
   Guarantor: 'Guarantor'
@@ -441,7 +444,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verificationToken" | "shackScore" | "accessKey" | "property" | "propertyImage" | "savedProperty" | "propertyWishlist" | "waitlist" | "vaultItem" | "tenancyApplication" | "tenancy" | "rentSchedule" | "movingOrder" | "chatRoom" | "message" | "artisanProfile" | "maintenanceJob" | "serviceRequest" | "inspection" | "review" | "dispute" | "scoutReward" | "referralCode" | "referral" | "bankAccount" | "transaction" | "notification" | "supportTicket" | "supportMessage" | "auditLog" | "propertyManagement" | "financingOption" | "milestone" | "conditionReport" | "tenancyAgreement" | "aIMessage" | "launchWaitlist" | "notificationPreferences" | "guarantor"
+    modelProps: "user" | "account" | "session" | "verificationToken" | "shackScore" | "accessKey" | "property" | "propertyImage" | "savedProperty" | "propertyWishlist" | "waitlist" | "vaultItem" | "tenancyApplication" | "tenancy" | "rentSchedule" | "movingOrder" | "chatRoom" | "message" | "artisanProfile" | "maintenanceJob" | "serviceRequest" | "inspection" | "review" | "dispute" | "scoutReward" | "referralCode" | "referral" | "bankAccount" | "transaction" | "notification" | "supportTicket" | "supportMessage" | "auditLog" | "propertyManagement" | "financingOption" | "milestone" | "conditionReport" | "tenancyAgreement" | "aIMessage" | "jointSavings" | "savingsContribution" | "documentVault" | "launchWaitlist" | "notificationPreferences" | "guarantor"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3331,6 +3334,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    JointSavings: {
+      payload: Prisma.$JointSavingsPayload<ExtArgs>
+      fields: Prisma.JointSavingsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.JointSavingsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JointSavingsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.JointSavingsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JointSavingsPayload>
+        }
+        findFirst: {
+          args: Prisma.JointSavingsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JointSavingsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.JointSavingsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JointSavingsPayload>
+        }
+        findMany: {
+          args: Prisma.JointSavingsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JointSavingsPayload>[]
+        }
+        create: {
+          args: Prisma.JointSavingsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JointSavingsPayload>
+        }
+        createMany: {
+          args: Prisma.JointSavingsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.JointSavingsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JointSavingsPayload>[]
+        }
+        delete: {
+          args: Prisma.JointSavingsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JointSavingsPayload>
+        }
+        update: {
+          args: Prisma.JointSavingsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JointSavingsPayload>
+        }
+        deleteMany: {
+          args: Prisma.JointSavingsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.JointSavingsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.JointSavingsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JointSavingsPayload>[]
+        }
+        upsert: {
+          args: Prisma.JointSavingsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JointSavingsPayload>
+        }
+        aggregate: {
+          args: Prisma.JointSavingsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJointSavings>
+        }
+        groupBy: {
+          args: Prisma.JointSavingsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JointSavingsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.JointSavingsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JointSavingsCountAggregateOutputType> | number
+        }
+      }
+    }
+    SavingsContribution: {
+      payload: Prisma.$SavingsContributionPayload<ExtArgs>
+      fields: Prisma.SavingsContributionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SavingsContributionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavingsContributionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SavingsContributionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavingsContributionPayload>
+        }
+        findFirst: {
+          args: Prisma.SavingsContributionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavingsContributionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SavingsContributionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavingsContributionPayload>
+        }
+        findMany: {
+          args: Prisma.SavingsContributionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavingsContributionPayload>[]
+        }
+        create: {
+          args: Prisma.SavingsContributionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavingsContributionPayload>
+        }
+        createMany: {
+          args: Prisma.SavingsContributionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SavingsContributionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavingsContributionPayload>[]
+        }
+        delete: {
+          args: Prisma.SavingsContributionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavingsContributionPayload>
+        }
+        update: {
+          args: Prisma.SavingsContributionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavingsContributionPayload>
+        }
+        deleteMany: {
+          args: Prisma.SavingsContributionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SavingsContributionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SavingsContributionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavingsContributionPayload>[]
+        }
+        upsert: {
+          args: Prisma.SavingsContributionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavingsContributionPayload>
+        }
+        aggregate: {
+          args: Prisma.SavingsContributionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSavingsContribution>
+        }
+        groupBy: {
+          args: Prisma.SavingsContributionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SavingsContributionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SavingsContributionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SavingsContributionCountAggregateOutputType> | number
+        }
+      }
+    }
+    DocumentVault: {
+      payload: Prisma.$DocumentVaultPayload<ExtArgs>
+      fields: Prisma.DocumentVaultFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DocumentVaultFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentVaultPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DocumentVaultFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentVaultPayload>
+        }
+        findFirst: {
+          args: Prisma.DocumentVaultFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentVaultPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DocumentVaultFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentVaultPayload>
+        }
+        findMany: {
+          args: Prisma.DocumentVaultFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentVaultPayload>[]
+        }
+        create: {
+          args: Prisma.DocumentVaultCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentVaultPayload>
+        }
+        createMany: {
+          args: Prisma.DocumentVaultCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DocumentVaultCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentVaultPayload>[]
+        }
+        delete: {
+          args: Prisma.DocumentVaultDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentVaultPayload>
+        }
+        update: {
+          args: Prisma.DocumentVaultUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentVaultPayload>
+        }
+        deleteMany: {
+          args: Prisma.DocumentVaultDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DocumentVaultUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DocumentVaultUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentVaultPayload>[]
+        }
+        upsert: {
+          args: Prisma.DocumentVaultUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentVaultPayload>
+        }
+        aggregate: {
+          args: Prisma.DocumentVaultAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDocumentVault>
+        }
+        groupBy: {
+          args: Prisma.DocumentVaultGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DocumentVaultGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DocumentVaultCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DocumentVaultCountAggregateOutputType> | number
+        }
+      }
+    }
     LaunchWaitlist: {
       payload: Prisma.$LaunchWaitlistPayload<ExtArgs>
       fields: Prisma.LaunchWaitlistFieldRefs
@@ -4217,6 +4442,44 @@ export const AIMessageScalarFieldEnum = {
 export type AIMessageScalarFieldEnum = (typeof AIMessageScalarFieldEnum)[keyof typeof AIMessageScalarFieldEnum]
 
 
+export const JointSavingsScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  targetAmount: 'targetAmount',
+  currentAmount: 'currentAmount',
+  targetDate: 'targetDate',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JointSavingsScalarFieldEnum = (typeof JointSavingsScalarFieldEnum)[keyof typeof JointSavingsScalarFieldEnum]
+
+
+export const SavingsContributionScalarFieldEnum = {
+  id: 'id',
+  amount: 'amount',
+  userId: 'userId',
+  jointSavingsId: 'jointSavingsId',
+  timestamp: 'timestamp'
+} as const
+
+export type SavingsContributionScalarFieldEnum = (typeof SavingsContributionScalarFieldEnum)[keyof typeof SavingsContributionScalarFieldEnum]
+
+
+export const DocumentVaultScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  docType: 'docType',
+  status: 'status',
+  fileUrl: 'fileUrl',
+  verifiedAt: 'verifiedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type DocumentVaultScalarFieldEnum = (typeof DocumentVaultScalarFieldEnum)[keyof typeof DocumentVaultScalarFieldEnum]
+
+
 export const LaunchWaitlistScalarFieldEnum = {
   id: 'id',
   email: 'email',
@@ -4724,6 +4987,48 @@ export type ListEnumAgreementStatusFieldRefInput<$PrismaModel> = FieldRefInputTy
 
 
 /**
+ * Reference to a field of type 'JointSavingsStatus'
+ */
+export type EnumJointSavingsStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JointSavingsStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'JointSavingsStatus[]'
+ */
+export type ListEnumJointSavingsStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JointSavingsStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DocType'
+ */
+export type EnumDocTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DocType'>
+    
+
+
+/**
+ * Reference to a field of type 'DocType[]'
+ */
+export type ListEnumDocTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DocType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DocStatus'
+ */
+export type EnumDocStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DocStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'DocStatus[]'
+ */
+export type ListEnumDocStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DocStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'GuarantorStatus'
  */
 export type EnumGuarantorStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GuarantorStatus'>
@@ -4885,6 +5190,9 @@ export type GlobalOmitConfig = {
   conditionReport?: Prisma.ConditionReportOmit
   tenancyAgreement?: Prisma.TenancyAgreementOmit
   aIMessage?: Prisma.AIMessageOmit
+  jointSavings?: Prisma.JointSavingsOmit
+  savingsContribution?: Prisma.SavingsContributionOmit
+  documentVault?: Prisma.DocumentVaultOmit
   launchWaitlist?: Prisma.LaunchWaitlistOmit
   notificationPreferences?: Prisma.NotificationPreferencesOmit
   guarantor?: Prisma.GuarantorOmit

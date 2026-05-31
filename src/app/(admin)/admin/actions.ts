@@ -21,10 +21,69 @@ async function logAudit(actorId: string, action: string, entity: string, entityI
 }
 
 // ── Properties ──
+
+const SCOUT_BOUNTY_AMOUNT = 5000; // ₦5,000 finder's bounty
+
 export async function approveProperty(id: string) {
   try {
     const adminId = await requireAdmin();
-    await prisma.property.update({ where: { id }, data: { status: "AVAILABLE" } });
+
+    // Fetch property to check for proxy/scout submission
+    const property = await prisma.property.findUnique({
+      where: { id },
+      select: {
+        title: true,
+        proxySubmitterId: true,
+        isProxySubmission: true,
+      },
+    });
+
+    if (!property) {
+      return { success: false, message: "Property not found." };
+    }
+
+    // Atomic transaction: approve property + pay scout bounty if applicable
+    await prisma.$transaction(async (tx) => {
+      // 1. Flip property status to AVAILABLE
+      await tx.property.update({
+        where: { id },
+        data: { status: "AVAILABLE" },
+      });
+
+      // 2. If this was a proxy/scout submission, pay the ₦5,000 bounty
+      if (property.isProxySubmission && property.proxySubmitterId) {
+        // Increment scout wallet balance
+        await tx.user.update({
+          where: { id: property.proxySubmitterId },
+          data: { walletBalance: { increment: SCOUT_BOUNTY_AMOUNT } },
+        });
+
+        // Create transaction ledger entry
+        await tx.transaction.create({
+          data: {
+            userId: property.proxySubmitterId,
+            amount: SCOUT_BOUNTY_AMOUNT,
+            type: "REWARD",
+            status: "SUCCESS",
+            reference: `SCOUT-BOUNTY-${id}-${Date.now()}`,
+            description: `Scout finder's bounty for verified listing: ${property.title}`,
+            propertyId: id,
+          },
+        });
+
+        // Notify the scout
+        await tx.notification.create({
+          data: {
+            userId: property.proxySubmitterId,
+            title: "Scout Bounty Paid! 🎉",
+            body: `Your listing "${property.title}" has been verified. ₦${SCOUT_BOUNTY_AMOUNT.toLocaleString("en-NG")} has been added to your wallet.`,
+            type: "REWARD_PAID",
+            actionUrl: "/landlord/dashboard",
+          },
+        });
+      }
+    });
+
     await logAudit(adminId, "APPROVE", "Property", id);
     revalidatePath("/admin/properties");
     return { success: true };

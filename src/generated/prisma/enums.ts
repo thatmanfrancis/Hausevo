@@ -298,3 +298,31 @@ export const GuarantorStatus = {
 } as const
 
 export type GuarantorStatus = (typeof GuarantorStatus)[keyof typeof GuarantorStatus]
+
+
+export const JointSavingsStatus = {
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+  BROKEN: 'BROKEN'
+} as const
+
+export type JointSavingsStatus = (typeof JointSavingsStatus)[keyof typeof JointSavingsStatus]
+
+
+export const DocType = {
+  NIN: 'NIN',
+  Passport: 'Passport',
+  WorkID: 'WorkID',
+  BankStatement: 'BankStatement'
+} as const
+
+export type DocType = (typeof DocType)[keyof typeof DocType]
+
+
+export const DocStatus = {
+  PENDING: 'PENDING',
+  VERIFIED: 'VERIFIED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type DocStatus = (typeof DocStatus)[keyof typeof DocStatus]

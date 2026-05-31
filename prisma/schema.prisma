@@ -79,6 +79,9 @@ model User {
   coTenancies              Tenancy[]                @relation("CoTenants")
   aiMessages               AIMessage[]
   guarantors               Guarantor[]
+  jointSavings             JointSavings[]           @relation("JointSavingsMembers")
+  savingsContributions     SavingsContribution[]
+  documentVaults           DocumentVault[]
 }
 
 model Account {
@@ -874,6 +877,49 @@ model AIMessage {
   @@index([userId, createdAt])
 }
 
+// ── Joint Savings (collaborative rent pooling) ────────────────────────────────
+
+model JointSavings {
+  id            String              @id @default(uuid())
+  title         String
+  targetAmount  Float
+  currentAmount Float               @default(0.0)
+  targetDate    DateTime
+  status        JointSavingsStatus  @default(ACTIVE)
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  members       User[]              @relation("JointSavingsMembers")
+  contributions SavingsContribution[]
+}
+
+model SavingsContribution {
+  id             String       @id @default(uuid())
+  amount         Float
+  userId         String
+  jointSavingsId String
+  timestamp      DateTime     @default(now())
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  jointSavings   JointSavings @relation(fields: [jointSavingsId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([jointSavingsId])
+}
+
+// ── Document Vault (structured KYC tracking) ─────────────────────────────────
+
+model DocumentVault {
+  id         String      @id @default(uuid())
+  userId     String
+  docType    DocType
+  status     DocStatus   @default(PENDING)
+  fileUrl    String
+  verifiedAt DateTime?
+  createdAt  DateTime    @default(now())
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
 model LaunchWaitlist {
   id        String   @id @default(uuid())
   email     String   @unique
@@ -923,4 +969,23 @@ enum GuarantorStatus {
   PENDING
   ACKNOWLEDGED
   DECLINED
+}
+
+enum JointSavingsStatus {
+  ACTIVE
+  COMPLETED
+  BROKEN
+}
+
+enum DocType {
+  NIN
+  Passport
+  WorkID
+  BankStatement
+}
+
+enum DocStatus {
+  PENDING
+  VERIFIED
+  REJECTED
 }

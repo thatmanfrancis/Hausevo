@@ -90,6 +90,9 @@ export const ModelName = {
   ConditionReport: 'ConditionReport',
   TenancyAgreement: 'TenancyAgreement',
   AIMessage: 'AIMessage',
+  JointSavings: 'JointSavings',
+  SavingsContribution: 'SavingsContribution',
+  DocumentVault: 'DocumentVault',
   LaunchWaitlist: 'LaunchWaitlist',
   NotificationPreferences: 'NotificationPreferences',
   Guarantor: 'Guarantor'
@@ -734,6 +737,44 @@ export const AIMessageScalarFieldEnum = {
 } as const
 
 export type AIMessageScalarFieldEnum = (typeof AIMessageScalarFieldEnum)[keyof typeof AIMessageScalarFieldEnum]
+
+
+export const JointSavingsScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  targetAmount: 'targetAmount',
+  currentAmount: 'currentAmount',
+  targetDate: 'targetDate',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JointSavingsScalarFieldEnum = (typeof JointSavingsScalarFieldEnum)[keyof typeof JointSavingsScalarFieldEnum]
+
+
+export const SavingsContributionScalarFieldEnum = {
+  id: 'id',
+  amount: 'amount',
+  userId: 'userId',
+  jointSavingsId: 'jointSavingsId',
+  timestamp: 'timestamp'
+} as const
+
+export type SavingsContributionScalarFieldEnum = (typeof SavingsContributionScalarFieldEnum)[keyof typeof SavingsContributionScalarFieldEnum]
+
+
+export const DocumentVaultScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  docType: 'docType',
+  status: 'status',
+  fileUrl: 'fileUrl',
+  verifiedAt: 'verifiedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type DocumentVaultScalarFieldEnum = (typeof DocumentVaultScalarFieldEnum)[keyof typeof DocumentVaultScalarFieldEnum]
 
 
 export const LaunchWaitlistScalarFieldEnum = {

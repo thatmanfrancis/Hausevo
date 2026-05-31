@@ -698,6 +698,57 @@ export type EnumAgreementStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumAgreementStatusFilter<$PrismaModel>
 }
 
+export type EnumJointSavingsStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.JointSavingsStatus | Prisma.EnumJointSavingsStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.JointSavingsStatus[] | Prisma.ListEnumJointSavingsStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.JointSavingsStatus[] | Prisma.ListEnumJointSavingsStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumJointSavingsStatusFilter<$PrismaModel> | $Enums.JointSavingsStatus
+}
+
+export type EnumJointSavingsStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.JointSavingsStatus | Prisma.EnumJointSavingsStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.JointSavingsStatus[] | Prisma.ListEnumJointSavingsStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.JointSavingsStatus[] | Prisma.ListEnumJointSavingsStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumJointSavingsStatusWithAggregatesFilter<$PrismaModel> | $Enums.JointSavingsStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumJointSavingsStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumJointSavingsStatusFilter<$PrismaModel>
+}
+
+export type EnumDocTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.DocType | Prisma.EnumDocTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.DocType[] | Prisma.ListEnumDocTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DocType[] | Prisma.ListEnumDocTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDocTypeFilter<$PrismaModel> | $Enums.DocType
+}
+
+export type EnumDocStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.DocStatus | Prisma.EnumDocStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DocStatus[] | Prisma.ListEnumDocStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DocStatus[] | Prisma.ListEnumDocStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDocStatusFilter<$PrismaModel> | $Enums.DocStatus
+}
+
+export type EnumDocTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DocType | Prisma.EnumDocTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.DocType[] | Prisma.ListEnumDocTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DocType[] | Prisma.ListEnumDocTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDocTypeWithAggregatesFilter<$PrismaModel> | $Enums.DocType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDocTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDocTypeFilter<$PrismaModel>
+}
+
+export type EnumDocStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DocStatus | Prisma.EnumDocStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DocStatus[] | Prisma.ListEnumDocStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DocStatus[] | Prisma.ListEnumDocStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDocStatusWithAggregatesFilter<$PrismaModel> | $Enums.DocStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDocStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDocStatusFilter<$PrismaModel>
+}
+
 export type EnumGuarantorStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.GuarantorStatus | Prisma.EnumGuarantorStatusFieldRefInput<$PrismaModel>
   in?: $Enums.GuarantorStatus[] | Prisma.ListEnumGuarantorStatusFieldRefInput<$PrismaModel>
@@ -1361,6 +1412,57 @@ export type NestedEnumAgreementStatusWithAggregatesFilter<$PrismaModel = never> 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumAgreementStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumAgreementStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumJointSavingsStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.JointSavingsStatus | Prisma.EnumJointSavingsStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.JointSavingsStatus[] | Prisma.ListEnumJointSavingsStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.JointSavingsStatus[] | Prisma.ListEnumJointSavingsStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumJointSavingsStatusFilter<$PrismaModel> | $Enums.JointSavingsStatus
+}
+
+export type NestedEnumJointSavingsStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.JointSavingsStatus | Prisma.EnumJointSavingsStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.JointSavingsStatus[] | Prisma.ListEnumJointSavingsStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.JointSavingsStatus[] | Prisma.ListEnumJointSavingsStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumJointSavingsStatusWithAggregatesFilter<$PrismaModel> | $Enums.JointSavingsStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumJointSavingsStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumJointSavingsStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumDocTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.DocType | Prisma.EnumDocTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.DocType[] | Prisma.ListEnumDocTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DocType[] | Prisma.ListEnumDocTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDocTypeFilter<$PrismaModel> | $Enums.DocType
+}
+
+export type NestedEnumDocStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.DocStatus | Prisma.EnumDocStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DocStatus[] | Prisma.ListEnumDocStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DocStatus[] | Prisma.ListEnumDocStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDocStatusFilter<$PrismaModel> | $Enums.DocStatus
+}
+
+export type NestedEnumDocTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DocType | Prisma.EnumDocTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.DocType[] | Prisma.ListEnumDocTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DocType[] | Prisma.ListEnumDocTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDocTypeWithAggregatesFilter<$PrismaModel> | $Enums.DocType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDocTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDocTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumDocStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DocStatus | Prisma.EnumDocStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DocStatus[] | Prisma.ListEnumDocStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DocStatus[] | Prisma.ListEnumDocStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDocStatusWithAggregatesFilter<$PrismaModel> | $Enums.DocStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDocStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDocStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumGuarantorStatusFilter<$PrismaModel = never> = {

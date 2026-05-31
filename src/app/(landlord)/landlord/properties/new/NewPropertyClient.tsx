@@ -131,6 +131,11 @@ export default function NewPropertyClient() {
   const [description, setDescription] = useState("");
   const [imageUrls, setImageUrls] = useState<string[]>([]);
 
+  // Proxy / offline landlord
+  const [isProxyListing, setIsProxyListing] = useState(false);
+  const [landlordName, setLandlordName] = useState("");
+  const [landlordPhone, setLandlordPhone] = useState("");
+
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [selectedVaultDocId, setSelectedVaultDocId] = useState("");
@@ -142,7 +147,8 @@ export default function NewPropertyClient() {
   }
 
   // Step validation
-  const step1Valid = title.trim() && address.trim() && lga;
+  const step1Valid = title.trim() && address.trim() && lga &&
+    (!isProxyListing || (landlordName.trim() && landlordPhone.trim()));
   const step2Valid =
     pricePerYear &&
     Number(pricePerYear) > 0 &&
@@ -154,28 +160,35 @@ export default function NewPropertyClient() {
     setError("");
 
     try {
-      const res = await fetch("/api/properties", {
+      const endpoint = isProxyListing ? "/api/properties/proxy" : "/api/properties";
+      const payload: Record<string, unknown> = {
+        title,
+        address,
+        lga,
+        listingType,
+        pricePerYear: Number(pricePerYear),
+        totalPackage: Number(totalPackage),
+        rentFrequency,
+        vaultDocId: selectedVaultDocId || undefined,
+        metadata: {
+          propertyType: propertyType || undefined,
+          bedrooms: bedrooms ? Number(bedrooms) : undefined,
+          bathrooms: bathrooms ? Number(bathrooms) : undefined,
+          description: description || undefined,
+          amenities: selectedAmenities.length > 0 ? selectedAmenities : undefined,
+          images: imageUrls.length > 0 ? imageUrls : undefined,
+        },
+      };
+
+      if (isProxyListing) {
+        payload.landlordName = landlordName.trim();
+        payload.landlordPhone = landlordPhone.trim();
+      }
+
+      const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title,
-          address,
-          lga,
-          listingType,
-          pricePerYear: Number(pricePerYear),
-          totalPackage: Number(totalPackage),
-          rentFrequency,
-          vaultDocId: selectedVaultDocId || undefined,
-          metadata: {
-            propertyType: propertyType || undefined,
-            bedrooms: bedrooms ? Number(bedrooms) : undefined,
-            bathrooms: bathrooms ? Number(bathrooms) : undefined,
-            description: description || undefined,
-            amenities:
-              selectedAmenities.length > 0 ? selectedAmenities : undefined,
-            images: imageUrls.length > 0 ? imageUrls : undefined,
-          },
-        }),
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
@@ -281,11 +294,83 @@ export default function NewPropertyClient() {
               </select>
             </div>
 
+            {/* Proxy / offline landlord toggle */}
+            <div className="rounded-xl border border-zinc-200 p-4 flex flex-col gap-3">
+              <button
+                type="button"
+                onClick={() => setIsProxyListing((v) => !v)}
+                className="flex items-center justify-between w-full"
+              >
+                <div className="text-left">
+                  <p className="text-sm font-bold text-zinc-900">
+                    Listing on behalf of an offline landlord
+                  </p>
+                  <p className="text-xs text-zinc-400 mt-0.5">
+                    Scout / proxy submission — landlord has no internet access
+                  </p>
+                </div>
+                {/* Toggle pill */}
+                <div
+                  className={`relative h-6 w-11 rounded-full transition-colors shrink-0 ${
+                    isProxyListing ? "bg-zinc-900" : "bg-zinc-200"
+                  }`}
+                >
+                  <span
+                    className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
+                      isProxyListing ? "translate-x-5" : "translate-x-0"
+                    }`}
+                  />
+                </div>
+              </button>
+
+              {isProxyListing && (
+                <div className="flex flex-col gap-3 pt-1 border-t border-zinc-100">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">
+                    Offline Landlord Details
+                  </p>
+                  <div className="flex flex-col gap-1.5">
+                    <label
+                      htmlFor="landlordName"
+                      className="text-xs font-bold uppercase tracking-widest text-zinc-400"
+                    >
+                      Landlord Full Name
+                    </label>
+                    <input
+                      id="landlordName"
+                      type="text"
+                      value={landlordName}
+                      onChange={(e) => setLandlordName(e.target.value)}
+                      placeholder="e.g. Chief Adebayo Okafor"
+                      className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label
+                      htmlFor="landlordPhone"
+                      className="text-xs font-bold uppercase tracking-widest text-zinc-400"
+                    >
+                      Landlord Phone Number
+                    </label>
+                    <input
+                      id="landlordPhone"
+                      type="tel"
+                      value={landlordPhone}
+                      onChange={(e) => setLandlordPhone(e.target.value)}
+                      placeholder="+2348012345678"
+                      className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors"
+                    />
+                    <p className="text-[10px] text-zinc-400 leading-tight">
+                      Admin will call this number to verify ownership before the listing goes live.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">
                 Listing Type
-              </label>
-              <div className="grid grid-cols-2 gap-2">
+              </label>              <div className="grid grid-cols-2 gap-2">
                 {LISTING_TYPES.map((t) => (
                   <button
                     key={t.value}

@@ -213,6 +213,21 @@ export type TenancyAgreement = Prisma.TenancyAgreementModel
  */
 export type AIMessage = Prisma.AIMessageModel
 /**
+ * Model JointSavings
+ * 
+ */
+export type JointSavings = Prisma.JointSavingsModel
+/**
+ * Model SavingsContribution
+ * 
+ */
+export type SavingsContribution = Prisma.SavingsContributionModel
+/**
+ * Model DocumentVault
+ * 
+ */
+export type DocumentVault = Prisma.DocumentVaultModel
+/**
  * Model LaunchWaitlist
  * 
  */

@@ -460,6 +460,9 @@ export type UserWhereInput = {
   coTenancies?: Prisma.TenancyListRelationFilter
   aiMessages?: Prisma.AIMessageListRelationFilter
   guarantors?: Prisma.GuarantorListRelationFilter
+  jointSavings?: Prisma.JointSavingsListRelationFilter
+  savingsContributions?: Prisma.SavingsContributionListRelationFilter
+  documentVaults?: Prisma.DocumentVaultListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -532,6 +535,9 @@ export type UserOrderByWithRelationInput = {
   coTenancies?: Prisma.TenancyOrderByRelationAggregateInput
   aiMessages?: Prisma.AIMessageOrderByRelationAggregateInput
   guarantors?: Prisma.GuarantorOrderByRelationAggregateInput
+  jointSavings?: Prisma.JointSavingsOrderByRelationAggregateInput
+  savingsContributions?: Prisma.SavingsContributionOrderByRelationAggregateInput
+  documentVaults?: Prisma.DocumentVaultOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -607,6 +613,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   coTenancies?: Prisma.TenancyListRelationFilter
   aiMessages?: Prisma.AIMessageListRelationFilter
   guarantors?: Prisma.GuarantorListRelationFilter
+  jointSavings?: Prisma.JointSavingsListRelationFilter
+  savingsContributions?: Prisma.SavingsContributionListRelationFilter
+  documentVaults?: Prisma.DocumentVaultListRelationFilter
 }, "id" | "email" | "phoneNumber" | "googleId">
 
 export type UserOrderByWithAggregationInput = {
@@ -751,6 +760,9 @@ export type UserCreateInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -823,6 +835,9 @@ export type UserUncheckedCreateInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -895,6 +910,9 @@ export type UserUpdateInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -967,6 +985,9 @@ export type UserUncheckedUpdateInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1838,6 +1859,72 @@ export type UserUpdateOneRequiredWithoutAiMessagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAiMessagesInput, Prisma.UserUpdateWithoutAiMessagesInput>, Prisma.UserUncheckedUpdateWithoutAiMessagesInput>
 }
 
+export type UserCreateNestedManyWithoutJointSavingsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutJointSavingsInput, Prisma.UserUncheckedCreateWithoutJointSavingsInput> | Prisma.UserCreateWithoutJointSavingsInput[] | Prisma.UserUncheckedCreateWithoutJointSavingsInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutJointSavingsInput | Prisma.UserCreateOrConnectWithoutJointSavingsInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUncheckedCreateNestedManyWithoutJointSavingsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutJointSavingsInput, Prisma.UserUncheckedCreateWithoutJointSavingsInput> | Prisma.UserCreateWithoutJointSavingsInput[] | Prisma.UserUncheckedCreateWithoutJointSavingsInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutJointSavingsInput | Prisma.UserCreateOrConnectWithoutJointSavingsInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUpdateManyWithoutJointSavingsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutJointSavingsInput, Prisma.UserUncheckedCreateWithoutJointSavingsInput> | Prisma.UserCreateWithoutJointSavingsInput[] | Prisma.UserUncheckedCreateWithoutJointSavingsInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutJointSavingsInput | Prisma.UserCreateOrConnectWithoutJointSavingsInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutJointSavingsInput | Prisma.UserUpsertWithWhereUniqueWithoutJointSavingsInput[]
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutJointSavingsInput | Prisma.UserUpdateWithWhereUniqueWithoutJointSavingsInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutJointSavingsInput | Prisma.UserUpdateManyWithWhereWithoutJointSavingsInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
+export type UserUncheckedUpdateManyWithoutJointSavingsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutJointSavingsInput, Prisma.UserUncheckedCreateWithoutJointSavingsInput> | Prisma.UserCreateWithoutJointSavingsInput[] | Prisma.UserUncheckedCreateWithoutJointSavingsInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutJointSavingsInput | Prisma.UserCreateOrConnectWithoutJointSavingsInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutJointSavingsInput | Prisma.UserUpsertWithWhereUniqueWithoutJointSavingsInput[]
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutJointSavingsInput | Prisma.UserUpdateWithWhereUniqueWithoutJointSavingsInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutJointSavingsInput | Prisma.UserUpdateManyWithWhereWithoutJointSavingsInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
+export type UserCreateNestedOneWithoutSavingsContributionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSavingsContributionsInput, Prisma.UserUncheckedCreateWithoutSavingsContributionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSavingsContributionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSavingsContributionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSavingsContributionsInput, Prisma.UserUncheckedCreateWithoutSavingsContributionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSavingsContributionsInput
+  upsert?: Prisma.UserUpsertWithoutSavingsContributionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSavingsContributionsInput, Prisma.UserUpdateWithoutSavingsContributionsInput>, Prisma.UserUncheckedUpdateWithoutSavingsContributionsInput>
+}
+
+export type UserCreateNestedOneWithoutDocumentVaultsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDocumentVaultsInput, Prisma.UserUncheckedCreateWithoutDocumentVaultsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDocumentVaultsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutDocumentVaultsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDocumentVaultsInput, Prisma.UserUncheckedCreateWithoutDocumentVaultsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDocumentVaultsInput
+  upsert?: Prisma.UserUpsertWithoutDocumentVaultsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDocumentVaultsInput, Prisma.UserUpdateWithoutDocumentVaultsInput>, Prisma.UserUncheckedUpdateWithoutDocumentVaultsInput>
+}
+
 export type UserCreateNestedOneWithoutNotificationPreferencesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationPreferencesInput, Prisma.UserUncheckedCreateWithoutNotificationPreferencesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationPreferencesInput
@@ -1935,6 +2022,9 @@ export type UserCreateWithoutAccountsInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -2006,6 +2096,9 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -2093,6 +2186,9 @@ export type UserUpdateWithoutAccountsInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -2164,6 +2260,9 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -2235,6 +2334,9 @@ export type UserCreateWithoutSessionsInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -2306,6 +2408,9 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -2393,6 +2498,9 @@ export type UserUpdateWithoutSessionsInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -2464,6 +2572,9 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutShackScoreInput = {
@@ -2535,6 +2646,9 @@ export type UserCreateWithoutShackScoreInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutShackScoreInput = {
@@ -2606,6 +2720,9 @@ export type UserUncheckedCreateWithoutShackScoreInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutShackScoreInput = {
@@ -2693,6 +2810,9 @@ export type UserUpdateWithoutShackScoreInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShackScoreInput = {
@@ -2764,6 +2884,9 @@ export type UserUncheckedUpdateWithoutShackScoreInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutIssuedKeysInput = {
@@ -2835,6 +2958,9 @@ export type UserCreateWithoutIssuedKeysInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutIssuedKeysInput = {
@@ -2906,6 +3032,9 @@ export type UserUncheckedCreateWithoutIssuedKeysInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutIssuedKeysInput = {
@@ -2993,6 +3122,9 @@ export type UserUpdateWithoutIssuedKeysInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIssuedKeysInput = {
@@ -3064,6 +3196,9 @@ export type UserUncheckedUpdateWithoutIssuedKeysInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOwnedPropertiesInput = {
@@ -3135,6 +3270,9 @@ export type UserCreateWithoutOwnedPropertiesInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOwnedPropertiesInput = {
@@ -3206,6 +3344,9 @@ export type UserUncheckedCreateWithoutOwnedPropertiesInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOwnedPropertiesInput = {
@@ -3282,6 +3423,9 @@ export type UserCreateWithoutProxySubmissionsInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProxySubmissionsInput = {
@@ -3353,6 +3497,9 @@ export type UserUncheckedCreateWithoutProxySubmissionsInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProxySubmissionsInput = {
@@ -3440,6 +3587,9 @@ export type UserUpdateWithoutOwnedPropertiesInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedPropertiesInput = {
@@ -3511,6 +3661,9 @@ export type UserUncheckedUpdateWithoutOwnedPropertiesInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutProxySubmissionsInput = {
@@ -3593,6 +3746,9 @@ export type UserUpdateWithoutProxySubmissionsInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProxySubmissionsInput = {
@@ -3664,6 +3820,9 @@ export type UserUncheckedUpdateWithoutProxySubmissionsInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSavedPropertiesInput = {
@@ -3735,6 +3894,9 @@ export type UserCreateWithoutSavedPropertiesInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSavedPropertiesInput = {
@@ -3806,6 +3968,9 @@ export type UserUncheckedCreateWithoutSavedPropertiesInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSavedPropertiesInput = {
@@ -3893,6 +4058,9 @@ export type UserUpdateWithoutSavedPropertiesInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSavedPropertiesInput = {
@@ -3964,6 +4132,9 @@ export type UserUncheckedUpdateWithoutSavedPropertiesInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWishlistInput = {
@@ -4035,6 +4206,9 @@ export type UserCreateWithoutWishlistInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWishlistInput = {
@@ -4106,6 +4280,9 @@ export type UserUncheckedCreateWithoutWishlistInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWishlistInput = {
@@ -4193,6 +4370,9 @@ export type UserUpdateWithoutWishlistInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWishlistInput = {
@@ -4264,6 +4444,9 @@ export type UserUncheckedUpdateWithoutWishlistInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWaitlistsInput = {
@@ -4335,6 +4518,9 @@ export type UserCreateWithoutWaitlistsInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWaitlistsInput = {
@@ -4406,6 +4592,9 @@ export type UserUncheckedCreateWithoutWaitlistsInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWaitlistsInput = {
@@ -4493,6 +4682,9 @@ export type UserUpdateWithoutWaitlistsInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWaitlistsInput = {
@@ -4564,6 +4756,9 @@ export type UserUncheckedUpdateWithoutWaitlistsInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutVaultItemsInput = {
@@ -4635,6 +4830,9 @@ export type UserCreateWithoutVaultItemsInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutVaultItemsInput = {
@@ -4706,6 +4904,9 @@ export type UserUncheckedCreateWithoutVaultItemsInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutVaultItemsInput = {
@@ -4793,6 +4994,9 @@ export type UserUpdateWithoutVaultItemsInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVaultItemsInput = {
@@ -4864,6 +5068,9 @@ export type UserUncheckedUpdateWithoutVaultItemsInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutApplicationsInput = {
@@ -4935,6 +5142,9 @@ export type UserCreateWithoutApplicationsInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutApplicationsInput = {
@@ -5006,6 +5216,9 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutApplicationsInput = {
@@ -5093,6 +5306,9 @@ export type UserUpdateWithoutApplicationsInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApplicationsInput = {
@@ -5164,6 +5380,9 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTenancyInput = {
@@ -5235,6 +5454,9 @@ export type UserCreateWithoutTenancyInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTenancyInput = {
@@ -5306,6 +5528,9 @@ export type UserUncheckedCreateWithoutTenancyInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTenancyInput = {
@@ -5382,6 +5607,9 @@ export type UserCreateWithoutCoTenanciesInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCoTenanciesInput = {
@@ -5453,6 +5681,9 @@ export type UserUncheckedCreateWithoutCoTenanciesInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCoTenanciesInput = {
@@ -5540,6 +5771,9 @@ export type UserUpdateWithoutTenancyInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTenancyInput = {
@@ -5611,6 +5845,9 @@ export type UserUncheckedUpdateWithoutTenancyInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutCoTenanciesInput = {
@@ -5733,6 +5970,9 @@ export type UserCreateWithoutChatsInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChatsInput = {
@@ -5804,6 +6044,9 @@ export type UserUncheckedCreateWithoutChatsInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChatsInput = {
@@ -5896,6 +6139,9 @@ export type UserCreateWithoutMessagesInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMessagesInput = {
@@ -5967,6 +6213,9 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMessagesInput = {
@@ -6054,6 +6303,9 @@ export type UserUpdateWithoutMessagesInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessagesInput = {
@@ -6125,6 +6377,9 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutArtisanProfileInput = {
@@ -6196,6 +6451,9 @@ export type UserCreateWithoutArtisanProfileInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutArtisanProfileInput = {
@@ -6267,6 +6525,9 @@ export type UserUncheckedCreateWithoutArtisanProfileInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutArtisanProfileInput = {
@@ -6354,6 +6615,9 @@ export type UserUpdateWithoutArtisanProfileInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutArtisanProfileInput = {
@@ -6425,6 +6689,9 @@ export type UserUncheckedUpdateWithoutArtisanProfileInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMaintenanceJobsInput = {
@@ -6496,6 +6763,9 @@ export type UserCreateWithoutMaintenanceJobsInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMaintenanceJobsInput = {
@@ -6567,6 +6837,9 @@ export type UserUncheckedCreateWithoutMaintenanceJobsInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMaintenanceJobsInput = {
@@ -6654,6 +6927,9 @@ export type UserUpdateWithoutMaintenanceJobsInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMaintenanceJobsInput = {
@@ -6725,6 +7001,9 @@ export type UserUncheckedUpdateWithoutMaintenanceJobsInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutServiceRequestsInput = {
@@ -6796,6 +7075,9 @@ export type UserCreateWithoutServiceRequestsInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutServiceRequestsInput = {
@@ -6867,6 +7149,9 @@ export type UserUncheckedCreateWithoutServiceRequestsInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutServiceRequestsInput = {
@@ -6954,6 +7239,9 @@ export type UserUpdateWithoutServiceRequestsInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutServiceRequestsInput = {
@@ -7025,6 +7313,9 @@ export type UserUncheckedUpdateWithoutServiceRequestsInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutInspectionsInput = {
@@ -7096,6 +7387,9 @@ export type UserCreateWithoutInspectionsInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutInspectionsInput = {
@@ -7167,6 +7461,9 @@ export type UserUncheckedCreateWithoutInspectionsInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutInspectionsInput = {
@@ -7254,6 +7551,9 @@ export type UserUpdateWithoutInspectionsInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInspectionsInput = {
@@ -7325,6 +7625,9 @@ export type UserUncheckedUpdateWithoutInspectionsInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReviewsGivenInput = {
@@ -7396,6 +7699,9 @@ export type UserCreateWithoutReviewsGivenInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsGivenInput = {
@@ -7467,6 +7773,9 @@ export type UserUncheckedCreateWithoutReviewsGivenInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsGivenInput = {
@@ -7543,6 +7852,9 @@ export type UserCreateWithoutReviewsReceivedInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsReceivedInput = {
@@ -7614,6 +7926,9 @@ export type UserUncheckedCreateWithoutReviewsReceivedInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsReceivedInput = {
@@ -7701,6 +8016,9 @@ export type UserUpdateWithoutReviewsGivenInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsGivenInput = {
@@ -7772,6 +8090,9 @@ export type UserUncheckedUpdateWithoutReviewsGivenInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReviewsReceivedInput = {
@@ -7854,6 +8175,9 @@ export type UserUpdateWithoutReviewsReceivedInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
@@ -7925,6 +8249,9 @@ export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDisputesAgainstInput = {
@@ -7996,6 +8323,9 @@ export type UserCreateWithoutDisputesAgainstInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDisputesAgainstInput = {
@@ -8067,6 +8397,9 @@ export type UserUncheckedCreateWithoutDisputesAgainstInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDisputesAgainstInput = {
@@ -8143,6 +8476,9 @@ export type UserCreateWithoutDisputesRaisedInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDisputesRaisedInput = {
@@ -8214,6 +8550,9 @@ export type UserUncheckedCreateWithoutDisputesRaisedInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDisputesRaisedInput = {
@@ -8290,6 +8629,9 @@ export type UserCreateWithoutDisputesResolvedInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDisputesResolvedInput = {
@@ -8361,6 +8703,9 @@ export type UserUncheckedCreateWithoutDisputesResolvedInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDisputesResolvedInput = {
@@ -8448,6 +8793,9 @@ export type UserUpdateWithoutDisputesAgainstInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDisputesAgainstInput = {
@@ -8519,6 +8867,9 @@ export type UserUncheckedUpdateWithoutDisputesAgainstInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutDisputesRaisedInput = {
@@ -8601,6 +8952,9 @@ export type UserUpdateWithoutDisputesRaisedInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDisputesRaisedInput = {
@@ -8672,6 +9026,9 @@ export type UserUncheckedUpdateWithoutDisputesRaisedInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutDisputesResolvedInput = {
@@ -8754,6 +9111,9 @@ export type UserUpdateWithoutDisputesResolvedInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDisputesResolvedInput = {
@@ -8825,6 +9185,9 @@ export type UserUncheckedUpdateWithoutDisputesResolvedInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutScoutRewardsInput = {
@@ -8896,6 +9259,9 @@ export type UserCreateWithoutScoutRewardsInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutScoutRewardsInput = {
@@ -8967,6 +9333,9 @@ export type UserUncheckedCreateWithoutScoutRewardsInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutScoutRewardsInput = {
@@ -9054,6 +9423,9 @@ export type UserUpdateWithoutScoutRewardsInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutScoutRewardsInput = {
@@ -9125,6 +9497,9 @@ export type UserUncheckedUpdateWithoutScoutRewardsInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReferralCodesInput = {
@@ -9196,6 +9571,9 @@ export type UserCreateWithoutReferralCodesInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferralCodesInput = {
@@ -9267,6 +9645,9 @@ export type UserUncheckedCreateWithoutReferralCodesInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferralCodesInput = {
@@ -9354,6 +9735,9 @@ export type UserUpdateWithoutReferralCodesInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralCodesInput = {
@@ -9425,6 +9809,9 @@ export type UserUncheckedUpdateWithoutReferralCodesInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReferredByInput = {
@@ -9496,6 +9883,9 @@ export type UserCreateWithoutReferredByInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferredByInput = {
@@ -9567,6 +9957,9 @@ export type UserUncheckedCreateWithoutReferredByInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferredByInput = {
@@ -9643,6 +10036,9 @@ export type UserCreateWithoutReferralInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferralInput = {
@@ -9714,6 +10110,9 @@ export type UserUncheckedCreateWithoutReferralInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferralInput = {
@@ -9801,6 +10200,9 @@ export type UserUpdateWithoutReferredByInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferredByInput = {
@@ -9872,6 +10274,9 @@ export type UserUncheckedUpdateWithoutReferredByInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReferralInput = {
@@ -9954,6 +10359,9 @@ export type UserUpdateWithoutReferralInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralInput = {
@@ -10025,6 +10433,9 @@ export type UserUncheckedUpdateWithoutReferralInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBankAccountsInput = {
@@ -10096,6 +10507,9 @@ export type UserCreateWithoutBankAccountsInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBankAccountsInput = {
@@ -10167,6 +10581,9 @@ export type UserUncheckedCreateWithoutBankAccountsInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBankAccountsInput = {
@@ -10254,6 +10671,9 @@ export type UserUpdateWithoutBankAccountsInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBankAccountsInput = {
@@ -10325,6 +10745,9 @@ export type UserUncheckedUpdateWithoutBankAccountsInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTransactionsInput = {
@@ -10396,6 +10819,9 @@ export type UserCreateWithoutTransactionsInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTransactionsInput = {
@@ -10467,6 +10893,9 @@ export type UserUncheckedCreateWithoutTransactionsInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTransactionsInput = {
@@ -10554,6 +10983,9 @@ export type UserUpdateWithoutTransactionsInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTransactionsInput = {
@@ -10625,6 +11057,9 @@ export type UserUncheckedUpdateWithoutTransactionsInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -10696,6 +11131,9 @@ export type UserCreateWithoutNotificationsInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -10767,6 +11205,9 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -10854,6 +11295,9 @@ export type UserUpdateWithoutNotificationsInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -10925,6 +11369,9 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAssignedTicketsInput = {
@@ -10996,6 +11443,9 @@ export type UserCreateWithoutAssignedTicketsInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAssignedTicketsInput = {
@@ -11067,6 +11517,9 @@ export type UserUncheckedCreateWithoutAssignedTicketsInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAssignedTicketsInput = {
@@ -11143,6 +11596,9 @@ export type UserCreateWithoutSupportTicketsInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSupportTicketsInput = {
@@ -11214,6 +11670,9 @@ export type UserUncheckedCreateWithoutSupportTicketsInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSupportTicketsInput = {
@@ -11301,6 +11760,9 @@ export type UserUpdateWithoutAssignedTicketsInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedTicketsInput = {
@@ -11372,6 +11834,9 @@ export type UserUncheckedUpdateWithoutAssignedTicketsInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutSupportTicketsInput = {
@@ -11454,6 +11919,9 @@ export type UserUpdateWithoutSupportTicketsInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSupportTicketsInput = {
@@ -11525,6 +11993,9 @@ export type UserUncheckedUpdateWithoutSupportTicketsInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSupportMessagesInput = {
@@ -11596,6 +12067,9 @@ export type UserCreateWithoutSupportMessagesInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSupportMessagesInput = {
@@ -11667,6 +12141,9 @@ export type UserUncheckedCreateWithoutSupportMessagesInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSupportMessagesInput = {
@@ -11754,6 +12231,9 @@ export type UserUpdateWithoutSupportMessagesInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSupportMessagesInput = {
@@ -11825,6 +12305,9 @@ export type UserUncheckedUpdateWithoutSupportMessagesInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -11896,6 +12379,9 @@ export type UserCreateWithoutAuditLogsInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -11967,6 +12453,9 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -12054,6 +12543,9 @@ export type UserUpdateWithoutAuditLogsInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -12125,6 +12617,9 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutManagedPropertiesInput = {
@@ -12196,6 +12691,9 @@ export type UserCreateWithoutManagedPropertiesInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutManagedPropertiesInput = {
@@ -12267,6 +12765,9 @@ export type UserUncheckedCreateWithoutManagedPropertiesInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutManagedPropertiesInput = {
@@ -12343,6 +12844,9 @@ export type UserCreateWithoutOwnedManagementInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOwnedManagementInput = {
@@ -12414,6 +12918,9 @@ export type UserUncheckedCreateWithoutOwnedManagementInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOwnedManagementInput = {
@@ -12501,6 +13008,9 @@ export type UserUpdateWithoutManagedPropertiesInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutManagedPropertiesInput = {
@@ -12572,6 +13082,9 @@ export type UserUncheckedUpdateWithoutManagedPropertiesInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutOwnedManagementInput = {
@@ -12654,6 +13167,9 @@ export type UserUpdateWithoutOwnedManagementInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedManagementInput = {
@@ -12725,6 +13241,9 @@ export type UserUncheckedUpdateWithoutOwnedManagementInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAiMessagesInput = {
@@ -12796,6 +13315,9 @@ export type UserCreateWithoutAiMessagesInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAiMessagesInput = {
@@ -12867,6 +13389,9 @@ export type UserUncheckedCreateWithoutAiMessagesInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAiMessagesInput = {
@@ -12954,6 +13479,9 @@ export type UserUpdateWithoutAiMessagesInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAiMessagesInput = {
@@ -13025,6 +13553,802 @@ export type UserUncheckedUpdateWithoutAiMessagesInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutJointSavingsInput = {
+  id?: string
+  email: string
+  fullName: string
+  phoneNumber?: string | null
+  passwordHash?: string | null
+  googleId?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  isVerified?: boolean
+  twoFactorEnabled?: boolean
+  twoFactorSecret?: string | null
+  verificationTier?: number
+  walletBalance?: number
+  fintechPartnerRef?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accumulatedBond?: number
+  vaultPremium?: boolean
+  vaultPremiumUntil?: Date | string | null
+  vaultStorageLimit?: number
+  vaultStorageUsed?: number
+  verificationBundlePaid?: boolean
+  verificationBundlePaidAt?: Date | string | null
+  onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
+  issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
+  notificationPreferences?: Prisma.NotificationPreferencesCreateNestedOneWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutUserInput
+  disputesAgainst?: Prisma.DisputeCreateNestedManyWithoutAgainstInput
+  disputesRaised?: Prisma.DisputeCreateNestedManyWithoutRaisedByInput
+  disputesResolved?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
+  inspections?: Prisma.InspectionCreateNestedManyWithoutInspectorInput
+  maintenanceJobs?: Prisma.MaintenanceJobCreateNestedManyWithoutArtisanInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  ownedProperties?: Prisma.PropertyCreateNestedManyWithoutLandlordInput
+  proxySubmissions?: Prisma.PropertyCreateNestedManyWithoutProxySubmitterInput
+  managedProperties?: Prisma.PropertyManagementCreateNestedManyWithoutManagerInput
+  ownedManagement?: Prisma.PropertyManagementCreateNestedManyWithoutOwnerInput
+  wishlist?: Prisma.PropertyWishlistCreateNestedOneWithoutTenantInput
+  referredBy?: Prisma.ReferralCreateNestedOneWithoutRefereeInput
+  referral?: Prisma.ReferralCreateNestedOneWithoutReferrerInput
+  referralCodes?: Prisma.ReferralCodeCreateNestedManyWithoutOwnerInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutSubjectInput
+  savedProperties?: Prisma.SavedPropertyCreateNestedManyWithoutTenantInput
+  scoutRewards?: Prisma.ScoutRewardCreateNestedManyWithoutRedeemerInput
+  serviceRequests?: Prisma.ServiceRequestCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  shackScore?: Prisma.ShackScoreCreateNestedOneWithoutUserInput
+  supportMessages?: Prisma.SupportMessageCreateNestedManyWithoutSenderInput
+  assignedTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
+  tenancy?: Prisma.TenancyCreateNestedOneWithoutTenantInput
+  applications?: Prisma.TenancyApplicationCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  vaultItems?: Prisma.VaultItemCreateNestedManyWithoutOwnerInput
+  waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
+  chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
+  coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutJointSavingsInput = {
+  id?: string
+  email: string
+  fullName: string
+  phoneNumber?: string | null
+  passwordHash?: string | null
+  googleId?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  isVerified?: boolean
+  twoFactorEnabled?: boolean
+  twoFactorSecret?: string | null
+  verificationTier?: number
+  walletBalance?: number
+  fintechPartnerRef?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accumulatedBond?: number
+  vaultPremium?: boolean
+  vaultPremiumUntil?: Date | string | null
+  vaultStorageLimit?: number
+  vaultStorageUsed?: number
+  verificationBundlePaid?: boolean
+  verificationBundlePaidAt?: Date | string | null
+  onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
+  issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
+  notificationPreferences?: Prisma.NotificationPreferencesUncheckedCreateNestedOneWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutUserInput
+  disputesAgainst?: Prisma.DisputeUncheckedCreateNestedManyWithoutAgainstInput
+  disputesRaised?: Prisma.DisputeUncheckedCreateNestedManyWithoutRaisedByInput
+  disputesResolved?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
+  inspections?: Prisma.InspectionUncheckedCreateNestedManyWithoutInspectorInput
+  maintenanceJobs?: Prisma.MaintenanceJobUncheckedCreateNestedManyWithoutArtisanInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  ownedProperties?: Prisma.PropertyUncheckedCreateNestedManyWithoutLandlordInput
+  proxySubmissions?: Prisma.PropertyUncheckedCreateNestedManyWithoutProxySubmitterInput
+  managedProperties?: Prisma.PropertyManagementUncheckedCreateNestedManyWithoutManagerInput
+  ownedManagement?: Prisma.PropertyManagementUncheckedCreateNestedManyWithoutOwnerInput
+  wishlist?: Prisma.PropertyWishlistUncheckedCreateNestedOneWithoutTenantInput
+  referredBy?: Prisma.ReferralUncheckedCreateNestedOneWithoutRefereeInput
+  referral?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferrerInput
+  referralCodes?: Prisma.ReferralCodeUncheckedCreateNestedManyWithoutOwnerInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutSubjectInput
+  savedProperties?: Prisma.SavedPropertyUncheckedCreateNestedManyWithoutTenantInput
+  scoutRewards?: Prisma.ScoutRewardUncheckedCreateNestedManyWithoutRedeemerInput
+  serviceRequests?: Prisma.ServiceRequestUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  shackScore?: Prisma.ShackScoreUncheckedCreateNestedOneWithoutUserInput
+  supportMessages?: Prisma.SupportMessageUncheckedCreateNestedManyWithoutSenderInput
+  assignedTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
+  tenancy?: Prisma.TenancyUncheckedCreateNestedOneWithoutTenantInput
+  applications?: Prisma.TenancyApplicationUncheckedCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  vaultItems?: Prisma.VaultItemUncheckedCreateNestedManyWithoutOwnerInput
+  waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
+  chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
+  coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutJointSavingsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutJointSavingsInput, Prisma.UserUncheckedCreateWithoutJointSavingsInput>
+}
+
+export type UserUpsertWithWhereUniqueWithoutJointSavingsInput = {
+  where: Prisma.UserWhereUniqueInput
+  update: Prisma.XOR<Prisma.UserUpdateWithoutJointSavingsInput, Prisma.UserUncheckedUpdateWithoutJointSavingsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutJointSavingsInput, Prisma.UserUncheckedCreateWithoutJointSavingsInput>
+}
+
+export type UserUpdateWithWhereUniqueWithoutJointSavingsInput = {
+  where: Prisma.UserWhereUniqueInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutJointSavingsInput, Prisma.UserUncheckedUpdateWithoutJointSavingsInput>
+}
+
+export type UserUpdateManyWithWhereWithoutJointSavingsInput = {
+  where: Prisma.UserScalarWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutJointSavingsInput>
+}
+
+export type UserCreateWithoutSavingsContributionsInput = {
+  id?: string
+  email: string
+  fullName: string
+  phoneNumber?: string | null
+  passwordHash?: string | null
+  googleId?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  isVerified?: boolean
+  twoFactorEnabled?: boolean
+  twoFactorSecret?: string | null
+  verificationTier?: number
+  walletBalance?: number
+  fintechPartnerRef?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accumulatedBond?: number
+  vaultPremium?: boolean
+  vaultPremiumUntil?: Date | string | null
+  vaultStorageLimit?: number
+  vaultStorageUsed?: number
+  verificationBundlePaid?: boolean
+  verificationBundlePaidAt?: Date | string | null
+  onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
+  issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
+  notificationPreferences?: Prisma.NotificationPreferencesCreateNestedOneWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutUserInput
+  disputesAgainst?: Prisma.DisputeCreateNestedManyWithoutAgainstInput
+  disputesRaised?: Prisma.DisputeCreateNestedManyWithoutRaisedByInput
+  disputesResolved?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
+  inspections?: Prisma.InspectionCreateNestedManyWithoutInspectorInput
+  maintenanceJobs?: Prisma.MaintenanceJobCreateNestedManyWithoutArtisanInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  ownedProperties?: Prisma.PropertyCreateNestedManyWithoutLandlordInput
+  proxySubmissions?: Prisma.PropertyCreateNestedManyWithoutProxySubmitterInput
+  managedProperties?: Prisma.PropertyManagementCreateNestedManyWithoutManagerInput
+  ownedManagement?: Prisma.PropertyManagementCreateNestedManyWithoutOwnerInput
+  wishlist?: Prisma.PropertyWishlistCreateNestedOneWithoutTenantInput
+  referredBy?: Prisma.ReferralCreateNestedOneWithoutRefereeInput
+  referral?: Prisma.ReferralCreateNestedOneWithoutReferrerInput
+  referralCodes?: Prisma.ReferralCodeCreateNestedManyWithoutOwnerInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutSubjectInput
+  savedProperties?: Prisma.SavedPropertyCreateNestedManyWithoutTenantInput
+  scoutRewards?: Prisma.ScoutRewardCreateNestedManyWithoutRedeemerInput
+  serviceRequests?: Prisma.ServiceRequestCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  shackScore?: Prisma.ShackScoreCreateNestedOneWithoutUserInput
+  supportMessages?: Prisma.SupportMessageCreateNestedManyWithoutSenderInput
+  assignedTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
+  tenancy?: Prisma.TenancyCreateNestedOneWithoutTenantInput
+  applications?: Prisma.TenancyApplicationCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  vaultItems?: Prisma.VaultItemCreateNestedManyWithoutOwnerInput
+  waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
+  chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
+  coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSavingsContributionsInput = {
+  id?: string
+  email: string
+  fullName: string
+  phoneNumber?: string | null
+  passwordHash?: string | null
+  googleId?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  isVerified?: boolean
+  twoFactorEnabled?: boolean
+  twoFactorSecret?: string | null
+  verificationTier?: number
+  walletBalance?: number
+  fintechPartnerRef?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accumulatedBond?: number
+  vaultPremium?: boolean
+  vaultPremiumUntil?: Date | string | null
+  vaultStorageLimit?: number
+  vaultStorageUsed?: number
+  verificationBundlePaid?: boolean
+  verificationBundlePaidAt?: Date | string | null
+  onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
+  issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
+  notificationPreferences?: Prisma.NotificationPreferencesUncheckedCreateNestedOneWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutUserInput
+  disputesAgainst?: Prisma.DisputeUncheckedCreateNestedManyWithoutAgainstInput
+  disputesRaised?: Prisma.DisputeUncheckedCreateNestedManyWithoutRaisedByInput
+  disputesResolved?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
+  inspections?: Prisma.InspectionUncheckedCreateNestedManyWithoutInspectorInput
+  maintenanceJobs?: Prisma.MaintenanceJobUncheckedCreateNestedManyWithoutArtisanInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  ownedProperties?: Prisma.PropertyUncheckedCreateNestedManyWithoutLandlordInput
+  proxySubmissions?: Prisma.PropertyUncheckedCreateNestedManyWithoutProxySubmitterInput
+  managedProperties?: Prisma.PropertyManagementUncheckedCreateNestedManyWithoutManagerInput
+  ownedManagement?: Prisma.PropertyManagementUncheckedCreateNestedManyWithoutOwnerInput
+  wishlist?: Prisma.PropertyWishlistUncheckedCreateNestedOneWithoutTenantInput
+  referredBy?: Prisma.ReferralUncheckedCreateNestedOneWithoutRefereeInput
+  referral?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferrerInput
+  referralCodes?: Prisma.ReferralCodeUncheckedCreateNestedManyWithoutOwnerInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutSubjectInput
+  savedProperties?: Prisma.SavedPropertyUncheckedCreateNestedManyWithoutTenantInput
+  scoutRewards?: Prisma.ScoutRewardUncheckedCreateNestedManyWithoutRedeemerInput
+  serviceRequests?: Prisma.ServiceRequestUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  shackScore?: Prisma.ShackScoreUncheckedCreateNestedOneWithoutUserInput
+  supportMessages?: Prisma.SupportMessageUncheckedCreateNestedManyWithoutSenderInput
+  assignedTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
+  tenancy?: Prisma.TenancyUncheckedCreateNestedOneWithoutTenantInput
+  applications?: Prisma.TenancyApplicationUncheckedCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  vaultItems?: Prisma.VaultItemUncheckedCreateNestedManyWithoutOwnerInput
+  waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
+  chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
+  coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSavingsContributionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSavingsContributionsInput, Prisma.UserUncheckedCreateWithoutSavingsContributionsInput>
+}
+
+export type UserUpsertWithoutSavingsContributionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSavingsContributionsInput, Prisma.UserUncheckedUpdateWithoutSavingsContributionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSavingsContributionsInput, Prisma.UserUncheckedCreateWithoutSavingsContributionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSavingsContributionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSavingsContributionsInput, Prisma.UserUncheckedUpdateWithoutSavingsContributionsInput>
+}
+
+export type UserUpdateWithoutSavingsContributionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationTier?: Prisma.IntFieldUpdateOperationsInput | number
+  walletBalance?: Prisma.FloatFieldUpdateOperationsInput | number
+  fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
+  vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vaultStorageLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  vaultStorageUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferencesUpdateOneWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutUserNestedInput
+  disputesAgainst?: Prisma.DisputeUpdateManyWithoutAgainstNestedInput
+  disputesRaised?: Prisma.DisputeUpdateManyWithoutRaisedByNestedInput
+  disputesResolved?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
+  inspections?: Prisma.InspectionUpdateManyWithoutInspectorNestedInput
+  maintenanceJobs?: Prisma.MaintenanceJobUpdateManyWithoutArtisanNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  ownedProperties?: Prisma.PropertyUpdateManyWithoutLandlordNestedInput
+  proxySubmissions?: Prisma.PropertyUpdateManyWithoutProxySubmitterNestedInput
+  managedProperties?: Prisma.PropertyManagementUpdateManyWithoutManagerNestedInput
+  ownedManagement?: Prisma.PropertyManagementUpdateManyWithoutOwnerNestedInput
+  wishlist?: Prisma.PropertyWishlistUpdateOneWithoutTenantNestedInput
+  referredBy?: Prisma.ReferralUpdateOneWithoutRefereeNestedInput
+  referral?: Prisma.ReferralUpdateOneWithoutReferrerNestedInput
+  referralCodes?: Prisma.ReferralCodeUpdateManyWithoutOwnerNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutSubjectNestedInput
+  savedProperties?: Prisma.SavedPropertyUpdateManyWithoutTenantNestedInput
+  scoutRewards?: Prisma.ScoutRewardUpdateManyWithoutRedeemerNestedInput
+  serviceRequests?: Prisma.ServiceRequestUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  shackScore?: Prisma.ShackScoreUpdateOneWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUpdateManyWithoutSenderNestedInput
+  assignedTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
+  tenancy?: Prisma.TenancyUpdateOneWithoutTenantNestedInput
+  applications?: Prisma.TenancyApplicationUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  vaultItems?: Prisma.VaultItemUpdateManyWithoutOwnerNestedInput
+  waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
+  chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
+  coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSavingsContributionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationTier?: Prisma.IntFieldUpdateOperationsInput | number
+  walletBalance?: Prisma.FloatFieldUpdateOperationsInput | number
+  fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
+  vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vaultStorageLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  vaultStorageUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferencesUncheckedUpdateOneWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutUserNestedInput
+  disputesAgainst?: Prisma.DisputeUncheckedUpdateManyWithoutAgainstNestedInput
+  disputesRaised?: Prisma.DisputeUncheckedUpdateManyWithoutRaisedByNestedInput
+  disputesResolved?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
+  inspections?: Prisma.InspectionUncheckedUpdateManyWithoutInspectorNestedInput
+  maintenanceJobs?: Prisma.MaintenanceJobUncheckedUpdateManyWithoutArtisanNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  ownedProperties?: Prisma.PropertyUncheckedUpdateManyWithoutLandlordNestedInput
+  proxySubmissions?: Prisma.PropertyUncheckedUpdateManyWithoutProxySubmitterNestedInput
+  managedProperties?: Prisma.PropertyManagementUncheckedUpdateManyWithoutManagerNestedInput
+  ownedManagement?: Prisma.PropertyManagementUncheckedUpdateManyWithoutOwnerNestedInput
+  wishlist?: Prisma.PropertyWishlistUncheckedUpdateOneWithoutTenantNestedInput
+  referredBy?: Prisma.ReferralUncheckedUpdateOneWithoutRefereeNestedInput
+  referral?: Prisma.ReferralUncheckedUpdateOneWithoutReferrerNestedInput
+  referralCodes?: Prisma.ReferralCodeUncheckedUpdateManyWithoutOwnerNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutSubjectNestedInput
+  savedProperties?: Prisma.SavedPropertyUncheckedUpdateManyWithoutTenantNestedInput
+  scoutRewards?: Prisma.ScoutRewardUncheckedUpdateManyWithoutRedeemerNestedInput
+  serviceRequests?: Prisma.ServiceRequestUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  shackScore?: Prisma.ShackScoreUncheckedUpdateOneWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUncheckedUpdateManyWithoutSenderNestedInput
+  assignedTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+  tenancy?: Prisma.TenancyUncheckedUpdateOneWithoutTenantNestedInput
+  applications?: Prisma.TenancyApplicationUncheckedUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  vaultItems?: Prisma.VaultItemUncheckedUpdateManyWithoutOwnerNestedInput
+  waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
+  chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
+  coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDocumentVaultsInput = {
+  id?: string
+  email: string
+  fullName: string
+  phoneNumber?: string | null
+  passwordHash?: string | null
+  googleId?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  isVerified?: boolean
+  twoFactorEnabled?: boolean
+  twoFactorSecret?: string | null
+  verificationTier?: number
+  walletBalance?: number
+  fintechPartnerRef?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accumulatedBond?: number
+  vaultPremium?: boolean
+  vaultPremiumUntil?: Date | string | null
+  vaultStorageLimit?: number
+  vaultStorageUsed?: number
+  verificationBundlePaid?: boolean
+  verificationBundlePaidAt?: Date | string | null
+  onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
+  issuedKeys?: Prisma.AccessKeyCreateNestedManyWithoutIssuerInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  artisanProfile?: Prisma.ArtisanProfileCreateNestedOneWithoutUserInput
+  notificationPreferences?: Prisma.NotificationPreferencesCreateNestedOneWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  bankAccounts?: Prisma.BankAccountCreateNestedManyWithoutUserInput
+  disputesAgainst?: Prisma.DisputeCreateNestedManyWithoutAgainstInput
+  disputesRaised?: Prisma.DisputeCreateNestedManyWithoutRaisedByInput
+  disputesResolved?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
+  inspections?: Prisma.InspectionCreateNestedManyWithoutInspectorInput
+  maintenanceJobs?: Prisma.MaintenanceJobCreateNestedManyWithoutArtisanInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  ownedProperties?: Prisma.PropertyCreateNestedManyWithoutLandlordInput
+  proxySubmissions?: Prisma.PropertyCreateNestedManyWithoutProxySubmitterInput
+  managedProperties?: Prisma.PropertyManagementCreateNestedManyWithoutManagerInput
+  ownedManagement?: Prisma.PropertyManagementCreateNestedManyWithoutOwnerInput
+  wishlist?: Prisma.PropertyWishlistCreateNestedOneWithoutTenantInput
+  referredBy?: Prisma.ReferralCreateNestedOneWithoutRefereeInput
+  referral?: Prisma.ReferralCreateNestedOneWithoutReferrerInput
+  referralCodes?: Prisma.ReferralCodeCreateNestedManyWithoutOwnerInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutSubjectInput
+  savedProperties?: Prisma.SavedPropertyCreateNestedManyWithoutTenantInput
+  scoutRewards?: Prisma.ScoutRewardCreateNestedManyWithoutRedeemerInput
+  serviceRequests?: Prisma.ServiceRequestCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  shackScore?: Prisma.ShackScoreCreateNestedOneWithoutUserInput
+  supportMessages?: Prisma.SupportMessageCreateNestedManyWithoutSenderInput
+  assignedTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssigneeInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
+  tenancy?: Prisma.TenancyCreateNestedOneWithoutTenantInput
+  applications?: Prisma.TenancyApplicationCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  vaultItems?: Prisma.VaultItemCreateNestedManyWithoutOwnerInput
+  waitlists?: Prisma.WaitlistCreateNestedManyWithoutTenantInput
+  chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
+  coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDocumentVaultsInput = {
+  id?: string
+  email: string
+  fullName: string
+  phoneNumber?: string | null
+  passwordHash?: string | null
+  googleId?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  isVerified?: boolean
+  twoFactorEnabled?: boolean
+  twoFactorSecret?: string | null
+  verificationTier?: number
+  walletBalance?: number
+  fintechPartnerRef?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accumulatedBond?: number
+  vaultPremium?: boolean
+  vaultPremiumUntil?: Date | string | null
+  vaultStorageLimit?: number
+  vaultStorageUsed?: number
+  verificationBundlePaid?: boolean
+  verificationBundlePaidAt?: Date | string | null
+  onboardingCompleted?: boolean
+  idDocumentUrl?: string | null
+  selfieUrl?: string | null
+  employmentStatus?: string | null
+  profession?: string | null
+  employerName?: string | null
+  monthlyIncome?: string | null
+  issuedKeys?: Prisma.AccessKeyUncheckedCreateNestedManyWithoutIssuerInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  artisanProfile?: Prisma.ArtisanProfileUncheckedCreateNestedOneWithoutUserInput
+  notificationPreferences?: Prisma.NotificationPreferencesUncheckedCreateNestedOneWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  bankAccounts?: Prisma.BankAccountUncheckedCreateNestedManyWithoutUserInput
+  disputesAgainst?: Prisma.DisputeUncheckedCreateNestedManyWithoutAgainstInput
+  disputesRaised?: Prisma.DisputeUncheckedCreateNestedManyWithoutRaisedByInput
+  disputesResolved?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
+  inspections?: Prisma.InspectionUncheckedCreateNestedManyWithoutInspectorInput
+  maintenanceJobs?: Prisma.MaintenanceJobUncheckedCreateNestedManyWithoutArtisanInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  ownedProperties?: Prisma.PropertyUncheckedCreateNestedManyWithoutLandlordInput
+  proxySubmissions?: Prisma.PropertyUncheckedCreateNestedManyWithoutProxySubmitterInput
+  managedProperties?: Prisma.PropertyManagementUncheckedCreateNestedManyWithoutManagerInput
+  ownedManagement?: Prisma.PropertyManagementUncheckedCreateNestedManyWithoutOwnerInput
+  wishlist?: Prisma.PropertyWishlistUncheckedCreateNestedOneWithoutTenantInput
+  referredBy?: Prisma.ReferralUncheckedCreateNestedOneWithoutRefereeInput
+  referral?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferrerInput
+  referralCodes?: Prisma.ReferralCodeUncheckedCreateNestedManyWithoutOwnerInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutReviewerInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutSubjectInput
+  savedProperties?: Prisma.SavedPropertyUncheckedCreateNestedManyWithoutTenantInput
+  scoutRewards?: Prisma.ScoutRewardUncheckedCreateNestedManyWithoutRedeemerInput
+  serviceRequests?: Prisma.ServiceRequestUncheckedCreateNestedManyWithoutTenantInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  shackScore?: Prisma.ShackScoreUncheckedCreateNestedOneWithoutUserInput
+  supportMessages?: Prisma.SupportMessageUncheckedCreateNestedManyWithoutSenderInput
+  assignedTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssigneeInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
+  tenancy?: Prisma.TenancyUncheckedCreateNestedOneWithoutTenantInput
+  applications?: Prisma.TenancyApplicationUncheckedCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  vaultItems?: Prisma.VaultItemUncheckedCreateNestedManyWithoutOwnerInput
+  waitlists?: Prisma.WaitlistUncheckedCreateNestedManyWithoutTenantInput
+  chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
+  coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDocumentVaultsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDocumentVaultsInput, Prisma.UserUncheckedCreateWithoutDocumentVaultsInput>
+}
+
+export type UserUpsertWithoutDocumentVaultsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDocumentVaultsInput, Prisma.UserUncheckedUpdateWithoutDocumentVaultsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDocumentVaultsInput, Prisma.UserUncheckedCreateWithoutDocumentVaultsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDocumentVaultsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDocumentVaultsInput, Prisma.UserUncheckedUpdateWithoutDocumentVaultsInput>
+}
+
+export type UserUpdateWithoutDocumentVaultsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationTier?: Prisma.IntFieldUpdateOperationsInput | number
+  walletBalance?: Prisma.FloatFieldUpdateOperationsInput | number
+  fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
+  vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vaultStorageLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  vaultStorageUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferencesUpdateOneWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutUserNestedInput
+  disputesAgainst?: Prisma.DisputeUpdateManyWithoutAgainstNestedInput
+  disputesRaised?: Prisma.DisputeUpdateManyWithoutRaisedByNestedInput
+  disputesResolved?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
+  inspections?: Prisma.InspectionUpdateManyWithoutInspectorNestedInput
+  maintenanceJobs?: Prisma.MaintenanceJobUpdateManyWithoutArtisanNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  ownedProperties?: Prisma.PropertyUpdateManyWithoutLandlordNestedInput
+  proxySubmissions?: Prisma.PropertyUpdateManyWithoutProxySubmitterNestedInput
+  managedProperties?: Prisma.PropertyManagementUpdateManyWithoutManagerNestedInput
+  ownedManagement?: Prisma.PropertyManagementUpdateManyWithoutOwnerNestedInput
+  wishlist?: Prisma.PropertyWishlistUpdateOneWithoutTenantNestedInput
+  referredBy?: Prisma.ReferralUpdateOneWithoutRefereeNestedInput
+  referral?: Prisma.ReferralUpdateOneWithoutReferrerNestedInput
+  referralCodes?: Prisma.ReferralCodeUpdateManyWithoutOwnerNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutSubjectNestedInput
+  savedProperties?: Prisma.SavedPropertyUpdateManyWithoutTenantNestedInput
+  scoutRewards?: Prisma.ScoutRewardUpdateManyWithoutRedeemerNestedInput
+  serviceRequests?: Prisma.ServiceRequestUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  shackScore?: Prisma.ShackScoreUpdateOneWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUpdateManyWithoutSenderNestedInput
+  assignedTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
+  tenancy?: Prisma.TenancyUpdateOneWithoutTenantNestedInput
+  applications?: Prisma.TenancyApplicationUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  vaultItems?: Prisma.VaultItemUpdateManyWithoutOwnerNestedInput
+  waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
+  chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
+  coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDocumentVaultsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationTier?: Prisma.IntFieldUpdateOperationsInput | number
+  walletBalance?: Prisma.FloatFieldUpdateOperationsInput | number
+  fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
+  vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vaultStorageLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  vaultStorageUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferencesUncheckedUpdateOneWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutUserNestedInput
+  disputesAgainst?: Prisma.DisputeUncheckedUpdateManyWithoutAgainstNestedInput
+  disputesRaised?: Prisma.DisputeUncheckedUpdateManyWithoutRaisedByNestedInput
+  disputesResolved?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
+  inspections?: Prisma.InspectionUncheckedUpdateManyWithoutInspectorNestedInput
+  maintenanceJobs?: Prisma.MaintenanceJobUncheckedUpdateManyWithoutArtisanNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  ownedProperties?: Prisma.PropertyUncheckedUpdateManyWithoutLandlordNestedInput
+  proxySubmissions?: Prisma.PropertyUncheckedUpdateManyWithoutProxySubmitterNestedInput
+  managedProperties?: Prisma.PropertyManagementUncheckedUpdateManyWithoutManagerNestedInput
+  ownedManagement?: Prisma.PropertyManagementUncheckedUpdateManyWithoutOwnerNestedInput
+  wishlist?: Prisma.PropertyWishlistUncheckedUpdateOneWithoutTenantNestedInput
+  referredBy?: Prisma.ReferralUncheckedUpdateOneWithoutRefereeNestedInput
+  referral?: Prisma.ReferralUncheckedUpdateOneWithoutReferrerNestedInput
+  referralCodes?: Prisma.ReferralCodeUncheckedUpdateManyWithoutOwnerNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutSubjectNestedInput
+  savedProperties?: Prisma.SavedPropertyUncheckedUpdateManyWithoutTenantNestedInput
+  scoutRewards?: Prisma.ScoutRewardUncheckedUpdateManyWithoutRedeemerNestedInput
+  serviceRequests?: Prisma.ServiceRequestUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  shackScore?: Prisma.ShackScoreUncheckedUpdateOneWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUncheckedUpdateManyWithoutSenderNestedInput
+  assignedTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+  tenancy?: Prisma.TenancyUncheckedUpdateOneWithoutTenantNestedInput
+  applications?: Prisma.TenancyApplicationUncheckedUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  vaultItems?: Prisma.VaultItemUncheckedUpdateManyWithoutOwnerNestedInput
+  waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
+  chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
+  coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationPreferencesInput = {
@@ -13096,6 +14420,9 @@ export type UserCreateWithoutNotificationPreferencesInput = {
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
@@ -13167,6 +14494,9 @@ export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   guarantors?: Prisma.GuarantorUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationPreferencesInput = {
@@ -13254,6 +14584,9 @@ export type UserUpdateWithoutNotificationPreferencesInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
@@ -13325,6 +14658,9 @@ export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGuarantorsInput = {
@@ -13396,6 +14732,9 @@ export type UserCreateWithoutGuarantorsInput = {
   chats?: Prisma.ChatRoomCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGuarantorsInput = {
@@ -13467,6 +14806,9 @@ export type UserUncheckedCreateWithoutGuarantorsInput = {
   chats?: Prisma.ChatRoomUncheckedCreateNestedManyWithoutParticipantsInput
   coTenancies?: Prisma.TenancyUncheckedCreateNestedManyWithoutCoTenantsInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  jointSavings?: Prisma.JointSavingsUncheckedCreateNestedManyWithoutMembersInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedCreateNestedManyWithoutUserInput
+  documentVaults?: Prisma.DocumentVaultUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGuarantorsInput = {
@@ -13554,6 +14896,9 @@ export type UserUpdateWithoutGuarantorsInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGuarantorsInput = {
@@ -13625,6 +14970,9 @@ export type UserUncheckedUpdateWithoutGuarantorsInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpdateWithoutCoTenanciesInput = {
@@ -13696,6 +15044,9 @@ export type UserUpdateWithoutCoTenanciesInput = {
   chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCoTenanciesInput = {
@@ -13767,6 +15118,9 @@ export type UserUncheckedUpdateWithoutCoTenanciesInput = {
   chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutCoTenanciesInput = {
@@ -13870,6 +15224,9 @@ export type UserUpdateWithoutChatsInput = {
   coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChatsInput = {
@@ -13941,9 +15298,192 @@ export type UserUncheckedUpdateWithoutChatsInput = {
   coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  jointSavings?: Prisma.JointSavingsUncheckedUpdateManyWithoutMembersNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutChatsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationTier?: Prisma.IntFieldUpdateOperationsInput | number
+  walletBalance?: Prisma.FloatFieldUpdateOperationsInput | number
+  fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
+  vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vaultStorageLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  vaultStorageUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type UserUpdateWithoutJointSavingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationTier?: Prisma.IntFieldUpdateOperationsInput | number
+  walletBalance?: Prisma.FloatFieldUpdateOperationsInput | number
+  fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
+  vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vaultStorageLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  vaultStorageUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  issuedKeys?: Prisma.AccessKeyUpdateManyWithoutIssuerNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  artisanProfile?: Prisma.ArtisanProfileUpdateOneWithoutUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferencesUpdateOneWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  bankAccounts?: Prisma.BankAccountUpdateManyWithoutUserNestedInput
+  disputesAgainst?: Prisma.DisputeUpdateManyWithoutAgainstNestedInput
+  disputesRaised?: Prisma.DisputeUpdateManyWithoutRaisedByNestedInput
+  disputesResolved?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
+  inspections?: Prisma.InspectionUpdateManyWithoutInspectorNestedInput
+  maintenanceJobs?: Prisma.MaintenanceJobUpdateManyWithoutArtisanNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  ownedProperties?: Prisma.PropertyUpdateManyWithoutLandlordNestedInput
+  proxySubmissions?: Prisma.PropertyUpdateManyWithoutProxySubmitterNestedInput
+  managedProperties?: Prisma.PropertyManagementUpdateManyWithoutManagerNestedInput
+  ownedManagement?: Prisma.PropertyManagementUpdateManyWithoutOwnerNestedInput
+  wishlist?: Prisma.PropertyWishlistUpdateOneWithoutTenantNestedInput
+  referredBy?: Prisma.ReferralUpdateOneWithoutRefereeNestedInput
+  referral?: Prisma.ReferralUpdateOneWithoutReferrerNestedInput
+  referralCodes?: Prisma.ReferralCodeUpdateManyWithoutOwnerNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutSubjectNestedInput
+  savedProperties?: Prisma.SavedPropertyUpdateManyWithoutTenantNestedInput
+  scoutRewards?: Prisma.ScoutRewardUpdateManyWithoutRedeemerNestedInput
+  serviceRequests?: Prisma.ServiceRequestUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  shackScore?: Prisma.ShackScoreUpdateOneWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUpdateManyWithoutSenderNestedInput
+  assignedTickets?: Prisma.SupportTicketUpdateManyWithoutAssigneeNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
+  tenancy?: Prisma.TenancyUpdateOneWithoutTenantNestedInput
+  applications?: Prisma.TenancyApplicationUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  vaultItems?: Prisma.VaultItemUpdateManyWithoutOwnerNestedInput
+  waitlists?: Prisma.WaitlistUpdateManyWithoutTenantNestedInput
+  chats?: Prisma.ChatRoomUpdateManyWithoutParticipantsNestedInput
+  coTenancies?: Prisma.TenancyUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUpdateManyWithoutUserNestedInput
+  savingsContributions?: Prisma.SavingsContributionUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutJointSavingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFactorSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verificationTier?: Prisma.IntFieldUpdateOperationsInput | number
+  walletBalance?: Prisma.FloatFieldUpdateOperationsInput | number
+  fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
+  vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vaultStorageLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  vaultStorageUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  verificationBundlePaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationBundlePaidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  idDocumentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  selfieUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employmentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profession?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  monthlyIncome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  issuedKeys?: Prisma.AccessKeyUncheckedUpdateManyWithoutIssuerNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  artisanProfile?: Prisma.ArtisanProfileUncheckedUpdateOneWithoutUserNestedInput
+  notificationPreferences?: Prisma.NotificationPreferencesUncheckedUpdateOneWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  bankAccounts?: Prisma.BankAccountUncheckedUpdateManyWithoutUserNestedInput
+  disputesAgainst?: Prisma.DisputeUncheckedUpdateManyWithoutAgainstNestedInput
+  disputesRaised?: Prisma.DisputeUncheckedUpdateManyWithoutRaisedByNestedInput
+  disputesResolved?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
+  inspections?: Prisma.InspectionUncheckedUpdateManyWithoutInspectorNestedInput
+  maintenanceJobs?: Prisma.MaintenanceJobUncheckedUpdateManyWithoutArtisanNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  ownedProperties?: Prisma.PropertyUncheckedUpdateManyWithoutLandlordNestedInput
+  proxySubmissions?: Prisma.PropertyUncheckedUpdateManyWithoutProxySubmitterNestedInput
+  managedProperties?: Prisma.PropertyManagementUncheckedUpdateManyWithoutManagerNestedInput
+  ownedManagement?: Prisma.PropertyManagementUncheckedUpdateManyWithoutOwnerNestedInput
+  wishlist?: Prisma.PropertyWishlistUncheckedUpdateOneWithoutTenantNestedInput
+  referredBy?: Prisma.ReferralUncheckedUpdateOneWithoutRefereeNestedInput
+  referral?: Prisma.ReferralUncheckedUpdateOneWithoutReferrerNestedInput
+  referralCodes?: Prisma.ReferralCodeUncheckedUpdateManyWithoutOwnerNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutSubjectNestedInput
+  savedProperties?: Prisma.SavedPropertyUncheckedUpdateManyWithoutTenantNestedInput
+  scoutRewards?: Prisma.ScoutRewardUncheckedUpdateManyWithoutRedeemerNestedInput
+  serviceRequests?: Prisma.ServiceRequestUncheckedUpdateManyWithoutTenantNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  shackScore?: Prisma.ShackScoreUncheckedUpdateOneWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUncheckedUpdateManyWithoutSenderNestedInput
+  assignedTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssigneeNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+  tenancy?: Prisma.TenancyUncheckedUpdateOneWithoutTenantNestedInput
+  applications?: Prisma.TenancyApplicationUncheckedUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  vaultItems?: Prisma.VaultItemUncheckedUpdateManyWithoutOwnerNestedInput
+  waitlists?: Prisma.WaitlistUncheckedUpdateManyWithoutTenantNestedInput
+  chats?: Prisma.ChatRoomUncheckedUpdateManyWithoutParticipantsNestedInput
+  coTenancies?: Prisma.TenancyUncheckedUpdateManyWithoutCoTenantsNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  guarantors?: Prisma.GuarantorUncheckedUpdateManyWithoutUserNestedInput
+  savingsContributions?: Prisma.SavingsContributionUncheckedUpdateManyWithoutUserNestedInput
+  documentVaults?: Prisma.DocumentVaultUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateManyWithoutJointSavingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -14014,6 +15554,9 @@ export type UserCountOutputType = {
   coTenancies: number
   aiMessages: number
   guarantors: number
+  jointSavings: number
+  savingsContributions: number
+  documentVaults: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -14050,6 +15593,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   coTenancies?: boolean | UserCountOutputTypeCountCoTenanciesArgs
   aiMessages?: boolean | UserCountOutputTypeCountAiMessagesArgs
   guarantors?: boolean | UserCountOutputTypeCountGuarantorsArgs
+  jointSavings?: boolean | UserCountOutputTypeCountJointSavingsArgs
+  savingsContributions?: boolean | UserCountOutputTypeCountSavingsContributionsArgs
+  documentVaults?: boolean | UserCountOutputTypeCountDocumentVaultsArgs
 }
 
 /**
@@ -14293,6 +15839,27 @@ export type UserCountOutputTypeCountGuarantorsArgs<ExtArgs extends runtime.Types
   where?: Prisma.GuarantorWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountJointSavingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.JointSavingsWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSavingsContributionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SavingsContributionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDocumentVaultsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DocumentVaultWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -14364,6 +15931,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   coTenancies?: boolean | Prisma.User$coTenanciesArgs<ExtArgs>
   aiMessages?: boolean | Prisma.User$aiMessagesArgs<ExtArgs>
   guarantors?: boolean | Prisma.User$guarantorsArgs<ExtArgs>
+  jointSavings?: boolean | Prisma.User$jointSavingsArgs<ExtArgs>
+  savingsContributions?: boolean | Prisma.User$savingsContributionsArgs<ExtArgs>
+  documentVaults?: boolean | Prisma.User$documentVaultsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -14505,6 +16075,9 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   coTenancies?: boolean | Prisma.User$coTenanciesArgs<ExtArgs>
   aiMessages?: boolean | Prisma.User$aiMessagesArgs<ExtArgs>
   guarantors?: boolean | Prisma.User$guarantorsArgs<ExtArgs>
+  jointSavings?: boolean | Prisma.User$jointSavingsArgs<ExtArgs>
+  savingsContributions?: boolean | Prisma.User$savingsContributionsArgs<ExtArgs>
+  documentVaults?: boolean | Prisma.User$documentVaultsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -14553,6 +16126,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     coTenancies: Prisma.$TenancyPayload<ExtArgs>[]
     aiMessages: Prisma.$AIMessagePayload<ExtArgs>[]
     guarantors: Prisma.$GuarantorPayload<ExtArgs>[]
+    jointSavings: Prisma.$JointSavingsPayload<ExtArgs>[]
+    savingsContributions: Prisma.$SavingsContributionPayload<ExtArgs>[]
+    documentVaults: Prisma.$DocumentVaultPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -15018,6 +16594,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   coTenancies<T extends Prisma.User$coTenanciesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$coTenanciesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenancyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   aiMessages<T extends Prisma.User$aiMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aiMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AIMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   guarantors<T extends Prisma.User$guarantorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$guarantorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuarantorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  jointSavings<T extends Prisma.User$jointSavingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$jointSavingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JointSavingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  savingsContributions<T extends Prisma.User$savingsContributionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$savingsContributionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SavingsContributionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  documentVaults<T extends Prisma.User$documentVaultsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$documentVaultsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DocumentVaultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16391,6 +17970,78 @@ export type User$guarantorsArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.GuarantorScalarFieldEnum | Prisma.GuarantorScalarFieldEnum[]
+}
+
+/**
+ * User.jointSavings
+ */
+export type User$jointSavingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JointSavings
+   */
+  select?: Prisma.JointSavingsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JointSavings
+   */
+  omit?: Prisma.JointSavingsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JointSavingsInclude<ExtArgs> | null
+  where?: Prisma.JointSavingsWhereInput
+  orderBy?: Prisma.JointSavingsOrderByWithRelationInput | Prisma.JointSavingsOrderByWithRelationInput[]
+  cursor?: Prisma.JointSavingsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.JointSavingsScalarFieldEnum | Prisma.JointSavingsScalarFieldEnum[]
+}
+
+/**
+ * User.savingsContributions
+ */
+export type User$savingsContributionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SavingsContribution
+   */
+  select?: Prisma.SavingsContributionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SavingsContribution
+   */
+  omit?: Prisma.SavingsContributionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SavingsContributionInclude<ExtArgs> | null
+  where?: Prisma.SavingsContributionWhereInput
+  orderBy?: Prisma.SavingsContributionOrderByWithRelationInput | Prisma.SavingsContributionOrderByWithRelationInput[]
+  cursor?: Prisma.SavingsContributionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SavingsContributionScalarFieldEnum | Prisma.SavingsContributionScalarFieldEnum[]
+}
+
+/**
+ * User.documentVaults
+ */
+export type User$documentVaultsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DocumentVault
+   */
+  select?: Prisma.DocumentVaultSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DocumentVault
+   */
+  omit?: Prisma.DocumentVaultOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DocumentVaultInclude<ExtArgs> | null
+  where?: Prisma.DocumentVaultWhereInput
+  orderBy?: Prisma.DocumentVaultOrderByWithRelationInput | Prisma.DocumentVaultOrderByWithRelationInput[]
+  cursor?: Prisma.DocumentVaultWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DocumentVaultScalarFieldEnum | Prisma.DocumentVaultScalarFieldEnum[]
 }
 
 /**
