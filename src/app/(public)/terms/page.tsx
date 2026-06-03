@@ -11,7 +11,7 @@ export default function TermsPage() {
     <div className="max-w-3xl mx-auto py-4">
       <BackButton />
       <h1 className="text-3xl font-extrabold text-zinc-900 mb-2">Terms & Conditions</h1>
-      <p className="text-sm text-zinc-400 mb-10">Last updated: May 5, 2026</p>
+      <p className="text-sm text-zinc-400 mb-10">Last updated: Jun 3, 2026</p>
 
       <div className="prose-shack">
 
@@ -47,20 +47,20 @@ export default function TermsPage() {
 
         <Section title="4. Identity Verification">
           <p>
-            To apply for properties, users must complete identity verification (NIN + biometric selfie
-            + BVN). This is a one-time fee of ₦1,500. Verification data is processed securely via our
-            KYC partner (Dojah) and is never sold to third parties.
+            To apply for properties, users must complete identity verification using their National
+            Identification Number (NIN). Verification is free of charge and is processed securely
+            via our KYC partner (Dojah). Verification data is never sold to third parties.
           </p>
           <p>
-            Basic NIN verification (Tier 0) is free and allows browsing. Full verification (Tier 1)
-            is required to submit rental applications.
+            A verified account unlocks the ability to submit rental applications, makes your Hausevo
+            Score visible to landlords, and grants you a Verified badge on your profile.
           </p>
         </Section>
 
         <Section title="5. Listings & Property Data">
           <ul>
             <li>Landlords are solely responsible for the accuracy of their listings.</li>
-            <li>Hausevo verifies deed documents and price claims but does not guarantee property condition.</li>
+            <li>Hausevo verifies deed documents and price claims.</li>
             <li>Listings found to contain false information will be removed and the account suspended.</li>
             <li>Hausevo reserves the right to remove any listing at its discretion.</li>
           </ul>
@@ -73,8 +73,7 @@ export default function TermsPage() {
             and landlord unless an escrow arrangement is explicitly agreed.
           </p>
           <p>
-            Verification fees (₦1,500) are non-refundable once the verification process has been
-            initiated.
+            Identity verification is free of charge. There are no KYC fees passed on to users.
           </p>
         </Section>
 

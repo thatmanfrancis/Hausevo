@@ -16,7 +16,7 @@ const FAQS = [
       },
       {
         q: "Is Hausevo free to use?",
-        a: "Browsing and saving properties is completely free. To apply for a property, you need to complete identity verification (₦1,500 one-time fee). This covers NIN verification, biometric selfie matching, and BVN financial signal.",
+        a: "Browsing and saving properties is completely free. To apply for a property, you need to complete identity verification — this is done with your NIN and is free. No fees, no BVN, no selfie required.",
       },
       {
         q: "Which cities does Hausevo cover?",
@@ -29,15 +29,19 @@ const FAQS = [
     items: [
       {
         q: "Why do I need to verify my identity?",
-        a: "Verification protects both tenants and landlords. It ensures that the person applying for a property is who they say they are, and it builds your Hausevo Score — a trust signal that landlords use when reviewing applications.",
+        a: "Verification protects both tenants and landlords. It confirms that the person applying for a property is who they say they are, and it builds your Hausevo Score — a trust signal that landlords use when reviewing applications.",
       },
       {
-        q: "What is Tier 0 vs Tier 1 verification?",
-        a: "Tier 0 (free) is basic NIN verification — it lets you browse and save properties. Tier 1 (₦1,500) adds biometric selfie matching and BVN, unlocking the ability to apply for properties and making your Hausevo Score visible to landlords.",
+        q: "How does verification work?",
+        a: "Just enter your 11-digit National Identification Number (NIN). We verify it against NIMC records via Dojah, a licensed KYC provider. If the name on your NIN matches your account name, you're verified instantly. No selfie, no BVN, no fees.",
       },
       {
-        q: "Is my NIN and BVN data safe?",
-        a: "Yes. We never store your full NIN or BVN — only a masked reference (e.g. 1234*******). Verification is processed by Dojah, a licensed KYC provider. Your biometric selfie is used only for the one-time match and is not retained.",
+        q: "Is my NIN data safe?",
+        a: "Yes. We never store your full NIN — only a masked reference (e.g. 1234*******). Verification is processed by Dojah, a licensed KYC provider. Your NIN is used only for the one-time identity check.",
+      },
+      {
+        q: "My NIN name doesn't match my account name. What do I do?",
+        a: "Make sure your account name matches your NIN exactly — including spelling and order of names. You can update your profile name in Settings. If the issue persists, contact our support team.",
       },
     ],
   },
@@ -46,7 +50,7 @@ const FAQS = [
     items: [
       {
         q: "How do I apply for a property?",
-        a: "Complete Tier 1 verification, then click 'Apply Now' on any listing. Your Hausevo Score and verified profile are shared with the landlord. You'll be notified when they respond.",
+        a: "Complete identity verification (free, just your NIN), then click 'Apply Now' on any listing. Your Hausevo Score and verified profile are shared with the landlord. You'll be notified when they respond.",
       },
       {
         q: "What is Hausevo Score?",
@@ -88,11 +92,11 @@ const FAQS = [
     items: [
       {
         q: "How does the wallet work?",
-        a: "Your Hausevo wallet holds funds for platform services (verification, boosts, etc.). Top up via Paystack. Rent payments are made directly between tenant and landlord — Hausevo does not hold rent unless an escrow arrangement is agreed.",
+        a: "Your Hausevo wallet holds funds for platform services (boosts, etc.). Top up via Paystack using card, bank transfer, or USSD. Rent payments are made directly between tenant and landlord — Hausevo does not hold rent unless an escrow arrangement is agreed.",
       },
       {
-        q: "Are verification fees refundable?",
-        a: "The ₦1,500 verification fee is non-refundable once the process has been initiated, as it covers the cost of the KYC API calls.",
+        q: "Are there any verification fees?",
+        a: "No. Identity verification is completely free — just your NIN. There are no KYC charges passed on to users.",
       },
     ],
   },
