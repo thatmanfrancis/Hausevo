@@ -7,726 +7,446 @@ const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
 
 // ---------------------------------------------------------------------------
-// Helpers
+// Nigerian residential photography from Pexels (free, no API key needed)
+// These are actual Nigerian/West African residential and interior photos
 // ---------------------------------------------------------------------------
 
-const PHOTO_IDS = [
-  "1396122",                          // modern house exterior
-  "1512917774080-9991f1c4c750",       // luxury villa
-  "1580587771525-78b9dba3b914",       // apartment building
-  "1558618666-fcd25c85cd64",          // living room
-  "1484154218962-a197022b5858",       // kitchen
-  "1502672260266-1c1ef2d93688",       // bedroom
-  "1560448204-e02f11c3d0e2",          // bathroom
-  "1570129477492-45c003edd2be",       // house exterior
-  "1600596542815-ffad4c1539a9",       // modern home
-  "1600585154340-be6161a56a0c",       // luxury home
-  "1600607687939-ce8a6c25118c",       // villa pool
-  "1613490493576-4d884d0c9b8e",       // apartment interior
-  "1545324418-cc1a3fa10c00",          // interior design
-  "1523217582562-09d05ba1b866",       // house with garden
+const IMAGES = [
+  // Nigerian/West African residential exteriors and interiors
+  "https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?w=900&auto=compress",   // 0  apartment block exterior
+  "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?w=900&auto=compress", // 1  modern house exterior
+  "https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg?w=900&auto=compress", // 2  gated compound entrance
+  "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?w=900&auto=compress", // 3  bright living room
+  "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?w=900&auto=compress", // 4  bedroom interior
+  "https://images.pexels.com/photos/2251247/pexels-photo-2251247.jpeg?w=900&auto=compress", // 5  Nigerian-style kitchen
+  "https://images.pexels.com/photos/439391/pexels-photo-439391.jpeg?w=900&auto=compress",   // 6  duplex front view
+  "https://images.pexels.com/photos/1370704/pexels-photo-1370704.jpeg?w=900&auto=compress", // 7  detached house with gate
+  "https://images.pexels.com/photos/2119713/pexels-photo-2119713.jpeg?w=900&auto=compress", // 8  apartment building
+  "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?w=900&auto=compress",   // 9  bungalow exterior
+  "https://images.pexels.com/photos/1029599/pexels-photo-1029599.jpeg?w=900&auto=compress", // 10 house with compound
+  "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?w=900&auto=compress", // 11 clean bathroom
+  "https://images.pexels.com/photos/1648776/pexels-photo-1648776.jpeg?w=900&auto=compress", // 12 self-contain/studio room
+  "https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg?w=900&auto=compress", // 13 terrace house row
+  "https://images.pexels.com/photos/2631746/pexels-photo-2631746.jpeg?w=900&auto=compress", // 14 mini flat interior
+  "https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg?w=900&auto=compress",   // 15 land / empty plot
+  "https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg?w=900&auto=compress", // 16 estate road view
+  "https://images.pexels.com/photos/1571468/pexels-photo-1571468.jpeg?w=900&auto=compress", // 17 dining room
+  "https://images.pexels.com/photos/2062431/pexels-photo-2062431.jpeg?w=900&auto=compress", // 18 rooftop terrace
+  "https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg?w=900&auto=compress",   // 19 house exterior street view
 ];
 
-function photoUrl(idx: number): string {
-  const id = PHOTO_IDS[idx % PHOTO_IDS.length];
-  return `https://images.unsplash.com/photo-${id}?w=800&q=80`;
-}
-
 // ---------------------------------------------------------------------------
-// Landlord & tenant data
+// The 3 demo accounts
 // ---------------------------------------------------------------------------
 
-const LANDLORDS = [
-  {
-    email: "emeka.okafor@landlord.ng",
-    fullName: "Emeka Okafor",
-    phoneNumber: "+2348031234567",
-    password: "Landlord@123",
-  },
-  {
-    email: "funmi.adeyemi@landlord.ng",
-    fullName: "Funmilayo Adeyemi",
-    phoneNumber: "+2348041234567",
-    password: "Landlord@123",
-  },
-  {
-    email: "chidi.nwosu@landlord.ng",
-    fullName: "Chidi Nwosu",
-    phoneNumber: "+2348051234567",
-    password: "Landlord@123",
-  },
-  {
-    email: "bola.akinwale@landlord.ng",
-    fullName: "Bolaji Akinwale",
-    phoneNumber: "+2348061234567",
-    password: "Landlord@123",
-  },
-];
+// Admin has ALL roles to demonstrate that a user can be multi-role
+const ADMIN = {
+  email: "admin@hausevo.com.ng",
+  fullName: "Tunde Fashola",
+  phone: "+2348011111111",
+  password: "Admin@Hausevo1",
+  roles: ["ADMIN", "LANDLORD", "TENANT", "ARTISAN"] as const,
+};
 
-const DEMO_TENANT = {
-  email: "demo.tenant@shack.ng",
-  fullName: "Demo Tenant",
-  phoneNumber: "+2348099999999",
+// Pure tenant
+const TENANT = {
+  email: "amaka.obi@tenant.ng",
+  fullName: "Amaka Obi",
+  phone: "+2348022222222",
   password: "Tenant@123",
+  roles: ["TENANT"] as const,
+};
+
+// Pure landlord
+const LANDLORD = {
+  email: "emeka.okafor@landlord.ng",
+  fullName: "Emeka Okafor",
+  phone: "+2348033333333",
+  password: "Landlord@123",
+  roles: ["LANDLORD"] as const,
 };
 
 // ---------------------------------------------------------------------------
-// Property definitions
+// 20 properties — real Lagos addresses, varied types, authentic pricing
 // ---------------------------------------------------------------------------
 
-interface PropertySeed {
-  title: string;
-  address: string;
-  lga: string;
-  listingType: "RENT" | "SALE" | "SHORTLET" | "LEASE";
-  pricePerYear: number;
-  propertyType: string;
-  bedrooms?: number;
-  bathrooms?: number;
-  size?: number;
-  rentFrequency?: "ANNUALLY" | "BIANNUALLY" | "QUARTERLY" | "MONTHLY";
-  shortletDailyRate?: number;
-  shortletWeeklyRate?: number;
-  shortletMonthlyRate?: number;
-  landlordIndex: number;
-  photoIndex: number;
-  extraImages?: number[];
-}
-
-const PROPERTIES: PropertySeed[] = [
-  // ── Eti-Osa (8) ──────────────────────────────────────────────────────────
+const PROPERTIES = [
+  // ── Lekki / Eti-Osa ─────────────────────────────────────────────────────
   {
-    title: "Luxury 4-Bedroom Detached Duplex, Lekki Phase 1",
-    address: "14 Admiralty Way, Lekki Phase 1, Lagos",
+    title: "3-Bedroom Flat, Lekki Phase 1",
+    address: "14 Admiralty Way, Lekki Phase 1",
     lga: "Eti-Osa",
-    listingType: "RENT",
+    listingType: "RENT" as const,
+    pricePerYear: 2_800_000,
+    propertyType: "3 Bedroom Flat",
+    bedrooms: 3, bathrooms: 3, size: 180,
+    amenities: ["Running Water", "Pre-paid Meter", "Generator", "Security", "Parking Space", "CCTV"],
+    imgIdx: [0, 3, 5],
+    description: "Spacious 3-bedroom flat in a secured estate in Lekki Phase 1. Close to the toll gate and Admiralty Way shops.",
+  },
+  {
+    title: "4-Bedroom Detached Duplex, Ikoyi",
+    address: "7 Bourdillon Road, Ikoyi",
+    lga: "Eti-Osa",
+    listingType: "RENT" as const,
     pricePerYear: 7_500_000,
     propertyType: "Detached Duplex",
-    bedrooms: 4,
-    bathrooms: 5,
-    size: 450,
-    landlordIndex: 0,
-    photoIndex: 0,
-    extraImages: [1, 2, 3],
+    bedrooms: 4, bathrooms: 5, size: 420,
+    amenities: ["Running Water", "Pre-paid Meter", "Generator", "Security", "Parking Space", "Swimming Pool", "Boys Quarters", "Garden", "CCTV"],
+    imgIdx: [6, 3, 4, 5],
+    description: "Premium 4-bedroom duplex on Bourdillon Road, Ikoyi. Fully serviced with 24/7 security and backup power.",
   },
   {
-    title: "Elegant 3-Bedroom Flat, Ikoyi",
-    address: "7 Bourdillon Road, Ikoyi, Lagos",
+    title: "2-Bedroom Shortlet, Lekki Phase 2",
+    address: "5 Freedom Way, Lekki Phase 2",
     lga: "Eti-Osa",
-    listingType: "RENT",
-    pricePerYear: 3_500_000,
-    propertyType: "3 Bedroom Flat",
-    bedrooms: 3,
-    bathrooms: 3,
-    size: 220,
-    landlordIndex: 1,
-    photoIndex: 3,
-    extraImages: [4, 5, 6],
-  },
-  {
-    title: "Stunning Mansion with Pool, Victoria Island",
-    address: "22 Adeola Odeku Street, Victoria Island, Lagos",
-    lga: "Eti-Osa",
-    listingType: "SALE",
-    pricePerYear: 0,
-    propertyType: "Mansion",
-    bedrooms: 6,
-    bathrooms: 7,
-    size: 900,
-    landlordIndex: 0,
-    photoIndex: 2,
-    extraImages: [6, 7, 8],
-  },
-  {
-    title: "Modern 2-Bedroom Shortlet, Lekki Phase 2",
-    address: "5 Freedom Way, Lekki Phase 2, Lagos",
-    lga: "Eti-Osa",
-    listingType: "SHORTLET",
+    listingType: "SHORTLET" as const,
     pricePerYear: 0,
     propertyType: "2 Bedroom Flat",
-    bedrooms: 2,
-    bathrooms: 2,
-    size: 130,
+    bedrooms: 2, bathrooms: 2, size: 110,
+    amenities: ["Running Water", "Pre-paid Meter", "Generator", "Air Conditioning", "WiFi", "DSTV", "Security", "Parking Space"],
     shortletDailyRate: 45_000,
     shortletWeeklyRate: 280_000,
     shortletMonthlyRate: 900_000,
-    landlordIndex: 2,
-    photoIndex: 8,
-    extraImages: [9, 10, 11],
+    imgIdx: [8, 3, 11],
+    description: "Stylish shortlet apartment fully furnished and serviced. Perfect for business trips and holidays in Lagos.",
   },
   {
-    title: "Penthouse Apartment, Victoria Island",
-    address: "1 Ozumba Mbadiwe Avenue, Victoria Island, Lagos",
+    title: "5-Bedroom Mansion for Sale, Victoria Island",
+    address: "22 Ozumba Mbadiwe Avenue, Victoria Island",
     lga: "Eti-Osa",
-    listingType: "SHORTLET",
+    listingType: "SALE" as const,
     pricePerYear: 0,
-    propertyType: "Penthouse",
-    bedrooms: 3,
-    bathrooms: 4,
-    size: 300,
-    shortletDailyRate: 120_000,
-    shortletWeeklyRate: 750_000,
-    shortletMonthlyRate: 2_500_000,
-    landlordIndex: 1,
-    photoIndex: 10,
-    extraImages: [11, 12, 13],
-  },
-  {
-    title: "Semi-Detached Duplex for Sale, Lekki Phase 1",
-    address: "9 Chevron Drive, Lekki Phase 1, Lagos",
-    lga: "Eti-Osa",
-    listingType: "SALE",
-    pricePerYear: 0,
-    propertyType: "Semi-Detached Duplex",
-    bedrooms: 4,
-    bathrooms: 4,
-    size: 380,
-    landlordIndex: 3,
-    photoIndex: 12,
-    extraImages: [13, 0, 1],
-  },
-  {
-    title: "Spacious 4-Bedroom Terrace Duplex, Ikoyi",
-    address: "3 Glover Road, Ikoyi, Lagos",
-    lga: "Eti-Osa",
-    listingType: "RENT",
-    pricePerYear: 6_000_000,
-    propertyType: "Terrace Duplex",
-    bedrooms: 4,
-    bathrooms: 4,
-    size: 350,
-    landlordIndex: 0,
-    photoIndex: 1,
-    extraImages: [2, 3, 4],
-  },
-  {
-    title: "Cozy 2-Bedroom Flat, Lekki Phase 1",
-    address: "18 Fola Osibo Road, Lekki Phase 1, Lagos",
-    lga: "Eti-Osa",
-    listingType: "RENT",
-    pricePerYear: 1_800_000,
-    propertyType: "2 Bedroom Flat",
-    bedrooms: 2,
-    bathrooms: 2,
-    size: 120,
-    landlordIndex: 2,
-    photoIndex: 4,
-    extraImages: [5, 6, 7],
+    salePrice: 380_000_000,
+    propertyType: "Mansion",
+    bedrooms: 5, bathrooms: 6, size: 750,
+    amenities: ["Running Water", "Generator", "Security", "Parking Space", "Swimming Pool", "Boys Quarters", "Garden", "Gym", "CCTV"],
+    imgIdx: [1, 6, 9],
+    description: "Magnificent 5-bedroom mansion on VI with a private pool, cinema room, and staff quarters. C of O available.",
   },
 
-  // ── Ikeja (5) ─────────────────────────────────────────────────────────────
+  // ── Ikeja ────────────────────────────────────────────────────────────────
   {
-    title: "4-Bedroom Detached Duplex, Ikeja GRA",
-    address: "12 Isaac John Street, Ikeja GRA, Lagos",
+    title: "4-Bedroom Duplex, Ikeja GRA",
+    address: "12 Isaac John Street, Ikeja GRA",
     lga: "Ikeja",
-    listingType: "RENT",
-    pricePerYear: 5_000_000,
+    listingType: "RENT" as const,
+    pricePerYear: 4_500_000,
     propertyType: "Detached Duplex",
-    bedrooms: 4,
-    bathrooms: 4,
-    size: 400,
-    landlordIndex: 1,
-    photoIndex: 6,
-    extraImages: [7, 8, 9],
+    bedrooms: 4, bathrooms: 4, size: 380,
+    amenities: ["Running Water", "Pre-paid Meter", "Generator", "Security", "Parking Space", "Boys Quarters", "Garden"],
+    imgIdx: [6, 0, 4],
+    description: "Well-maintained 4-bedroom duplex in the heart of Ikeja GRA. Close to the airport and Alausa.",
   },
   {
     title: "3-Bedroom Flat, Omole Phase 1",
-    address: "7 Omole Phase 1, Ikeja, Lagos",
+    address: "7 Omole Phase 1, Ikeja",
     lga: "Ikeja",
-    listingType: "RENT",
-    pricePerYear: 2_200_000,
+    listingType: "RENT" as const,
+    pricePerYear: 2_000_000,
     propertyType: "3 Bedroom Flat",
-    bedrooms: 3,
-    bathrooms: 3,
-    size: 180,
-    landlordIndex: 3,
-    photoIndex: 9,
-    extraImages: [10, 11, 12],
+    bedrooms: 3, bathrooms: 2, size: 150,
+    amenities: ["Running Water", "Pre-paid Meter", "Generator", "Security", "Parking Space"],
+    imgIdx: [12, 3, 5],
+    description: "Clean 3-bedroom flat in the quiet Omole Phase 1 estate. Excellent road network and peaceful environment.",
   },
   {
     title: "2-Bedroom Flat, Magodo Phase 2",
-    address: "22 Magodo Phase 2, Ikeja, Lagos",
+    address: "22 Magodo Phase 2, Ikeja",
     lga: "Ikeja",
-    listingType: "RENT",
+    listingType: "RENT" as const,
     pricePerYear: 1_200_000,
     propertyType: "2 Bedroom Flat",
-    bedrooms: 2,
-    bathrooms: 2,
-    size: 110,
-    landlordIndex: 0,
-    photoIndex: 11,
-    extraImages: [12, 13, 0],
+    bedrooms: 2, bathrooms: 2, size: 110,
+    amenities: ["Running Water", "Pre-paid Meter", "Security", "Parking Space"],
+    imgIdx: [7, 3],
+    description: "Decent 2-bedroom flat in Magodo Phase 2. Quiet neighbourhood, close to the CMD road.",
   },
   {
-    title: "3-Bedroom Bungalow, Magodo Phase 1",
-    address: "5 Shangisha Road, Magodo Phase 1, Ikeja, Lagos",
+    title: "Mini Flat, Oregun, Ikeja",
+    address: "15 Oregun Road, Oregun, Ikeja",
     lga: "Ikeja",
-    listingType: "RENT",
-    pricePerYear: 1_800_000,
-    propertyType: "Bungalow",
-    bedrooms: 3,
-    bathrooms: 2,
-    size: 200,
-    landlordIndex: 2,
-    photoIndex: 13,
-    extraImages: [0, 1, 2],
-  },
-  {
-    title: "Mini Flat, Omole Phase 2",
-    address: "14 Omole Phase 2, Ikeja, Lagos",
-    lga: "Ikeja",
-    listingType: "RENT",
+    listingType: "RENT" as const,
     pricePerYear: 600_000,
     propertyType: "Mini Flat",
-    bedrooms: 1,
-    bathrooms: 1,
-    size: 60,
-    landlordIndex: 1,
-    photoIndex: 1,
-    extraImages: [2, 3, 4],
+    bedrooms: 1, bathrooms: 1, size: 55,
+    amenities: ["Running Water", "Pre-paid Meter", "Security"],
+    imgIdx: [14, 16],
+    description: "Affordable mini flat for working professionals. Close to Computer Village and major bus stops.",
   },
 
-  // ── Kosofe (4) ────────────────────────────────────────────────────────────
-  {
-    title: "Self Contain, Ketu",
-    address: "3 Ketu-Alapere Road, Ketu, Lagos",
-    lga: "Kosofe",
-    listingType: "RENT",
-    pricePerYear: 350_000,
-    rentFrequency: "MONTHLY",
-    propertyType: "Self Contain",
-    bedrooms: 1,
-    bathrooms: 1,
-    size: 35,
-    landlordIndex: 3,
-    photoIndex: 3,
-    extraImages: [4, 5, 6],
-  },
-  {
-    title: "2-Bedroom Flat, Ojota",
-    address: "11 Ojota Road, Ojota, Lagos",
-    lga: "Kosofe",
-    listingType: "RENT",
-    pricePerYear: 750_000,
-    rentFrequency: "MONTHLY",
-    propertyType: "2 Bedroom Flat",
-    bedrooms: 2,
-    bathrooms: 1,
-    size: 90,
-    landlordIndex: 0,
-    photoIndex: 5,
-    extraImages: [6, 7, 8],
-  },
-  {
-    title: "3-Bedroom Flat, Gbagada Phase 2",
-    address: "8 Gbagada Phase 2, Kosofe, Lagos",
-    lga: "Kosofe",
-    listingType: "RENT",
-    pricePerYear: 1_100_000,
-    propertyType: "3 Bedroom Flat",
-    bedrooms: 3,
-    bathrooms: 2,
-    size: 140,
-    landlordIndex: 2,
-    photoIndex: 7,
-    extraImages: [8, 9, 10],
-  },
-  {
-    title: "Mini Flat, Gbagada Phase 1",
-    address: "2 Gbagada Phase 1, Kosofe, Lagos",
-    lga: "Kosofe",
-    listingType: "RENT",
-    pricePerYear: 500_000,
-    propertyType: "Mini Flat",
-    bedrooms: 1,
-    bathrooms: 1,
-    size: 55,
-    landlordIndex: 1,
-    photoIndex: 9,
-    extraImages: [10, 11, 12],
-  },
-
-  // ── Surulere (3) ──────────────────────────────────────────────────────────
+  // ── Surulere / Lagos Mainland ─────────────────────────────────────────────
   {
     title: "2-Bedroom Flat, Surulere",
-    address: "15 Adeniran Ogunsanya Street, Surulere, Lagos",
+    address: "15 Adeniran Ogunsanya Street, Surulere",
     lga: "Surulere",
-    listingType: "RENT",
-    pricePerYear: 900_000,
+    listingType: "RENT" as const,
+    pricePerYear: 950_000,
     propertyType: "2 Bedroom Flat",
-    bedrooms: 2,
-    bathrooms: 2,
-    size: 100,
-    landlordIndex: 3,
-    photoIndex: 11,
-    extraImages: [12, 13, 0],
+    bedrooms: 2, bathrooms: 2, size: 100,
+    amenities: ["Running Water", "Pre-paid Meter", "Security", "Parking Space"],
+    imgIdx: [2, 3, 5],
+    description: "Comfortable 2-bedroom flat on a quiet street in Surulere. Walking distance from Adeniran Ogunsanya market.",
   },
   {
     title: "3-Bedroom Bungalow, Surulere",
-    address: "6 Bode Thomas Street, Surulere, Lagos",
+    address: "6 Bode Thomas Street, Surulere",
     lga: "Surulere",
-    listingType: "RENT",
-    pricePerYear: 1_500_000,
+    listingType: "RENT" as const,
+    pricePerYear: 1_400_000,
     propertyType: "Bungalow",
-    bedrooms: 3,
-    bathrooms: 2,
-    size: 180,
-    landlordIndex: 0,
-    photoIndex: 13,
-    extraImages: [0, 1, 2],
-  },
-  {
-    title: "Mini Flat, Surulere",
-    address: "20 Itire Road, Surulere, Lagos",
-    lga: "Surulere",
-    listingType: "RENT",
-    pricePerYear: 450_000,
-    propertyType: "Mini Flat",
-    bedrooms: 1,
-    bathrooms: 1,
-    size: 50,
-    landlordIndex: 2,
-    photoIndex: 1,
-    extraImages: [2, 3, 4],
+    bedrooms: 3, bathrooms: 2, size: 160,
+    amenities: ["Running Water", "Pre-paid Meter", "Generator", "Security", "Parking Space", "Garden"],
+    imgIdx: [9, 2, 4],
+    description: "Spacious bungalow with a private compound in Surulere. Suitable for a family with children.",
   },
 
-  // ── Alimosho (3) ──────────────────────────────────────────────────────────
+  // ── Yaba / Lagos Mainland ─────────────────────────────────────────────────
   {
-    title: "2-Bedroom Flat, Egbeda",
-    address: "9 Egbeda-Idimu Road, Egbeda, Lagos",
-    lga: "Alimosho",
-    listingType: "RENT",
-    pricePerYear: 650_000,
+    title: "Self Contain, Yaba",
+    address: "3 Herbert Macaulay Way, Yaba",
+    lga: "Lagos Mainland",
+    listingType: "RENT" as const,
+    pricePerYear: 400_000,
+    propertyType: "Self Contain",
+    bedrooms: 1, bathrooms: 1, size: 32,
+    amenities: ["Running Water", "Pre-paid Meter"],
+    imgIdx: [14, 16],
+    description: "Clean self-contain for students and young professionals. Very close to Unilag and Yaba Tech.",
+  },
+  {
+    title: "2-Bedroom Flat, Akoka, Yaba",
+    address: "11 Akoka Road, Akoka, Yaba",
+    lga: "Lagos Mainland",
+    listingType: "RENT" as const,
+    pricePerYear: 750_000,
+    rentFrequency: "BIANNUALLY" as const,
     propertyType: "2 Bedroom Flat",
-    bedrooms: 2,
-    bathrooms: 1,
-    size: 85,
-    landlordIndex: 1,
-    photoIndex: 3,
-    extraImages: [4, 5, 6],
+    bedrooms: 2, bathrooms: 1, size: 85,
+    amenities: ["Running Water", "Pre-paid Meter", "Security"],
+    imgIdx: [10, 3],
+    description: "Well-ventilated 2-bedroom flat in Akoka, very close to UNILAG gate. Paid every 6 months.",
+  },
+
+  // ── Kosofe / Gbagada ─────────────────────────────────────────────────────
+  {
+    title: "3-Bedroom Flat, Gbagada Phase 2",
+    address: "8 Gbagada Phase 2, Kosofe",
+    lga: "Kosofe",
+    listingType: "RENT" as const,
+    pricePerYear: 1_100_000,
+    propertyType: "3 Bedroom Flat",
+    bedrooms: 3, bathrooms: 2, size: 135,
+    amenities: ["Running Water", "Pre-paid Meter", "Generator", "Security", "Parking Space"],
+    imgIdx: [12, 4, 5],
+    description: "Solid 3-bedroom flat in Gbagada Phase 2. Gated compound with ample car parking.",
+  },
+  {
+    title: "Mini Flat, Gbagada Phase 1",
+    address: "2 Gbagada Phase 1, Kosofe",
+    lga: "Kosofe",
+    listingType: "RENT" as const,
+    pricePerYear: 480_000,
+    propertyType: "Mini Flat",
+    bedrooms: 1, bathrooms: 1, size: 50,
+    amenities: ["Running Water", "Pre-paid Meter", "Security"],
+    imgIdx: [16, 14],
+    description: "Compact and affordable mini flat in Gbagada. Good for a young professional or couple.",
+  },
+
+  // ── Alimosho / Egbeda ────────────────────────────────────────────────────
+  {
+    title: "3-Bedroom Flat, Egbeda",
+    address: "9 Egbeda-Idimu Road, Egbeda",
+    lga: "Alimosho",
+    listingType: "RENT" as const,
+    pricePerYear: 850_000,
+    propertyType: "3 Bedroom Flat",
+    bedrooms: 3, bathrooms: 2, size: 130,
+    amenities: ["Running Water", "Pre-paid Meter", "Security", "Parking Space"],
+    imgIdx: [13, 2],
+    description: "Affordable 3-bedroom flat in Egbeda with a shared compound. Good road access and security.",
   },
   {
     title: "Self Contain, Ikotun",
-    address: "4 Ikotun Road, Ikotun, Lagos",
+    address: "4 Ikotun Road, Ikotun, Alimosho",
     lga: "Alimosho",
-    listingType: "RENT",
+    listingType: "RENT" as const,
     pricePerYear: 300_000,
-    rentFrequency: "MONTHLY",
+    rentFrequency: "MONTHLY" as const,
     propertyType: "Self Contain",
-    bedrooms: 1,
-    bathrooms: 1,
-    size: 30,
-    landlordIndex: 3,
-    photoIndex: 5,
-    extraImages: [6, 7, 8],
-  },
-  {
-    title: "3-Bedroom Flat, Egbeda",
-    address: "17 Shasha Road, Egbeda, Lagos",
-    lga: "Alimosho",
-    listingType: "RENT",
-    pricePerYear: 900_000,
-    propertyType: "3 Bedroom Flat",
-    bedrooms: 3,
-    bathrooms: 2,
-    size: 130,
-    landlordIndex: 0,
-    photoIndex: 7,
-    extraImages: [8, 9, 10],
+    bedrooms: 1, bathrooms: 1, size: 28,
+    amenities: ["Running Water", "Pre-paid Meter"],
+    imgIdx: [16, 14],
+    description: "Budget-friendly self-contain in Ikotun. Suitable for artisans, traders, and students.",
   },
 
-  // ── Ikorodu (2) ───────────────────────────────────────────────────────────
+  // ── Ikorodu ───────────────────────────────────────────────────────────────
   {
     title: "3-Bedroom Bungalow, Ikorodu",
-    address: "12 Lagos Road, Ikorodu, Lagos",
+    address: "12 Lagos Road, Ikorodu",
     lga: "Ikorodu",
-    listingType: "RENT",
-    pricePerYear: 800_000,
+    listingType: "RENT" as const,
+    pricePerYear: 750_000,
     propertyType: "Bungalow",
-    bedrooms: 3,
-    bathrooms: 2,
-    size: 160,
-    landlordIndex: 2,
-    photoIndex: 9,
-    extraImages: [10, 11, 12],
+    bedrooms: 3, bathrooms: 2, size: 155,
+    amenities: ["Running Water", "Pre-paid Meter", "Security", "Garden", "Parking Space"],
+    imgIdx: [9, 2, 15],
+    description: "Family bungalow in Ikorodu with a large compound. Quiet and suitable for a young family.",
   },
   {
     title: "2-Bedroom Flat, Ikorodu",
-    address: "5 Odogunyan Road, Ikorodu, Lagos",
+    address: "5 Odogunyan Road, Ikorodu",
     lga: "Ikorodu",
-    listingType: "RENT",
-    pricePerYear: 550_000,
+    listingType: "RENT" as const,
+    pricePerYear: 520_000,
     propertyType: "2 Bedroom Flat",
-    bedrooms: 2,
-    bathrooms: 1,
-    size: 80,
-    landlordIndex: 1,
-    photoIndex: 11,
-    extraImages: [12, 13, 0],
+    bedrooms: 2, bathrooms: 1, size: 78,
+    amenities: ["Running Water", "Pre-paid Meter", "Security"],
+    imgIdx: [7, 3],
+    description: "Clean 2-bedroom flat in Ikorodu town. Very affordable and close to the marina road.",
   },
 
-  // ── Ibeju-Lekki (2) ───────────────────────────────────────────────────────
+  // ── Ibeju-Lekki ──────────────────────────────────────────────────────────
+  {
+    title: "4-Bedroom Duplex for Sale, Ibeju-Lekki",
+    address: "Dangote Refinery Road, Ibeju-Lekki",
+    lga: "Ibeju-Lekki",
+    listingType: "SALE" as const,
+    pricePerYear: 0,
+    salePrice: 165_000_000,
+    propertyType: "Detached Duplex",
+    bedrooms: 4, bathrooms: 4, size: 400,
+    amenities: ["Running Water", "Generator", "Security", "Parking Space", "Boys Quarters", "Garden"],
+    imgIdx: [1, 6, 9, 15],
+    description: "Brand new 4-bedroom duplex near the Dangote Refinery corridor. Strong investment potential as the area develops.",
+  },
   {
     title: "Residential Land for Sale, Ibeju-Lekki",
-    address: "Eleko Junction, Ibeju-Lekki, Lagos",
+    address: "Eleko Junction, Ibeju-Lekki",
     lga: "Ibeju-Lekki",
-    listingType: "SALE",
+    listingType: "SALE" as const,
     pricePerYear: 0,
+    salePrice: 22_000_000,
     propertyType: "Land",
-    size: 600,
-    landlordIndex: 0,
-    photoIndex: 13,
-    extraImages: [0, 1, 2],
-  },
-  {
-    title: "4-Bedroom Detached Duplex for Sale, Ibeju-Lekki",
-    address: "Dangote Refinery Road, Ibeju-Lekki, Lagos",
-    lga: "Ibeju-Lekki",
-    listingType: "SALE",
-    pricePerYear: 0,
-    propertyType: "Detached Duplex",
-    bedrooms: 4,
-    bathrooms: 4,
-    size: 420,
-    landlordIndex: 3,
-    photoIndex: 1,
-    extraImages: [2, 3, 4],
-  },
-
-  // ── Lagos Island (2) ──────────────────────────────────────────────────────
-  {
-    title: "Luxury Shortlet Apartment, Lagos Island",
-    address: "10 Broad Street, Lagos Island, Lagos",
-    lga: "Lagos Island",
-    listingType: "SHORTLET",
-    pricePerYear: 0,
-    propertyType: "2 Bedroom Flat",
-    bedrooms: 2,
-    bathrooms: 2,
-    size: 110,
-    shortletDailyRate: 35_000,
-    shortletWeeklyRate: 210_000,
-    shortletMonthlyRate: 750_000,
-    landlordIndex: 2,
-    photoIndex: 4,
-    extraImages: [5, 6, 7],
-  },
-  {
-    title: "Commercial Property for Sale, Lagos Island",
-    address: "3 Marina Road, Lagos Island, Lagos",
-    lga: "Lagos Island",
-    listingType: "SALE",
-    pricePerYear: 0,
-    propertyType: "Mansion",
-    bedrooms: 5,
-    bathrooms: 6,
-    size: 700,
-    landlordIndex: 1,
-    photoIndex: 6,
-    extraImages: [7, 8, 9],
-  },
-
-  // ── Apapa (1) ─────────────────────────────────────────────────────────────
-  {
-    title: "3-Bedroom Flat, Apapa",
-    address: "8 Creek Road, Apapa, Lagos",
-    lga: "Apapa",
-    listingType: "RENT",
-    pricePerYear: 1_400_000,
-    propertyType: "3 Bedroom Flat",
-    bedrooms: 3,
-    bathrooms: 2,
-    size: 150,
-    landlordIndex: 3,
-    photoIndex: 9,
-    extraImages: [10, 11, 12],
+    size: 500,
+    amenities: [],
+    imgIdx: [19, 15],
+    description: "600 sqm dry land at Eleko Junction with a Government Allocation Letter. Survey plan available.",
   },
 ];
-
-// ---------------------------------------------------------------------------
-// Sale prices (pricePerYear = 0 for SALE/SHORTLET — store in metadata)
-// ---------------------------------------------------------------------------
-
-const SALE_PRICES: Record<string, number> = {
-  "Stunning Mansion with Pool, Victoria Island": 450_000_000,
-  "Semi-Detached Duplex for Sale, Lekki Phase 1": 120_000_000,
-  "Residential Land for Sale, Ibeju-Lekki": 25_000_000,
-  "4-Bedroom Detached Duplex for Sale, Ibeju-Lekki": 180_000_000,
-  "Commercial Property for Sale, Lagos Island": 350_000_000,
-};
 
 // ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
 async function main() {
-  console.log("🌱 Starting seed...\n");
+  console.log("🌱 Starting seed…\n");
 
-  // 1. Upsert landlords
-  console.log("👤 Creating landlord users...");
-  const landlordUsers = [];
-  for (const l of LANDLORDS) {
-    const passwordHash = await bcrypt.hash(l.password, 12);
-    const user = await prisma.user.upsert({
-      where: { email: l.email },
-      update: {},
-      create: {
-        email: l.email,
-        fullName: l.fullName,
-        phoneNumber: l.phoneNumber,
-        passwordHash,
-        roles: ["LANDLORD"],
-        isVerified: true,
-        verificationTier: 2,
-      },
-    });
-    landlordUsers.push(user);
-    console.log(`   ✓ ${l.fullName} (${l.email})`);
-  }
+  // 1. Create the 3 demo accounts
+  console.log("👤 Creating demo accounts…");
 
-  // 2. Upsert demo tenant
-  console.log("\n👤 Creating demo tenant...");
-  const tenantPasswordHash = await bcrypt.hash(DEMO_TENANT.password, 12);
-  const demoTenant = await prisma.user.upsert({
-    where: { email: DEMO_TENANT.email },
-    update: {},
+  const adminHash = await bcrypt.hash(ADMIN.password, 12);
+  const admin = await prisma.user.upsert({
+    where: { email: ADMIN.email },
+    update: { roles: ADMIN.roles as unknown as any[], isVerified: true, verificationTier: 2, onboardingCompleted: true },
     create: {
-      email: DEMO_TENANT.email,
-      fullName: DEMO_TENANT.fullName,
-      phoneNumber: DEMO_TENANT.phoneNumber,
-      passwordHash: tenantPasswordHash,
-      roles: ["TENANT"],
+      email: ADMIN.email,
+      fullName: ADMIN.fullName,
+      phoneNumber: ADMIN.phone,
+      passwordHash: adminHash,
+      roles: ADMIN.roles as unknown as any[],
+      isVerified: true,
+      verificationTier: 2,
+      onboardingCompleted: true,
+    },
+  });
+  console.log(`   ✓ ${ADMIN.fullName} — roles: ${ADMIN.roles.join(", ")}`);
+  console.log(`     Email: ${ADMIN.email} | Password: ${ADMIN.password}`);
+
+  const tenantHash = await bcrypt.hash(TENANT.password, 12);
+  await prisma.user.upsert({
+    where: { email: TENANT.email },
+    update: { roles: TENANT.roles as unknown as any[], isVerified: true, verificationTier: 1, onboardingCompleted: true },
+    create: {
+      email: TENANT.email,
+      fullName: TENANT.fullName,
+      passwordHash: tenantHash,
+      roles: TENANT.roles as unknown as any[],
       isVerified: true,
       verificationTier: 1,
+      onboardingCompleted: true,
     },
   });
-  console.log(`   ✓ ${DEMO_TENANT.fullName} (${DEMO_TENANT.email})`);
+  console.log(`   ✓ ${TENANT.fullName} — role: TENANT`);
+  console.log(`     Email: ${TENANT.email} | Password: ${TENANT.password}`);
 
-  // 2b. Upsert admin user
-  console.log("\n👤 Creating admin user...");
-  const adminPasswordHash = await bcrypt.hash("Admin@123", 12);
-  const adminUser = await prisma.user.upsert({
-    where: { email: "admin@hausevo.com.ng" },
-    update: {},
+  const landlordHash = await bcrypt.hash(LANDLORD.password, 12);
+  const existingLandlord = await prisma.user.findUnique({ where: { email: LANDLORD.email } });
+  const landlord = await prisma.user.upsert({
+    where: { email: LANDLORD.email },
+    update: { roles: LANDLORD.roles as unknown as any[], isVerified: true, verificationTier: 2, onboardingCompleted: true },
     create: {
-      email: "admin@hausevo.com.ng",
-      fullName: "Hausevo Admin",
-      phoneNumber: "+2348022222222",
-      passwordHash: adminPasswordHash,
-      roles: ["ADMIN"],
+      email: LANDLORD.email,
+      fullName: LANDLORD.fullName,
+      passwordHash: landlordHash,
+      roles: LANDLORD.roles as unknown as any[],
       isVerified: true,
-      verificationTier: 3,
+      verificationTier: 2,
+      onboardingCompleted: true,
     },
   });
-  console.log(`   ✓ Hausevo Admin (admin@hausevo.com.ng)`);
+  void existingLandlord;
+  console.log(`   ✓ ${LANDLORD.fullName} — role: LANDLORD`);
+  console.log(`     Email: ${LANDLORD.email} | Password: ${LANDLORD.password}`);
 
-  // 2c. Seed additional users for pagination testing
-  console.log("\n👥 Seeding additional test users for pagination...");
-  const EXTRA_TENANTS = [
-    { name: "Chioma Eze", email: "chioma.eze@tenant.ng", phone: "+2348030000001" },
-    { name: "Yusuf Bello", email: "yusuf.bello@tenant.ng", phone: "+2348030000002" },
-    { name: "Adesina Adebayo", email: "adesina.adebayo@tenant.ng", phone: "+2348030000003" },
-    { name: "Ngozi Okeke", email: "ngozi.okeke@tenant.ng", phone: "+2348030000004" },
-    { name: "Tobi Alabi", email: "tobi.alabi@tenant.ng", phone: "+2348030000005" },
-    { name: "Zainab Ibrahim", email: "zainab.ibrahim@tenant.ng", phone: "+2348030000006" },
-    { name: "Chukwuma Nwachukwu", email: "chukwuma.nwachukwu@tenant.ng", phone: "+2348030000007" },
-    { name: "Amina Abubakar", email: "amina.abubakar@tenant.ng", phone: "+2348030000008" },
-    { name: "Damilola Ojo", email: "damilola.ojo@tenant.ng", phone: "+2348030000009" },
-    { name: "Emeka Ani", email: "emeka.ani@tenant.ng", phone: "+2348030000010" },
-    { name: "Fatima Umar", email: "fatima.umar@tenant.ng", phone: "+2348030000011" },
-    { name: "Kelechi Nwosu", email: "kelechi.nwosu@tenant.ng", phone: "+2348030000012" },
-    { name: "Temitope Shittu", email: "temitope.shittu@tenant.ng", phone: "+2348030000013" },
-    { name: "Bolanle Alade", email: "bolanle.alade@tenant.ng", phone: "+2348030000014" },
-    { name: "Olumide Lawal", email: "olumide.lawal@tenant.ng", phone: "+2348030000015" }
-  ];
-
-  const EXTRA_LANDLORDS = [
-    { name: "Tunde Shofowora", email: "tunde.shofowora@landlord.ng", phone: "+2348030000016" },
-    { name: "Abdul Salam", email: "abdul.salam@landlord.ng", phone: "+2348030000017" },
-    { name: "Nkechi Johnson", email: "nkechi.johnson@landlord.ng", phone: "+2348030000018" },
-    { name: "Olamilekan Balogun", email: "olamilekan.balogun@landlord.ng", phone: "+2348030000019" },
-    { name: "Ibe Anayo", email: "ibe.anayo@landlord.ng", phone: "+2348030000020" },
-    { name: "Grace Edet", email: "grace.edet@landlord.ng", phone: "+2348030000021" },
-    { name: "Segun Ogunleye", email: "segun.ogunleye@landlord.ng", phone: "+2348030000022" },
-    { name: "Yemi Oshibajo", email: "yemi.oshibajo@landlord.ng", phone: "+2348030000023" },
-    { name: "Chinenye Nnamdi", email: "chinenye.nnamdi@landlord.ng", phone: "+2348030000024" },
-    { name: "Bashir Dangote", email: "bashir.dangote@landlord.ng", phone: "+2348030000025" }
-  ];
-
-  const defaultPasswordHash = await bcrypt.hash("Password@123", 12);
-
-  for (const t of EXTRA_TENANTS) {
-    await prisma.user.upsert({
-      where: { email: t.email },
-      update: {},
-      create: {
-        email: t.email,
-        fullName: t.name,
-        phoneNumber: t.phone,
-        passwordHash: defaultPasswordHash,
-        roles: ["TENANT"],
-        isVerified: Math.random() > 0.4,
-        verificationTier: 1,
-        onboardingCompleted: true,
+  // Admin also has an artisan profile (demonstrates multi-role)
+  const existingArtisan = await prisma.artisanProfile.findUnique({ where: { userId: admin.id } });
+  if (!existingArtisan) {
+    await prisma.artisanProfile.create({
+      data: {
+        userId: admin.id,
+        category: "ELECTRICIAN",
+        yearsOfExperience: 8,
+        startingPrice: 15000,
+        bio: "Certified electrician with 8 years experience across Lagos. Specialise in rewiring, industrial installations, and solar systems.",
+        isVetted: true,
       },
     });
+    console.log(`   ✓ Admin artisan profile created (ELECTRICIAN)`);
   }
 
-  for (const l of EXTRA_LANDLORDS) {
-    await prisma.user.upsert({
-      where: { email: l.email },
-      update: {},
-      create: {
-        email: l.email,
-        fullName: l.name,
-        phoneNumber: l.phone,
-        passwordHash: defaultPasswordHash,
-        roles: ["LANDLORD"],
-        isVerified: Math.random() > 0.3,
-        verificationTier: 2,
-        onboardingCompleted: true,
-      },
-    });
-  }
-  console.log(`   ✓ Seeded ${EXTRA_TENANTS.length} extra tenants and ${EXTRA_LANDLORDS.length} extra landlords successfully.`);
-
-  // 3. Create properties
-  console.log("\n🏠 Creating properties...");
+  // 2. Create 20 properties
+  console.log("\n🏠 Creating properties…");
   let created = 0;
   let skipped = 0;
 
-  for (const p of PROPERTIES) {
-    const landlord = landlordUsers[p.landlordIndex];
+  // Alternate between admin (as landlord) and the dedicated landlord
+  const landlordPool = [admin.id, landlord.id];
 
-    // Check for existing property by title + landlordId to avoid duplicates
-    const existing = await prisma.property.findFirst({
-      where: { title: p.title, landlordId: landlord.id },
-    });
+  for (let i = 0; i < PROPERTIES.length; i++) {
+    const p = PROPERTIES[i];
+    const landlordId = landlordPool[i % 2];
 
-    if (existing) {
-      skipped++;
-      continue;
-    }
+    const exists = await prisma.property.findFirst({ where: { title: p.title, landlordId } });
+    if (exists) { skipped++; continue; }
 
-    // Build metadata
-    const salePrice = SALE_PRICES[p.title];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const metadata: any = {
+    const metadata: Record<string, unknown> = {
       propertyType: p.propertyType,
       ...(p.bedrooms !== undefined && { bedrooms: p.bedrooms }),
       ...(p.bathrooms !== undefined && { bathrooms: p.bathrooms }),
       ...(p.size !== undefined && { size: p.size }),
-      ...(p.rentFrequency && { rentFrequency: p.rentFrequency }),
-      amenities: buildAmenities(p.propertyType),
-      ...(p.listingType === "SALE" && salePrice && { salePrice }),
-      ...(p.listingType === "SHORTLET" &&
-        p.shortletDailyRate && {
-          shortlet: {
-            dailyRate: p.shortletDailyRate,
-            ...(p.shortletWeeklyRate && { weeklyRate: p.shortletWeeklyRate }),
-            ...(p.shortletMonthlyRate && { monthlyRate: p.shortletMonthlyRate }),
-          },
-        }),
+      ...("rentFrequency" in p && p.rentFrequency && { rentFrequency: p.rentFrequency }),
+      amenities: p.amenities ?? [],
+      description: p.description,
+      ...("salePrice" in p && p.salePrice && { salePrice: p.salePrice }),
+      ...("shortletDailyRate" in p && p.shortletDailyRate && {
+        shortlet: {
+          dailyRate: p.shortletDailyRate,
+          ...("shortletWeeklyRate" in p && p.shortletWeeklyRate && { weeklyRate: p.shortletWeeklyRate }),
+          ...("shortletMonthlyRate" in p && p.shortletMonthlyRate && { monthlyRate: p.shortletMonthlyRate }),
+        },
+      }),
     };
 
     const property = await prisma.property.create({
@@ -737,108 +457,57 @@ async function main() {
         state: "Lagos",
         listingType: p.listingType,
         pricePerYear: p.pricePerYear,
-        totalPackage: p.pricePerYear,
+        totalPackage: p.pricePerYear > 0 ? p.pricePerYear + 50_000 : 0,
         status: "AVAILABLE",
-        landlordId: landlord.id,
-        metadata,
-        developmentStage: p.propertyType === "Land" ? "LAND" : "FINISHED",
-        isOffPlan: false,
+        landlordId,
+        metadata: metadata as any,
+        developmentStage: (p.propertyType === "Land" ? "LAND" : "FINISHED") as any,
+        deedVerified: i % 3 === 0, // every 3rd property is deed-verified
+        priceVerified: i % 4 === 0,
+        healthScore: 70 + (i % 3) * 10, // 70, 80, or 90
       },
     });
 
-    // Primary image
-    await prisma.propertyImage.create({
-      data: {
-        propertyId: property.id,
-        url: photoUrl(p.photoIndex),
-        isPrimary: true,
-        order: 0,
-      },
-    });
-
-    // Extra images
-    if (p.extraImages) {
-      for (let i = 0; i < p.extraImages.length; i++) {
-        await prisma.propertyImage.create({
-          data: {
-            propertyId: property.id,
-            url: photoUrl(p.extraImages[i]),
-            isPrimary: false,
-            order: i + 1,
-          },
-        });
-      }
+    // Images
+    for (let j = 0; j < p.imgIdx.length; j++) {
+      await prisma.propertyImage.create({
+        data: {
+          propertyId: property.id,
+          url: IMAGES[p.imgIdx[j] % IMAGES.length],
+          isPrimary: j === 0,
+          order: j,
+        },
+      });
     }
 
     created++;
     console.log(`   ✓ [${p.lga}] ${p.title}`);
   }
 
-  console.log(
-    `\n   📊 ${created} properties created, ${skipped} already existed.`
-  );
+  console.log(`\n   📊 ${created} properties created, ${skipped} already existed.`);
 
-  // 4. Print demo credentials
+  // 3. Print summary
   console.log("\n" + "═".repeat(60));
-  console.log("🎉 Seed complete! Demo credentials:");
+  console.log("🎉 Seed complete!");
   console.log("═".repeat(60));
-  console.log("\n🏠 Landlords:");
-  for (const l of LANDLORDS) {
-    console.log(`   Email:    ${l.email}`);
-    console.log(`   Password: ${l.password}\n`);
-  }
-  console.log("🧑 Demo Tenant:");
-  console.log(`   Email:    ${DEMO_TENANT.email}`);
-  console.log(`   Password: ${DEMO_TENANT.password}`);
-  console.log("═".repeat(60));
+  console.log(`
+DEMO ACCOUNTS
+─────────────────────────────────────────
+Admin (all roles — ADMIN, LANDLORD, TENANT, ARTISAN):
+  Email:    ${ADMIN.email}
+  Password: ${ADMIN.password}
 
-  void demoTenant;
-}
+Tenant:
+  Email:    ${TENANT.email}
+  Password: ${TENANT.password}
 
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
+Landlord:
+  Email:    ${LANDLORD.email}
+  Password: ${LANDLORD.password}
 
-function buildAmenities(propertyType: string): string[] {
-  const base = ["Running Water", "Pre-paid Meter", "Security"];
-  const extras: Record<string, string[]> = {
-    "Self Contain": [],
-    "Mini Flat": ["Parking Space"],
-    "2 Bedroom Flat": ["Parking Space", "Generator"],
-    "3 Bedroom Flat": ["Parking Space", "Generator", "Boys Quarters"],
-    "4 Bedroom Flat": [
-      "Parking Space",
-      "Generator",
-      "Boys Quarters",
-      "Swimming Pool",
-    ],
-    Bungalow: ["Parking Space", "Garden"],
-    "Semi-Detached Duplex": ["Parking Space", "Generator", "Garden"],
-    "Detached Duplex": [
-      "Parking Space",
-      "Generator",
-      "Garden",
-      "Boys Quarters",
-    ],
-    "Terrace Duplex": ["Parking Space", "Generator"],
-    Mansion: [
-      "Parking Space",
-      "Generator",
-      "Swimming Pool",
-      "Garden",
-      "Boys Quarters",
-      "Gym",
-    ],
-    Penthouse: [
-      "Parking Space",
-      "Generator",
-      "Swimming Pool",
-      "Rooftop Terrace",
-      "Gym",
-    ],
-    Land: [],
-  };
-  return [...base, ...(extras[propertyType] ?? [])];
+NOTE: A user CAN hold multiple roles simultaneously.
+The admin account demonstrates all 4 roles at once.
+═══════════════════════════════════════════════════`);
 }
 
 main()
@@ -846,6 +515,4 @@ main()
     console.error("❌ Seed failed:", e);
     process.exit(1);
   })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+  .finally(() => prisma.$disconnect());

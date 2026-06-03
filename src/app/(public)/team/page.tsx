@@ -4,16 +4,16 @@ export const metadata = {
 };
 
 const TEAM = [
-  {
-    name: "Jeremiah Amaukwu",
-    role: "Co-founder & CEO",
-    bio: "CEO @LemonWares Technologies. Spent 8 years watching tenants get exploited by agents and decided to fix it.",
-    initials: "JA",
-    socials: {
-      x: "https://x.com/lemonwares",
-      linkedin: "https://www.linkedin.com/in/jeremiah-amaukwu-758a0b50",
-    },
-  },
+  // {
+  //   name: "Jeremiah Amaukwu",
+  //   role: "Co-founder & CEO",
+  //   bio: "CEO @LemonWares Technologies. Spent 8 years watching tenants get exploited by agents and decided to fix it.",
+  //   initials: "JA",
+  //   socials: {
+  //     x: "https://x.com/lemonwares",
+  //     linkedin: "https://www.linkedin.com/in/jeremiah-amaukwu-758a0b50",
+  //   },
+  // },
   {
     name: "Francis Uzoigwe",
     role: "Founder & CTO",
@@ -22,7 +22,7 @@ const TEAM = [
     socials: {
       x: "https://x.com/thatmanfran6ix",
       linkedin: "https://linkedin.com/in/francisuzoigwe",
-      instagram: "https://instagram.com/thatmanfran6ix",
+      instagram: "https://instagram.com/thatmanfrancis",
     },
   },
   {
@@ -225,7 +225,7 @@ export default function TeamPage() {
       </div>
 
       {/* LemonWares credit */}
-      <div className="flex items-center justify-center pt-4">
+      {/* <div className="flex items-center justify-center pt-4">
         <a
           href="https://dev.lemonwares.com/"
           target="_blank"
@@ -237,7 +237,7 @@ export default function TeamPage() {
             LemonWares Technologies
           </span>
         </a>
-      </div>
+      </div> */}
     </div>
   );
 }

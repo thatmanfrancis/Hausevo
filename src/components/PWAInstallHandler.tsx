@@ -131,18 +131,14 @@ export default function PWAInstallHandler() {
             <div className="absolute -top-24 -right-24 w-48 h-48 bg-white/5 rounded-full blur-3xl pointer-events-none" />
 
             <div className="flex items-start gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white text-zinc-900 shadow-xl">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
-                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                  <polyline points="9 22 9 12 15 12 15 22" />
-                </svg>
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white shadow-xl overflow-hidden">
+                <Image
+                  src="/hausevofinal.png"
+                  alt="Hausevo"
+                  width={32}
+                  height={32}
+                  className="object-contain"
+                />
               </div>
               <div className="flex-1">
                 <p className="text-sm font-extrabold mb-1">

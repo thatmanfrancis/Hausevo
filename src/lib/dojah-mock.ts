@@ -63,6 +63,19 @@ const MOCK_NIN_DATA: Record<string, NINLookupResult> = {
     employment_status: "Employed",
     marital_status: "Single",
   },
+  // ── Your real NIN for mock testing ────────────────────────────────────────
+  "67599884693": {
+    first_name: "Francis",
+    last_name: "Thatman",
+    middle_name: "Emmanuel",
+    gender: "Male",
+    date_of_birth: "1995-01-01",
+    phone_number: "+2347047474886",
+    email: "kossyuzoigwe@gmail.com",
+    photo: "/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAA8A/9k=",
+    employment_status: "Employed",
+    marital_status: "Single",
+  },
 };
 
 // Sample BVN data pool

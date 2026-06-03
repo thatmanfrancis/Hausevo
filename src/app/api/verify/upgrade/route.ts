@@ -131,30 +131,24 @@ export async function POST(req: NextRequest) {
   // Step 2: Verify BVN
   let bvnData;
   try {
-    bvnData = await lookupBVN(bvn.trim());
+    bvnData = await lookupBVN(bvn.trim(), user.fullName);
   } catch (err) {
     const message = err instanceof Error ? err.message : "BVN lookup failed.";
     return NextResponse.json({ error: message }, { status: 422 });
   }
 
-  // Name match check (BVN vs account) — skipped in mock mode
-  const USE_MOCK = process.env.DOJAH_USE_MOCK === "true";
-  if (!USE_MOCK) {
-    const accountName = user.fullName.toLowerCase().trim();
-    const bvnFullName = `${bvnData.first_name} ${bvnData.last_name}`.toLowerCase().trim();
-    const bvnTokens = bvnFullName.split(/\s+/);
-    const accountTokens = accountName.split(/\s+/);
-    const hasNameMatch = accountTokens.some((t) => bvnTokens.includes(t));
+  // Name match check (BVN vs account)
+  const accountName = user.fullName.toLowerCase().trim();
+  const bvnFullName = `${bvnData.first_name} ${bvnData.last_name}`.toLowerCase().trim();
+  const bvnTokens = bvnFullName.split(/\s+/);
+  const accountTokens = accountName.split(/\s+/);
+  const hasNameMatch = accountTokens.some((t) => bvnTokens.includes(t));
 
-    if (!hasNameMatch) {
-      return NextResponse.json(
-        {
-          error: "Name on BVN does not match your account name.",
-          bvnName: `${bvnData.first_name} ${bvnData.last_name}`,
-        },
-        { status: 422 }
-      );
-    }
+  if (!hasNameMatch) {
+    return NextResponse.json(
+      { error: "Name on BVN does not match your account name." },
+      { status: 422 }
+    );
   }
 
   // All verifications passed - charge user and upgrade

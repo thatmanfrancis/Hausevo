@@ -152,10 +152,10 @@ export default function ScoutClient() {
         <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-3">How scouting works</p>
         <ol className="flex flex-col gap-3">
           {[
-            "A landlord gives you their unique access key (LAG-XXX-XXX format).",
-            "You enter the key and fill in the property details.",
-            "Admin verifies the listing with the landlord.",
-            "Once live, you earn a scout reward — paid to your wallet.",
+            "A landlord, caretaker, or property agent gives you their unique access key (LAG-XXX-XXX).",
+            "You enter the key and fill in the property details on their behalf.",
+            "Admin verifies the listing and contacts the owner or caretaker directly.",
+            "Once the listing goes live, you earn a scout reward — paid to your wallet.",
           ].map((step, i) => (
             <li key={i} className="flex items-start gap-3">
               <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 text-white text-xs font-bold mt-0.5">
@@ -189,7 +189,7 @@ export default function ScoutClient() {
                 placeholder="LAG-XXX-XXX"
                 className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors font-mono tracking-widest uppercase"
               />
-              <p className="text-xs text-zinc-400">The landlord generates this key from their dashboard.</p>
+              <p className="text-xs text-zinc-400">The landlord, caretaker, or agent generates this key from their dashboard.</p>
             </div>
 
             {keyError && (

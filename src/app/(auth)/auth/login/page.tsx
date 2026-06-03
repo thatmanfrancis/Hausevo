@@ -1,18 +1,31 @@
 "use client";
 
-import { useState, useRef, KeyboardEvent, ClipboardEvent } from "react";
+import { useState, useRef, useEffect, Suspense, KeyboardEvent, ClipboardEvent } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Loader2 } from "lucide-react";
 import {
   AuthCard, AuthHeading, AuthInput, AuthButton, AuthError, AuthDivider,
 } from "@/app/components/AuthCard";
 
+// SVG spinner — no icon library
+function Spinner() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="animate-spin">
+      <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+    </svg>
+  );
+}
+
 type LoginStep = "credentials" | "twoFactor";
 
-export default function LoginPage() {
+// ── Inner component — uses useSearchParams, must be inside Suspense ────────
+
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams?.get("callbackUrl") ?? "/dashboard";
+
   const [step, setStep] = useState<LoginStep>("credentials");
   
   // Credentials step
@@ -70,7 +83,7 @@ export default function LoginPage() {
         setError("Login failed. Please try again.");
         setLoading(false);
       } else {
-        router.push("/dashboard");
+        router.push(callbackUrl);
         router.refresh();
       }
     } catch {
@@ -114,7 +127,7 @@ export default function LoginPage() {
         setTwoFactorError("Login failed. Please try again.");
         setVerifying(false);
       } else {
-        router.push("/dashboard");
+        router.push(callbackUrl);
         router.refresh();
       }
     } catch {
@@ -220,13 +233,13 @@ export default function LoginPage() {
           disabled={loading || googleLoading}
           onClick={() => {
             setGoogleLoading(true);
-            signIn("google", { callbackUrl: "/dashboard" });
+            signIn("google", { callbackUrl });
           }}
           className="w-full flex items-center justify-center gap-2.5 rounded-full border border-zinc-200 bg-white py-3 text-sm font-bold text-zinc-700 hover:border-zinc-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {googleLoading ? (
             <>
-              <Loader2 size={16} className="animate-spin" />
+              <Spinner />
               Connecting to Google...
             </>
           ) : (
@@ -330,5 +343,15 @@ export default function LoginPage() {
         </p>
       </div>
     </AuthCard>
+  );
+}
+
+// ── Page export — wraps LoginForm in Suspense (required for useSearchParams) ─
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<AuthCard><div className="py-12 text-center text-sm text-zinc-400">Loading…</div></AuthCard>}>
+      <LoginForm />
+    </Suspense>
   );
 }

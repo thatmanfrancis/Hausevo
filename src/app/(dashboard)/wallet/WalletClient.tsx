@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { toast } from "sonner";
+import PaystackPop from "@paystack/inline-js";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -78,6 +80,29 @@ function maskAccount(n: string) {
   return "****" + n.slice(-4);
 }
 
+// ── Amount in words ────────────────────────────────────────────────────────
+
+const ONES = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine",
+  "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen",
+  "Seventeen", "Eighteen", "Nineteen"];
+const TENS = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+
+function wordsUnder1000(n: number): string {
+  if (n === 0) return "";
+  if (n < 20) return ONES[n];
+  if (n < 100) return TENS[Math.floor(n / 10)] + (n % 10 ? " " + ONES[n % 10] : "");
+  return ONES[Math.floor(n / 100)] + " Hundred" + (n % 100 ? " " + wordsUnder1000(n % 100) : "");
+}
+
+function nairaToWords(amount: number): string {
+  if (!amount || isNaN(amount) || amount <= 0) return "";
+  const n = Math.floor(amount);
+  if (n >= 1_000_000_000) return wordsUnder1000(Math.floor(n / 1_000_000_000)) + " Billion" + (n % 1_000_000_000 ? " " + nairaToWords(n % 1_000_000_000) : "") + " Naira";
+  if (n >= 1_000_000) return wordsUnder1000(Math.floor(n / 1_000_000)) + " Million" + (n % 1_000_000 ? " " + nairaToWords(n % 1_000_000) : "") + " Naira";
+  if (n >= 1_000) return wordsUnder1000(Math.floor(n / 1_000)) + " Thousand" + (n % 1_000 ? " " + wordsUnder1000(n % 1_000) : "") + " Naira";
+  return wordsUnder1000(n) + " Naira";
+}
+
 const TYPE_STYLES: Record<string, string> = {
   RENT: "bg-blue-50 text-blue-700",
   SERVICE: "bg-zinc-100 text-zinc-600",
@@ -114,7 +139,13 @@ export default function WalletClient({
 }: Props) {
   const [balance, setBalance] = useState(user.walletBalance);
   const [topUpLoading, setTopUpLoading] = useState(false);
-  const [topUpMsg, setTopUpMsg] = useState("");
+  const [topUpAmount, setTopUpAmount] = useState("5000");
+  const [showTopUp, setShowTopUp] = useState(false);
+  const [topUpError, setTopUpError] = useState("");
+  // "form" = entry, "verifying" = server-side check in progress, "success" = confirmed
+  const [topUpStep, setTopUpStep] = useState<"form" | "verifying" | "success">("form");
+  const [topUpConfirmedAmount, setTopUpConfirmedAmount] = useState(0);
+  const [topUpNewBalance, setTopUpNewBalance] = useState(0);
 
   // Bank accounts state
   const [accounts, setAccounts] = useState<BankAccount[]>(initialAccounts);
@@ -219,25 +250,90 @@ export default function WalletClient({
     }
   }
 
-  async function handleTopUp() {
+  async function handleTopUp(e: React.FormEvent) {
+    e.preventDefault();
+    const amount = Number(topUpAmount);
+    if (!amount || amount < 100) return;
     setTopUpLoading(true);
-    setTopUpMsg("");
+    setTopUpError("");
     try {
-      const res = await fetch("/api/dev/topup", { method: "POST" });
+      // Get reference + credentials from our server
+      const res = await fetch("/api/wallet/topup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount }),
+      });
       const data = await res.json();
-      if (res.ok) {
-        setBalance(data.newBalance);
-        setTopUpMsg(
-          `₦5,000 added! New balance: ${formatNaira(data.newBalance)}`,
-        );
-      } else {
-        setTopUpMsg(data.error ?? "Top-up failed.");
+      if (!res.ok) {
+        setTopUpError(data.error ?? "Failed to initialize payment.");
+        setTopUpLoading(false);
+        return;
       }
+
+      setTopUpLoading(false); // Paystack popup takes over from here
+
+      // Open Paystack inline popup using the npm SDK — no redirect
+      const popup = new PaystackPop();
+      popup.newTransaction({
+        key: data.publicKey,
+        email: data.email,
+        amount: amount * 100, // kobo
+        reference: data.reference,
+        currency: "NGN",
+        metadata: {
+          userId: data.userId,
+          purpose: "wallet_topup",
+          amountNaira: amount,
+          custom_fields: [
+            { display_name: "Purpose", variable_name: "purpose", value: "wallet_topup" },
+            { display_name: "User ID", variable_name: "userId", value: data.userId },
+          ],
+        },
+        onSuccess: async (transaction: { reference: string }) => {
+          // Paystack confirmed payment client-side — verify on our server
+          setTopUpStep("verifying");
+          setTopUpError("");
+          try {
+            const verifyRes = await fetch("/api/wallet/topup/inline-verify", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ reference: transaction.reference }),
+            });
+            const verifyData = await verifyRes.json();
+            if (verifyRes.ok) {
+              setBalance(verifyData.newBalance);
+              setTopUpConfirmedAmount(amount);
+              setTopUpNewBalance(verifyData.newBalance);
+              setTopUpStep("success");
+              toast.success(`Wallet funded with ${formatNaira(amount)} successfully.`);
+            } else {
+              setTopUpStep("form");
+              setTopUpError(verifyData.error ?? "Payment verification failed. Contact support.");
+            }
+          } catch {
+            setTopUpStep("form");
+            setTopUpError("Verification error. Please refresh your balance.");
+          }
+        },
+        onCancel: () => {
+          setTopUpLoading(false);
+          setTopUpStep("form");
+        },
+      });
     } catch {
-      setTopUpMsg("Network error.");
-    } finally {
+      setTopUpError("Network error. Please try again.");
       setTopUpLoading(false);
     }
+  }
+
+  function resetTopUp() {
+    setShowTopUp(false);
+    setTopUpStep("form");
+    setTopUpAmount("5000");
+    setTopUpError("");
+    setTopUpConfirmedAmount(0);
+    setTopUpNewBalance(0);
+    setTopUpLoading(false);
   }
 
   async function handleAddAccount(e: React.FormEvent) {
@@ -350,26 +446,163 @@ export default function WalletClient({
           </button>
           <button
             type="button"
-            onClick={handleTopUp}
-            disabled={topUpLoading}
-            className="rounded-full border border-zinc-200 text-zinc-700 px-5 py-2.5 text-sm font-bold hover:border-zinc-400 transition-colors disabled:opacity-50"
+            onClick={() => setShowTopUp(true)}
+            className="rounded-full border border-zinc-200 text-zinc-700 px-5 py-2.5 text-sm font-bold hover:border-zinc-400 transition-colors"
           >
-            {topUpLoading ? "Adding…" : "Top up ₦5,000 (dev)"}
+            Top up wallet
           </button>
         </div>
-
-        {topUpMsg && (
-          <div
-            className={`mt-3 rounded-xl px-4 py-3 text-sm font-semibold ${
-              topUpMsg.includes("added")
-                ? "bg-emerald-50 border border-emerald-100 text-emerald-700"
-                : "bg-red-50 border border-red-100 text-red-700"
-            }`}
-          >
-            {topUpMsg}
-          </div>
-        )}
       </div>
+
+      {/* Top-up modal */}
+      {showTopUp && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+          {/* Backdrop — only dismissable when on the form step */}
+          <div
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={() => { if (topUpStep === "form") resetTopUp(); }}
+          />
+
+          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md p-6">
+
+            {/* ── Step: verifying ── */}
+            {topUpStep === "verifying" && (
+              <div className="flex flex-col items-center gap-4 py-6 text-center">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-zinc-100">
+                  <svg
+                    className="animate-spin text-zinc-600"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                  >
+                    <path d="M21 12a9 9 0 1 1-6.219-8.56" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-base font-extrabold text-zinc-900">Confirming payment…</p>
+                  <p className="text-xs text-zinc-500 mt-1">Verifying your transaction with Paystack. Please wait.</p>
+                </div>
+              </div>
+            )}
+
+            {/* ── Step: success ── */}
+            {topUpStep === "success" && (
+              <div className="flex flex-col items-center gap-5 py-4 text-center">
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 border border-emerald-100">
+                  <svg
+                    width="28"
+                    height="28"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-emerald-600"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <p className="text-base font-extrabold text-zinc-900">Payment confirmed</p>
+                  <p className="text-2xl font-extrabold text-emerald-600">{formatNaira(topUpConfirmedAmount)}</p>
+                  <p className="text-xs text-zinc-500 mt-0.5">
+                    Successfully added to your wallet. New balance:{" "}
+                    <span className="font-bold text-zinc-700">{formatNaira(topUpNewBalance)}</span>
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={resetTopUp}
+                  className="w-full rounded-full bg-zinc-900 text-white py-3 text-sm font-bold hover:bg-zinc-700 transition-colors"
+                >
+                  Done
+                </button>
+              </div>
+            )}
+
+            {/* ── Step: form ── */}
+            {topUpStep === "form" && (
+              <form onSubmit={handleTopUp} className="flex flex-col gap-5">
+                <div>
+                  <p className="text-lg font-extrabold text-zinc-900">Top up wallet</p>
+                  <p className="text-xs text-zinc-500 mt-1">Funds will be added to your Hausevo wallet instantly after payment.</p>
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">Amount (₦)</label>
+                  <input
+                    type="number"
+                    value={topUpAmount}
+                    onChange={(e) => setTopUpAmount(e.target.value)}
+                    placeholder="e.g. 5000"
+                    min="100"
+                    required
+                    className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors"
+                  />
+                  <p className="text-[10px] text-zinc-400">Minimum ₦100. A secure Paystack popup will open to complete payment.</p>
+                  {nairaToWords(Number(topUpAmount)) && (
+                    <p className="text-xs font-semibold text-zinc-500 leading-snug">
+                      {nairaToWords(Number(topUpAmount))} only
+                    </p>
+                  )}
+                </div>
+
+                {/* Quick amounts */}
+                <div className="flex gap-2 flex-wrap">
+                  {[1000, 5000, 10000, 20000, 50000].map((amt) => (
+                    <button
+                      key={amt}
+                      type="button"
+                      onClick={() => setTopUpAmount(String(amt))}
+                      className={`rounded-full border px-3 py-1.5 text-xs font-bold transition-colors ${
+                        topUpAmount === String(amt)
+                          ? "bg-zinc-900 text-white border-zinc-900"
+                          : "border-zinc-200 text-zinc-600 hover:border-zinc-400"
+                      }`}
+                    >
+                      ₦{(amt / 1000).toFixed(0)}k
+                    </button>
+                  ))}
+                </div>
+
+                {topUpError && (
+                  <div className="flex items-start gap-2 rounded-xl bg-red-50 border border-red-100 px-4 py-3">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-red-600 shrink-0 mt-0.5">
+                      <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
+                    </svg>
+                    <p className="text-xs font-semibold text-red-700">{topUpError}</p>
+                  </div>
+                )}
+
+                <div className="flex items-center gap-3 pt-1">
+                  <button
+                    type="submit"
+                    disabled={topUpLoading || !topUpAmount || Number(topUpAmount) < 100}
+                    className="flex-1 rounded-full bg-zinc-900 text-white py-3 text-sm font-bold hover:bg-zinc-700 transition-colors disabled:opacity-50"
+                  >
+                    {topUpLoading ? "Preparing…" : `Pay ₦${Number(topUpAmount || 0).toLocaleString("en-NG")} via Paystack`}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={resetTopUp}
+                    className="text-sm font-semibold text-zinc-500 hover:text-zinc-900 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+
+                <p className="text-[10px] text-zinc-400 text-center">
+                  Secured by Paystack · Card, Bank Transfer, USSD accepted
+                </p>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Withdraw Modal */}
       {showWithdraw && (

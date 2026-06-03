@@ -156,7 +156,7 @@ export default function Footer() {
           <p className="text-xs text-zinc-400">
             © {new Date().getFullYear()} Hausevo Technologies Ltd. All rights reserved.
           </p>
-          <a
+          {/* <a
             href="https://dev.lemonwares.com/"
             target="_blank"
             rel="noopener noreferrer"
@@ -170,7 +170,7 @@ export default function Footer() {
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
               <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
             </svg>
-          </a>
+          </a> */}
         </div>
 
       </div>

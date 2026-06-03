@@ -71,7 +71,7 @@ const WaitlistConfirmEmail: React.FC<WaitlistConfirmEmailProps> = ({
                 src="cid:hausevo_logo"
                 alt="Hausevo Logo"
                 style={{
-                  height: "48px",
+                  height: "80px",
                   width: "auto",
                   display: "block",
                   margin: "0 auto",

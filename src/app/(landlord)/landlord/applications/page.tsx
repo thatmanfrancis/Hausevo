@@ -16,6 +16,17 @@ export default async function LandlordApplicationsPage() {
         select: {
           id: true, title: true, lga: true, pricePerYear: true,
           images: { where: { isPrimary: true }, select: { url: true }, take: 1 },
+          // Include tenancy so we know if one already exists for this property
+          tenancy: {
+            select: {
+              id: true,
+              status: true,
+              startDate: true,
+              endDate: true,
+              cautionDeposit: true,
+              savingsGoal: true,
+            },
+          },
         },
       },
       tenant: {

@@ -36,14 +36,14 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           {" · "}
           <Link href="/privacy" className="hover:text-zinc-700 transition-colors">Privacy</Link>
         </p>
-        <a
+        {/* <a
           href="https://dev.lemonwares.com/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-xs text-zinc-400 hover:text-zinc-600 transition-colors"
         >
           A product of <span className="font-bold">LemonWares Technologies</span>
-        </a>
+        </a> */}
       </footer>
     </div>
   );

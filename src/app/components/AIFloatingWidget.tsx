@@ -64,6 +64,25 @@ function AIIcon({ size = 14 }: { size?: number }) {
   );
 }
 
+// ── Markdown renderer (** ** and * * → bold) ──────────────────────────────
+
+function renderMarkdown(text: string): React.ReactNode[] {
+  // Split on **bold** or *bold* patterns, preserving the delimiters
+  const parts = text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <strong key={i} className="font-extrabold">{part.slice(2, -2)}</strong>;
+    }
+    if (part.startsWith("*") && part.endsWith("*")) {
+      return <strong key={i} className="font-bold">{part.slice(1, -1)}</strong>;
+    }
+    // Preserve newlines
+    return part.split("\n").map((line, j, arr) => (
+      <span key={`${i}-${j}`}>{line}{j < arr.length - 1 ? <br /> : null}</span>
+    ));
+  });
+}
+
 // ── Bubble ─────────────────────────────────────────────────────────────────
 
 function Bubble({ msg }: { msg: Message }) {
@@ -77,13 +96,13 @@ function Bubble({ msg }: { msg: Message }) {
       )}
       <div className={`max-w-[80%] flex flex-col gap-1 ${isUser ? "items-end" : "items-start"}`}>
         <div
-          className={`rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${
+          className={`rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
             isUser
               ? "bg-zinc-900 text-white rounded-br-sm"
               : "bg-white border border-zinc-200 text-zinc-900 rounded-bl-sm"
           }`}
         >
-          {msg.text}
+          {isUser ? msg.text : renderMarkdown(msg.text)}
         </div>
         <span className="text-[10px] text-zinc-400 px-1">{formatTime(msg.createdAt)}</span>
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -177,6 +177,19 @@ export default function PropertiesClient({
   const [priceRange, setPriceRange] = useState(searchParams.priceRange ?? "");
   const [savedIds, setSavedIds] = useState<Set<string>>(new Set(savedPropertyIds ?? []));
 
+  // Handle pending save action after login redirect — read from URL client-side only
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const pendingSave = params.get("pendingSave");
+    if (pendingSave && session?.user) {
+      setSavedIds((prev) => { const next = new Set(prev); next.add(pendingSave); return next; });
+      fetch(`/api/properties/${pendingSave}/save`, { method: "POST" }).catch(() => {});
+      const url = new URL(window.location.href);
+      url.searchParams.delete("pendingSave");
+      window.history.replaceState({}, "", url.toString());
+    }
+  }, []);
+
   const isFiltered = !!(lga || listingType || propertyType || priceRange);
 
   function applySearch() {
@@ -200,7 +213,10 @@ export default function PropertiesClient({
   }
 
   async function toggleSave(propertyId: string) {
-    if (!session?.user) { router.push("/auth/login"); return; }
+    if (!session?.user) {
+      router.push(`/auth/login?callbackUrl=${encodeURIComponent(`/properties?pendingSave=${propertyId}`)}`);
+      return;
+    }
     setSavedIds((prev) => {
       const next = new Set(prev);
       next.has(propertyId) ? next.delete(propertyId) : next.add(propertyId);
@@ -210,23 +226,25 @@ export default function PropertiesClient({
   }
 
   // Dynamic heading based on how we know the location
-  const locationLabel = userLga && userState
-    ? `${userLga}, ${userState}`
-    : userLga ?? null;
-
+  // On /properties, we only show location context for explicit searches to avoid
+  // the flicker caused by LocationDetector injecting geo params after SSR.
   const headingLocation =
-    locationSource === "geo" || locationSource === "wishlist"
-      ? `near you`
-      : locationSource === "search" && lga
+    locationSource === "search" && lga
       ? `in ${lga}`
+      : isHomePage && locationSource === "geo"
+      ? `near you`
+      : isHomePage && locationSource === "wishlist" && userLga
+      ? `in ${userLga}`
       : "in Lagos";
 
   const headingSubtitle =
-    locationSource === "geo"
-      ? "Discover verified houses for rent near your current location"
-      : locationSource === "wishlist"
-      ? "Houses for rent in your preferred Lagos neighborhoods"
-      : "Verified houses and apartments for rent in Lagos — no agents, no markups";
+    isHomePage && locationSource === "geo"
+      ? "Discover verified homes near your current location"
+      : isHomePage && locationSource === "wishlist"
+      ? "Homes for rent in your preferred Lagos neighbourhoods"
+      : locationSource === "search" && lga
+      ? `Verified listings in ${lga} — no agents, no markups`
+      : "Verified homes for rent and sale across Lagos — no agents, no markups";
 
   return (
     <div>
@@ -468,7 +486,7 @@ function PropertyCard({ property, isSaved, onSave }: { property: Property; isSav
           {property.isBoosted && <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-amber-400 text-amber-900">Featured</span>}
         </div>
         {property.deedVerified && (
-          <div className="absolute top-3 right-10 flex items-center gap-1 bg-white/90 backdrop-blur-sm rounded-full px-2 py-1">
+          <div className="absolute top-4 right-12 flex items-center gap-1 bg-white/90 backdrop-blur-sm rounded-full px-2 py-1">
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-emerald-600"><polyline points="20 6 9 17 4 12" /></svg>
             <span className="text-[10px] font-bold text-emerald-700">Verified</span>
           </div>

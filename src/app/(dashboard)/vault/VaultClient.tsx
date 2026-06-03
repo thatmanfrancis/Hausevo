@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 
 type VaultItem = {
@@ -65,40 +65,63 @@ export default function VaultClient({ items: initialItems }: { items: VaultItem[
 
   // Upload form state
   const [uploadTitle, setUploadTitle] = useState("");
-  const [uploadUrl, setUploadUrl] = useState("");
   const [uploadCategory, setUploadCategory] = useState("IDENTITY");
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState("");
+  const [uploadFile, setUploadFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   async function handleUpload(e: React.FormEvent) {
     e.preventDefault();
+    if (!uploadFile) { setUploadError("Please select a file to upload."); return; }
     setUploading(true);
     setUploadError("");
 
     try {
+      // 1. Get Cloudinary signature
+      const sigRes = await fetch("/api/upload", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ folder: "shack/vault" }),
+      });
+      if (!sigRes.ok) throw new Error("Failed to get upload authorization.");
+      const { signature, timestamp, apiKey, cloudName, folder } = await sigRes.json();
+
+      // 2. Upload directly to Cloudinary (supports images + PDFs + docs)
+      const formData = new FormData();
+      formData.append("file", uploadFile);
+      formData.append("signature", signature);
+      formData.append("timestamp", timestamp);
+      formData.append("api_key", apiKey);
+      formData.append("folder", folder);
+      formData.append("resource_type", "auto"); // allows PDFs and docs
+
+      const uploadRes = await fetch(
+        `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`,
+        { method: "POST", body: formData }
+      );
+      if (!uploadRes.ok) {
+        const err = await uploadRes.json();
+        throw new Error(err.error?.message ?? "Cloudinary upload failed.");
+      }
+      const fileUrl: string = (await uploadRes.json()).secure_url;
+
+      // 3. Save to vault
       const res = await fetch("/api/vault", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: uploadTitle,
-          fileUrl: uploadUrl,
-          category: uploadCategory,
-        }),
+        body: JSON.stringify({ title: uploadTitle, fileUrl, category: uploadCategory }),
       });
       const data = await res.json();
-
-      if (!res.ok) {
-        setUploadError(data.error ?? "Failed to add document. Please try again.");
-        return;
-      }
+      if (!res.ok) throw new Error(data.error ?? "Failed to save document.");
 
       setItems((prev) => [{ ...data.item, property: null }, ...prev]);
       setShowUpload(false);
       setUploadTitle("");
-      setUploadUrl("");
+      setUploadFile(null);
       setUploadCategory("IDENTITY");
-    } catch {
-      setUploadError("Network error. Please try again.");
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : "Something went wrong.");
     } finally {
       setUploading(false);
     }
@@ -160,17 +183,45 @@ export default function VaultClient({ items: initialItems }: { items: VaultItem[
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="uploadUrl" className="text-xs font-bold uppercase tracking-widest text-zinc-400">Document URL</label>
-              <input
-                id="uploadUrl"
-                type="url"
-                value={uploadUrl}
-                onChange={(e) => setUploadUrl(e.target.value)}
-                placeholder="https://drive.google.com/…"
-                required
-                className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none focus:border-zinc-900 transition-colors"
-              />
-              <p className="text-xs text-zinc-400">Paste a link to your document (Google Drive, Dropbox, etc.)</p>
+              <label htmlFor="uploadFile" className="text-xs font-bold uppercase tracking-widest text-zinc-400">File</label>
+              <div
+                onClick={() => fileInputRef.current?.click()}
+                className={`rounded-xl border-2 border-dashed px-4 py-6 flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors ${
+                  uploadFile ? "border-emerald-300 bg-emerald-50" : "border-zinc-200 bg-zinc-50 hover:border-zinc-400"
+                }`}
+              >
+                <input
+                  ref={fileInputRef}
+                  id="uploadFile"
+                  type="file"
+                  accept=".pdf,.jpg,.jpeg,.png,.webp,.doc,.docx"
+                  className="hidden"
+                  onChange={(e) => {
+                    const f = e.target.files?.[0] ?? null;
+                    setUploadFile(f);
+                    if (f && !uploadTitle) setUploadTitle(f.name.replace(/\.[^.]+$/, ""));
+                  }}
+                />
+                {uploadFile ? (
+                  <>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-600">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <p className="text-sm font-bold text-emerald-800">{uploadFile.name}</p>
+                    <p className="text-xs text-emerald-600">{(uploadFile.size / 1024).toFixed(0)} KB · Click to change</p>
+                  </>
+                ) : (
+                  <>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-400">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                      <polyline points="17 8 12 3 7 8"/>
+                      <line x1="12" y1="3" x2="12" y2="15"/>
+                    </svg>
+                    <p className="text-sm font-bold text-zinc-700">Click to select file</p>
+                    <p className="text-xs text-zinc-400">PDF, JPG, PNG, DOCX — max 10 MB</p>
+                  </>
+                )}
+              </div>
             </div>
 
             <div className="flex flex-col gap-1.5">
@@ -208,11 +259,11 @@ export default function VaultClient({ items: initialItems }: { items: VaultItem[
                 disabled={uploading}
                 className="rounded-full bg-zinc-900 text-white px-5 py-2.5 text-sm font-bold hover:bg-zinc-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {uploading ? "Saving…" : "Save document"}
+                {uploading ? "Uploading…" : "Save document"}
               </button>
               <button
                 type="button"
-                onClick={() => { setShowUpload(false); setUploadError(""); }}
+                onClick={() => { setShowUpload(false); setUploadError(""); setUploadFile(null); }}
                 className="text-sm font-semibold text-zinc-500 hover:text-zinc-900 transition-colors"
               >
                 Cancel

@@ -14,7 +14,7 @@ type Score = {
   lastCalculated: Date | null;
 };
 
-type Props = { score: Score };
+type Props = { score: Score | null };
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -92,6 +92,68 @@ function StatRow({
 // ── Main component ─────────────────────────────────────────────────────────
 
 export default function HausevoScoreClient({ score }: Props) {
+  // ── No score yet ────────────────────────────────────────────────────────
+  if (!score) {
+    return (
+      <div className="flex flex-col gap-6">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <Link href="/dashboard" className="text-xs font-bold uppercase tracking-widest text-zinc-400 hover:text-zinc-600 transition-colors">
+              Dashboard
+            </Link>
+            <span className="text-xs text-zinc-300">/</span>
+            <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">Hausevo Score</p>
+          </div>
+          <h1 className="text-2xl font-extrabold text-zinc-900">Hausevo Score</h1>
+        </div>
+
+        <div className="bg-white rounded-2xl border border-zinc-200 p-8 flex flex-col items-center text-center gap-4">
+          {/* Empty ring */}
+          <div className="relative flex items-center justify-center w-40 h-40">
+            <svg width="160" height="160" className="-rotate-90">
+              <circle cx="80" cy="80" r="56" fill="none" stroke="#f4f4f5" strokeWidth="10" />
+            </svg>
+            <div className="absolute flex flex-col items-center">
+              <span className="text-3xl font-extrabold text-zinc-300">—</span>
+              <span className="text-xs font-bold text-zinc-400 mt-1">/ 850</span>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-base font-extrabold text-zinc-900 mb-1">No score yet</p>
+            <p className="text-sm text-zinc-500 leading-relaxed max-w-xs">
+              Your Hausevo Score is built from your rental history — on-time payments, completed tenancies, and how disputes are handled.
+            </p>
+          </div>
+
+          <div className="w-full rounded-xl bg-zinc-50 border border-zinc-200 p-4 text-left flex flex-col gap-2">
+            <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">How to build your score</p>
+            {[
+              "Apply for and move into a property on Hausevo",
+              "Pay your rent on time every month",
+              "Complete your tenancy without disputes",
+            ].map((step, i) => (
+              <div key={i} className="flex items-start gap-2.5">
+                <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-zinc-900 mt-0.5">
+                  <span className="text-[9px] font-bold text-white">{i + 1}</span>
+                </div>
+                <p className="text-xs text-zinc-600">{step}</p>
+              </div>
+            ))}
+          </div>
+
+          <Link
+            href="/properties"
+            className="rounded-full bg-zinc-900 text-white px-6 py-2.5 text-sm font-bold hover:bg-zinc-700 transition-colors"
+          >
+            Browse properties →
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Has score ────────────────────────────────────────────────────────────
   const { label, cls, desc } = scoreLabel(score.score);
 
   const formatDate = (d: Date | null) =>

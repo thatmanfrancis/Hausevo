@@ -96,7 +96,7 @@ export default function AboutPage() {
                 <div className="flex items-center gap-2">
                   <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-100">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-red-500">
-                      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                      <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
                     </svg>
                   </span>
                   <p className="text-xs font-bold text-red-600">{p.problem}</p>
@@ -104,7 +104,7 @@ export default function AboutPage() {
                 <div className="flex items-center gap-2">
                   <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100">
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-600">
-                      <polyline points="20 6 9 17 4 12"/>
+                      <polyline points="20 6 9 17 4 12" />
                     </svg>
                   </span>
                   <p className="text-xs font-bold text-emerald-700">{p.solution}</p>
@@ -172,7 +172,7 @@ export default function AboutPage() {
       </div>
 
       {/* LemonWares */}
-      <div className="flex items-center justify-center pt-2">
+      {/* <div className="flex items-center justify-center pt-2">
         <a
           href="https://dev.lemonwares.com/"
           target="_blank"
@@ -181,7 +181,7 @@ export default function AboutPage() {
         >
           A product of <span className="font-bold">LemonWares Technologies</span>
         </a>
-      </div>
+      </div> */}
 
     </div>
   );

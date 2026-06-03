@@ -7,17 +7,9 @@ import { lookupNIN } from "@/lib/dojah";
 
 /*
   POST /api/verify/nin
-  Step 1 of identity verification — NIN lookup (FREE TIER).
-  Confirms the NIN exists and that the name on it matches the account.
-  On success, bumps verificationTier to 0 (basic verification).
-  
-  This is FREE for all users - part of the freemium onboarding.
-  Users can browse properties but cannot apply until they upgrade to Tier 1.
-
-  Cost: ~₦100 per call (Dojah starter rate) - absorbed by Hausevo.
-  Charge to User: ₦0 (FREE)
-
-  Requires: active session
+  Identity verification via NIN lookup (Dojah sandbox/production).
+  On success, sets verificationTier to 1 — user is fully verified.
+  No payment required.
 
   Body: { nin }
 */
@@ -39,7 +31,7 @@ export async function POST(req: NextRequest) {
 
   if (user.verificationTier >= 1) {
     return NextResponse.json(
-      { error: "Your NIN is already verified." },
+      { error: "Your identity is already verified." },
       { status: 409 }
     );
   }
@@ -54,64 +46,90 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Call Dojah
+  // Call Dojah (sandbox when DOJAH_ENV !== "production", mock when DOJAH_USE_MOCK=true)
   let ninData;
   try {
-    ninData = await lookupNIN(nin.trim());
+    ninData = await lookupNIN(nin.trim(), user.fullName);
   } catch (err) {
     const message = err instanceof Error ? err.message : "NIN lookup failed.";
+    console.error("[NIN verify] Dojah error:", message);
     return NextResponse.json({ error: message }, { status: 422 });
   }
 
-  // Name match — compare first + last name (case-insensitive)
-  // In mock mode, skip the name check to allow testing with any account name
-  const USE_MOCK = process.env.DOJAH_USE_MOCK === "true";
+  // Name match — include first, middle, and last name in any order
+  const ninParts = [ninData.first_name, ninData.middle_name, ninData.last_name]
+    .filter(Boolean)
+    .map((p) => p!.toLowerCase().trim());
 
-  if (!USE_MOCK) {
-    const accountName = user.fullName.toLowerCase().trim();
-    const ninFullName = `${ninData.first_name} ${ninData.last_name}`.toLowerCase().trim();
-    const accountTokens = accountName.split(/\s+/);
-    const ninTokens = ninFullName.split(/\s+/);
-    const hasNameMatch = accountTokens.some((t) => ninTokens.includes(t));
+  const accountTokens = user.fullName
+    .toLowerCase()
+    .trim()
+    .split(/\s+/)
+    .filter((t) => t.length > 1);
 
-    if (!hasNameMatch) {
-      await audit({
-        actorId: userId,
-        action: "VERIFY",
-        entity: "User",
-        entityId: userId,
-        after: {
-          result: "name_mismatch",
-          nin: nin.slice(0, 4) + "*******",
-          ninName: ninFullName,
-          accountName,
-        },
-        req,
-      });
+  const matchCount = accountTokens.filter((token) =>
+    ninParts.some((part) => part.includes(token) || token.includes(part))
+  ).length;
 
-      return NextResponse.json(
-        {
-          error: "Name on NIN does not match your account name. Please contact support if this is incorrect.",
-          ninName: `${ninData.first_name} ${ninData.last_name}`,
-        },
-        { status: 422 }
-      );
-    }
+  const requiredMatches = Math.min(2, accountTokens.length);
+  const hasNameMatch = matchCount >= requiredMatches;
+
+  if (!hasNameMatch) {
+    console.warn("[NIN verify] Name mismatch", {
+      accountName: user.fullName,
+      accountTokens,
+      ninParts,
+      matchCount,
+      requiredMatches,
+    });
+
+    await audit({
+      actorId: userId,
+      action: "VERIFY",
+      entity: "User",
+      entityId: userId,
+      after: {
+        result: "name_mismatch",
+        nin: nin.slice(0, 4) + "*******",
+        matchCount,
+      },
+      req,
+    });
+
+    return NextResponse.json(
+      {
+        error: "The name on your NIN doesn't match your account name. Update your profile name to match your NIN, or contact support.",
+      },
+      { status: 422 }
+    );
   }
 
-  // Bump verificationTier to 0 (FREE tier) and store vault record
+  // Verification passed — grant Tier 1 directly
   await prisma.$transaction([
     prisma.user.update({
       where: { id: userId },
-      data: { verificationTier: 0 }, // Tier 0 = Basic NIN verified (FREE)
-    }),
-    prisma.vaultItem.create({
       data: {
-        title: "NIN Verification (Basic)",
-        fileUrl: `nin:${nin.slice(0, 4)}*******`,  // never store full NIN
+        verificationTier: 1,
+        verificationBundlePaid: true,
+        verificationBundlePaidAt: new Date(),
+      },
+    }),
+    prisma.vaultItem.upsert({
+      where: {
+        // Use a stable synthetic ID so repeat calls don't duplicate
+        id: `nin-vault-${userId}`,
+      },
+      create: {
+        id: `nin-vault-${userId}`,
+        title: "NIN Verification",
+        fileUrl: `nin:${nin.slice(0, 4)}*******`,
         category: "IDENTITY",
         ownerId: userId,
         isVerified: true,
+      },
+      update: {
+        isVerified: true,
+        fileUrl: `nin:${nin.slice(0, 4)}*******`,
       },
     }),
   ]);
@@ -124,26 +142,24 @@ export async function POST(req: NextRequest) {
       entityId: userId,
       after: {
         result: "success",
-        verificationTier: 0,
+        verificationTier: 1,
         nin: nin.slice(0, 4) + "*******",
-        tier: "FREE",
       },
       req,
     }),
     notify(
       userId,
       "Identity verified ✅",
-      "Your NIN has been verified. You can now browse properties. Upgrade to Tier 1 (₦1,500) to apply for properties.",
+      "Your NIN has been verified. You can now apply for properties.",
       "DOC_VERIFIED",
-      { verificationTier: 0, upgradeRequired: true }
+      { verificationTier: 1 }
     ),
   ]);
 
   return NextResponse.json({
-    message: "NIN verified successfully (FREE tier).",
-    verificationTier: 0,
+    message: "NIN verified successfully.",
+    verificationTier: 1,
     ninName: `${ninData.first_name} ${ninData.last_name}`,
-    nextStep: "Upgrade to Tier 1 (₦1,500) to apply for properties",
-    upgradeUrl: "/api/verify/upgrade",
   });
 }
+

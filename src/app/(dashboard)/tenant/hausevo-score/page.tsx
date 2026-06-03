@@ -20,16 +20,6 @@ export default async function HausevoScorePage() {
     },
   });
 
-  // Default score for users with no history
-  const data = score ?? {
-    score: 500,
-    onTimePayments: 0,
-    latePayments: 0,
-    disputesRaised: 0,
-    disputesLost: 0,
-    completedTenancies: 0,
-    lastCalculated: null,
-  };
-
-  return <HausevoScoreClient score={data} />;
+  // Pass null when no score exists — client shows a clear "not yet established" state
+  return <HausevoScoreClient score={score ?? null} />;
 }

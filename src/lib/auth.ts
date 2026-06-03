@@ -149,17 +149,29 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
   events: {
     async signIn({ user, account }) {
-      // Only send for Google/OAuth here to avoid duplication with the custom credentials login routes
+      // Only send for Google/OAuth — credentials login is handled in /api/auth/login
       if (account?.provider === "google") {
         try {
           const { renderToStaticMarkup } = require("react-dom/server");
-          
+
+          // NextAuth v5 event callbacks don't expose the request object,
+          // so we can't do IP geolocation here. We note the provider and
+          // use a locale-neutral UTC time instead.
+          const time = new Date().toLocaleString("en-GB", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            timeZoneName: "short",
+          });
+
           const html = `<!DOCTYPE html>${renderToStaticMarkup(
             React.createElement(LoginAlertEmail, {
               name: user.name || user.email || "User",
-              device: "Google Login",
-              location: "Lagos, Nigeria",
-              time: new Date().toLocaleString("en-NG", { timeZone: "Africa/Lagos" }),
+              device: "Google Account Sign-In",
+              location: "Via Google OAuth",
+              time,
             })
           )}`;
 
