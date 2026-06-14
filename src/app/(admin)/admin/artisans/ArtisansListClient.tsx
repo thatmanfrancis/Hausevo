@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import AddArtisanModal from "./AddArtisanModal";
 
 type Artisan = {
   id: string;
@@ -21,12 +22,13 @@ type Artisan = {
 
 type Props = {
   artisans: Artisan[];
+  totalCount: number;
   totalPages: number;
   currentPage: number;
   categories: string[];
 };
 
-export default function ArtisansListClient({ artisans, totalPages, currentPage, categories }: Props) {
+export default function ArtisansListClient({ artisans, totalCount, totalPages, currentPage, categories }: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -98,6 +100,7 @@ export default function ArtisansListClient({ artisans, totalPages, currentPage, 
             <span className="flex h-2 w-2 rounded-full bg-amber-500" />
             <span className="text-zinc-600">{pendingCount} Pending</span>
           </div>
+          <AddArtisanModal />
         </div>
       </div>
 
@@ -150,14 +153,14 @@ export default function ArtisansListClient({ artisans, totalPages, currentPage, 
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse min-w-[800px]">
             <thead>
-              <tr className="bg-zinc-50/50 border-b border-zinc-100">
-                <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Artisan</th>
-                <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Category</th>
-                <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Status</th>
-                <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Jobs</th>
-                <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Earnings</th>
-                <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Rating</th>
-                <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-zinc-400"></th>
+              <tr className="border-b border-zinc-100">
+                <th className="px-6 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-zinc-400">Artisan</th>
+                <th className="px-6 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-zinc-400">Category</th>
+                <th className="px-6 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-zinc-400">Status</th>
+                <th className="px-6 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-zinc-400">Jobs</th>
+                <th className="px-6 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-zinc-400">Earnings</th>
+                <th className="px-6 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-zinc-400">Rating</th>
+                <th className="px-6 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-zinc-400"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-50">
@@ -171,11 +174,11 @@ export default function ArtisansListClient({ artisans, totalPages, currentPage, 
                   </td>
                   <td className="px-6 py-4">
                     {artisan.artisanProfile ? (
-                      <span className="text-xs font-semibold text-zinc-600 px-2 py-1 bg-zinc-100 rounded-md">
+                      <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-zinc-100 text-zinc-600">
                         {artisan.artisanProfile.category.replace("_", " ")}
                       </span>
                     ) : (
-                      <span className="text-xs font-semibold text-red-400 italic">No Profile</span>
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-red-400">No Profile</span>
                     )}
                   </td>
                   <td className="px-6 py-4">
@@ -223,38 +226,34 @@ export default function ArtisansListClient({ artisans, totalPages, currentPage, 
         
         {artisans.length === 0 && (
           <div className="py-20 text-center">
-            <svg className="mx-auto h-12 w-12 text-zinc-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-            <p className="mt-4 text-sm font-bold text-zinc-500">No artisans matching your search</p>
-            <p className="text-xs text-zinc-400">Try adjusting your filters or search terms.</p>
+            <p className="text-sm font-bold text-zinc-400">No artisans matching your search.</p>
+            <p className="text-xs text-zinc-400 mt-1">Try adjusting your filters or search terms.</p>
           </div>
         )}
 
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="px-6 py-4 bg-zinc-50/50 border-t border-zinc-100 flex items-center justify-between">
-            <p className="text-xs font-medium text-zinc-500">
-              Page {currentPage} of {totalPages}
-            </p>
-            <div className="flex gap-1">
-              <button
-                disabled={currentPage === 1}
-                onClick={() => handlePageChange(currentPage - 1)}
-                className="px-3 py-1.5 rounded-lg border border-zinc-200 text-xs font-bold bg-white hover:bg-zinc-50 disabled:opacity-50 transition-colors"
-              >
-                Previous
-              </button>
-              <button
-                disabled={currentPage === totalPages}
-                onClick={() => handlePageChange(currentPage + 1)}
-                className="px-3 py-1.5 rounded-lg border border-zinc-200 text-xs font-bold bg-white hover:bg-zinc-50 disabled:opacity-50 transition-colors"
-              >
-                Next
-              </button>
-            </div>
+        {/* Always-visible pagination */}
+        <div className="px-6 py-3 border-t border-zinc-100 flex items-center justify-between">
+          <p className="text-xs text-zinc-400 font-semibold">
+            {totalCount} total · Page {currentPage} of {Math.max(totalPages, 1)}
+          </p>
+          <div className="flex items-center gap-1">
+            <button
+              disabled={currentPage <= 1}
+              onClick={() => handlePageChange(currentPage - 1)}
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-200 text-zinc-600 hover:border-zinc-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <span className="text-xs font-bold text-zinc-600 px-2">{currentPage} / {Math.max(totalPages, 1)}</span>
+            <button
+              disabled={currentPage >= totalPages}
+              onClick={() => handlePageChange(currentPage + 1)}
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-200 text-zinc-600 hover:border-zinc-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

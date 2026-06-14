@@ -46,7 +46,14 @@ export default async function AdminUsersPage({
       where.isVerified = false;
     } else if (status === "onboarding") {
       where.onboardingCompleted = false;
+    } else if (status === "deleted") {
+      where.deletedAt = { not: null };
     }
+  }
+
+  // By default, exclude deleted users unless specifically filtering for them
+  if (status !== "deleted") {
+    where.deletedAt = null;
   }
 
   const [users, totalCount, verifiedCount, unverifiedCount] = await Promise.all([
@@ -64,6 +71,7 @@ export default async function AdminUsersPage({
         isVerified: true,
         verificationTier: true,
         onboardingCompleted: true,
+        deletedAt: true,
         createdAt: true,
         _count: {
           select: { ownedProperties: true, applications: true, notifications: true },

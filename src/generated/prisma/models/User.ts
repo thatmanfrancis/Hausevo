@@ -57,6 +57,7 @@ export type UserMinAggregateOutputType = {
   fintechPartnerRef: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
   accumulatedBond: number | null
   vaultPremium: boolean | null
   vaultPremiumUntil: Date | null
@@ -88,6 +89,7 @@ export type UserMaxAggregateOutputType = {
   fintechPartnerRef: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  deletedAt: Date | null
   accumulatedBond: number | null
   vaultPremium: boolean | null
   vaultPremiumUntil: Date | null
@@ -120,6 +122,7 @@ export type UserCountAggregateOutputType = {
   fintechPartnerRef: number
   createdAt: number
   updatedAt: number
+  deletedAt: number
   accumulatedBond: number
   vaultPremium: number
   vaultPremiumUntil: number
@@ -169,6 +172,7 @@ export type UserMinAggregateInputType = {
   fintechPartnerRef?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
   accumulatedBond?: true
   vaultPremium?: true
   vaultPremiumUntil?: true
@@ -200,6 +204,7 @@ export type UserMaxAggregateInputType = {
   fintechPartnerRef?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
   accumulatedBond?: true
   vaultPremium?: true
   vaultPremiumUntil?: true
@@ -232,6 +237,7 @@ export type UserCountAggregateInputType = {
   fintechPartnerRef?: true
   createdAt?: true
   updatedAt?: true
+  deletedAt?: true
   accumulatedBond?: true
   vaultPremium?: true
   vaultPremiumUntil?: true
@@ -351,6 +357,7 @@ export type UserGroupByOutputType = {
   fintechPartnerRef: string | null
   createdAt: Date
   updatedAt: Date
+  deletedAt: Date | null
   accumulatedBond: number
   vaultPremium: boolean
   vaultPremiumUntil: Date | null
@@ -406,6 +413,7 @@ export type UserWhereInput = {
   fintechPartnerRef?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   accumulatedBond?: Prisma.FloatFilter<"User"> | number
   vaultPremium?: Prisma.BoolFilter<"User"> | boolean
   vaultPremiumUntil?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -481,6 +489,7 @@ export type UserOrderByWithRelationInput = {
   fintechPartnerRef?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   accumulatedBond?: Prisma.SortOrder
   vaultPremium?: Prisma.SortOrder
   vaultPremiumUntil?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -559,6 +568,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   fintechPartnerRef?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   accumulatedBond?: Prisma.FloatFilter<"User"> | number
   vaultPremium?: Prisma.BoolFilter<"User"> | boolean
   vaultPremiumUntil?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -634,6 +644,7 @@ export type UserOrderByWithAggregationInput = {
   fintechPartnerRef?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   accumulatedBond?: Prisma.SortOrder
   vaultPremium?: Prisma.SortOrder
   vaultPremiumUntil?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -674,6 +685,7 @@ export type UserScalarWhereWithAggregatesInput = {
   fintechPartnerRef?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   accumulatedBond?: Prisma.FloatWithAggregatesFilter<"User"> | number
   vaultPremium?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   vaultPremiumUntil?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -706,6 +718,7 @@ export type UserCreateInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -781,6 +794,7 @@ export type UserUncheckedCreateInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -856,6 +870,7 @@ export type UserUpdateInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -931,6 +946,7 @@ export type UserUncheckedUpdateInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1006,6 +1022,7 @@ export type UserCreateManyInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -1038,6 +1055,7 @@ export type UserUpdateManyMutationInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1070,6 +1088,7 @@ export type UserUncheckedUpdateManyInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1110,6 +1129,7 @@ export type UserCountOrderByAggregateInput = {
   fintechPartnerRef?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   accumulatedBond?: Prisma.SortOrder
   vaultPremium?: Prisma.SortOrder
   vaultPremiumUntil?: Prisma.SortOrder
@@ -1149,6 +1169,7 @@ export type UserMaxOrderByAggregateInput = {
   fintechPartnerRef?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   accumulatedBond?: Prisma.SortOrder
   vaultPremium?: Prisma.SortOrder
   vaultPremiumUntil?: Prisma.SortOrder
@@ -1180,6 +1201,7 @@ export type UserMinOrderByAggregateInput = {
   fintechPartnerRef?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   accumulatedBond?: Prisma.SortOrder
   vaultPremium?: Prisma.SortOrder
   vaultPremiumUntil?: Prisma.SortOrder
@@ -1969,6 +1991,7 @@ export type UserCreateWithoutAccountsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -2043,6 +2066,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -2133,6 +2157,7 @@ export type UserUpdateWithoutAccountsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2207,6 +2232,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2281,6 +2307,7 @@ export type UserCreateWithoutSessionsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -2355,6 +2382,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -2445,6 +2473,7 @@ export type UserUpdateWithoutSessionsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2519,6 +2548,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2593,6 +2623,7 @@ export type UserCreateWithoutShackScoreInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -2667,6 +2698,7 @@ export type UserUncheckedCreateWithoutShackScoreInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -2757,6 +2789,7 @@ export type UserUpdateWithoutShackScoreInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2831,6 +2864,7 @@ export type UserUncheckedUpdateWithoutShackScoreInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2905,6 +2939,7 @@ export type UserCreateWithoutIssuedKeysInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -2979,6 +3014,7 @@ export type UserUncheckedCreateWithoutIssuedKeysInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -3069,6 +3105,7 @@ export type UserUpdateWithoutIssuedKeysInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3143,6 +3180,7 @@ export type UserUncheckedUpdateWithoutIssuedKeysInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3217,6 +3255,7 @@ export type UserCreateWithoutOwnedPropertiesInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -3291,6 +3330,7 @@ export type UserUncheckedCreateWithoutOwnedPropertiesInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -3370,6 +3410,7 @@ export type UserCreateWithoutProxySubmissionsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -3444,6 +3485,7 @@ export type UserUncheckedCreateWithoutProxySubmissionsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -3534,6 +3576,7 @@ export type UserUpdateWithoutOwnedPropertiesInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3608,6 +3651,7 @@ export type UserUncheckedUpdateWithoutOwnedPropertiesInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3693,6 +3737,7 @@ export type UserUpdateWithoutProxySubmissionsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3767,6 +3812,7 @@ export type UserUncheckedUpdateWithoutProxySubmissionsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3841,6 +3887,7 @@ export type UserCreateWithoutSavedPropertiesInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -3915,6 +3962,7 @@ export type UserUncheckedCreateWithoutSavedPropertiesInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -4005,6 +4053,7 @@ export type UserUpdateWithoutSavedPropertiesInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4079,6 +4128,7 @@ export type UserUncheckedUpdateWithoutSavedPropertiesInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4153,6 +4203,7 @@ export type UserCreateWithoutWishlistInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -4227,6 +4278,7 @@ export type UserUncheckedCreateWithoutWishlistInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -4317,6 +4369,7 @@ export type UserUpdateWithoutWishlistInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4391,6 +4444,7 @@ export type UserUncheckedUpdateWithoutWishlistInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4465,6 +4519,7 @@ export type UserCreateWithoutWaitlistsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -4539,6 +4594,7 @@ export type UserUncheckedCreateWithoutWaitlistsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -4629,6 +4685,7 @@ export type UserUpdateWithoutWaitlistsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4703,6 +4760,7 @@ export type UserUncheckedUpdateWithoutWaitlistsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4777,6 +4835,7 @@ export type UserCreateWithoutVaultItemsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -4851,6 +4910,7 @@ export type UserUncheckedCreateWithoutVaultItemsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -4941,6 +5001,7 @@ export type UserUpdateWithoutVaultItemsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5015,6 +5076,7 @@ export type UserUncheckedUpdateWithoutVaultItemsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5089,6 +5151,7 @@ export type UserCreateWithoutApplicationsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -5163,6 +5226,7 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -5253,6 +5317,7 @@ export type UserUpdateWithoutApplicationsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5327,6 +5392,7 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5401,6 +5467,7 @@ export type UserCreateWithoutTenancyInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -5475,6 +5542,7 @@ export type UserUncheckedCreateWithoutTenancyInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -5554,6 +5622,7 @@ export type UserCreateWithoutCoTenanciesInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -5628,6 +5697,7 @@ export type UserUncheckedCreateWithoutCoTenanciesInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -5718,6 +5788,7 @@ export type UserUpdateWithoutTenancyInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5792,6 +5863,7 @@ export type UserUncheckedUpdateWithoutTenancyInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5885,6 +5957,7 @@ export type UserScalarWhereInput = {
   fintechPartnerRef?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   accumulatedBond?: Prisma.FloatFilter<"User"> | number
   vaultPremium?: Prisma.BoolFilter<"User"> | boolean
   vaultPremiumUntil?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -5917,6 +5990,7 @@ export type UserCreateWithoutChatsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -5991,6 +6065,7 @@ export type UserUncheckedCreateWithoutChatsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -6086,6 +6161,7 @@ export type UserCreateWithoutMessagesInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -6160,6 +6236,7 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -6250,6 +6327,7 @@ export type UserUpdateWithoutMessagesInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6324,6 +6402,7 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6398,6 +6477,7 @@ export type UserCreateWithoutArtisanProfileInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -6472,6 +6552,7 @@ export type UserUncheckedCreateWithoutArtisanProfileInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -6562,6 +6643,7 @@ export type UserUpdateWithoutArtisanProfileInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6636,6 +6718,7 @@ export type UserUncheckedUpdateWithoutArtisanProfileInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6710,6 +6793,7 @@ export type UserCreateWithoutMaintenanceJobsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -6784,6 +6868,7 @@ export type UserUncheckedCreateWithoutMaintenanceJobsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -6874,6 +6959,7 @@ export type UserUpdateWithoutMaintenanceJobsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6948,6 +7034,7 @@ export type UserUncheckedUpdateWithoutMaintenanceJobsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7022,6 +7109,7 @@ export type UserCreateWithoutServiceRequestsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -7096,6 +7184,7 @@ export type UserUncheckedCreateWithoutServiceRequestsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -7186,6 +7275,7 @@ export type UserUpdateWithoutServiceRequestsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7260,6 +7350,7 @@ export type UserUncheckedUpdateWithoutServiceRequestsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7334,6 +7425,7 @@ export type UserCreateWithoutInspectionsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -7408,6 +7500,7 @@ export type UserUncheckedCreateWithoutInspectionsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -7498,6 +7591,7 @@ export type UserUpdateWithoutInspectionsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7572,6 +7666,7 @@ export type UserUncheckedUpdateWithoutInspectionsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7646,6 +7741,7 @@ export type UserCreateWithoutReviewsGivenInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -7720,6 +7816,7 @@ export type UserUncheckedCreateWithoutReviewsGivenInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -7799,6 +7896,7 @@ export type UserCreateWithoutReviewsReceivedInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -7873,6 +7971,7 @@ export type UserUncheckedCreateWithoutReviewsReceivedInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -7963,6 +8062,7 @@ export type UserUpdateWithoutReviewsGivenInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8037,6 +8137,7 @@ export type UserUncheckedUpdateWithoutReviewsGivenInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8122,6 +8223,7 @@ export type UserUpdateWithoutReviewsReceivedInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8196,6 +8298,7 @@ export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8270,6 +8373,7 @@ export type UserCreateWithoutDisputesAgainstInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -8344,6 +8448,7 @@ export type UserUncheckedCreateWithoutDisputesAgainstInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -8423,6 +8528,7 @@ export type UserCreateWithoutDisputesRaisedInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -8497,6 +8603,7 @@ export type UserUncheckedCreateWithoutDisputesRaisedInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -8576,6 +8683,7 @@ export type UserCreateWithoutDisputesResolvedInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -8650,6 +8758,7 @@ export type UserUncheckedCreateWithoutDisputesResolvedInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -8740,6 +8849,7 @@ export type UserUpdateWithoutDisputesAgainstInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8814,6 +8924,7 @@ export type UserUncheckedUpdateWithoutDisputesAgainstInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8899,6 +9010,7 @@ export type UserUpdateWithoutDisputesRaisedInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8973,6 +9085,7 @@ export type UserUncheckedUpdateWithoutDisputesRaisedInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9058,6 +9171,7 @@ export type UserUpdateWithoutDisputesResolvedInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9132,6 +9246,7 @@ export type UserUncheckedUpdateWithoutDisputesResolvedInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9206,6 +9321,7 @@ export type UserCreateWithoutScoutRewardsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -9280,6 +9396,7 @@ export type UserUncheckedCreateWithoutScoutRewardsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -9370,6 +9487,7 @@ export type UserUpdateWithoutScoutRewardsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9444,6 +9562,7 @@ export type UserUncheckedUpdateWithoutScoutRewardsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9518,6 +9637,7 @@ export type UserCreateWithoutReferralCodesInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -9592,6 +9712,7 @@ export type UserUncheckedCreateWithoutReferralCodesInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -9682,6 +9803,7 @@ export type UserUpdateWithoutReferralCodesInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9756,6 +9878,7 @@ export type UserUncheckedUpdateWithoutReferralCodesInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9830,6 +9953,7 @@ export type UserCreateWithoutReferredByInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -9904,6 +10028,7 @@ export type UserUncheckedCreateWithoutReferredByInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -9983,6 +10108,7 @@ export type UserCreateWithoutReferralInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -10057,6 +10183,7 @@ export type UserUncheckedCreateWithoutReferralInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -10147,6 +10274,7 @@ export type UserUpdateWithoutReferredByInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10221,6 +10349,7 @@ export type UserUncheckedUpdateWithoutReferredByInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10306,6 +10435,7 @@ export type UserUpdateWithoutReferralInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10380,6 +10510,7 @@ export type UserUncheckedUpdateWithoutReferralInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10454,6 +10585,7 @@ export type UserCreateWithoutBankAccountsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -10528,6 +10660,7 @@ export type UserUncheckedCreateWithoutBankAccountsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -10618,6 +10751,7 @@ export type UserUpdateWithoutBankAccountsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10692,6 +10826,7 @@ export type UserUncheckedUpdateWithoutBankAccountsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -10766,6 +10901,7 @@ export type UserCreateWithoutTransactionsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -10840,6 +10976,7 @@ export type UserUncheckedCreateWithoutTransactionsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -10930,6 +11067,7 @@ export type UserUpdateWithoutTransactionsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11004,6 +11142,7 @@ export type UserUncheckedUpdateWithoutTransactionsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11078,6 +11217,7 @@ export type UserCreateWithoutNotificationsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -11152,6 +11292,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -11242,6 +11383,7 @@ export type UserUpdateWithoutNotificationsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11316,6 +11458,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11390,6 +11533,7 @@ export type UserCreateWithoutAssignedTicketsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -11464,6 +11608,7 @@ export type UserUncheckedCreateWithoutAssignedTicketsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -11543,6 +11688,7 @@ export type UserCreateWithoutSupportTicketsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -11617,6 +11763,7 @@ export type UserUncheckedCreateWithoutSupportTicketsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -11707,6 +11854,7 @@ export type UserUpdateWithoutAssignedTicketsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11781,6 +11929,7 @@ export type UserUncheckedUpdateWithoutAssignedTicketsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11866,6 +12015,7 @@ export type UserUpdateWithoutSupportTicketsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11940,6 +12090,7 @@ export type UserUncheckedUpdateWithoutSupportTicketsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12014,6 +12165,7 @@ export type UserCreateWithoutSupportMessagesInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -12088,6 +12240,7 @@ export type UserUncheckedCreateWithoutSupportMessagesInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -12178,6 +12331,7 @@ export type UserUpdateWithoutSupportMessagesInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12252,6 +12406,7 @@ export type UserUncheckedUpdateWithoutSupportMessagesInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12326,6 +12481,7 @@ export type UserCreateWithoutAuditLogsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -12400,6 +12556,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -12490,6 +12647,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12564,6 +12722,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12638,6 +12797,7 @@ export type UserCreateWithoutManagedPropertiesInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -12712,6 +12872,7 @@ export type UserUncheckedCreateWithoutManagedPropertiesInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -12791,6 +12952,7 @@ export type UserCreateWithoutOwnedManagementInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -12865,6 +13027,7 @@ export type UserUncheckedCreateWithoutOwnedManagementInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -12955,6 +13118,7 @@ export type UserUpdateWithoutManagedPropertiesInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13029,6 +13193,7 @@ export type UserUncheckedUpdateWithoutManagedPropertiesInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13114,6 +13279,7 @@ export type UserUpdateWithoutOwnedManagementInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13188,6 +13354,7 @@ export type UserUncheckedUpdateWithoutOwnedManagementInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13262,6 +13429,7 @@ export type UserCreateWithoutAiMessagesInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -13336,6 +13504,7 @@ export type UserUncheckedCreateWithoutAiMessagesInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -13426,6 +13595,7 @@ export type UserUpdateWithoutAiMessagesInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13500,6 +13670,7 @@ export type UserUncheckedUpdateWithoutAiMessagesInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13574,6 +13745,7 @@ export type UserCreateWithoutJointSavingsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -13648,6 +13820,7 @@ export type UserUncheckedCreateWithoutJointSavingsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -13743,6 +13916,7 @@ export type UserCreateWithoutSavingsContributionsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -13817,6 +13991,7 @@ export type UserUncheckedCreateWithoutSavingsContributionsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -13907,6 +14082,7 @@ export type UserUpdateWithoutSavingsContributionsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13981,6 +14157,7 @@ export type UserUncheckedUpdateWithoutSavingsContributionsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14055,6 +14232,7 @@ export type UserCreateWithoutDocumentVaultsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -14129,6 +14307,7 @@ export type UserUncheckedCreateWithoutDocumentVaultsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -14219,6 +14398,7 @@ export type UserUpdateWithoutDocumentVaultsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14293,6 +14473,7 @@ export type UserUncheckedUpdateWithoutDocumentVaultsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14367,6 +14548,7 @@ export type UserCreateWithoutNotificationPreferencesInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -14441,6 +14623,7 @@ export type UserUncheckedCreateWithoutNotificationPreferencesInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -14531,6 +14714,7 @@ export type UserUpdateWithoutNotificationPreferencesInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14605,6 +14789,7 @@ export type UserUncheckedUpdateWithoutNotificationPreferencesInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14679,6 +14864,7 @@ export type UserCreateWithoutGuarantorsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -14753,6 +14939,7 @@ export type UserUncheckedCreateWithoutGuarantorsInput = {
   fintechPartnerRef?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deletedAt?: Date | string | null
   accumulatedBond?: number
   vaultPremium?: boolean
   vaultPremiumUntil?: Date | string | null
@@ -14843,6 +15030,7 @@ export type UserUpdateWithoutGuarantorsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14917,6 +15105,7 @@ export type UserUncheckedUpdateWithoutGuarantorsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14991,6 +15180,7 @@ export type UserUpdateWithoutCoTenanciesInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15065,6 +15255,7 @@ export type UserUncheckedUpdateWithoutCoTenanciesInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15139,6 +15330,7 @@ export type UserUncheckedUpdateManyWithoutCoTenanciesInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15171,6 +15363,7 @@ export type UserUpdateWithoutChatsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15245,6 +15438,7 @@ export type UserUncheckedUpdateWithoutChatsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15319,6 +15513,7 @@ export type UserUncheckedUpdateManyWithoutChatsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15351,6 +15546,7 @@ export type UserUpdateWithoutJointSavingsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15425,6 +15621,7 @@ export type UserUncheckedUpdateWithoutJointSavingsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15499,6 +15696,7 @@ export type UserUncheckedUpdateManyWithoutJointSavingsInput = {
   fintechPartnerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accumulatedBond?: Prisma.FloatFieldUpdateOperationsInput | number
   vaultPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
   vaultPremiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15877,6 +16075,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   fintechPartnerRef?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   accumulatedBond?: boolean
   vaultPremium?: boolean
   vaultPremiumUntil?: boolean
@@ -15953,6 +16152,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   fintechPartnerRef?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   accumulatedBond?: boolean
   vaultPremium?: boolean
   vaultPremiumUntil?: boolean
@@ -15985,6 +16185,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   fintechPartnerRef?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   accumulatedBond?: boolean
   vaultPremium?: boolean
   vaultPremiumUntil?: boolean
@@ -16017,6 +16218,7 @@ export type UserSelectScalar = {
   fintechPartnerRef?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  deletedAt?: boolean
   accumulatedBond?: boolean
   vaultPremium?: boolean
   vaultPremiumUntil?: boolean
@@ -16033,7 +16235,7 @@ export type UserSelectScalar = {
   monthlyIncome?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "fullName" | "phoneNumber" | "passwordHash" | "googleId" | "roles" | "isVerified" | "twoFactorEnabled" | "twoFactorSecret" | "verificationTier" | "walletBalance" | "fintechPartnerRef" | "createdAt" | "updatedAt" | "accumulatedBond" | "vaultPremium" | "vaultPremiumUntil" | "vaultStorageLimit" | "vaultStorageUsed" | "verificationBundlePaid" | "verificationBundlePaidAt" | "onboardingCompleted" | "idDocumentUrl" | "selfieUrl" | "employmentStatus" | "profession" | "employerName" | "monthlyIncome", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "fullName" | "phoneNumber" | "passwordHash" | "googleId" | "roles" | "isVerified" | "twoFactorEnabled" | "twoFactorSecret" | "verificationTier" | "walletBalance" | "fintechPartnerRef" | "createdAt" | "updatedAt" | "deletedAt" | "accumulatedBond" | "vaultPremium" | "vaultPremiumUntil" | "vaultStorageLimit" | "vaultStorageUsed" | "verificationBundlePaid" | "verificationBundlePaidAt" | "onboardingCompleted" | "idDocumentUrl" | "selfieUrl" | "employmentStatus" | "profession" | "employerName" | "monthlyIncome", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   issuedKeys?: boolean | Prisma.User$issuedKeysArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -16146,6 +16348,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     fintechPartnerRef: string | null
     createdAt: Date
     updatedAt: Date
+    deletedAt: Date | null
     accumulatedBond: number
     vaultPremium: boolean
     vaultPremiumUntil: Date | null
@@ -16641,6 +16844,7 @@ export interface UserFieldRefs {
   readonly fintechPartnerRef: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly deletedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly accumulatedBond: Prisma.FieldRef<"User", 'Float'>
   readonly vaultPremium: Prisma.FieldRef<"User", 'Boolean'>
   readonly vaultPremiumUntil: Prisma.FieldRef<"User", 'DateTime'>

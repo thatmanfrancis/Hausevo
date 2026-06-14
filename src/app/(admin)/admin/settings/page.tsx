@@ -1,14 +1,12 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
-import SettingsClient from "@/app/(dashboard)/settings/SettingsClient";
+import Link from "next/link";
+import AdminSettingsClient from "./AdminSettingsClient";
 
 export default async function AdminSettingsPage() {
   const session = await auth();
-
-  if (!session?.user?.id) {
-    redirect("/auth/login");
-  }
+  if (!session?.user?.id) redirect("/auth/login");
 
   const [user, notificationPreferences] = await Promise.all([
     prisma.user.findUnique({
@@ -19,24 +17,6 @@ export default async function AdminSettingsPage() {
         email: true,
         phoneNumber: true,
         twoFactorEnabled: true,
-        roles: true,
-        onboardingCompleted: true,
-        employmentStatus: true,
-        profession: true,
-        employerName: true,
-        monthlyIncome: true,
-        guarantors: {
-          where: { isEmergency: true },
-          select: {
-            id: true,
-            fullName: true,
-            phone: true,
-            email: true,
-            relationship: true,
-            status: true,
-          },
-          take: 1,
-        },
       },
     }),
     prisma.notificationPreferences.upsert({
@@ -46,13 +26,16 @@ export default async function AdminSettingsPage() {
     }),
   ]);
 
-  if (!user) {
-    redirect("/auth/login");
-  }
+  if (!user) redirect("/auth/login");
 
   return (
     <div className="flex flex-col gap-6">
-      <SettingsClient user={user} notificationPreferences={notificationPreferences} />
+      <div className="flex items-center gap-2 mb-1">
+        <Link href="/admin/dashboard" className="text-xs font-bold uppercase tracking-widest text-zinc-400 hover:text-zinc-600">Admin</Link>
+        <span className="text-xs text-zinc-300">/</span>
+        <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">Settings</p>
+      </div>
+      <AdminSettingsClient user={user} notificationPreferences={notificationPreferences} />
     </div>
   );
 }

@@ -130,6 +130,7 @@ export const UserScalarFieldEnum = {
   fintechPartnerRef: 'fintechPartnerRef',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
   accumulatedBond: 'accumulatedBond',
   vaultPremium: 'vaultPremium',
   vaultPremiumUntil: 'vaultPremiumUntil',

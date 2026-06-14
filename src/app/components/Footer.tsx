@@ -41,6 +41,8 @@ const FOOTER_LINKS = [
   },
 ];
 
+
+
 export default function Footer() {
   return (
     <footer className="bg-white border-t border-zinc-100 mt-auto">
@@ -66,7 +68,7 @@ export default function Footer() {
             {/* Social links */}
             <div className="flex items-center gap-3 mt-1">
               <a
-                href="https://twitter.com/hausevong"
+                href="https://x.com/hausevo0"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Twitter"

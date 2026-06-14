@@ -257,7 +257,7 @@ export default function ArtisanDetailClient({ artisan, categories }: Props) {
           </div>
 
           <div className="bg-white rounded-2xl border border-zinc-200 overflow-hidden">
-            <div className="px-6 py-4 border-b border-zinc-100 bg-zinc-50/50">
+            <div className="px-6 py-4 border-b border-zinc-100">
               <h2 className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">
                 Maintenance History
               </h2>

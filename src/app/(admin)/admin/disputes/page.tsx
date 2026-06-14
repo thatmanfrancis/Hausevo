@@ -2,8 +2,8 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import Pagination from "../components/Pagination";
 import ResolveDisputeModal from "../components/ResolveDisputeModal";
+import CreateDisputeModal from "./CreateDisputeModal";
 
 export default async function AdminDisputesPage({
   searchParams,
@@ -52,12 +52,17 @@ export default async function AdminDisputesPage({
           <span className="text-xs text-zinc-300">/</span>
           <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">Disputes</p>
         </div>
-        <h1 className="text-2xl font-extrabold text-zinc-900">Dispute Management</h1>
-        <p className="text-sm text-zinc-500 mt-1">{totalDisputes.toLocaleString()} disputes found.</p>
+        <div className="flex items-start justify-between gap-4 flex-wrap">
+          <div>
+            <h1 className="text-2xl font-extrabold text-zinc-900">Dispute Management</h1>
+            <p className="text-sm text-zinc-500 mt-1">{totalDisputes.toLocaleString()} disputes found.</p>
+          </div>
+          <CreateDisputeModal />
+        </div>
       </div>
 
       <div className="flex gap-2 flex-wrap">
-        {["ALL", "OPEN", "RESOLVED"].map((s) => (
+        {["ALL", "OPEN", "UNDER_REVIEW", "RESOLVED", "ESCALATED"].map((s) => (
           <Link 
             key={s} 
             href={`/admin/disputes?filter=${s}`}
@@ -67,7 +72,7 @@ export default async function AdminDisputesPage({
                 : "border-zinc-200 text-zinc-500 hover:border-zinc-900 hover:text-zinc-900"
             }`}
           >
-            {s}
+            {s.replace("_", " ")}
           </Link>
         ))}
       </div>
@@ -77,26 +82,28 @@ export default async function AdminDisputesPage({
           <div key={d.id} className="bg-white rounded-2xl border border-zinc-200 p-5">
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex items-center gap-2 mb-2 flex-wrap">
                   <span className={`text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full ${
-                    d.status === "OPEN" ? "bg-red-100 text-red-700" : "bg-emerald-100 text-emerald-700"
+                    d.status === "OPEN" ? "bg-red-100 text-red-700" :
+                    d.status === "RESOLVED" ? "bg-emerald-100 text-emerald-700" :
+                    d.status === "UNDER_REVIEW" ? "bg-amber-100 text-amber-700" :
+                    "bg-purple-100 text-purple-700"
                   }`}>
                     {d.status}
                   </span>
                   <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-zinc-100 text-zinc-500">
-                    {d.type}
+                    {d.type.replace(/_/g, " ")}
                   </span>
-                  <span className="text-xs text-zinc-400 ml-2">
+                  <span className="text-xs text-zinc-400">
                     {new Date(d.createdAt).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" })}
                   </span>
                 </div>
                 
-                <div className="bg-zinc-50 p-4 rounded-xl mb-4 text-sm text-zinc-700 border border-zinc-100">
-                  <p className="font-bold text-zinc-900 mb-1">Complaint:</p>
+                <div className="bg-zinc-50 p-4 rounded-xl mb-4 text-sm text-zinc-700 border border-zinc-100 line-clamp-3">
                   {d.description}
                 </div>
 
-                <div className="flex gap-8 text-sm">
+                <div className="flex gap-8 text-sm flex-wrap">
                   <div>
                     <p className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1">Raised By</p>
                     <p className="font-semibold text-zinc-900">{d.raisedBy.fullName}</p>
@@ -110,20 +117,28 @@ export default async function AdminDisputesPage({
                   {d.property && (
                     <div>
                       <p className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1">Property</p>
-                      <p className="font-semibold text-zinc-900">{d.property.title}</p>
+                      <p className="font-semibold text-zinc-900 truncate max-w-[160px]">{d.property.title}</p>
                     </div>
                   )}
                 </div>
 
                 {d.resolution && (
-                  <div className="mt-4 p-4 rounded-xl bg-emerald-50 border border-emerald-100 text-sm text-emerald-900">
-                    <p className="font-bold mb-1">Resolution:</p>
-                    {d.resolution}
+                  <div className="mt-4 p-4 rounded-xl bg-emerald-50 border border-emerald-100 text-sm text-emerald-900 line-clamp-2">
+                    <span className="font-bold">Resolution: </span>{d.resolution}
                   </div>
                 )}
               </div>
               
               <div className="shrink-0 flex flex-col gap-2">
+                <Link
+                  href={`/admin/disputes/${d.id}`}
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-200 text-zinc-500 hover:border-zinc-400 hover:text-zinc-900 transition-colors"
+                  title="View dispute details"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                  </svg>
+                </Link>
                 {d.status === "OPEN" && <ResolveDisputeModal disputeId={d.id} />}
               </div>
             </div>
@@ -136,7 +151,33 @@ export default async function AdminDisputesPage({
         )}
       </div>
 
-      <Pagination totalPages={totalPages} />
+      {/* Always-visible pagination */}
+      <div className="flex items-center justify-between">
+        <p className="text-xs text-zinc-400 font-semibold">{totalDisputes} total · Page {page} of {Math.max(totalPages, 1)}</p>
+        <div className="flex items-center gap-1">
+          {page > 1 ? (
+            <Link href={`/admin/disputes?filter=${filter}&page=${page - 1}`}
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-200 text-zinc-600 hover:border-zinc-400 transition-colors">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </Link>
+          ) : (
+            <span className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-100 text-zinc-300 cursor-not-allowed">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </span>
+          )}
+          <span className="text-xs font-bold text-zinc-600 px-2">{page} / {Math.max(totalPages, 1)}</span>
+          {page < totalPages ? (
+            <Link href={`/admin/disputes?filter=${filter}&page=${page + 1}`}
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-200 text-zinc-600 hover:border-zinc-400 transition-colors">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </Link>
+          ) : (
+            <span className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-100 text-zinc-300 cursor-not-allowed">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </span>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

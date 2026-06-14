@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition, useEffect } from "react";
+import { useState, useTransition, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -246,6 +246,8 @@ export default function PropertiesClient({
       ? `Verified listings in ${lga} — no agents, no markups`
       : "Verified homes for rent and sale across Lagos — no agents, no markups";
 
+  const [searchModalOpen, setSearchModalOpen] = useState(false);
+
   return (
     <div>
       {children}
@@ -260,28 +262,94 @@ export default function PropertiesClient({
             </h1>
             <p className="mt-1.5 text-zinc-500 text-sm">{headingSubtitle}</p>
           </div>
-          {isHomePage ? (
-            <Link
-              href="/properties"
-              className="shrink-0 flex items-center gap-1.5 rounded-full border border-zinc-200 px-5 py-2.5 text-sm font-semibold text-zinc-700 hover:border-zinc-400 hover:text-zinc-900 transition-colors"
-            >
-              Explore All
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-              </svg>
-            </Link>
-          ) : (
+          <div className="flex items-center gap-2 shrink-0">
+            {/* Search icon button */}
             <button
-              onClick={clearSearch}
-              className="shrink-0 flex items-center gap-1.5 rounded-full border border-zinc-200 px-5 py-2.5 text-sm font-semibold text-zinc-700 hover:border-zinc-400 hover:text-zinc-900 transition-colors"
+              onClick={() => setSearchModalOpen(true)}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 text-zinc-600 hover:border-zinc-400 hover:text-zinc-900 transition-colors"
+              aria-label="Search properties"
             >
-              Explore All
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
               </svg>
             </button>
-          )}
+            {isHomePage ? (
+              <Link
+                href="/properties"
+                className="flex items-center gap-1.5 rounded-full border border-zinc-200 px-5 py-2.5 text-sm font-semibold text-zinc-700 hover:border-zinc-400 hover:text-zinc-900 transition-colors"
+              >
+                Explore All
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+                </svg>
+              </Link>
+            ) : (
+              <button
+                onClick={clearSearch}
+                className="flex items-center gap-1.5 rounded-full border border-zinc-200 px-5 py-2.5 text-sm font-semibold text-zinc-700 hover:border-zinc-400 hover:text-zinc-900 transition-colors"
+              >
+                Explore All
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+                </svg>
+              </button>
+            )}
+          </div>
         </div>
+
+        {/* ── Search modal ── */}
+        {searchModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm" onClick={() => setSearchModalOpen(false)}>
+            <div className="bg-white rounded-2xl border border-zinc-200 w-full max-w-lg p-6" onClick={(e) => e.stopPropagation()}>
+              <div className="flex items-center justify-between mb-5">
+                <p className="text-base font-extrabold text-zinc-900">Search Properties</p>
+                <button onClick={() => setSearchModalOpen(false)} className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-zinc-100 transition-colors text-zinc-400">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                  </svg>
+                </button>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+                <FilterField label="Location" icon={<LocationIcon />}>
+                  <select value={lga} onChange={(e) => setLga(e.target.value)} className="w-full bg-transparent text-sm font-semibold text-zinc-800 outline-none cursor-pointer">
+                    <option value="">All Lagos LGAs</option>
+                    {LAGOS_LGAS.map((l) => <option key={l} value={l}>{l}</option>)}
+                  </select>
+                </FilterField>
+                <FilterField label="Listing Type" icon={<TagIcon />}>
+                  <select value={listingType} onChange={(e) => setListingType(e.target.value)} className="w-full bg-transparent text-sm font-semibold text-zinc-800 outline-none cursor-pointer">
+                    {LISTING_TYPES.map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}
+                  </select>
+                </FilterField>
+                <FilterField label="Property Type" icon={<HomeIcon />}>
+                  <select value={propertyType} onChange={(e) => setPropertyType(e.target.value)} className="w-full bg-transparent text-sm font-semibold text-zinc-800 outline-none cursor-pointer">
+                    <option value="">Any Type</option>
+                    {PROPERTY_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+                  </select>
+                </FilterField>
+                <FilterField label="Price Range" icon={<PriceIcon />}>
+                  <select value={priceRange} onChange={(e) => setPriceRange(e.target.value)} className="w-full bg-transparent text-sm font-semibold text-zinc-800 outline-none cursor-pointer">
+                    {PRICE_RANGES.map((r) => <option key={r.value} value={r.value}>{r.label}</option>)}
+                  </select>
+                </FilterField>
+              </div>
+              <div className="flex items-center gap-3">
+                <button onClick={() => { setSearchModalOpen(false); applySearch(); }} disabled={isPending}
+                  className="flex-1 flex items-center justify-center gap-2 rounded-full bg-zinc-900 px-6 py-3 text-sm font-bold text-white hover:bg-zinc-700 transition-colors disabled:opacity-50">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                  </svg>
+                  Search
+                </button>
+                {isFiltered && (
+                  <button onClick={() => { setSearchModalOpen(false); clearSearch(); }} className="text-sm font-semibold text-zinc-500 hover:text-zinc-900 transition-colors">
+                    Clear
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* ── Listing type tabs ── */}
         <div className="flex items-center gap-2 mb-8 overflow-x-auto pb-1">
@@ -308,20 +376,30 @@ export default function PropertiesClient({
           ))}
         </div>
 
-        {/* ── Property grid ── */}
+        {/* ── Property grid / mobile carousel ── */}
         {initialProperties.length === 0 ? (
           <EmptyState onClear={clearSearch} isFiltered={isFiltered} />
         ) : (
-          <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 transition-opacity ${isPending ? "opacity-50" : "opacity-100"}`}>
-            {initialProperties.map((property) => (
-              <PropertyCard
-                key={property.id}
-                property={property}
-                isSaved={savedIds.has(property.id)}
-                onSave={() => toggleSave(property.id)}
-              />
-            ))}
-          </div>
+          <>
+            {/* Desktop: 3-col grid */}
+            <div className={`hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-5 transition-opacity ${isPending ? "opacity-50" : "opacity-100"}`}>
+              {initialProperties.map((property) => (
+                <PropertyCard
+                  key={property.id}
+                  property={property}
+                  isSaved={savedIds.has(property.id)}
+                  onSave={() => toggleSave(property.id)}
+                />
+              ))}
+            </div>
+            {/* Mobile: auto-scrolling carousel */}
+            <MobileCarousel
+              properties={initialProperties}
+              savedIds={savedIds}
+              onSave={toggleSave}
+              isPending={isPending}
+            />
+          </>
         )}
 
         {/* ── Pagination ── */}
@@ -392,7 +470,7 @@ export default function PropertiesClient({
 
         {/* ── Search / Filter bar ── */}
         <div className="mt-12">
-          <div className="bg-white rounded-2xl border border-zinc-100 shadow-sm p-6">
+          <div className="bg-white rounded-2xl border border-zinc-200 p-6">
             <h2 className="text-base font-extrabold text-zinc-900 mb-5">Refine your search</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <FilterField label="Location" icon={<LocationIcon />}>
@@ -523,6 +601,103 @@ function PropertyCard({ property, isSaved, onSave }: { property: Property; isSav
         </div>
       </div>
     </Link>
+  );
+}
+
+// ── Mobile Carousel ────────────────────────────────────────────────────────
+
+function MobileCarousel({
+  properties,
+  savedIds,
+  onSave,
+  isPending,
+}: {
+  properties: Property[];
+  savedIds: Set<string>;
+  onSave: (id: string) => void;
+  isPending: boolean;
+}) {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const autoScrollRef = useRef<NodeJS.Timeout | null>(null);
+
+  const updateScrollState = useCallback(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 8);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 8);
+  }, []);
+
+  // Auto-scroll every 3s, pauses on user interaction
+  const startAutoScroll = useCallback(() => {
+    if (autoScrollRef.current) clearInterval(autoScrollRef.current);
+    autoScrollRef.current = setInterval(() => {
+      const el = trackRef.current;
+      if (!el) return;
+      const cardW = el.firstElementChild ? (el.firstElementChild as HTMLElement).offsetWidth + 16 : 300;
+      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 8;
+      el.scrollBy({ left: atEnd ? -el.scrollWidth : cardW, behavior: "smooth" });
+    }, 3000);
+  }, []);
+
+  const resetAutoScroll = useCallback(() => {
+    if (autoScrollRef.current) clearInterval(autoScrollRef.current);
+    // Restart after 5s of inactivity
+    setTimeout(startAutoScroll, 5000);
+  }, [startAutoScroll]);
+
+  useEffect(() => {
+    startAutoScroll();
+    return () => { if (autoScrollRef.current) clearInterval(autoScrollRef.current); };
+  }, [startAutoScroll]);
+
+  function scrollBy(dir: "left" | "right") {
+    const el = trackRef.current;
+    if (!el) return;
+    const cardW = el.firstElementChild ? (el.firstElementChild as HTMLElement).offsetWidth + 16 : 300;
+    el.scrollBy({ left: dir === "right" ? cardW : -cardW, behavior: "smooth" });
+    resetAutoScroll();
+  }
+
+  return (
+    <div className={`sm:hidden relative transition-opacity ${isPending ? "opacity-50" : "opacity-100"}`}>
+      {/* Left arrow */}
+      <button
+        onClick={() => scrollBy("left")}
+        aria-label="Scroll left"
+        className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white border border-zinc-200 text-zinc-600 hover:border-zinc-400 transition-all ${canScrollLeft ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+
+      {/* Track */}
+      <div
+        ref={trackRef}
+        onScroll={updateScrollState}
+        className="flex gap-4 overflow-x-auto pb-3 snap-x snap-mandatory scroll-smooth"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
+        {properties.map((property) => (
+          <div key={property.id} className="snap-start shrink-0 w-[82vw] max-w-[320px]">
+            <PropertyCard
+              property={property}
+              isSaved={savedIds.has(property.id)}
+              onSave={() => onSave(property.id)}
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Right arrow */}
+      <button
+        onClick={() => scrollBy("right")}
+        aria-label="Scroll right"
+        className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white border border-zinc-200 text-zinc-600 hover:border-zinc-400 transition-all ${canScrollRight ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
   );
 }
 

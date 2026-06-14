@@ -40,7 +40,7 @@ export default function ResolveDisputeModal({ disputeId }: { disputeId: string }
 
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl border border-zinc-200 p-6 w-full max-w-md shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+          <div className="bg-white rounded-2xl border border-zinc-200 p-6 w-full max-w-md animate-in fade-in zoom-in-95 duration-200">
             <h3 className="text-lg font-extrabold text-zinc-900">Resolve Dispute</h3>
             <p className="text-sm text-zinc-500 mt-2 mb-4">Enter the final resolution for this dispute. This will be visible to both parties.</p>
 

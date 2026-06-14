@@ -1,12 +1,16 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
-import Pagination from "../components/Pagination";
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 export default async function AdminAuditPage({
   searchParams,
 }: {
   searchParams: Promise<{ page?: string }>;
 }) {
+  const session = await auth();
+  if (!session?.user?.id) redirect("/auth/login");
+
   const params = await searchParams;
   const page = Number(params?.page) || 1;
   const limit = 20;
@@ -41,6 +45,8 @@ export default async function AdminAuditPage({
     FLAG: "bg-amber-100 text-amber-700",
     APPROVE: "bg-emerald-100 text-emerald-700",
     REJECT: "bg-red-100 text-red-700",
+    PAYMENT: "bg-blue-100 text-blue-700",
+    ACCESS: "bg-zinc-100 text-zinc-500",
   };
 
   return (
@@ -64,7 +70,7 @@ export default async function AdminAuditPage({
                 <th className="text-left px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Actor</th>
                 <th className="text-left px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Action</th>
                 <th className="text-left px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Entity</th>
-                <th className="text-left px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-zinc-400">ID</th>
+                <th className="text-right px-5 py-3 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Detail</th>
               </tr>
             </thead>
             <tbody>
@@ -85,8 +91,16 @@ export default async function AdminAuditPage({
                     </span>
                   </td>
                   <td className="px-5 py-3 text-sm font-semibold text-zinc-600">{log.entity}</td>
-                  <td className="px-5 py-3 text-[10px] font-mono text-zinc-300 truncate max-w-[100px]">
-                    {log.entityId.slice(0, 12)}…
+                  <td className="px-5 py-3 text-right">
+                    <Link
+                      href={`/admin/audit/${log.id}`}
+                      className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-200 text-zinc-500 hover:border-zinc-400 hover:text-zinc-900 transition-colors ml-auto"
+                      title="View event details"
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                      </svg>
+                    </Link>
                   </td>
                 </tr>
               ))}
@@ -100,9 +114,34 @@ export default async function AdminAuditPage({
             </tbody>
           </table>
         </div>
+        {/* Always-visible pagination */}
+        <div className="px-5 py-3 border-t border-zinc-100 flex items-center justify-between">
+          <p className="text-xs text-zinc-400 font-semibold">{totalLogs} total · Page {page} of {Math.max(totalPages, 1)}</p>
+          <div className="flex items-center gap-1">
+            {page > 1 ? (
+              <Link href={`/admin/audit?page=${page - 1}`}
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-200 text-zinc-600 hover:border-zinc-400 transition-colors">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </Link>
+            ) : (
+              <span className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-100 text-zinc-300 cursor-not-allowed">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </span>
+            )}
+            <span className="text-xs font-bold text-zinc-600 px-2">{page} / {Math.max(totalPages, 1)}</span>
+            {page < totalPages ? (
+              <Link href={`/admin/audit?page=${page + 1}`}
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-200 text-zinc-600 hover:border-zinc-400 transition-colors">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </Link>
+            ) : (
+              <span className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-100 text-zinc-300 cursor-not-allowed">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </span>
+            )}
+          </div>
+        </div>
       </div>
-
-      <Pagination totalPages={totalPages} />
     </div>
   );
 }

@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import Link from "next/link";
 import ActionModal from "../components/ActionModal";
-import { verifyUser, flagUser } from "../actions";
+import { verifyUser, flagUser, softDeleteUser } from "../actions";
 
 type User = {
   id: string;
@@ -14,6 +15,7 @@ type User = {
   isVerified: boolean;
   verificationTier: number;
   onboardingCompleted: boolean;
+  deletedAt: Date | string | null;
   createdAt: Date | string;
   _count: {
     ownedProperties: number;
@@ -91,15 +93,15 @@ export default function UsersListClient({
           <p className="text-sm text-zinc-400 mt-1">Manage, verify, and monitor users on the platform.</p>
         </div>
         <div className="flex items-center gap-4 flex-wrap">
-          <div className="flex items-center gap-2 text-xs font-bold bg-white px-4 py-2 rounded-full border border-zinc-200 shadow-sm">
+          <div className="flex items-center gap-2 text-xs font-bold bg-white px-4 py-2 rounded-full border border-zinc-200">
             <span className="flex h-2 w-2 rounded-full bg-zinc-400" />
             <span className="text-zinc-600">{totalCount} Total</span>
           </div>
-          <div className="flex items-center gap-2 text-xs font-bold bg-white px-4 py-2 rounded-full border border-zinc-200 shadow-sm">
+          <div className="flex items-center gap-2 text-xs font-bold bg-white px-4 py-2 rounded-full border border-zinc-200">
             <span className="flex h-2 w-2 rounded-full bg-emerald-500" />
             <span className="text-zinc-600">{verifiedCount} Verified</span>
           </div>
-          <div className="flex items-center gap-2 text-xs font-bold bg-white px-4 py-2 rounded-full border border-zinc-200 shadow-sm">
+          <div className="flex items-center gap-2 text-xs font-bold bg-white px-4 py-2 rounded-full border border-zinc-200">
             <span className="flex h-2 w-2 rounded-full bg-zinc-300" />
             <span className="text-zinc-600">{unverifiedCount} Unverified</span>
           </div>
@@ -107,7 +109,7 @@ export default function UsersListClient({
       </div>
 
       {/* Filters & Search */}
-      <div className="bg-white p-4 rounded-2xl border border-zinc-200 flex flex-col md:flex-row gap-4 items-center shadow-sm">
+      <div className="bg-white p-4 rounded-2xl border border-zinc-200 flex flex-col md:flex-row gap-4 items-center">
         <div className="relative flex-1 w-full">
           <svg
             className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400"
@@ -156,28 +158,29 @@ export default function UsersListClient({
             <option value="verified">Verified</option>
             <option value="unverified">Unverified</option>
             <option value="onboarding">Onboarding</option>
+            <option value="deleted">Deleted</option>
           </select>
         </div>
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-sm">
+      <div className="bg-white rounded-2xl border border-zinc-200 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse min-w-[800px]">
             <thead>
-              <tr className="bg-zinc-50/50 border-b border-zinc-100">
-                <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-zinc-400">User</th>
-                <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Roles</th>
-                <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Status</th>
-                <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Properties</th>
-                <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Joined</th>
-                <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-zinc-400 text-right">Actions</th>
+              <tr className="border-b border-zinc-100">
+                <th className="px-6 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-zinc-400">User</th>
+                <th className="px-6 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-zinc-400">Roles</th>
+                <th className="px-6 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-zinc-400">Status</th>
+                <th className="px-6 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-zinc-400">Properties</th>
+                <th className="px-6 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-zinc-400">Joined</th>
+                <th className="px-6 py-3 text-right text-[10px] font-bold uppercase tracking-widest text-zinc-400">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-50">
               {users.map((user) => (
-                <tr key={user.id} className="hover:bg-zinc-50/50 transition-colors group">
-                  <td className="px-6 py-4">
+                <tr key={user.id} className="hover:bg-zinc-50 transition-colors">
+                  <td className="px-6 py-3">
                     <div className="flex flex-col">
                       <span className="text-sm font-bold text-zinc-900">{user.fullName}</span>
                       <span className="text-xs text-zinc-500 font-medium">{user.email}</span>
@@ -186,7 +189,7 @@ export default function UsersListClient({
                       )}
                     </div>
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-3">
                     <div className="flex flex-wrap gap-1">
                       {user.roles.map((r) => (
                         <span
@@ -206,7 +209,7 @@ export default function UsersListClient({
                       ))}
                     </div>
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-3">
                     <div className="flex flex-col gap-1 items-start">
                       <span
                         className={`text-[9px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full ${
@@ -224,34 +227,64 @@ export default function UsersListClient({
                       )}
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-sm font-bold text-zinc-700">
+                  <td className="px-6 py-3 text-sm font-bold text-zinc-700">
                     {user._count.ownedProperties}
                   </td>
-                  <td className="px-6 py-4 text-xs text-zinc-400 font-medium">
+                  <td className="px-6 py-3 text-xs text-zinc-400 font-medium">
                     {new Date(user.createdAt).toLocaleDateString("en-NG", {
                       day: "numeric",
                       month: "short",
                       year: "numeric",
                     })}
                   </td>
-                  <td className="px-6 py-4 text-right">
+                  <td className="px-6 py-3 text-right">
                     <div className="flex items-center justify-end gap-2">
-                      {!user.isVerified ? (
-                        <ActionModal
-                          title="Verify User"
-                          description={`Are you sure you want to manually verify ${user.fullName}? They will receive a Trusted Badge.`}
-                          triggerLabel="Verify"
-                          action={() => verifyUser(user.id)}
-                        />
+                      {/* Eye — view detail */}
+                      <Link
+                        href={`/admin/users/${user.id}`}
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-200 text-zinc-500 hover:border-zinc-400 hover:text-zinc-900 transition-colors"
+                        title="View user details"
+                      >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                        </svg>
+                      </Link>
+                      {!user.deletedAt ? (
+                        <>
+                          {!user.isVerified ? (
+                            <ActionModal
+                              title="Verify User"
+                              description={`Are you sure you want to manually verify ${user.fullName}? They will receive a Trusted Badge.`}
+                              triggerLabel="Verify"
+                              action={() => verifyUser(user.id)}
+                            />
+                          ) : (
+                            <ActionModal
+                              title="Revoke Verification"
+                              description={`Are you sure you want to revoke ${user.fullName}'s verified status?`}
+                              triggerLabel="Revoke"
+                              triggerClass="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border border-red-200 text-red-500 hover:border-red-600 hover:text-red-600 hover:bg-red-50/30 transition-colors"
+                              action={() => flagUser(user.id)}
+                              destructive
+                            />
+                          )}
+                          {/* Delete */}
+                          <ActionModal
+                            title="Delete Account"
+                            description={`Soft-delete ${user.fullName}'s account? They will lose access but can contact support to restore it.`}
+                            triggerLabel=""
+                            triggerClass="flex h-8 w-8 items-center justify-center rounded-full border border-red-200 text-red-400 hover:border-red-400 hover:bg-red-50 transition-colors"
+                            triggerIcon={
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+                              </svg>
+                            }
+                            action={() => softDeleteUser(user.id)}
+                            destructive
+                          />
+                        </>
                       ) : (
-                        <ActionModal
-                          title="Revoke Verification"
-                          description={`Are you sure you want to revoke ${user.fullName}'s verified status?`}
-                          triggerLabel="Revoke"
-                          triggerClass="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border border-red-200 text-red-500 hover:border-red-600 hover:text-red-600 hover:bg-red-50/30 transition-colors"
-                          action={() => flagUser(user.id)}
-                          destructive
-                        />
+                        <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full bg-red-50 text-red-400">Deleted</span>
                       )}
                     </div>
                   </td>
@@ -281,25 +314,26 @@ export default function UsersListClient({
           </div>
         )}
 
-        {/* Pagination Container (Rendered Unconditionally) */}
-        <div className="px-6 py-4 bg-zinc-50/50 border-t border-zinc-100 flex items-center justify-between shadow-sm">
+        {/* Pagination — always visible */}
+        <div className="px-6 py-4 border-t border-zinc-100 flex items-center justify-between">
           <p className="text-xs font-semibold text-zinc-500">
-            Page {currentPage} of {Math.max(totalPages, 1)}
+            {totalCount} total · Page {currentPage} of {Math.max(totalPages, 1)}
           </p>
-          <div className="flex gap-2">
+          <div className="flex items-center gap-1">
             <button
               disabled={currentPage <= 1}
               onClick={() => handlePageChange(currentPage - 1)}
-              className="px-4 py-2 rounded-xl border border-zinc-200 text-xs font-bold bg-white text-zinc-600 hover:bg-zinc-50 hover:text-zinc-950 disabled:opacity-50 disabled:hover:bg-white disabled:hover:text-zinc-600 transition-colors shadow-sm cursor-pointer disabled:cursor-not-allowed"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-200 text-zinc-600 hover:border-zinc-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
-              Previous
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
+            <span className="text-xs font-bold text-zinc-600 px-2">{currentPage} / {Math.max(totalPages, 1)}</span>
             <button
               disabled={currentPage >= totalPages}
               onClick={() => handlePageChange(currentPage + 1)}
-              className="px-4 py-2 rounded-xl border border-zinc-200 text-xs font-bold bg-white text-zinc-600 hover:bg-zinc-50 hover:text-zinc-950 disabled:opacity-50 disabled:hover:bg-white disabled:hover:text-zinc-600 transition-colors shadow-sm cursor-pointer disabled:cursor-not-allowed"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-200 text-zinc-600 hover:border-zinc-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
-              Next
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
             </button>
           </div>
         </div>

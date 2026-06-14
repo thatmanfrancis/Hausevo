@@ -2,7 +2,6 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import Pagination from "../components/Pagination";
 import ActionModal from "../components/ActionModal";
 import { approveProperty, flagProperty } from "../actions";
 
@@ -71,21 +70,32 @@ export default async function AdminPropertiesPage({
         <p className="text-sm text-zinc-500 mt-1">{totalProperties.toLocaleString()} listings found.</p>
       </div>
 
-      {/* Filters */}
-      <div className="flex gap-2 flex-wrap">
-        {["ALL", "PENDING", "AVAILABLE", "RENTED", "FLAGGED"].map((s) => (
-          <Link 
-            key={s} 
-            href={`/admin/properties?filter=${s}`}
-            className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border transition-colors ${
-              filter === s 
-                ? "bg-zinc-900 text-white border-zinc-900" 
-                : "border-zinc-200 text-zinc-500 hover:border-zinc-900 hover:text-zinc-900"
-            }`}
-          >
-            {s}
-          </Link>
-        ))}
+      <div className="flex items-center justify-between gap-4 flex-wrap">
+        {/* Filters */}
+        <div className="flex gap-2 flex-wrap">
+          {["ALL", "PENDING", "AVAILABLE", "RENTED", "FLAGGED"].map((s) => (
+            <Link 
+              key={s} 
+              href={`/admin/properties?filter=${s}`}
+              className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border transition-colors ${
+                filter === s 
+                  ? "bg-zinc-900 text-white border-zinc-900" 
+                  : "border-zinc-200 text-zinc-500 hover:border-zinc-900 hover:text-zinc-900"
+              }`}
+            >
+              {s}
+            </Link>
+          ))}
+        </div>
+        <Link
+          href="/admin/properties/new"
+          className="rounded-full bg-zinc-900 text-white px-4 py-2 text-xs font-bold hover:bg-zinc-700 transition-colors flex items-center gap-1.5 shrink-0"
+        >
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          Create Listing
+        </Link>
       </div>
 
       <div className="bg-white rounded-2xl border border-zinc-200 overflow-hidden">
@@ -170,9 +180,34 @@ export default async function AdminPropertiesPage({
             </tbody>
           </table>
         </div>
+        {/* Always-visible pagination */}
+        <div className="px-5 py-3 border-t border-zinc-100 flex items-center justify-between">
+          <p className="text-xs text-zinc-400 font-semibold">{totalProperties} total · Page {page} of {Math.max(totalPages, 1)}</p>
+          <div className="flex items-center gap-1">
+            {page > 1 ? (
+              <Link href={`/admin/properties?filter=${filter}&page=${page - 1}`}
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-200 text-zinc-600 hover:border-zinc-400 transition-colors">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </Link>
+            ) : (
+              <span className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-100 text-zinc-300 cursor-not-allowed">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </span>
+            )}
+            <span className="text-xs font-bold text-zinc-600 px-2">{page} / {Math.max(totalPages, 1)}</span>
+            {page < totalPages ? (
+              <Link href={`/admin/properties?filter=${filter}&page=${page + 1}`}
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-200 text-zinc-600 hover:border-zinc-400 transition-colors">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </Link>
+            ) : (
+              <span className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-100 text-zinc-300 cursor-not-allowed">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </span>
+            )}
+          </div>
+        </div>
       </div>
-
-      <Pagination totalPages={totalPages} />
     </div>
   );
 }

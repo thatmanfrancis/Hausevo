@@ -65,6 +65,7 @@ export default async function AdminArtisansPage(props: {
   return (
     <ArtisansListClient
       artisans={artisans as any}
+      totalCount={totalCount}
       totalPages={totalPages}
       currentPage={page}
       categories={categories}

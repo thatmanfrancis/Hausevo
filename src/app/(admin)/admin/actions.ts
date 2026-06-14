@@ -107,29 +107,41 @@ export async function flagProperty(id: string) {
 export async function updatePropertyDetails(id: string, data: any) {
   try {
     const adminId = await requireAdmin();
-    
-    // Validate data and restrict to specific fields
-    const updateData = {
-      title: data.title,
-      pricePerYear: parseFloat(data.pricePerYear),
-      totalPackage: parseFloat(data.totalPackage),
-      healthScore: parseInt(data.healthScore, 10),
-      deedVerified: data.deedVerified,
-      priceVerified: data.priceVerified,
-      // Wait, description doesn't exist on Property model. I need to omit it or use metadata.
-      // Let's store description in metadata if needed, but the UI is showing description?
-      // Ah! Earlier I found description doesn't exist. I'll omit it from here too.
-    };
 
-    if (isNaN(updateData.pricePerYear) || isNaN(updateData.totalPackage) || isNaN(updateData.healthScore)) {
+    const pricePerYear = parseFloat(data.pricePerYear);
+    const totalPackage = parseFloat(data.totalPackage);
+    const healthScore = parseInt(data.healthScore, 10);
+
+    if (isNaN(pricePerYear) || isNaN(totalPackage) || isNaN(healthScore)) {
       throw new Error("Invalid number formats provided");
     }
 
-    const before = await prisma.property.findUnique({ where: { id } });
-    
+    // Fetch existing metadata so we can merge rather than overwrite
+    const existing = await prisma.property.findUnique({ where: { id }, select: { metadata: true } });
+    const existingMeta = (existing?.metadata as Record<string, unknown>) ?? {};
+
     await prisma.property.update({
       where: { id },
-      data: updateData,
+      data: {
+        title: data.title,
+        address: data.address,
+        lga: data.lga,
+        listingType: data.listingType as any,
+        status: data.status as any,
+        pricePerYear,
+        totalPackage,
+        healthScore,
+        deedVerified: data.deedVerified,
+        priceVerified: data.priceVerified,
+        metadata: {
+          ...existingMeta,
+          propertyType: data.propertyType ?? existingMeta.propertyType ?? null,
+          bedrooms: data.bedrooms != null ? data.bedrooms : (existingMeta.bedrooms ?? null),
+          bathrooms: data.bathrooms != null ? data.bathrooms : (existingMeta.bathrooms ?? null),
+          amenities: data.amenities ?? existingMeta.amenities ?? null,
+          description: data.description ?? existingMeta.description ?? null,
+        },
+      },
     });
 
     await prisma.auditLog.create({
@@ -138,7 +150,7 @@ export async function updatePropertyDetails(id: string, data: any) {
         action: "UPDATE" as any,
         entity: "Property",
         entityId: id,
-      }
+      },
     });
 
     revalidatePath(`/admin/properties/${id}`);
@@ -384,5 +396,331 @@ export async function rejectUserIdDoc(userId: string) {
     return { success: true };
   } catch (e) {
     return { success: false, message: e instanceof Error ? e.message : "Failed" };
+  }
+}
+
+// ── Soft Delete User ──
+export async function softDeleteUser(id: string) {
+  try {
+    const adminId = await requireAdmin();
+    await prisma.user.update({ where: { id }, data: { deletedAt: new Date() } });
+    await logAudit(adminId, "DELETE", "User", id);
+    revalidatePath("/admin/users");
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed" };
+  }
+}
+
+export async function restoreUser(id: string) {
+  try {
+    const adminId = await requireAdmin();
+    await prisma.user.update({ where: { id }, data: { deletedAt: null } });
+    await logAudit(adminId, "UPDATE", "User", id);
+    revalidatePath("/admin/users");
+    revalidatePath(`/admin/users/${id}`);
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed" };
+  }
+}
+
+// ── Admin Create Property ──
+export async function adminCreateProperty(data: {
+  title: string;
+  address: string;
+  lga: string;
+  state: string;
+  listingType: string;
+  pricePerYear: number;
+  totalPackage: number;
+  landlordId: string;
+  bedrooms?: number;
+  bathrooms?: number;
+  propertyType?: string;
+  status?: string;
+  imageUrls?: string[];
+  amenities?: string[];
+  description?: string;
+}) {
+  try {
+    const adminId = await requireAdmin();
+    const resolvedLandlordId = data.landlordId === "__admin__" ? adminId : data.landlordId;
+    const property = await prisma.property.create({
+      data: {
+        title: data.title,
+        address: data.address,
+        lga: data.lga,
+        state: data.state || "Lagos",
+        listingType: data.listingType as any,
+        pricePerYear: data.pricePerYear,
+        totalPackage: data.totalPackage,
+        status: (data.status as any) || "AVAILABLE",
+        landlordId: resolvedLandlordId,
+        metadata: {
+          bedrooms: data.bedrooms ?? null,
+          bathrooms: data.bathrooms ?? null,
+          propertyType: data.propertyType ?? null,
+          amenities: data.amenities ?? null,
+          description: data.description ?? null,
+        },
+      },
+    });
+
+    // Create PropertyImage records for each uploaded URL
+    if (data.imageUrls && data.imageUrls.length > 0) {
+      await prisma.propertyImage.createMany({
+        data: data.imageUrls.map((url, order) => ({
+          propertyId: property.id,
+          url,
+          isPrimary: order === 0,
+          order,
+        })),
+      });
+    }
+
+    await logAudit(adminId, "CREATE", "Property", property.id);
+    revalidatePath("/admin/properties");
+    return { success: true, propertyId: property.id };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed to create property" };
+  }
+}
+
+// ── Admin Create Artisan ──
+export async function adminCreateArtisan(data: {
+  fullName: string;
+  email: string;
+  phoneNumber?: string;
+  category: string;
+  yearsOfExperience: number;
+  startingPrice: number;
+  bio?: string;
+}) {
+  try {
+    const adminId = await requireAdmin();
+
+    // Check email not taken
+    const existing = await prisma.user.findUnique({ where: { email: data.email } });
+    if (existing) return { success: false, message: "A user with this email already exists." };
+
+    const user = await prisma.user.create({
+      data: {
+        fullName: data.fullName,
+        email: data.email,
+        phoneNumber: data.phoneNumber || null,
+        roles: ["ARTISAN"],
+        onboardingCompleted: true,
+      },
+    });
+
+    const profile = await prisma.artisanProfile.create({
+      data: {
+        userId: user.id,
+        category: data.category as any,
+        yearsOfExperience: data.yearsOfExperience,
+        startingPrice: data.startingPrice,
+        bio: data.bio || null,
+      },
+    });
+
+    await logAudit(adminId, "CREATE", "ArtisanProfile", profile.id);
+    revalidatePath("/admin/artisans");
+    return { success: true, userId: user.id, profileId: profile.id };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed to create artisan" };
+  }
+}
+
+// ── Admin Create Maintenance Job ──
+export async function adminCreateMaintenanceJob(data: {
+  propertyId: string;
+  title: string;
+  description: string;
+  artisanId?: string;
+  cost?: number;
+}) {
+  try {
+    const adminId = await requireAdmin();
+    const job = await prisma.maintenanceJob.create({
+      data: {
+        propertyId: data.propertyId,
+        title: data.title,
+        description: data.description,
+        artisanId: data.artisanId || null,
+        cost: data.cost || null,
+        status: data.artisanId ? "ASSIGNED" : "OPEN",
+      },
+    });
+    await logAudit(adminId, "CREATE", "MaintenanceJob", job.id);
+    revalidatePath("/admin/maintenance");
+    return { success: true, jobId: job.id };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed to create job" };
+  }
+}
+
+export async function adminUpdateMaintenanceJob(id: string, data: { status?: string; artisanId?: string; cost?: number }) {
+  try {
+    const adminId = await requireAdmin();
+    await prisma.maintenanceJob.update({
+      where: { id },
+      data: {
+        ...(data.status ? { status: data.status as any } : {}),
+        ...(data.artisanId !== undefined ? { artisanId: data.artisanId || null } : {}),
+        ...(data.cost !== undefined ? { cost: data.cost } : {}),
+      },
+    });
+    await logAudit(adminId, "UPDATE", "MaintenanceJob", id);
+    revalidatePath("/admin/maintenance");
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed to update job" };
+  }
+}
+
+// ── Admin Create Dispute ──
+export async function adminCreateDispute(data: {
+  raisedById: string;
+  againstId: string;
+  type: string;
+  description: string;
+  propertyId?: string;
+}) {
+  try {
+    const adminId = await requireAdmin();
+    const dispute = await prisma.dispute.create({
+      data: {
+        raisedById: data.raisedById,
+        againstId: data.againstId,
+        type: data.type as any,
+        description: data.description,
+        propertyId: data.propertyId || null,
+        status: "OPEN",
+      },
+    });
+    await logAudit(adminId, "CREATE", "Dispute", dispute.id);
+    revalidatePath("/admin/disputes");
+    return { success: true, disputeId: dispute.id };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed to create dispute" };
+  }
+}
+
+// ── Admin Create Support Ticket ──
+export async function adminCreateSupportTicket(data: {
+  userId: string;
+  subject: string;
+  priority: string;
+  message: string;
+}) {
+  try {
+    const adminId = await requireAdmin();
+    const ticket = await prisma.supportTicket.create({
+      data: {
+        userId: data.userId,
+        subject: data.subject,
+        priority: data.priority as any,
+        status: "OPEN",
+      },
+    });
+    await prisma.supportMessage.create({
+      data: {
+        ticketId: ticket.id,
+        senderId: adminId,
+        content: data.message,
+      },
+    });
+    await logAudit(adminId, "CREATE", "SupportTicket", ticket.id);
+    revalidatePath("/admin/support");
+    return { success: true, ticketId: ticket.id };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed to create ticket" };
+  }
+}
+
+export async function adminReplyToTicket(ticketId: string, content: string) {
+  try {
+    const adminId = await requireAdmin();
+    await prisma.supportMessage.create({
+      data: { ticketId, senderId: adminId, content },
+    });
+    await prisma.supportTicket.update({
+      where: { id: ticketId },
+      data: { status: "IN_PROGRESS", assigneeId: adminId },
+    });
+    await logAudit(adminId, "UPDATE", "SupportTicket", ticketId);
+    revalidatePath(`/admin/support/${ticketId}`);
+    revalidatePath("/admin/support");
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed to reply" };
+  }
+}
+
+export async function adminUpdateSupportTicket(ticketId: string, data: { status?: string; priority?: string; assigneeId?: string }) {
+  try {
+    const adminId = await requireAdmin();
+    await prisma.supportTicket.update({
+      where: { id: ticketId },
+      data: {
+        ...(data.status ? { status: data.status as any } : {}),
+        ...(data.priority ? { priority: data.priority as any } : {}),
+        ...(data.assigneeId !== undefined ? { assigneeId: data.assigneeId || null } : {}),
+      },
+    });
+    await logAudit(adminId, "UPDATE", "SupportTicket", ticketId);
+    revalidatePath(`/admin/support/${ticketId}`);
+    revalidatePath("/admin/support");
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed to update ticket" };
+  }
+}
+
+// ── Boost Property ──
+export async function adminBoostProperty(
+  id: string,
+  data: { durationDays: number; boostLGA?: string }
+) {
+  try {
+    const adminId = await requireAdmin();
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + data.durationDays);
+
+    await prisma.property.update({
+      where: { id },
+      data: {
+        isBoosted: true,
+        boostExpiresAt: expiresAt,
+        boostLGA: data.boostLGA || null,
+      },
+    });
+
+    await logAudit(adminId, "UPDATE", "Property", id);
+    revalidatePath(`/admin/properties/${id}`);
+    revalidatePath("/admin/properties");
+    revalidatePath("/properties");
+    return { success: true, expiresAt };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed to boost" };
+  }
+}
+
+// ── Remove Boost ──
+export async function adminRemoveBoost(id: string) {
+  try {
+    const adminId = await requireAdmin();
+    await prisma.property.update({
+      where: { id },
+      data: { isBoosted: false, boostExpiresAt: null, boostLGA: null },
+    });
+    await logAudit(adminId, "UPDATE", "Property", id);
+    revalidatePath(`/admin/properties/${id}`);
+    revalidatePath("/admin/properties");
+    revalidatePath("/properties");
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed to remove boost" };
   }
 }

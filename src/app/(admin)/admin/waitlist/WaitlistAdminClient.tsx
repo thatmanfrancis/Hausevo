@@ -102,7 +102,7 @@ function BroadcastModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
-      <div className="bg-white rounded-2xl border border-zinc-200 w-full max-w-md shadow-2xl overflow-hidden">
+      <div className="bg-white rounded-2xl border border-zinc-200 w-full max-w-md max-h-[90vh] overflow-hidden flex flex-col">
 
         {/* ── Success ── */}
         {result ? (
@@ -125,7 +125,7 @@ function BroadcastModal({
         ) : (
           <>
             {/* ── Header ── */}
-            <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-zinc-100">
+            <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-zinc-100 shrink-0">
               <div>
                 <p className="text-sm font-extrabold text-zinc-900">
                   {step === 1 ? "Compose email" : "Add image (optional)"}
@@ -152,7 +152,7 @@ function BroadcastModal({
 
             {/* ── Step 1: Audience + content ── */}
             {step === 1 && (
-              <div className="p-6 flex flex-col gap-4">
+              <div className="p-6 flex flex-col gap-4 overflow-y-auto">
                 {/* Audience */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-bold uppercase tracking-widest text-zinc-400">Send to</label>
@@ -215,7 +215,7 @@ function BroadcastModal({
 
             {/* ── Step 2: Image + send ── */}
             {step === 2 && (
-              <div className="p-6 flex flex-col gap-4">
+              <div className="p-6 flex flex-col gap-4 overflow-y-auto">
                 {/* Image upload */}
                 {imageUrl ? (
                   <div className="relative rounded-xl overflow-hidden border border-zinc-200">
@@ -442,23 +442,21 @@ export default function WaitlistAdminClient({
         </div>
       </div>
 
-      {/* Pagination */}
-      {totalPages > 1 && (
-        <div className="flex items-center justify-between">
-          <p className="text-sm text-zinc-500">
-            Showing {((currentPage - 1) * 25) + 1}–{Math.min(currentPage * 25, total)} of {total}
-          </p>
-          <div className="flex items-center gap-1">
-            <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage <= 1 || isPending} className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 text-zinc-600 hover:border-zinc-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
-            </button>
-            <span className="text-sm font-bold text-zinc-700 px-3">{currentPage} / {totalPages}</span>
-            <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage >= totalPages || isPending} className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 text-zinc-600 hover:border-zinc-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
-            </button>
-          </div>
+      {/* Pagination — always visible */}
+      <div className="flex items-center justify-between">
+        <p className="text-sm text-zinc-500">
+          Showing {((currentPage - 1) * 25) + 1}–{Math.min(currentPage * 25, total)} of {total}
+        </p>
+        <div className="flex items-center gap-1">
+          <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage <= 1 || isPending} className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 text-zinc-600 hover:border-zinc-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+          </button>
+          <span className="text-sm font-bold text-zinc-700 px-3">{currentPage} / {Math.max(totalPages, 1)}</span>
+          <button onClick={() => goToPage(currentPage + 1)} disabled={currentPage >= totalPages || isPending} className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 text-zinc-600 hover:border-zinc-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+          </button>
         </div>
-      )}
+      </div>
 
       {/* Broadcast modal */}
       {showBroadcast && (
