@@ -79,4 +79,4 @@ While building Hausevo as a full-stack project, I encountered and successfully r
 
 This project significantly strengthened my ability to take a product from initial concept through to production deployment while maintaining clean architecture and user-focused design.
 
-`Built by [thatmanfrancis](https://x.com/thatmanfrancis)`
+```Built by [thatmanfrancis](https://x.com/thatmanfrancis)
