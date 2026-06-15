@@ -46,32 +46,32 @@ A full-featured property listing and management system built to solve real opera
 
 ## Local Setup
 
-### Clone the repository
+#### Clone the repository
 ```bash
 git clone https://github.com/thatmanfrancis/Hausevo.git
 ```
 
-### Navigate into the project directory
+#### Navigate into the project directory
 ```bash
 cd Hausevo
 ```
 
-### Install dependencies
+#### Install dependencies
 ```bash
 npm install
 ```
 
-### Copy environment variables
+#### Copy environment variables
 ```bash
 cp .env.example .env
 ```
 
-### Run database migrations
+#### Run database migrations
 ```bash
 npx prisma migrate dev
 ```
 
-### Start the development server
+#### Start the development server
 ```bash
 npm run dev
 ```
