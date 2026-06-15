@@ -7,7 +7,6 @@ A full-featured property listing and management system built to solve real opera
 ## Live Demo
 
 - **Website**: [hausevo.com.ng](https://hausevo.com.ng)
-- **Admin Dashboard**: (Add demo login link when ready)
 
 ## Screenshots
 
@@ -47,24 +46,35 @@ A full-featured property listing and management system built to solve real opera
 
 ## Local Setup
 
+### Clone the repository
 ```bash
-# Clone the repository
 git clone https://github.com/thatmanfrancis/Hausevo.git
+```
 
-# Navigate into the project directory
+### Navigate into the project directory
+```bash
 cd Hausevo
+```
 
-# Install dependencies
+### Install dependencies
+```bash
 npm install
+```
 
-# Copy environment variables
+### Copy environment variables
+```bash
 cp .env.example .env
+```
 
-# Run database migrations
+### Run database migrations
+```bash
 npx prisma migrate dev
+```
 
-# Start the development server
+### Start the development server
+```bash
 npm run dev
+```
 
 ## Challenges & Learnings
 
@@ -79,4 +89,4 @@ While building Hausevo as a full-stack project, I encountered and successfully r
 
 This project significantly strengthened my ability to take a product from initial concept through to production deployment while maintaining clean architecture and user-focused design.
 
-```Built by [thatmanfrancis](https://x.com/thatmanfrancis)
+Built by [@thatmanfrancis](https://x.com/thatmanfrancis)
