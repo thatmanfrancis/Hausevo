@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { notify } from "@/lib/notifications";
+import { handleSplitPhoneNumberDetection } from "@/lib/chat-security";
 
 /*
   GET /api/chat/:id/messages
@@ -103,8 +104,15 @@ export async function POST(
     return NextResponse.json({ error: "Message content is required." }, { status: 400 });
   }
 
+  // Intercept and blur/mask any phone number sharing (including split messages)
+  const { processedContent } = await handleSplitPhoneNumberDetection(
+    chatId,
+    userId,
+    content.trim()
+  );
+
   const message = await prisma.message.create({
-    data: { chatId, senderId: userId, content: content.trim() },
+    data: { chatId, senderId: userId, content: processedContent },
     select: {
       id: true, content: true, createdAt: true,
       sender: { select: { id: true, fullName: true } },
@@ -122,7 +130,7 @@ export async function POST(
       notify(
         p.id,
         "New message",
-        `${senderName}: ${content.slice(0, 80)}${content.length > 80 ? "…" : ""}`,
+        `${senderName}: ${processedContent.slice(0, 80)}${processedContent.length > 80 ? "…" : ""}`,
         "SYSTEM",
         { chatId, messageId: message.id }
       )

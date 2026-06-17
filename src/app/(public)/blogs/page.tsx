@@ -4,9 +4,37 @@ import NewsGrid from "./NewsGrid";
 import type { NewsItem } from "./NewsGrid";
 
 export const metadata: Metadata = {
-  title: "Blog — Hausevo",
+  title: "Blog — Lagos Property Market Insights | Hausevo",
   description:
-    "Insights on renting in Nigeria, the Lagos property market, and how Hausevo is changing the game.",
+    "Market data, product updates, and practical guides for tenants and landlords navigating the Nigerian property market. No agents. No guesswork.",
+  alternates: { canonical: "https://hausevo.com.ng/blogs" },
+  openGraph: {
+    title: "Blog — Lagos Property Market Insights | Hausevo",
+    description:
+      "Insights on renting in Nigeria, the Lagos property market, and how Hausevo is changing the game for tenants and landlords.",
+    url: "https://hausevo.com.ng/blogs",
+    siteName: "Hausevo",
+    images: [{ url: "https://hausevo.com.ng/hausevofinal.png", width: 500, height: 500, alt: "Hausevo" }],
+    locale: "en_NG",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog — Lagos Property Market Insights | Hausevo",
+    description: "Market data, guides, and product updates for tenants and landlords in Nigeria.",
+    images: ["https://hausevo.com.ng/hausevofinal.png"],
+    creator: "@hausevong",
+  },
+  keywords: [
+    "Lagos property market",
+    "Nigeria rental news",
+    "renting in Lagos guide",
+    "Hausevo blog",
+    "Nigerian real estate insights",
+    "landlord tenant Nigeria",
+    "agent fees Lagos",
+    "property verification Nigeria",
+  ],
 };
 
 // ── RSS fetch (server-side, no API key needed) ─────────────────────────────

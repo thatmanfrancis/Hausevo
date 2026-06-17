@@ -724,3 +724,167 @@ export async function adminRemoveBoost(id: string) {
     return { success: false, message: e instanceof Error ? e.message : "Failed to remove boost" };
   }
 }
+
+// ── Payments & Transactions ──
+
+export async function updateTransactionStatus(id: string, status: any) {
+  try {
+    const adminId = await requireAdmin();
+
+    const existing = await prisma.transaction.findUnique({
+      where: { id },
+      select: { status: true, amount: true, type: true, userId: true, tenancyId: true },
+    });
+
+    if (!existing) {
+      return { success: false, message: "Transaction not found." };
+    }
+
+    await prisma.$transaction(async (tx) => {
+      // 1. Update the transaction status itself
+      await tx.transaction.update({
+        where: { id },
+        data: { status },
+      });
+
+      // 2. Adjust user wallet balance or verification status if status is transitioning to SUCCESS
+      if (existing.status !== "SUCCESS" && status === "SUCCESS") {
+        if (existing.type === "DEPOSIT") {
+          await tx.user.update({
+            where: { id: existing.userId },
+            data: { walletBalance: { increment: existing.amount } },
+          });
+        } else if (existing.type === "VERIFICATION") {
+          await tx.user.update({
+            where: { id: existing.userId },
+            data: {
+              verificationBundlePaid: true,
+              verificationBundlePaidAt: new Date(),
+              verificationTier: 2,
+              isVerified: true,
+            },
+          });
+        } else if (existing.type === "RENT" && existing.tenancyId) {
+          const schedules = await tx.rentSchedule.findMany({
+            where: { tenancyId: existing.tenancyId, status: "PENDING" },
+            orderBy: { dueDate: "asc" },
+            take: 1,
+          });
+          if (schedules.length > 0) {
+            await tx.rentSchedule.update({
+              where: { id: schedules[0].id },
+              data: { status: "SUCCESS", paidAt: new Date() },
+            });
+          }
+        }
+      } else if (existing.status === "SUCCESS" && status !== "SUCCESS") {
+        // Reverse wallet balance if transitioning away from success
+        if (existing.type === "DEPOSIT") {
+          await tx.user.update({
+            where: { id: existing.userId },
+            data: { walletBalance: { decrement: existing.amount } },
+          });
+        }
+      }
+    });
+
+    await logAudit(adminId, "UPDATE", "Transaction", id);
+    revalidatePath("/admin/payments");
+    revalidatePath(`/admin/payments/${id}`);
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed to update transaction status" };
+  }
+}
+
+export async function grantFreePass(userId: string, reason: string) {
+  try {
+    const adminId = await requireAdmin();
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { fullName: true },
+    });
+
+    if (!user) {
+      return { success: false, message: "User not found." };
+    }
+
+    await prisma.$transaction(async (tx) => {
+      // 1. Grant free pass: full verification (Tier 2), verification bundle paid, premium vault storage
+      await tx.user.update({
+        where: { id: userId },
+        data: {
+          verificationBundlePaid: true,
+          verificationBundlePaidAt: new Date(),
+          verificationTier: 2,
+          isVerified: true,
+          vaultPremium: true,
+          vaultPremiumUntil: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year
+        },
+      });
+
+      // 2. Log ledger transaction of type VERIFICATION with 0 Naira
+      await tx.transaction.create({
+        data: {
+          userId,
+          amount: 0,
+          type: "VERIFICATION",
+          status: "SUCCESS",
+          reference: `FREE-PASS-${userId}-${Date.now()}`,
+          description: `Admin Grant: Free Pass. Reason: ${reason || "Complimentary access"}`,
+        },
+      });
+
+      // 3. Notify the user
+      await tx.notification.create({
+        data: {
+          userId,
+          title: "Free Pass Granted! 🎁",
+          body: `You have been granted a complimentary Hausevo Free Pass. Your account is now fully verified and premium features are active!`,
+          type: "SYSTEM",
+          actionUrl: "/dashboard",
+        },
+      });
+    });
+
+    await logAudit(adminId, "APPROVE", "UserFreePass", userId);
+    revalidatePath("/admin/payments");
+    revalidatePath("/admin/users");
+    revalidatePath(`/admin/users/${userId}`);
+    return { success: true };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "Failed to grant free pass" };
+  }
+}
+
+export async function searchUsersForFreePass(query: string) {
+  try {
+    await requireAdmin();
+
+    if (!query || query.trim().length < 2) {
+      return { success: true, users: [] };
+    }
+
+    const users = await prisma.user.findMany({
+      where: {
+        OR: [
+          { fullName: { contains: query, mode: "insensitive" } },
+          { email: { contains: query, mode: "insensitive" } },
+        ],
+        deletedAt: null,
+      },
+      take: 8,
+      select: {
+        id: true,
+        fullName: true,
+        email: true,
+        verificationBundlePaid: true,
+      },
+    });
+
+    return { success: true, users };
+  } catch (e) {
+    return { success: false, users: [], message: e instanceof Error ? e.message : "Failed to search users" };
+  }
+}

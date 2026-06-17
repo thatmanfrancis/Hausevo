@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export const metadata = {
   title: "Team — Hausevo",
   description: "Meet the people building Hausevo.",
@@ -16,6 +18,7 @@ const TEAM = [
   // },
   {
     name: "Francis Uzoigwe",
+    imageUrl: "https://avatars.githubusercontent.com/u/127443484?v=4",
     role: "Founder & CTO",
     bio: "Built fintech infrastructure at two Lagos startups before joining forces to bring transparency to Nigerian real estate.",
     initials: "FU",
@@ -27,6 +30,7 @@ const TEAM = [
   },
   {
     name: "Charles Ezenwa",
+    imageUrl: "",
     role: "Co-founder & Brand Designer",
     bio: "Crafts Hausevo's visual identity, brand communications, and marketing design. Obsessed with clean grid layouts, modern typography, and pixel-perfect brand consistency.",
     initials: "CE",
@@ -37,6 +41,7 @@ const TEAM = [
   },
   {
     name: "Joseph Ohere",
+    imageUrl: "",
     role: "Strategy & Growth",
     bio: "Drives Hausevo's growth and expansion strategies, ensuring we scale thoughtfully and effectively.",
     initials: "JO",
@@ -105,8 +110,8 @@ export default function TeamPage() {
 
       {/* Team grid */}
       <div>
-        <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-6">
-          The people
+        <p className="text-md font-bold capitalize tracking-widest text-zinc-400 mb-6">
+          The people behind the scene
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {TEAM.map((member) => (
@@ -114,9 +119,19 @@ export default function TeamPage() {
               key={member.name}
               className="bg-white rounded-2xl border border-zinc-200 p-6 flex flex-col gap-4"
             >
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-zinc-900 text-white text-lg font-extrabold">
-                {member.initials}
-              </div>
+              {member.imageUrl ? (
+                <Image
+                  src={member.imageUrl}
+                  alt={member.name}
+                  width={60}
+                  height={60}
+                  className="rounded-full"
+                />
+              ) : (
+                <div className="flex h-15 w-15 items-center justify-center rounded-full bg-zinc-900 text-white text-lg font-extrabold">
+                  {member.initials}
+                </div>
+              )}
               <div>
                 <p className="text-sm font-extrabold text-zinc-900">
                   {member.name}
@@ -140,8 +155,8 @@ export default function TeamPage() {
                       title={`${member.name} on X`}
                     >
                       <svg
-                        width="14"
-                        height="14"
+                        width="17"
+                        height="17"
                         viewBox="0 0 24 24"
                         fill="currentColor"
                       >
@@ -158,8 +173,8 @@ export default function TeamPage() {
                       title={`${member.name} on Instagram`}
                     >
                       <svg
-                        width="14"
-                        height="14"
+                        width="17"
+                        height="17"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -189,8 +204,8 @@ export default function TeamPage() {
                       title={`${member.name} on LinkedIn`}
                     >
                       <svg
-                        width="14"
-                        height="14"
+                        width="17"
+                        height="17"
                         viewBox="0 0 24 24"
                         fill="currentColor"
                       >

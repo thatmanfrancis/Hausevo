@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Hausevo — Verified Houses for Rent in Lagos & Nigeria",
     description: "Find verified houses for rent in Lagos near you. No agents, no hidden markups. Rent self-contain, flats, and luxury apartments in Lagos directly from landlords.",
     images: ["/hausevofinal.png"],
@@ -105,6 +105,51 @@ export default function RootLayout({
         </Script>
       </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                name: "Hausevo",
+                url: "https://hausevo.com.ng",
+                logo: "https://hausevo.com.ng/hausevofinal.png",
+                description: "Nigeria's most trusted property platform. Verified houses for rent in Lagos with no agent fees and no hidden markups.",
+                sameAs: [
+                  "https://twitter.com/hausevong",
+                  "https://instagram.com/hausevong",
+                ],
+                areaServed: {
+                  "@type": "City",
+                  name: "Lagos",
+                  containedInPlace: { "@type": "Country", name: "Nigeria" },
+                },
+                contactPoint: {
+                  "@type": "ContactPoint",
+                  contactType: "customer support",
+                  url: "https://hausevo.com.ng/contact",
+                  availableLanguage: "English",
+                },
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                name: "Hausevo",
+                url: "https://hausevo.com.ng",
+                description: "Verified houses for rent in Lagos and Nigeria. No agents, no hidden markups.",
+                potentialAction: {
+                  "@type": "SearchAction",
+                  target: {
+                    "@type": "EntryPoint",
+                    urlTemplate: "https://hausevo.com.ng/properties?q={search_term_string}",
+                  },
+                  "query-input": "required name=search_term_string",
+                },
+              },
+            ]),
+          }}
+        />
         <Toaster richColors position="top-center" />
         {children}
         <PWAInstallHandler />

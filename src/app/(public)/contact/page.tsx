@@ -3,8 +3,34 @@ import BackButton from "@/app/components/BackButton";
 import ContactForm from "./ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contact Us — Hausevo",
-  description: "Get in touch with the Hausevo team.",
+  title: "Contact Hausevo — Support & General Enquiries",
+  description:
+    "Get in touch with the Hausevo team. For tenant support, landlord help, legal enquiries, or general feedback — we’re here. Lagos, Nigeria.",
+  alternates: { canonical: "https://hausevo.com.ng/contact" },
+  openGraph: {
+    title: "Contact Hausevo — Support & General Enquiries",
+    description:
+      "Reach the Hausevo team for support, landlord help, or legal enquiries. We’re based in Lagos, Nigeria.",
+    url: "https://hausevo.com.ng/contact",
+    siteName: "Hausevo",
+    images: [{ url: "https://hausevo.com.ng/hausevofinal.png", width: 500, height: 500, alt: "Hausevo" }],
+    locale: "en_NG",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Hausevo — Support & General Enquiries",
+    description: "Reach the Hausevo team for tenant support, landlord help, or legal enquiries.",
+    images: ["https://hausevo.com.ng/hausevofinal.png"],
+    creator: "@hausevong",
+  },
+  keywords: [
+    "contact Hausevo",
+    "Hausevo support",
+    "Lagos property support",
+    "Nigerian rental help",
+    "Hausevo email",
+  ],
 };
 
 export default function ContactPage() {

@@ -470,9 +470,41 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = POSTS.find((p) => p.slug === slug);
   if (!post) return { title: "Not Found — Hausevo" };
+
+  const pageUrl = `https://hausevo.com.ng/blogs/${post.slug}`;
+  const ogImage = "https://hausevo.com.ng/hausevofinal.png";
+
   return {
-    title: `${post.title} — Hausevo Blog`,
+    title: `${post.title} | Hausevo Blog`,
     description: post.excerpt,
+    alternates: { canonical: pageUrl },
+    openGraph: {
+      title: `${post.title} | Hausevo Blog`,
+      description: post.excerpt,
+      url: pageUrl,
+      siteName: "Hausevo",
+      images: [{ url: ogImage, width: 500, height: 500, alt: post.title }],
+      locale: "en_NG",
+      type: "article",
+      publishedTime: new Date(post.date).toISOString(),
+      authors: ["Hausevo"],
+      tags: ["Nigeria", "Lagos", "property", "renting", post.category],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${post.title} | Hausevo Blog`,
+      description: post.excerpt,
+      images: [ogImage],
+      creator: "@hausevong",
+    },
+    keywords: [
+      post.title,
+      "Lagos property",
+      "Nigeria rental",
+      "Hausevo blog",
+      post.category.toLowerCase(),
+      "renting in Nigeria",
+    ],
   };
 }
 
@@ -492,7 +524,32 @@ export default async function BlogPostPage({
     (p) => p.slug !== post.slug && p.category === post.category
   ).slice(0, 2);
 
+  // Article JSON-LD for Google News / Discover
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt,
+    url: `https://hausevo.com.ng/blogs/${post.slug}`,
+    image: "https://hausevo.com.ng/hausevofinal.png",
+    datePublished: new Date(post.date).toISOString(),
+    dateModified: new Date(post.date).toISOString(),
+    author: { "@type": "Organization", name: "Hausevo", url: "https://hausevo.com.ng" },
+    publisher: {
+      "@type": "Organization",
+      name: "Hausevo",
+      logo: { "@type": "ImageObject", url: "https://hausevo.com.ng/hausevofinal.png" },
+    },
+    articleSection: post.category,
+    keywords: ["Nigeria", "Lagos", "property", "renting", post.category].join(", "),
+  };
+
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
     <div className="max-w-3xl mx-auto py-4">
       <BackButton />
 
@@ -569,5 +626,6 @@ export default async function BlogPostPage({
         </Link>
       </div>
     </div>
+    </>
   );
 }

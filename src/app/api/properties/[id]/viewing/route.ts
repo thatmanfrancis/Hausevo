@@ -3,6 +3,7 @@ import prisma from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { notify } from "@/lib/notifications";
 import { rateLimit } from "@/lib/rate-limit";
+import { maskPhoneNumbers } from "@/lib/chat-security";
 
 /*
   POST /api/properties/:id/viewing
@@ -75,11 +76,14 @@ export async function POST(
   const customMsg = message ? ` ${message}` : "";
   const chatContent = `Hi, I'd like to schedule a viewing for this property.${dateText}${customMsg}`;
 
+  // Sanitize any phone number sharing in the custom message
+  const { maskedText } = maskPhoneNumbers(chatContent);
+
   await prisma.message.create({
     data: {
       chatId: chatRoom.id,
       senderId: session.user.id,
-      content: chatContent,
+      content: maskedText,
     },
   });
 

@@ -1,6 +1,33 @@
-export const metadata = {
-  title: "About — Hausevo",
-  description: "We're building the most trusted property platform in Nigeria.",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Hausevo — Nigeria's Most Trusted Property Platform",
+  description: "Learn how Hausevo is fixing Nigeria's broken rental market. No agents, no inflated prices, no fake listings. Every property verified. Lagos first.",
+  alternates: { canonical: "https://hausevo.com.ng/about" },
+  openGraph: {
+    title: "About Hausevo — Nigeria's Most Trusted Property Platform",
+    description: "No agents. No markups. Every listing verified. We're building the most trusted property platform in Nigeria, starting in Lagos.",
+    url: "https://hausevo.com.ng/about",
+    siteName: "Hausevo",
+    images: [{ url: "https://hausevo.com.ng/hausevofinal.png", width: 500, height: 500, alt: "Hausevo" }],
+    locale: "en_NG",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Hausevo — Nigeria's Most Trusted Property Platform",
+    description: "No agents. No markups. Every listing verified. We're building the most trusted property platform in Nigeria.",
+    images: ["https://hausevo.com.ng/hausevofinal.png"],
+    creator: "@hausevong",
+  },
+  keywords: [
+    "about Hausevo",
+    "Nigerian property platform",
+    "rent house Nigeria no agent",
+    "verified listings Nigeria",
+    "Lagos rental platform",
+    "real estate startup Nigeria",
+  ],
 };
 
 const STATS = [

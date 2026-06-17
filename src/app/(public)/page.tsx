@@ -1,8 +1,45 @@
 import { Suspense } from "react";
+import type { Metadata } from "next";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import PropertiesClient from "./properties/PropertiesClient";
 import LocationDetector from "@/app/components/LocationDetector";
+
+const BASE_URL = "https://hausevo.com.ng";
+
+export async function generateMetadata(
+  { searchParams }: { searchParams: Promise<{ [key: string]: string | undefined }> }
+): Promise<Metadata> {
+  const params = await searchParams;
+  const lga = params.lga;
+
+  const locationNote = lga ? ` near ${lga}` : " in Lagos & Nigeria";
+  const title = `Hausevo — Verified Houses for Rent${locationNote}`;
+  const description = `Find verified houses for rent${locationNote}. No agents, no hidden markups. Rent self-contain, flats, and apartments directly from landlords. All listings checked by Hausevo.`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: BASE_URL },
+    openGraph: {
+      title,
+      description,
+      url: BASE_URL,
+      siteName: "Hausevo",
+      images: [{ url: `${BASE_URL}/hausevofinal.png`, width: 500, height: 500, alt: "Hausevo" }],
+      locale: "en_NG",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [`${BASE_URL}/hausevofinal.png`],
+      creator: "@hausevong",
+    },
+  };
+}
+
 
 async function getProperties(lga?: string) {
   const where: any = { status: "AVAILABLE" };
