@@ -446,9 +446,9 @@ export default function PropertiesClient({
       {children}
       <div className="py-10">
         {/* ── Section header ── */}
-        <div className="flex items-start justify-between mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-6 sm:mb-8">
           <div>
-            <h1 className="text-3xl md:text-4xl font-extrabold text-zinc-900 tracking-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-zinc-900 tracking-tight">
               Popular Listings{" "}
               <span className="text-zinc-400 font-semibold">
                 {headingLocation}
@@ -480,7 +480,7 @@ export default function PropertiesClient({
             {isHomePage ? (
               <Link
                 href="/properties"
-                className="flex items-center gap-1.5 rounded-full border border-zinc-200 px-5 py-2.5 text-sm font-semibold text-zinc-700 hover:border-zinc-400 hover:text-zinc-900 transition-colors"
+                className="flex items-center gap-1.5 rounded-full border border-zinc-200 px-3.5 sm:px-5 py-2 sm:py-2.5 text-sm font-semibold text-zinc-700 hover:border-zinc-400 hover:text-zinc-900 transition-colors whitespace-nowrap"
               >
                 Explore All
                 <svg
@@ -500,7 +500,7 @@ export default function PropertiesClient({
             ) : (
               <button
                 onClick={clearSearch}
-                className="flex items-center gap-1.5 rounded-full border border-zinc-200 px-5 py-2.5 text-sm font-semibold text-zinc-700 hover:border-zinc-400 hover:text-zinc-900 transition-colors"
+                className="flex items-center gap-1.5 rounded-full border border-zinc-200 px-3.5 sm:px-5 py-2 sm:py-2.5 text-sm font-semibold text-zinc-700 hover:border-zinc-400 hover:text-zinc-900 transition-colors whitespace-nowrap"
               >
                 Explore All
                 <svg
@@ -1218,7 +1218,7 @@ function MobileCarousel({
         {properties.map((property) => (
           <div
             key={property.id}
-            className="snap-start shrink-0 w-[82vw] max-w-[320px]"
+            className="snap-start shrink-0 w-[88vw] min-[360px]:w-[82vw] min-[420px]:w-[76vw] max-w-[320px]"
           >
             <PropertyCard
               property={property}
